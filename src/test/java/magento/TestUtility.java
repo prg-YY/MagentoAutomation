@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class TestUtility {
+
     private int timeout = Integer.parseInt(ApplicationConfig
             .readConfigProperties("config.properties", "timeout"));
     private WebDriver driver;
