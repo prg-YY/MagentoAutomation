@@ -1,4 +1,4 @@
-package magento;
+package com.unitedcoder.magento;
 
 import com.seleniummaster.configutiity.ApplicationConfig;
 import org.apache.commons.io.FileUtils;

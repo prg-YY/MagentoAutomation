@@ -1,12 +1,12 @@
-package magento.publicusermodule;
+package com.unitedcoder.magento.publicusermodule;
 
-import magento.TestUtility;
+import com.unitedcoder.magento.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import javax.swing.text.Utilities;
+import java.util.Random;
 
 public class CreateAccountPage {
     WebDriver driver;
@@ -64,5 +64,20 @@ public class CreateAccountPage {
     public void clickRegister() {
         utility.waitForElementPresent(registerButton);
         registerButton.click();
+    }
+    public boolean verifySuccess(){
+        utility.waitForElementPresent(successMessage);
+        return successMessage.isDisplayed();
+    }
+    //combine all methods from current page
+    public boolean userCreateAccount(String firstName, String lastName, String email, String password){
+        Random r=new Random(1000);
+        enterFirstName(firstName+r);
+        enterLastName(lastName+r);
+        enterEmailAddress(email);
+        enterPassword(password);
+        enterConfirmationPassword(password);
+        clickRegister();
+        return verifySuccess();
     }
 }
