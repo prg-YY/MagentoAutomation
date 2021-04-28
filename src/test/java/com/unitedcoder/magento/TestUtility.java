@@ -1,6 +1,6 @@
 package com.unitedcoder.magento;
 
-import com.seleniummaster.configutiity.ApplicationConfig;
+import com.seleniummaster.configutility.ApplicationConfig;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -23,7 +23,6 @@ public class TestUtility {
         WebDriverWait wait = new WebDriverWait(driver, timeout);
         wait.until(ExpectedConditions.visibilityOf(element));
     }
-
     public void sleep(int seconds) {
         try {
             Thread.sleep(seconds * 1000);

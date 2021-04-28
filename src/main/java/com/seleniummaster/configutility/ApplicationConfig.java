@@ -1,4 +1,4 @@
-package com.seleniummaster.configutiity;
+package com.seleniummaster.configutility;
 
 import java.io.File;
 import java.io.FileInputStream;

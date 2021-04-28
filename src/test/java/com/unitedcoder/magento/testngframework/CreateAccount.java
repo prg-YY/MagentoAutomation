@@ -1,6 +1,7 @@
 package com.unitedcoder.magento.testngframework;
 
-import com.seleniummaster.configutiity.ApplicationConfig;
+import com.seleniummaster.configutility.ApplicationConfig;
+import com.unitedcoder.magento.TestBase;
 import com.unitedcoder.magento.TestUtility;
 import com.unitedcoder.magento.publicusermodule.CreateAccountPage;
 import org.openqa.selenium.PageLoadStrategy;
@@ -10,7 +11,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class CreateAccount {
@@ -42,7 +42,7 @@ public class CreateAccount {
 
     @AfterClass
     public void tearDown(){
-        //TestBase.closeBrowser();
+        TestBase.closeBrowser();
 
     }
 
