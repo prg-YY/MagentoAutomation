@@ -1,6 +1,6 @@
 package magento;
 
-import configutiity.ApplicationConfig;
+import com.seleniummaster.configutiity.ApplicationConfig;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -46,5 +46,8 @@ public class TestUtility {
     public void waitForAlertPresent(){
         WebDriverWait wait=new WebDriverWait(driver,timeout);
         wait.until(ExpectedConditions.alertIsPresent());
+    }
+
+    public TestUtility() {
     }
 }
