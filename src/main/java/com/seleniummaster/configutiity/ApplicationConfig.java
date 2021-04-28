@@ -1,4 +1,4 @@
-package configutiity;
+package com.seleniummaster.configutiity;
 
 import java.io.File;
 import java.io.FileInputStream;

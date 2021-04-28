@@ -1,6 +1,6 @@
-package magento;
+package com.unitedcoder.magento;
 
-import configutiity.ApplicationConfig;
+import com.seleniummaster.configutiity.ApplicationConfig;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class TestUtility {
+
     private int timeout = Integer.parseInt(ApplicationConfig
             .readConfigProperties("config.properties", "timeout"));
     private WebDriver driver;
@@ -46,5 +47,8 @@ public class TestUtility {
     public void waitForAlertPresent(){
         WebDriverWait wait=new WebDriverWait(driver,timeout);
         wait.until(ExpectedConditions.alertIsPresent());
+    }
+
+    public TestUtility() {
     }
 }
