@@ -1,7 +1,6 @@
-package magento.publicusermodule;
+package com.unitedcoder.magento.frontend;
 
-import configutiity.ApplicationConfig;
-import magento.TestUtility;
+import com.unitedcoder.magento.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -49,9 +48,9 @@ public class FrontEndLoginPage {
         utility.waitForElementPresent(loginbutton);
         loginbutton.click();
     }
-    public void LoginforUser(){
-        enterEmail(ApplicationConfig.readConfigProperties(configFile,"EmailPrefix"));
-        enterPassword(ApplicationConfig.readConfigProperties(configFile,"PasswordPrefix"));
+    public void loginUser(String EmailAddress, String password){
+        enterEmail(EmailAddress);
+        enterPassword(password);
         clickloginbutton();
     }
     
