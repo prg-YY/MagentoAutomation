@@ -1,6 +1,7 @@
-package com.unitedcoder.magento.testngframework;
+package com.unitedcoder.regressiontest.testngframework;
 
-import com.seleniummaster.configutiity.ApplicationConfig;
+import com.seleniummaster.configutility.ApplicationConfig;
+import com.seleniummaster.configutility.ApplicationConfig;
 import com.unitedcoder.magento.TestUtility;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
