@@ -1,4 +1,4 @@
-package com.unitedcoder.magento.publicusermodule;
+package com.unitedcoder.magento.frontend;
 
 import com.unitedcoder.magento.TestUtility;
 import org.openqa.selenium.WebDriver;
