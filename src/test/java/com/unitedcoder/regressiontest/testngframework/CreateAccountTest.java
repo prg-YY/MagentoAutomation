@@ -1,9 +1,8 @@
-package com.unitedcoder.magento.testngframework;
+package com.unitedcoder.regressiontest.testngframework;
 
 import com.seleniummaster.configutility.ApplicationConfig;
-import com.unitedcoder.magento.TestBase;
 import com.unitedcoder.magento.TestUtility;
-import com.unitedcoder.magento.publicusermodule.CreateAccountPage;
+import com.unitedcoder.magento.frontend.CreateAccountPage;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,7 +12,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class CreateAccount {
+public class CreateAccountTest {
 
     String configFile="config.properties";
     WebDriver driver;
@@ -42,7 +41,9 @@ public class CreateAccount {
 
     @AfterClass
     public void tearDown(){
-        TestBase.closeBrowser();
+        //TestBase.closeBrowser();
+        driver.close();
+        driver.quit();
 
     }
 
