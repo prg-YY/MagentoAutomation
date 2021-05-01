@@ -10,26 +10,19 @@ public class FrontEndLoginPage {
     WebDriver driver;
     String configFile="config.properties";
     TestUtility utility;
+    @FindBy(xpath = "a[@title='My Account']")
+    WebElement myAccountLink;
+    @FindBy(xpath = "a[@title='Log In']")
+    WebElement loginLink;
+    @FindBy(xpath = "span[text()='Account'and@class='label']")
+    WebElement accountDropDownList;
     @FindBy(name="login[username]")
     WebElement emailAddressField;
     @FindBy(id="pass")
     WebElement passwordField;
     @FindBy(name = "send")
     WebElement loginbutton;
-//    @FindBy(xpath = "a[@class='label']")
-//    WebElement accountDropDownList;
-//    @FindBy(xpath = "a[@title=\"My Account\"]")
-//    WebElement myAccountLink;
-//    @FindBy(xpath = "a[@title=\"My Wishlist\"]")
-//    WebElement myWishListLink;
-//    @FindBy(xpath = "a[@title=\"My Cart\"]")
-//    WebElement myCartLink;
-//    @FindBy(xpath = "a[@title=\"Checkout\"]")
-//    WebElement checkOutLink;
-//    @FindBy(xpath = "//a[@title=\"Register\"]")
-//    WebElement registerLink;
-//    @FindBy(xpath = "//a[@title=\"Log In\"]")
-//    WebElement loginLink;
+
 
     public FrontEndLoginPage(WebDriver driver) {
         this.driver=driver;
@@ -44,14 +37,28 @@ public class FrontEndLoginPage {
         utility.waitForElementPresent(passwordField);
         passwordField.sendKeys(Password);
     }
-    public void  clickloginbutton(){
+    public void  clickLoginButton(){
         utility.waitForElementPresent(loginbutton);
         loginbutton.click();
     }
+    public void clickAccountDropdownList(){
+        utility.waitForElementPresent(accountDropDownList);
+        accountDropDownList.click();
+    }
+    public  void clickMyAccountLink(){
+        utility.waitForElementPresent(myAccountLink);
+        myAccountLink.click();
+    }
+
+    public void loginLink(){
+        utility.waitForElementPresent(loginLink);
+        loginLink.click();
+    }
+
     public void loginUser(String EmailAddress, String password){
         enterEmail(EmailAddress);
         enterPassword(password);
-        clickloginbutton();
+        clickLoginButton();
     }
     
 }
