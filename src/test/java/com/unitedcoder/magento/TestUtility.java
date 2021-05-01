@@ -1,6 +1,6 @@
 package com.unitedcoder.magento;
 
-import com.seleniummaster.configutility.ApplicationConfig;
+import com.seleniummaster.magento.ApplicationConfig;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;

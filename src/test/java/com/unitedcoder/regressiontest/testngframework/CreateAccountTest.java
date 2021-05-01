@@ -1,6 +1,6 @@
 package com.unitedcoder.regressiontest.testngframework;
 
-import com.seleniummaster.configutility.ApplicationConfig;
+import com.seleniummaster.magento.ApplicationConfig;
 import com.unitedcoder.magento.TestUtility;
 import com.unitedcoder.magento.frontend.CreateAccountPage;
 import org.openqa.selenium.PageLoadStrategy;
