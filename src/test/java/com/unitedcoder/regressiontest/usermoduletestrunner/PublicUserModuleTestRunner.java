@@ -43,11 +43,17 @@ public class PublicUserModuleTestRunner extends TestBasePage {
     @Test(description = "user should be able to edit account information-leila")
     public void editAccountInformation(){
         AccountInformationPage informationPage=new AccountInformationPage(driver);
+        informationPage.clickOnAccountInfo();
+        informationPage.EnterFirstName("12");
+        informationPage.EnterCurrentPassword("magento123");
+        informationPage.clickSaveButton();
+
+        Assert.assertTrue(informationPage.verifySuccess());
 
     }
     @AfterClass
     public static void close(){
 
-        closeBrowser();
+//        closeBrowser();
     }
 }

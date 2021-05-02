@@ -14,8 +14,10 @@ public class AccountInformationPage extends TestBasePage {
         //A user should be able to edit and view account information
 
         WebDriver driver;//open browser&close browser
-        TestUtility utility;//explicit wait visible elements/sleep/screen shot/waitForAlertPresent
+        TestUtility utility;//explicit wait visible elements/sleep/screen shot/waitForAlertPresen
 
+    @FindBy(xpath = "//*[@class=\"block block-account\"]/div[2]/ul/li[2]/a")
+    WebElement accountInformationLink;
         @FindBy(id = "firstname")
         WebElement FirstNameTextBox;
 
@@ -36,6 +38,8 @@ public class AccountInformationPage extends TestBasePage {
 
         @FindBy(id = "confirmation")
         WebElement ConfirmNewPasswordTextBox;
+        @FindBy(xpath = "//div[@class=\"buttons-set\"]/button/span/span")
+        WebElement saveButton;
 
         @FindBy(css = ".success-msg")
         WebElement SuccessMessage;
@@ -48,7 +52,11 @@ public class AccountInformationPage extends TestBasePage {
     }
 
     //Enter First Name Method
-        void EnterFirstName(String FirstName) {
+    public void clickOnAccountInfo(){
+        utility.waitForElementPresent(accountInformationLink);
+        accountInformationLink.click();
+    }
+       public void EnterFirstName(String FirstName) {
            utility.waitForElementPresent(FirstNameTextBox);
             FirstNameTextBox.sendKeys(FirstName);
         }
@@ -89,6 +97,10 @@ public class AccountInformationPage extends TestBasePage {
         public void EnterConfirmNewPassword(String NewPassword) {
             utility.waitForElementPresent(ConfirmNewPasswordTextBox);
             ConfirmNewPasswordTextBox.sendKeys(NewPassword);
+        }
+        public void clickSaveButton(){
+        utility.waitForElementPresent(saveButton);
+        saveButton.click();
         }
 
         //SuccessMessage;
