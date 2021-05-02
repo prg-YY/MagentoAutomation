@@ -1,4 +1,4 @@
-package com.seleniummaster.magento.frontendpages;
+package com.seleniummaster.magento.backendpages;
 
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
@@ -8,29 +8,29 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class FrontEndLoginPage extends TestBasePage {
-        WebDriver driver;
+public class BackEndLogin extends TestBasePage {
+    WebDriver driver;
     TestUtility utility;
 
-    @FindBy(name="login[username]")
-    WebElement emailAddressField;
-    @FindBy(id="pass")
+    @FindBy(name = "login[username]")
+    WebElement userNameField;
+    @FindBy(name = "login[password]")
     WebElement passwordField;
-    @FindBy(name = "send")
+    @FindBy(xpath = "//*[@class=\"form-button\"]")
     WebElement loginButton;
 
-
-    public FrontEndLoginPage(WebDriver driver) {
+    public BackEndLogin(WebDriver driver) {
 
         this.driver=driver;
         PageFactory.initElements(driver,this);
         utility=new TestUtility(driver);
 
     }
-    public void  enterEmail(String EmailAddress){
-        utility.waitForElementPresent(emailAddressField);
-        emailAddressField.sendKeys(EmailAddress);
-        Log.info("Email has been sent as " + EmailAddress);
+
+    public void  enterUserName(String userName){
+        utility.waitForElementPresent(userNameField);
+        userNameField.sendKeys(userName);
+        Log.info("User Name has been sent as " + userName);
     }
     public void  enterPassword(String Password){
         utility.waitForElementPresent(passwordField);
@@ -38,14 +38,16 @@ public class FrontEndLoginPage extends TestBasePage {
         Log.info("Password has been sent as " + Password);
     }
     public void clickLoginButton(){
-       utility.waitForElementPresent(loginButton);
+        utility.waitForElementPresent(loginButton);
         loginButton.click();
         Log.info("Login Button clicked " + loginButton);
     }
-    public void loginUser(String EmailAddress, String password){
-        enterEmail(EmailAddress);
+    public void backEndLogin(String userName, String password){
+        enterUserName(userName);
         enterPassword(password);
         clickLoginButton();
 
     }
+
+
 }

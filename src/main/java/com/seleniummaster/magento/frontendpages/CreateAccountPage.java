@@ -35,38 +35,38 @@ public class CreateAccountPage {
 
     //Enter First name Method
     public void enterFirstName(String firstName) {
-        utility.waitForAlertPresent(firstNameField);
+        utility.waitForElementPresent(firstNameField);
         firstNameField.sendKeys(firstName);
     }
 
     //Enter Last name Method
     public void enterLastName(String lastName) {
-        utility.waitForAlertPresent(lastNameField);
+        utility.waitForElementPresent(lastNameField);
         lastNameField.sendKeys(lastName);
     }
 
     //Enter Email Method
     public void enterEmailAddress(String email) {
-        utility.waitForAlertPresent(emailAddress);
+        utility.waitForElementPresent(emailAddress);
         emailAddress.sendKeys(email);
     }
 
     public void enterPassword(String password) {
-        utility.waitForAlertPresent(passwordField);
+        utility.waitForElementPresent(passwordField);
         passwordField.sendKeys(password);
     }
 
     public void enterConfirmationPassword(String password) {
-        utility.waitForAlertPresent(confirmPasswordField);
+        utility.waitForElementPresent(confirmPasswordField);
         confirmPasswordField.sendKeys(password);
     }
 
     public void clickRegister() {
-        utility.waitForAlertPresent(registerButton);
+        utility.waitForElementPresent(registerButton);
         registerButton.click();
     }
     public boolean verifySuccess(){
-        utility.waitForAlertPresent(successMessage);
+        utility.waitForElementPresent(successMessage);
         return successMessage.isDisplayed();
     }
     //combine all methods from current page

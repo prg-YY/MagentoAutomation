@@ -25,7 +25,7 @@ public class TestBasePage {
         }
     }
 
-    public TestBasePage(WebDriver driver) {
+    public TestBasePage() {
 
     }
 
@@ -33,7 +33,7 @@ public class TestBasePage {
 
 
     //set up driver to open browser
-    public static void setUpBrowser(String url) {
+    public static void setUpBrowser() {
         String systemName = System.getProperty("os.name");
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
