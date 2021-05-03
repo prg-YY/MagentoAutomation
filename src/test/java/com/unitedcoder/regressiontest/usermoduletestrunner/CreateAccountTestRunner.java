@@ -20,20 +20,15 @@ public class CreateAccountTestRunner extends TestBasePage {
         setUpBrowser();
         Log.moduleName("Create Account Test has been started");
         driver.get(prop.getProperty("create_url"));
-
     }
-
     @Test(description = "user should be able to Create Account-Abdusamad")
     public void createAccount(){
          accountPage=new CreateAccountPage(driver);
         accountPage.userCreateAccount(firstName,lastName,email,password);
         Assert.assertTrue(accountPage.verifySuccess());
-
     }
-
     @AfterClass
-    public static void close(){
-
+    public static void tearDown(){
         closeBrowser();
     }
 }
