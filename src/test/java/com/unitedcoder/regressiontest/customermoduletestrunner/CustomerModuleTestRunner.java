@@ -18,7 +18,7 @@ public class CustomerModuleTestRunner extends TestBasePage {
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin=new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("customerManager"), prop.getProperty("password") );
-        
+
     }
 
     @Test

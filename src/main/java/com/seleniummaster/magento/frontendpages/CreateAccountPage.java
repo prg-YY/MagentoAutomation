@@ -1,5 +1,6 @@
 package com.seleniummaster.magento.frontendpages;
 
+import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -68,13 +69,15 @@ public class CreateAccountPage {
     public boolean verifySuccess(){
         utility.waitForElementPresent(successMessage);
         return successMessage.isDisplayed();
+
     }
     //combine all methods from current page
     public boolean userCreateAccount(String firstName, String lastName, String email, String password){
-        Random r=new Random(1000);
+        Random ran=new Random();
+        int r=ran.nextInt(10);
         enterFirstName(firstName+r);
         enterLastName(lastName+r);
-        enterEmailAddress(email);
+        enterEmailAddress(r+email);
         enterPassword(password);
         enterConfirmationPassword(password);
         clickRegister();
