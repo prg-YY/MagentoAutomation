@@ -1,17 +1,20 @@
 package com.seleniummaster.magento.backendpages.catalogpages;
+import com.seleniummaster.magento.utility.ApplicationConfig;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
+
 public class DeleteRootCategoriesPage {
 
     WebDriver driver;
     String ConfigFile="config.properties";
     TestUtility utility;
-    @FindBy(css = "#extdd-62")
-    WebElement TeamOneTestCategoryLink;
     @FindBy(css = "button[title='Reset'][type='button']")
     WebElement ResetButton;
     @FindBy(css = "button[title='Delete Category']")
@@ -24,20 +27,32 @@ public class DeleteRootCategoriesPage {
         PageFactory.initElements(driver,this);
         utility=new TestUtility(driver);
     }
-    public  void clickTeamOneTestCategoryLink(){
-        utility.waitForElementPresent(TeamOneTestCategoryLink);
-        TeamOneTestCategoryLink.click();
-    }
+
     public void clickResetButton() {
         utility.waitForElementPresent(ResetButton);
         ResetButton.click();
     }
-    public boolean deleteCategory(){
-        utility.waitForElementPresent(DeleteCategoryLink);
-        DeleteCategoryLink.click();
-        utility.waitForAlertPresent();
-        Alert alert=driver.switchTo().alert();
-        alert.accept();
+
+    String DeleteCategoryNAME = ApplicationConfig.readConfigProperties(ConfigFile, "DeleteCategoryName");
+    public boolean deleteRootCategory(){
+        List<WebElement> RootCategoriesList=driver.findElements(By.xpath("div[@class='x-tree-root-node']/li"));
+        for(int i=1; i<=RootCategoriesList.size() ;i++){
+            WebElement RooCategoryName=driver.findElement(By.xpath("div[@class='x-tree-root-node']/li['+i+']/div/a/span"));
+            if(RooCategoryName.getText().equals(DeleteCategoryNAME)){
+                utility.waitForElementPresent(RooCategoryName);
+                RooCategoryName.click();
+                utility.waitForElementPresent(DeleteCategoryLink);
+                DeleteCategoryLink.click();
+                utility.waitForElementPresent(DeleteCategoryLink);
+                DeleteCategoryLink.click();
+                utility.waitForAlertPresent();
+                Alert alert=driver.switchTo().alert();
+                alert.accept();
+
+            }
+
+        }
+
         return DeleteSuccessMessage.isDisplayed();
     }
 

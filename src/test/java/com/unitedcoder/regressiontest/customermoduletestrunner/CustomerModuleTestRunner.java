@@ -2,6 +2,7 @@ package com.unitedcoder.regressiontest.customermoduletestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
+import com.seleniummaster.magento.backendpages.customerpages.CustomerUpdatePage;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 
@@ -10,7 +11,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class CustomerModuleTestRunner extends TestBasePage {
-
+   CustomerUpdatePage customerUpdatePage;
     @BeforeClass
     public void setUp() {
         setUpBrowser();
@@ -33,8 +34,11 @@ public class CustomerModuleTestRunner extends TestBasePage {
         customerPage.clickSaveCustomerLink();
         Assert.assertTrue(customerPage.verifySuccessMessage());
 
-
-
-
     }
+    @Test
+    public void UpdateCustomer(){
+        customerUpdatePage=new CustomerUpdatePage(driver);
+        Assert.assertTrue(customerUpdatePage.updateCustomerInformation());
+    }
+
 }
