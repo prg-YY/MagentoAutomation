@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class FrontEndLoginPage extends TestBasePage {
-        WebDriver driver;
+    WebDriver driver;
     TestUtility utility;
 
     @FindBy(name="login[username]")
@@ -38,7 +38,7 @@ public class FrontEndLoginPage extends TestBasePage {
         Log.info("Password has been sent as " + Password);
     }
     public void clickLoginButton(){
-       utility.waitForElementPresent(loginButton);
+        utility.waitForElementPresent(loginButton);
         loginButton.click();
         Log.info("Login Button clicked " + loginButton);
     }
