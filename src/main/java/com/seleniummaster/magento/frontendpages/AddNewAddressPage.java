@@ -1,6 +1,4 @@
 package com.seleniummaster.magento.frontendpages;
-
-import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import java.util.Random;
 
-public class AddNewAddressPage extends TestBasePage {
+public class AddNewAddressPage {
     WebDriver driver;
     TestUtility utility;
     @FindBy(xpath = "//input[@id='firstname']")
@@ -32,15 +30,14 @@ public class AddNewAddressPage extends TestBasePage {
     @FindBy(css = "div.messages")
     WebElement confirmationMessage;
 
-    //create a constructor to initialize the page
+    //create a constructor to initialize the page // page factory
     public AddNewAddressPage(WebDriver driver) {
-        super(driver);
         this.driver = driver;
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver); //combine driver with page factory
     }
 
-    //define actions
+    //define actions // method for each section
     //Enter First name Method
     public void enterFirstname(String firstName)
     {
@@ -99,6 +96,7 @@ public class AddNewAddressPage extends TestBasePage {
         utility.waitForElementPresent(confirmationMessage);
         return confirmationMessage.isDisplayed();
     }
+    // combine all methods from the current page
     public boolean addNewAddress(String firstName,String lastName,String phoneNumber,String address,String country,String state,String city,
                                  String zip)
     {
