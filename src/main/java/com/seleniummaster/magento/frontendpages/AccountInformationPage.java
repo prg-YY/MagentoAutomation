@@ -1,4 +1,5 @@
 package com.seleniummaster.magento.frontendpages;
+//A user should be able to edit and view account information
 
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
@@ -11,117 +12,117 @@ import java.util.Random;
 
 public class AccountInformationPage extends TestBasePage {
 
-        //A user should be able to edit and view account information
-
-        WebDriver driver;//open browser&close browser
-        TestUtility utility;//explicit wait visible elements/sleep/screen shot/waitForAlertPresen
+    WebDriver driver;//open browser&close browser
+    TestUtility utility;//explicit wait visible elements/sleep/screen shot/waitForAlertPresen
 
     @FindBy(xpath = "//*[@class=\"block block-account\"]/div[2]/ul/li[2]/a")
     WebElement accountInformationLink;
-        @FindBy(id = "firstname")
-        WebElement FirstNameTextBox;
+    @FindBy(id = "firstname")
+    WebElement FirstNameTextBox;
 
-        @FindBy(id = "lastname")
-        WebElement LastNameTextBox;
+    @FindBy(id = "lastname")
+    WebElement LastNameTextBox;
 
-        @FindBy(css = "#email")
-        WebElement EmailAddressTextBox;
+    @FindBy(css = "#email")
+    WebElement EmailAddressTextBox;
 
-        @FindBy(id = "current_password")
-        WebElement CurrentPasswordTextBox;
+    @FindBy(id = "current_password")
+    WebElement CurrentPasswordTextBox;
 
-        @FindBy(name = "change_password")
-        WebElement ChangePasswordCheckBox;
+    @FindBy(name = "change_password")
+    WebElement ChangePasswordCheckBox;
 
-        @FindBy(id = "password")
-        WebElement NewPasswordTextBox;
+    @FindBy(id = "password")
+    WebElement NewPasswordTextBox;
 
-        @FindBy(id = "confirmation")
-        WebElement ConfirmNewPasswordTextBox;
-        @FindBy(xpath = "//div[@class=\"buttons-set\"]/button/span/span")
-        WebElement saveButton;
+    @FindBy(id = "confirmation")
+    WebElement ConfirmNewPasswordTextBox;
+    @FindBy(xpath = "//div[@class=\"buttons-set\"]/button/span/span")
+    WebElement saveButton;
 
-        @FindBy(css = ".success-msg")
-        WebElement SuccessMessage;
+    @FindBy(css = ".success-msg")
+    WebElement SuccessMessage;
 
     public AccountInformationPage(WebDriver driver) {
-        this.driver=driver;
-        PageFactory.initElements(driver,this);
-        utility=new TestUtility(driver);
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        utility = new TestUtility(driver);
 
     }
 
     //Enter First Name Method
-    public void clickOnAccountInfo(){
+    public void clickOnAccountInfo() {
         utility.waitForElementPresent(accountInformationLink);
         accountInformationLink.click();
     }
-       public void EnterFirstName(String FirstName) {
-           utility.waitForElementPresent(FirstNameTextBox);
-            FirstNameTextBox.sendKeys(FirstName);
-        }
 
-        //Enter Last Name method
+    public void EnterFirstName(String FirstName) {
+        utility.waitForElementPresent(FirstNameTextBox);
+        FirstNameTextBox.sendKeys(FirstName);
+    }
+
+    //Enter Last Name method
 
 
-        void EnterLastName(String LastName) {
-            utility.waitForElementPresent(LastNameTextBox);
-            LastNameTextBox.sendKeys(LastName);
-        }
+    void EnterLastName(String LastName) {
+        utility.waitForElementPresent(LastNameTextBox);
+        LastNameTextBox.sendKeys(LastName);
+    }
 
-        //Enter Email Method
-        public void EnterEmailAddress(String Email) {
-            utility.waitForElementPresent(EmailAddressTextBox);
-            EmailAddressTextBox.sendKeys(Email);
-        }
+    //Enter Email Method
+    public void EnterEmailAddress(String Email) {
+        utility.waitForElementPresent(EmailAddressTextBox);
+        EmailAddressTextBox.sendKeys(Email);
+    }
 
-        //CurrentPasswordTextBox;
-        public void EnterCurrentPassword(String CurrentPassword) {
-            utility.waitForElementPresent(CurrentPasswordTextBox);
-            CurrentPasswordTextBox.sendKeys(CurrentPassword);
-        }
+    //CurrentPasswordTextBox;
+    public void EnterCurrentPassword(String CurrentPassword) {
+        utility.waitForElementPresent(CurrentPasswordTextBox);
+        CurrentPasswordTextBox.sendKeys(CurrentPassword);
+    }
 
-        //ChangePasswordCheckBox;
-        public void ClickChangePasswordBox() {
-            utility.waitForElementPresent(ChangePasswordCheckBox);
-            ChangePasswordCheckBox.click();
-        }
+    //ChangePasswordCheckBox;
+    public void ClickChangePasswordBox() {
+        utility.waitForElementPresent(ChangePasswordCheckBox);
+        ChangePasswordCheckBox.click();
+    }
 
-        //NewPasswordTextBox;
-        public void EnterNewPassword(String NewPassword) {
-            utility.waitForElementPresent(NewPasswordTextBox);
-            NewPasswordTextBox.sendKeys(NewPassword);
-        }
+    //NewPasswordTextBox;
+    public void EnterNewPassword(String NewPassword) {
+        utility.waitForElementPresent(NewPasswordTextBox);
+        NewPasswordTextBox.sendKeys(NewPassword);
+    }
 
-        //ConfirmNewPasswordTextBox;
-        public void EnterConfirmNewPassword(String NewPassword) {
-            utility.waitForElementPresent(ConfirmNewPasswordTextBox);
-            ConfirmNewPasswordTextBox.sendKeys(NewPassword);
-        }
-        public void clickSaveButton(){
+    //ConfirmNewPasswordTextBox;
+    public void EnterConfirmNewPassword(String NewPassword) {
+        utility.waitForElementPresent(ConfirmNewPasswordTextBox);
+        ConfirmNewPasswordTextBox.sendKeys(NewPassword);
+    }
+
+    public void clickSaveButton() {
         utility.waitForElementPresent(saveButton);
         saveButton.click();
-        }
-
-        //SuccessMessage;
-        public boolean verifySuccess() {
-            utility.waitForElementPresent(SuccessMessage);
-            return SuccessMessage.isDisplayed();
-        }
-
-        //combine all methods from current page
-        public boolean UserEditAccountInformation(String FirstName, String LastName, String Email, String Password) {
-            Random r = new Random(1000);
-            EnterFirstName(FirstName + r);
-            EnterLastName(LastName + r);
-            EnterEmailAddress(Email);
-            EnterCurrentPassword(Password);
-            ClickChangePasswordBox();
-            EnterNewPassword(Password);
-            EnterConfirmNewPassword(Password);
-            return verifySuccess();
-        }
     }
+
+    //SuccessMessage;
+    public boolean verifySuccess() {
+        utility.waitForElementPresent(SuccessMessage);
+        return SuccessMessage.isDisplayed();
+    }
+
+    //combine all methods from current page
+    public boolean UserEditAccountInformation(String FirstName, String LastName, String Email, String Password) {
+        Random r = new Random(1000);
+        EnterFirstName(FirstName + r);
+        EnterLastName(LastName + r);
+        EnterEmailAddress(Email);
+        EnterCurrentPassword(Password);
+        ClickChangePasswordBox();
+        EnterNewPassword(Password);
+        EnterConfirmNewPassword(Password);
+        return verifySuccess();
+    }
+}
 
 
 
