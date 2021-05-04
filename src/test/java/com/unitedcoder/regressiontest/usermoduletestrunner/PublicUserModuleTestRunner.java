@@ -44,8 +44,8 @@ public class PublicUserModuleTestRunner extends TestBasePage {
     public void editAccountInformation(){
         AccountInformationPage informationPage=new AccountInformationPage(driver);
         informationPage.clickOnAccountInfo();
-        informationPage.EnterFirstName("");
-        informationPage.EnterCurrentPassword("magento123");
+        informationPage.EnterFirstName(prop.getProperty("FirstName"));
+        informationPage.EnterCurrentPassword(prop.getProperty("EnterCurrentPassword"));
         informationPage.clickSaveButton();
         Assert.assertTrue(informationPage.verifySuccess());
 
