@@ -17,6 +17,7 @@ public class AccountInformationPage extends TestBasePage {
 
     @FindBy(xpath = "//*[@class=\"block block-account\"]/div[2]/ul/li[2]/a")
     WebElement accountInformationLink;
+
     @FindBy(id = "firstname")
     WebElement FirstNameTextBox;
 
