@@ -15,7 +15,7 @@ import java.util.List;
 public class MyDownloadableProductsPage extends TestBasePage {
     WebDriver driver;
     TestUtility utility;
-    @FindBy(linkText = "My Downloadable Products")
+    @FindBy(xpath = "//div[@class=\"block-content\"]/ul/li[12]")
     WebElement myDownloadableProductsLink;
     //cobine Driver
 

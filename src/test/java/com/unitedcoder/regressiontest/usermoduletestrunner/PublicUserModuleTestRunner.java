@@ -19,7 +19,7 @@ public class PublicUserModuleTestRunner extends TestBasePage {
         Log.moduleName("Check Out Order Started");
         driver.get(prop.getProperty("login_url"));
         FrontEndLoginPage loginPage=new FrontEndLoginPage(driver);
-        loginPage.loginUser(prop.getProperty("username"), prop.getProperty("PasswordPrefix") );
+        loginPage.loginUser(prop.getProperty("FrondEmail"), prop.getProperty("FrontPassword") );
     }
 
     @Test(description = "user should be able to  check out order-yusuf")
