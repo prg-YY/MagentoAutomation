@@ -1,6 +1,5 @@
 package com.unitedcoder.regressiontest.usermoduletestrunner;
 
-import com.seleniummaster.magento.frontendpages.AccountInformationPage;
 import com.seleniummaster.magento.frontendpages.CheckOutOrderPage;
 import com.seleniummaster.magento.frontendpages.FrontEndLoginPage;
 import com.seleniummaster.magento.utility.Log;
@@ -19,35 +18,26 @@ public class PublicUserModuleTestRunner extends TestBasePage {
         Log.moduleName("Check Out Order Started");
         driver.get(prop.getProperty("login_url"));
         FrontEndLoginPage loginPage=new FrontEndLoginPage(driver);
-        loginPage.loginUser(prop.getProperty("FrondEmail"), prop.getProperty("EmailPassword") );
+        loginPage.loginUser(prop.getProperty("username"), prop.getProperty("PasswordPrefix") );
     }
 
     @Test(description = "user should be able to  check out order-yusuf")
     public void checkOrder(){
         checkOutOrderPage =new CheckOutOrderPage(driver);
-        checkOutOrderPage.clickAccountTag();
-        checkOutOrderPage.clickChekOutLink();
-        checkOutOrderPage.clickOnContinue1();
-        checkOutOrderPage.clickOnContinue2();
-        checkOutOrderPage.clickOnContinue3();
-        checkOutOrderPage.clickOnMoneyOrderCheckBox();
-        checkOutOrderPage.clickOnContinue4();
-        checkOutOrderPage.clickOnPlaceOrderButton();
-        Assert.assertTrue(checkOutOrderPage.verifyOrderMassage());
+        checkOutOrderPage.checkoutOrderM(driver);
 
     }
     @Test(description = "user should be able to add address")
     public void addAddress(){
 
     }
-    @Test(description = "user should be able to edit account information-leila")
+    @Test
     public void editAccountInformation(){
-        AccountInformationPage informationPage=new AccountInformationPage(driver);
 
     }
     @AfterClass
     public static void close(){
 
-        closeBrowser();
+//        closeBrowser();
     }
 }

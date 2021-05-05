@@ -1,7 +1,7 @@
 package com.unitedcoder.regressiontest.catalogmodultestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
-import com.seleniummaster.magento.backendpages.catalogpages.DeleteRootCategoriesPage;
+import com.seleniummaster.magento.backendpages.catalogpages.EditCategoriesPage;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
@@ -10,8 +10,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class CatalogModuleTestRunner extends TestBasePage {
-    DeleteRootCategoriesPage deleteRootCategoriesPage;
-    //ManageProductsDashboardPage manageProductsDashboardPage;
     @BeforeClass
     public void setUp() {
         setUpBrowser();
@@ -23,18 +21,13 @@ public class CatalogModuleTestRunner extends TestBasePage {
 @Test
     public void addCategory(){
 
-
-
     }
-//    @Test
-//    public void deleteRootCategoriesTest(){
-//        deleteRootCategoriesPage=new DeleteRootCategoriesPage(driver);
-//        manageProductsDashboardPage=new ManageProductsDashboardPage(driver);
-//        manageProductsDashboardPage.clickcatalogLink();
-//        manageProductsDashboardPage.clickmanageCategoryLink();
-//        Assert.assertTrue(deleteRootCategoriesPage.deleteRootCategory());
-//    }
-
+    @Test(description = "edit root categories-yusuf")
+    public void editCategoriesTest(){
+        EditCategoriesPage categoriesPage=new EditCategoriesPage();
+        categoriesPage.editCategoriesPage(prop.getProperty("rootCategoryMetaTitlePrefix"));
+        Assert.assertTrue(categoriesPage.displaySuccessMessage());
+    }
 
     @AfterClass
     public void tearDown(){

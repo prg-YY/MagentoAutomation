@@ -1,4 +1,4 @@
 package com.seleniummaster.magento.frontendpages;
 
-public class MyDashboarPage {
+public class AddNewAddressPage {
 }
