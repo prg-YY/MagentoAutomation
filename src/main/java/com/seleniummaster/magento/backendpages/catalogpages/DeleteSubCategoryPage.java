@@ -25,7 +25,6 @@ public class DeleteSubCategoryPage extends TestBasePage {
     //create a constructor to initialize the page// page factory
     public DeleteSubCategoryPage(WebDriver driver)
     {
-        super(driver);
         this.driver = driver;
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver); //combine driver with page factory

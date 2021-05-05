@@ -1,5 +1,6 @@
 package com.seleniummaster.magento.frontendpages;
 
+import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -35,46 +36,48 @@ public class CreateAccountPage {
 
     //Enter First name Method
     public void enterFirstName(String firstName) {
-        utility.waitForAlertPresent(firstNameField);
+        utility.waitForElementPresent(firstNameField);
         firstNameField.sendKeys(firstName);
     }
 
     //Enter Last name Method
     public void enterLastName(String lastName) {
-        utility.waitForAlertPresent(lastNameField);
+        utility.waitForElementPresent(lastNameField);
         lastNameField.sendKeys(lastName);
     }
 
     //Enter Email Method
     public void enterEmailAddress(String email) {
-        utility.waitForAlertPresent(emailAddress);
+        utility.waitForElementPresent(emailAddress);
         emailAddress.sendKeys(email);
     }
 
     public void enterPassword(String password) {
-        utility.waitForAlertPresent(passwordField);
+        utility.waitForElementPresent(passwordField);
         passwordField.sendKeys(password);
     }
 
     public void enterConfirmationPassword(String password) {
-        utility.waitForAlertPresent(confirmPasswordField);
+        utility.waitForElementPresent(confirmPasswordField);
         confirmPasswordField.sendKeys(password);
     }
 
     public void clickRegister() {
-        utility.waitForAlertPresent(registerButton);
+        utility.waitForElementPresent(registerButton);
         registerButton.click();
     }
     public boolean verifySuccess(){
-        utility.waitForAlertPresent(successMessage);
+        utility.waitForElementPresent(successMessage);
         return successMessage.isDisplayed();
+
     }
     //combine all methods from current page
     public boolean userCreateAccount(String firstName, String lastName, String email, String password){
-        Random r=new Random(1000);
+        Random ran=new Random();
+        int r=ran.nextInt(10);
         enterFirstName(firstName+r);
         enterLastName(lastName+r);
-        enterEmailAddress(email);
+        enterEmailAddress(r+email);
         enterPassword(password);
         enterConfirmationPassword(password);
         clickRegister();

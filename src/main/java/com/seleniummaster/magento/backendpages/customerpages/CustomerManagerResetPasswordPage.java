@@ -22,7 +22,6 @@ public class CustomerManagerResetPasswordPage extends TestBasePage {
     JavascriptExecutor js = (JavascriptExecutor) driver;
     //create a constructor to initialize the page // page factory
     public CustomerManagerResetPasswordPage(WebDriver driver) {
-        super(driver);
         this.driver = driver;
         PageFactory.initElements(driver, this); //combine driver with page factory
         utility = new TestUtility(driver); //combine driver with page factory
@@ -43,7 +42,6 @@ public class CustomerManagerResetPasswordPage extends TestBasePage {
     }
     public void clickResetPassword()
     {
-        CustomerPage customerPage = new CustomerPage();
         utility.waitForElementPresent(resetPassword);
         resetPassword.click();
         js.executeScript("arguments[0].click();",resetPassword);
@@ -55,7 +53,7 @@ public class CustomerManagerResetPasswordPage extends TestBasePage {
     }
     public boolean resetPassword()
     {
-        CustomerPage customerPage = new CustomerPage();
+        CustomerPage customerPage = new CustomerPage(driver);
         clickEditButton();
         clickEditLink();
         clickResetPassword();

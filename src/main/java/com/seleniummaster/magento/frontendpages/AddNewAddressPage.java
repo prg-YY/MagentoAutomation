@@ -34,7 +34,6 @@ public class AddNewAddressPage extends TestBasePage {
 
     //create a constructor to initialize the page // page factory
     public AddNewAddressPage(WebDriver driver) {
-        super(driver);
         this.driver = driver;
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver); //combine driver with page factory
