@@ -22,15 +22,12 @@ public class CustomerModuleTestRunner extends TestBasePage {
         
     }
 
-    @Test
+    @Test(description = "manager should be able to add new customer")
     public void addCustomer(){
-        CustomerPage customerPage=new CustomerPage(driver);
-        customerPage.clickOnAddCustomerLink();
-        customerPage.enterFirstName(prop.getProperty("yusufFirstName"));
-        customerPage.enterLastName(prop.getProperty("yusufLastName"));
-        customerPage.enterEmail(prop.getProperty("yusufEmail"));
-        customerPage.enterPassword(prop.getProperty("yusufPassword"));
-        customerPage.clickSaveCustomerLink();
+        CustomerPage customerPage=new CustomerPage();
+        customerPage.addNewCustomer(prop.getProperty("FirstName"),
+                prop.getProperty("LastName"), prop.getProperty("newEmail"),
+                prop.getProperty("password"));
         Assert.assertTrue(customerPage.verifySuccessMessage());
 
     }
