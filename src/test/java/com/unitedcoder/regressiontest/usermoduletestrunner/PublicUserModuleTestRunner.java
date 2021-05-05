@@ -2,6 +2,7 @@ package com.unitedcoder.regressiontest.usermoduletestrunner;
 
 import com.seleniummaster.magento.frontendpages.CheckOutOrderPage;
 import com.seleniummaster.magento.frontendpages.FrontEndLoginPage;
+import com.seleniummaster.magento.frontendpages.MyDownloadableProductsPage;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
@@ -33,6 +34,14 @@ public class PublicUserModuleTestRunner extends TestBasePage {
     }
     @Test
     public void editAccountInformation(){
+
+    }
+    @Test(description = "user should be able to view my downloadable products-zuhra")
+    public void ViewDownloadableProducts(){
+        MyDownloadableProductsPage downloadableProductsPage=new
+                MyDownloadableProductsPage(driver);
+        downloadableProductsPage.clickOnMyDownloadableProductsLink();
+        downloadableProductsPage.viewMyDownloadableProducts();
 
     }
     @AfterClass
