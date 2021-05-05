@@ -24,24 +24,20 @@ public class PublicUserModuleTestRunner extends TestBasePage {
     @Test(description = "user should be able to  check out order-yusuf")
     public void checkOrder(){
         checkOutOrderPage =new CheckOutOrderPage(driver);
-        checkOutOrderPage.clickAccountTag();
-        checkOutOrderPage.clickChekOutLink();
-        checkOutOrderPage.clickOnContinue1();
-        checkOutOrderPage.clickOnContinue2();
-        checkOutOrderPage.clickOnContinue3();
-        checkOutOrderPage.clickOnMoneyOrderCheckBox();
-        checkOutOrderPage.clickOnContinue4();
-        checkOutOrderPage.clickOnPlaceOrderButton();
-        Assert.assertTrue(checkOutOrderPage.verifyOrderMassage());
+        checkOutOrderPage.checkoutOrderM(driver);
 
     }
     @Test(description = "user should be able to add address")
     public void addAddress(){
 
     }
+    @Test
+    public void editAccountInformation(){
+
+    }
     @AfterClass
     public static void close(){
 
-        closeBrowser();
+//        closeBrowser();
     }
 }
