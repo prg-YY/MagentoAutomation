@@ -31,6 +31,7 @@ public class CustomerUpdatePage {
     public void clickAccountInformationLink(){
         utility.waitForElementPresent(accountInformationLink);
     }
+
     String CustomerNAME = ApplicationConfig.readConfigProperties(ConfigFile, "customerName");
     String TaxVatNum=ApplicationConfig.readConfigProperties(ConfigFile,"TaxVatNum");
 
