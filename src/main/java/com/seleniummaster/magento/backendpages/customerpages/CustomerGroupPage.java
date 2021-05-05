@@ -6,6 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+
+import java.awt.*;
 //Customer Manager can assign a customer to a Customer Group in the Action on the All Customer page
 
 public class CustomerGroupPage extends TestBasePage {
@@ -20,7 +23,7 @@ public class CustomerGroupPage extends TestBasePage {
     WebElement SearchButton;
 
     @FindBy(css = ".massaction-checkbox")
-    WebElement ClickonCheckbox;
+    WebElement Checkbox;
 
     @FindBy(id = "customerGrid_massaction-select")
     WebElement ActionsDropdownList;
@@ -44,11 +47,31 @@ public class CustomerGroupPage extends TestBasePage {
     }
 
     //ActionSearchButton
-    public void clickSearchButton(){
+    public void ClickSearchButton(){
         utility.waitForElementPresent(SearchButton);
         SearchButton.click();
     }
 
+    //Click on checkbox
+    public void ClickCheckboxForSearchedCustomer(){
+        utility.waitForElementPresent(Checkbox);
+        Checkbox.click();
+    }
+
+    //Select From "Actions" DropdownList
+    public void SelectFromActionsDropdownList(String option){
+        Select select=new Select(ActionsDropdownList);
+        utility.waitForElementPresent(ActionsDropdownList);
+        select.selectByVisibleText(option);
+    }
+
+    //Select From "Group" Dropdown List
+    public void SelectFromGroupDropDownList(String option){
+        Select select= new Select(GroupDropdownList);
+        utility.waitForElementPresent(GroupDropdownList);
+        select.selectByVisibleText(option);
+
+    }
     //Customer Manager can add and update customer groups.
 
 
