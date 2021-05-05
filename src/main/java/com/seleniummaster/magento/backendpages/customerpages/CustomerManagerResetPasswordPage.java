@@ -11,6 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 public class CustomerManagerResetPasswordPage {
     WebDriver driver;
     TestUtility utility;
+    String customer = "dont-delete";
     @FindBy(xpath = "//div[@id=\"container\"]//table/tbody/tr[2]/td[@class='data-grid-actions-cell']/a")
     WebElement editLink;
     @FindBy(xpath = "//span[text()='Reset Password']")
@@ -30,43 +31,33 @@ public class CustomerManagerResetPasswordPage {
         executor.executeScript("arguments[0].click();",editLink);
         Log.info("Edit link is clicked");
     }
-//    public void clickEditButton()
-//    {
-//        String customer = String.format("//div[text()='%s']/ancestor::tr//a", testHolder.getCustomerEmail());
-//        WebElement element = driver.findElement(By.xpath(customer));
-//        utility.waitForElementPresent(element);
-//        js.executeScript("arguments[0].click();",element);
-//        Log.info("Edit button clicked");
-//    }
-//    public void clickEditButton()
-//    {
-//        String customer = String.format("//div[text()='%s']/ancestor::tr//a", TestDataHolder.getCustomerEmail());
-//        WebElement element = driver.findElement(By.xpath(customer));
-//        WebUtility.waitForElementPresent(element);
-//        js.executeScript("arguments[0].click();",element);
-//        Log.info("Edit button clicked");
-//    }
-//    public void clickResetPassword()
-//    {
-//        CustomersPage customersPage = new CustomersPage();
-//        customersPage.waitSpinner();
-//        WebUtility.waitForElementPresent(resetPassword);
-//        //resetPassword.click();
-//        js.executeScript("arguments[0].click();",resetPassword);
-//        Log.info("Reset password button clicked");
-//    }
-//    public boolean isConfirmationDisplayed() {
-//        WebUtility.waitForElementPresent(confirmationMessage);
-//        return confirmationMessage.isDisplayed();
-//    }
-//    public boolean resetPassword()
-//    {
-//        CustomersPage customersPage = new CustomersPage();
-//        customersPage.waitSpinner();
-//        //clickEditButton();
-//        clickEditLink();
-//        clickResetPassword();
-//        return isConfirmationDisplayed();
-//    }
+    public void clickEditButton()
+    {
+        //String customer = String.format("//div[text()='%s']/ancestor::tr//a", TestDataHolder.getCustomerEmail());
+        WebElement element = driver.findElement(By.xpath(customer));
+        utility.waitForElementPresent(element);
+        js.executeScript("arguments[0].click();",element);
+        Log.info("Edit button clicked");
+    }
+    public void clickResetPassword()
+    {
+        CustomerPage customerPage = new CustomerPage();
+        utility.waitForElementPresent(resetPassword);
+        resetPassword.click();
+        js.executeScript("arguments[0].click();",resetPassword);
+        Log.info("Reset password button clicked");
+    }
+    public boolean isConfirmationDisplayed() {
+        utility.waitForElementPresent(confirmationMessage);
+        return confirmationMessage.isDisplayed();
+    }
+    public boolean resetPassword()
+    {
+        CustomerPage customerPage = new CustomerPage();
+        clickEditButton();
+        clickEditLink();
+        clickResetPassword();
+        return isConfirmationDisplayed();
+    }
 
 }
