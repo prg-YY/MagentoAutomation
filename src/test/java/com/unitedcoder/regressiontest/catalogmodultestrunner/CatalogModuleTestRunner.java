@@ -11,13 +11,14 @@ import org.testng.annotations.Test;
 
 public class CatalogModuleTestRunner extends TestBasePage {
     DeleteRootCategoriesPage deleteRootCategoriesPage;
+    //ManageProductsDashboardPage manageProductsDashboardPage;
     @BeforeClass
     public void setUp() {
         setUpBrowser();
         Log.info("Add new customer started");
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin = new BackEndLogin(driver);
-        backEndLogin.backEndLogin(prop.getProperty("customerManager"), prop.getProperty("password"));
+        backEndLogin.backEndLogin(prop.getProperty("catalogManager"), prop.getProperty("password"));
     }
 @Test
     public void addCategory(){
@@ -25,11 +26,14 @@ public class CatalogModuleTestRunner extends TestBasePage {
 
 
     }
-    @Test
-    public void deleteRootCategoriesTest(){
-        deleteRootCategoriesPage=new DeleteRootCategoriesPage(driver);
-        Assert.assertTrue(deleteRootCategoriesPage.deleteRootCategory());
-    }
+//    @Test
+//    public void deleteRootCategoriesTest(){
+//        deleteRootCategoriesPage=new DeleteRootCategoriesPage(driver);
+//        manageProductsDashboardPage=new ManageProductsDashboardPage(driver);
+//        manageProductsDashboardPage.clickcatalogLink();
+//        manageProductsDashboardPage.clickmanageCategoryLink();
+//        Assert.assertTrue(deleteRootCategoriesPage.deleteRootCategory());
+//    }
 
 
     @AfterClass

@@ -19,9 +19,12 @@ public class DeleteRootCategoriesPage {
     WebElement ResetButton;
     @FindBy(css = "button[title='Delete Category']")
     WebElement DeleteCategoryLink;
-    @FindBy(linkText = "The category has been deleted.")
+    //span[text()='The category has been deleted.']
+    //*[contains(text(),'The category has been deleted.')]
+    //div[@id="messages"]/ul/li/ul/li/span
+    @FindBy(xpath ="div[@id=\"messages\"]/ul/li/ul/li/span")
     WebElement DeleteSuccessMessage;
-
+//Team-1-forDeleteCategory
     public DeleteRootCategoriesPage(WebDriver driver){
         this.driver=driver;
         PageFactory.initElements(driver,this);
@@ -35,6 +38,7 @@ public class DeleteRootCategoriesPage {
 
     String DeleteCategoryNAME = ApplicationConfig.readConfigProperties(ConfigFile, "DeleteCategoryName");
     public boolean deleteRootCategory(){
+
         List<WebElement> RootCategoriesList=driver.findElements(By.xpath("div[@class='x-tree-root-node']/li"));
         for(int i=1; i<=RootCategoriesList.size() ;i++){
             WebElement RooCategoryName=driver.findElement(By.xpath("div[@class='x-tree-root-node']/li['+i+']/div/a/span"));

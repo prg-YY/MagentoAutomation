@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class CustomerModuleTestRunner extends TestBasePage {
-   CustomerUpdatePage customerUpdatePage;
+
     @BeforeClass
     public void setUp() {
         setUpBrowser();
@@ -19,7 +19,7 @@ public class CustomerModuleTestRunner extends TestBasePage {
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin=new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("customerManager"), prop.getProperty("password") );
-        
+
     }
 
     @Test
@@ -35,9 +35,10 @@ public class CustomerModuleTestRunner extends TestBasePage {
 
     }
     @Test
-    public void UpdateCustomer(){
-        customerUpdatePage=new CustomerUpdatePage(driver);
-        Assert.assertTrue(customerUpdatePage.updateCustomerInformation());
+    public  void UpdateCustomer(){
+        CustomerUpdatePage customerUpdatePage=new CustomerUpdatePage(driver);;
+        customerUpdatePage.updateCustomerInformation();
+        Assert.assertTrue(customerUpdatePage.displaySuccessMessage());
     }
 
 }
