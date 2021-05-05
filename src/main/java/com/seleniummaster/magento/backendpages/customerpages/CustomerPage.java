@@ -29,7 +29,7 @@ public class CustomerPage extends TestBasePage {
     WebElement successMessage;
 
 
-    public CustomerPage() {
+    public CustomerPage(WebDriver driver) {
         this.driver=TestBasePage.driver;
         PageFactory.initElements(driver, this);
         utility=new TestUtility(driver);
