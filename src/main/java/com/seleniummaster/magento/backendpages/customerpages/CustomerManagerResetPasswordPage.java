@@ -41,7 +41,7 @@ public class CustomerManagerResetPasswordPage {
     }
     public void clickResetPassword()
     {
-        CustomerPage customerPage = new CustomerPage();
+        CustomerPage customerPage = new CustomerPage(driver);
         utility.waitForElementPresent(resetPassword);
         resetPassword.click();
         js.executeScript("arguments[0].click();",resetPassword);
@@ -53,7 +53,7 @@ public class CustomerManagerResetPasswordPage {
     }
     public boolean resetPassword()
     {
-        CustomerPage customerPage = new CustomerPage();
+        CustomerPage customerPage = new CustomerPage(driver);
         clickEditButton();
         clickEditLink();
         clickResetPassword();
