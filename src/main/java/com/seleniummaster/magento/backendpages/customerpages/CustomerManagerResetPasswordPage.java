@@ -1,5 +1,6 @@
 package com.seleniummaster.magento.backendpages.customerpages;
 import com.seleniummaster.magento.utility.Log;
+import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -8,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class CustomerManagerResetPasswordPage {
+public class CustomerManagerResetPasswordPage extends TestBasePage {
     WebDriver driver;
     TestUtility utility;
     String customer = "dont-delete";
@@ -21,6 +22,7 @@ public class CustomerManagerResetPasswordPage {
     JavascriptExecutor js = (JavascriptExecutor) driver;
     //create a constructor to initialize the page // page factory
     public CustomerManagerResetPasswordPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
         PageFactory.initElements(driver, this); //combine driver with page factory
         utility = new TestUtility(driver); //combine driver with page factory

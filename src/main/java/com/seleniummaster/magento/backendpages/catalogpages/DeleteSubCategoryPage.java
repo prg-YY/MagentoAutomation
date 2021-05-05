@@ -1,13 +1,14 @@
 package com.seleniummaster.magento.backendpages.catalogpages;
 
 import com.seleniummaster.magento.utility.Log;
+import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class DeleteSubCategoryPage {
+public class DeleteSubCategoryPage extends TestBasePage {
     WebDriver driver;
     TestUtility utility;
     @FindBy(linkText = "Categories")
@@ -24,6 +25,7 @@ public class DeleteSubCategoryPage {
     //create a constructor to initialize the page// page factory
     public DeleteSubCategoryPage(WebDriver driver)
     {
+        super(driver);
         this.driver = driver;
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver); //combine driver with page factory
