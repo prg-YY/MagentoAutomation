@@ -32,8 +32,6 @@ public class AddNewProductPage {
     WebElement weightTextField;
     @FindBy(xpath = "select[@id=\"status\"]/option")
     List<WebElement> statusDropDownListOptions;
-    @FindBy(xpath = "select[@id=\"visibility\"]")
-    WebElement VisibilityDropDownList;
     @FindBy(xpath = "input[@id=\"price\"]")
     WebElement priceTextField;
     @FindBy(xpath = "select[@id=\"tax_class_id\"]")
