@@ -2,10 +2,15 @@ package com.seleniummaster.magento.backendpages.customerpages;
 
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
 
 public class DeleteAnExistingCustomerPage extends TestBasePage {
     WebDriver driver;
@@ -27,17 +32,16 @@ public class DeleteAnExistingCustomerPage extends TestBasePage {
     @FindBy(xpath = "//*[@class=\"success-msg\"]")
     WebElement successMessage;
     //element for delete customer
-    @FindBy(name = "customer")
-    WebElement clickOncheckBox;
-    @FindBy(xpath = "//span[@class='field-row']")
+    @FindBy(xpath = "//*[@class=\"massaction-checkbox\"]")
+    WebElement customerCheckBox;
+    @FindBy(id= "customerGrid_massaction-select")
     WebElement selectAction;
-    @FindBy(xpath = "//id[@class/='delete'']")
-    WebElement selectDelete;
+   // @FindBy(xpath = "//id[@class/='delete'']")
+    //WebElement selectDelete;
     @FindBy(xpath = "//button[@title=\"Submit\"]")
-    WebElement clickOnSubmitButton;
-    //ok  button cannot expath
-    @FindBy(xpath = "//li[@class=\"success-msg\"]")
-    WebElement customerDeletSuccessful;
+    WebElement submitButton;
+    @FindBy(xpath = "//div[@id='messages']/ul")
+    WebElement deleteSuccessMessage;
 
     // combine webdriver
 
@@ -100,30 +104,47 @@ public class DeleteAnExistingCustomerPage extends TestBasePage {
     }
     // method for delete customer
     public void clicOncheckBox(){
-        utility.waitForElementPresent(clickOncheckBox);
-        clickOncheckBox.click();
+        utility.waitForElementPresent(customerCheckBox);
+        customerCheckBox.click();
     }
-    //method for select action
-    public void setSelectAction(){
-        utility.waitForElementPresent(selectAction);
-        selectAction.click();
-    }
-    //method for select delete
-    public void selectDelete(){
-        utility.waitForElementPresent(selectDelete);
-        selectDelete.click();
-    }
+
     // method on click submit button
     public void clickOnSubmitButton (){
-        utility.waitForElementPresent(clickOnSubmitButton);
-        clickOnSubmitButton.click();
+        utility.waitForElementPresent(submitButton);
+        submitButton.click();
     }
     //method for ok button
 
     //method for customer Delet Successful
-    public void customerDeleteSuccessful(){
-        utility.waitForElementPresent(customerDeletSuccessful);
-        customerDeletSuccessful.isDisplayed();
+    public void successMessageIsDisplayed(){
+        utility.waitForElementPresent(deleteSuccessMessage);
+        deleteSuccessMessage.isDisplayed();
+    }
+    //delete customer method
+    public void deleteCustomer(String customerEmail){
+        List<WebElement> customerList=driver
+                .findElements(By.xpath("//div[@class=\"hor-scroll\"]/table/tbody/tr"));
+        String customersEmail=driver.
+                findElement(By.xpath("//div[@class=\"hor-scroll\"]/table/tbody/tr")).getText();
+        for (int i=1;i<customerList.size();i++){
+            if (customersEmail.contains(customerEmail)){
+                clicOncheckBox();
+                break;
+            }
+            Select select=new Select(selectAction);
+            select.selectByValue("delete");
+            clickOnSubmitButton();
+            Alert alert=driver.switchTo().alert();
+            alert.accept();
+            String successfulDelete=successMessage.getText();
+            if (successfulDelete.contains("Total of 1 record(s) were deleted.")){
+                System.out.println("test past");
+            }
+            //successMessageIsDisplayed();
+
+
+        }
+
     }
 
 }

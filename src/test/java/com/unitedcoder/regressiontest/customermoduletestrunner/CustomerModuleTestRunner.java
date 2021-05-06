@@ -71,14 +71,22 @@ public class CustomerModuleTestRunner extends TestBasePage {
         customerGroupPage.updateCustomerGroup(groupName+r);
         Assert.assertTrue(customerGroupPage.successMessageDisplayed());
     }
-@Test(description = "Customer Manager can delete an existing customer-zuhraubul")
-public void deleteCustomer(){
+@Test(description = "Customer Manager can add  customer-zuhraubul")
+public void createCustomer(){
         Random random=new Random();
         int r=random.nextInt(100);
     DeleteAnExistingCustomerPage deleteCustomerPage=new DeleteAnExistingCustomerPage(driver);
     deleteCustomerPage.addCustomer(r+"batush",r+"bilal",r+"batush@gmail.com","bilal123");
 
 }
+@Test(description ="Customer Manager can delete an existing customer-zuhraubul" )
+public  void deleteCustomer(){
+        DeleteAnExistingCustomerPage deleteCustomerPage=new DeleteAnExistingCustomerPage(driver);
+        deleteCustomerPage.deleteCustomer("batushbilal@gmail.com");
+
+
+}
+
 
     @AfterClass
     public static void close(){
