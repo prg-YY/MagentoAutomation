@@ -5,6 +5,7 @@ import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class AddNewProductPage {
     public class CustomerManagerResetPasswordPage extends TestBasePage {
@@ -44,6 +45,24 @@ public class AddNewProductPage {
         @FindBy(xpath = "//div[@id=\"messages\"]")//not sure
         WebElement ConfirmationMessage;
 
+        //create a constructor to initialize the page // page factory
+        public AddNewProductPage(WebDriver driver){
+            this.driver = driver;
+            PageFactory.initElements(driver,this);
+            utility = new TestUtility(driver);
+        }
 
+        //Enter Product name Method
+        public void enterProductName(String productName) {
+            utility.waitForElementPresent(ProductNameTextBox);
+            ProductNameTextBox.sendKeys(productName);
+        }
+
+        //Enter First name Method
+        public void enterFirstName(String firstName) {
+            utility.waitForElementPresent(firstNameField);
+            firstNameField.sendKeys(firstName);
+        }
     }
+
 }

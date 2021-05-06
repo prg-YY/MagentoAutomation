@@ -46,6 +46,7 @@ public class AccountInformationPage extends TestBasePage {
 
     @FindBy(id = "confirmation")
     WebElement ConfirmNewPasswordTextBox;
+
     @FindBy(xpath = "//div[@class=\"buttons-set\"]/button/span/span")
     WebElement saveButton;
 
