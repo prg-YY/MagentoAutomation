@@ -20,6 +20,7 @@ public class AccountInformationPage extends TestBasePage {
 
     @FindBy(id = "firstname")
     WebElement FirstNameTextBox;
+
     @FindBy(id = "firstname")
     WebElement ClearFirstName2;
 
