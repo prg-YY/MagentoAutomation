@@ -46,10 +46,10 @@ public class StoreDashboardPage extends TestBasePage {
     @FindBy(xpath = "//*[@class=\"link-logout\"]")
     WebElement logOutLink;
 
-    public StoreDashboardPage() {
+    public StoreDashboardPage(WebDriver driver) {
         this.driver = TestBasePage.driver;
-        PageFactory.initElements(driver, this);
-        utility = new TestUtility(driver);
+        PageFactory.initElements(this.driver, this);
+        utility = new TestUtility(this.driver);
     }
 
     public void clickAllSalesLink() {

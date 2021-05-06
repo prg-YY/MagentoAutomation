@@ -30,7 +30,7 @@ public class StoreModuleTestRunner extends TestBasePage {
 
     @Test
     public void addProduct(){
-        storeDashboardPage=new StoreDashboardPage();
+        storeDashboardPage=new StoreDashboardPage(driver);
         storeDashboardPage.clickAllCatalogLink();
         storeDashboardPage.clickManageProductsLink();
         addNewProductPage=new AddNewProductPage(driver);
