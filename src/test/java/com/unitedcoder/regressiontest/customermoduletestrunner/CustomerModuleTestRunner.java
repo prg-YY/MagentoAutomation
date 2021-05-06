@@ -2,6 +2,7 @@ package com.unitedcoder.regressiontest.customermoduletestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
+import com.seleniummaster.magento.backendpages.customerpages.DeleteAnExistingCustomerPage;
 import com.seleniummaster.magento.backendpages.customerpages.UpdateCustomerGroupPage;
 import com.seleniummaster.magento.testdata.TestDataHolder;
 import com.seleniummaster.magento.utility.Log;
@@ -70,6 +71,14 @@ public class CustomerModuleTestRunner extends TestBasePage {
         customerGroupPage.updateCustomerGroup(groupName+r);
         Assert.assertTrue(customerGroupPage.successMessageDisplayed());
     }
+@Test(description = "Customer Manager can delete an existing customer-zuhraubul")
+public void deleteCustomer(){
+        Random random=new Random();
+        int r=random.nextInt(100);
+    DeleteAnExistingCustomerPage deleteCustomerPage=new DeleteAnExistingCustomerPage(driver);
+    deleteCustomerPage.addCustomer(r+"batush",r+"bilal",r+"batush@gmail.com","bilal123");
+
+}
 
     @AfterClass
     public static void close(){
