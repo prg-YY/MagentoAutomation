@@ -20,6 +20,9 @@ public class AccountInformationPage extends TestBasePage {
 
     @FindBy(id = "firstname")
     WebElement FirstNameTextBox;
+    @FindBy(id = "firstname")
+    WebElement ClearFirstName2;
+
 
     @FindBy(id = "firstname")
     WebElement FirstNameBox;
@@ -61,8 +64,8 @@ public class AccountInformationPage extends TestBasePage {
         accountInformationLink.click();
     }
     public void ClearFirstName(){
-        utility.waitForElementPresent(FirstNameBox);
-       FirstNameBox.clear();
+        utility.waitForElementPresent(ClearFirstName2);
+       ClearFirstName2.clear();
     }
 
     public void EnterFirstName(String FirstName) {
@@ -122,7 +125,7 @@ public class AccountInformationPage extends TestBasePage {
     //combine all methods from current page
     public boolean UserEditAccountInformation(String FirstName, String LastName, String Email, String Password) {
         Random r = new Random(1000);
-        FirstNameTextBox.clear();
+
         EnterFirstName(FirstName + r);
         EnterLastName(LastName + r);
         EnterEmailAddress(Email);

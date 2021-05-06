@@ -72,7 +72,8 @@ public class CustomerGroupPage extends TestBasePage {
         select.selectByVisibleText(option);
 
     }
-    //Customer Manager can add and update customer groups.
+
+
 
 
 
