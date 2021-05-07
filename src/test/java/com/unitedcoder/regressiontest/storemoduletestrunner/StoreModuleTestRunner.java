@@ -11,8 +11,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class StoreModuleTestRunner extends TestBasePage {
-    AddNewProductPage addNewProductPage;
-    StoreDashboardPage storeDashboardPage;
+
     @BeforeClass
     public void setUp() {
         setUpBrowser();
@@ -30,10 +29,10 @@ public class StoreModuleTestRunner extends TestBasePage {
 
     @Test
     public void addProduct(){
-        storeDashboardPage=new StoreDashboardPage(driver);
+        StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
         storeDashboardPage.clickAllCatalogLink();
         storeDashboardPage.clickManageProductsLink();
-        addNewProductPage=new AddNewProductPage(driver);
+        AddNewProductPage addNewProductPage=new AddNewProductPage(driver);
         addNewProductPage.AddProduct();
         Assert.assertTrue(addNewProductPage.VerifySuccessfulMessage());
     }

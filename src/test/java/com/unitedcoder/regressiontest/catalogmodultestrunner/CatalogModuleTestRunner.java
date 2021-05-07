@@ -1,6 +1,8 @@
 package com.unitedcoder.regressiontest.catalogmodultestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
+import com.seleniummaster.magento.backendpages.catalogpages.CatalogDashboardPage;
+import com.seleniummaster.magento.backendpages.catalogpages.DeleteRootCategoriesPage;
 import com.seleniummaster.magento.backendpages.catalogpages.EditCategoriesPage;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
@@ -27,6 +29,16 @@ public class CatalogModuleTestRunner extends TestBasePage {
         EditCategoriesPage categoriesPage=new EditCategoriesPage();
         categoriesPage.editCategoriesPage(prop.getProperty("rootCategoryMetaTitlePrefix"));
         Assert.assertTrue(categoriesPage.displaySuccessMessage());
+    }
+
+    @Test(description = "User can delete root categories")
+    public void deleteRootCategory(){
+        CatalogDashboardPage catalogDashboardPage=new CatalogDashboardPage(driver);
+        catalogDashboardPage.clickCatalogLink();
+        catalogDashboardPage.clickManageCategories();
+        DeleteRootCategoriesPage deleteRootCategoriesPage=new DeleteRootCategoriesPage(driver);
+        deleteRootCategoriesPage.deleteRootCategory();
+        Assert.assertTrue(deleteRootCategoriesPage.VerifySuccessfulMsgDisplay());
     }
 
     @AfterClass

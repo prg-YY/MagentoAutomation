@@ -17,7 +17,9 @@ public class AddNewProductPage extends TestBasePage {
     WebDriver driver;
     String ConfigFile = "config.properties";
     TestUtility utility;
-    @FindBy(xpath = "button[@title='Add Product']")
+    //span[text()="Add Product"]
+    //button[@title='Add Product']
+    @FindBy(xpath = "div[@class=\"content-header\"]/table/tbody/tr/td[2]/button/span")
     WebElement addProductButton;
     @FindBy(xpath = "button[@title=\"Continue\"]")
     WebElement continueButton;
@@ -58,19 +60,60 @@ public class AddNewProductPage extends TestBasePage {
         utility = new TestUtility(driver);
     }
 
-//    public void selectOption(){
-//        utility.waitForElementPresent(statusDropDownList);
-//
-//        Select viewDroplist = new Select(driver.s);
-//
-//        viewDroplist.selectByValue("200");
-//
-//    }
+    public void clickContinueButton(){
+        utility.waitForElementPresent(continueButton);
+        continueButton.click();
+    }
+
+    public void clickaddProductButton(){
+        utility.waitForElementPresent(addProductButton);
+        try{
+            addProductButton.click();
+        } catch (TimeoutException e){
+            e.printStackTrace();
+        }
+    }
+//            JavascriptExecutor js = (JavascriptExecutor) driver;
+//            js.executeScript("arguments[0].click();", addProductButton);
+
+    public void typeProductName(){
+        utility.waitForElementPresent(productNameTextField);
+        productNameTextField.sendKeys(ProductName);
+    }
+
+    public void typeDescription(){
+        utility.waitForElementPresent(descriptionTextField);
+        descriptionTextField.sendKeys(ProductDescription);
+    }
+    public void typeShortDescription(){
+        utility.waitForElementPresent(shortDescriptionTextField);
+        shortDescriptionTextField.sendKeys(ProductShortDescription);
+
+    }
+    public void typeSKU(){
+        utility.waitForElementPresent(SKUTextField);
+        SKUTextField.sendKeys(SKU);
+    }
+
+    public void typeWeight(){
+        utility.waitForElementPresent(weightTextField);
+        weightTextField.sendKeys(Weight);
+    }
 
     public void chooseStatusEnableOption() {
         utility.waitForElementPresent(statusDropdownEnableOption);
         Select StatusDropdown=new Select(statusDropdown);
         StatusDropdown.selectByValue("1");
+    }
+
+    public void clickSaveAndContinueButton(){
+        utility.waitForElementPresent(saveAndContinueButton);
+        saveAndContinueButton.click();
+    }
+
+    public void typePrice(){
+        utility.waitForElementPresent(priceTextField);
+        priceTextField.sendKeys(Price);
     }
 
     public void chooseTaxClassGeneralOption() {
@@ -79,15 +122,48 @@ public class AddNewProductPage extends TestBasePage {
         StatusDropdown.selectByValue("6");
     }
 
-    public boolean VerifySuccessfulMessage(){
+    public void clickSaveButton(){
+        utility.waitForElementPresent(saveButton);
+        saveButton.click();
+    }
 
+    public boolean VerifySuccessfulMessage(){
         utility.waitForElementPresent(VerifySuccessfullyAddedMessage);
        return VerifySuccessfullyAddedMessage.isDisplayed();
 
     }
 
 
+    String ProductName = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductName");
+    String ProductDescription = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductDescription");
+    String ProductShortDescription = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductShortDescription");
+    String SKU = ApplicationConfig.readConfigProperties(ConfigFile, "SKU");
+    String Weight = ApplicationConfig.readConfigProperties(ConfigFile, "Weight");
+    String Price=ApplicationConfig.readConfigProperties(ConfigFile,"Price");
 
+    public void AddProduct() {
+        clickContinueButton();
+        clickaddProductButton();
+        typeProductName();
+        typeDescription();
+        typeShortDescription();
+        typeSKU();
+        typeWeight();
+        chooseStatusEnableOption();
+        clickSaveAndContinueButton();
+        typePrice();
+        chooseTaxClassGeneralOption();
+        clickSaveButton();
+        VerifySuccessfullyAddedMessage.isDisplayed();
+
+
+
+
+
+
+    }
+
+}
 
 
 //        WebElement findRName = optionSelect.get(7);
@@ -110,50 +186,13 @@ public class AddNewProductPage extends TestBasePage {
 //        utility.waitForElementPresent(dropDown);
 //    Select selectDropDown=new Select(dropDown);
 //        selectDropDown.selectByValue("used");
-    String ProductName = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductName");
-    String ProductDescription = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductDescription");
-    String ProductShortDescription = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductShortDescription");
-    String SKU = ApplicationConfig.readConfigProperties(ConfigFile, "SKU");
-    String Weight = ApplicationConfig.readConfigProperties(ConfigFile, "Weight");
-    String Price=ApplicationConfig.readConfigProperties(ConfigFile,"Price");
 
-    public void AddProduct() {
 
-        utility.waitForElementPresent(addProductButton);
-        try{
-            addProductButton.click();
-        } catch (TimeoutException e){
-            e.printStackTrace();
-        }
-//            JavascriptExecutor js = (JavascriptExecutor) driver;
-//            js.executeScript("arguments[0].click();", addProductButton);
-
-        utility.waitForElementPresent(continueButton);
-        continueButton.click();
-        utility.waitForElementPresent(productNameTextField);
-        productNameTextField.sendKeys(ProductName);
-        utility.waitForElementPresent(descriptionTextField);
-        descriptionTextField.sendKeys(ProductDescription);
-        utility.waitForElementPresent(shortDescriptionTextField);
-        shortDescriptionTextField.sendKeys(ProductShortDescription);
-        utility.waitForElementPresent(SKUTextField);
-        SKUTextField.sendKeys(SKU);
-        utility.waitForElementPresent(weightTextField);
-        weightTextField.sendKeys(Weight);
-        chooseStatusEnableOption();
-        utility.waitForElementPresent(saveAndContinueButton);
-        saveAndContinueButton.click();
-        utility.waitForElementPresent(priceTextField);
-        priceTextField.sendKeys(Price);
-//        utility.waitForElementPresent(taxClassDropDownList);
-//        taxClassDropDownList.
-        utility.waitForElementPresent(saveAndContinueButton);
-        saveAndContinueButton.click();
-        utility.waitForElementPresent(saveButton);
-        saveButton.click();
-        VerifySuccessfullyAddedMessage.isDisplayed();
-
-    }
-
-}
-
+//    public void selectOption(){
+//        utility.waitForElementPresent(statusDropDownList);
+//
+//        Select viewDroplist = new Select(driver.s);
+//
+//        viewDroplist.selectByValue("200");
+//
+//    }
