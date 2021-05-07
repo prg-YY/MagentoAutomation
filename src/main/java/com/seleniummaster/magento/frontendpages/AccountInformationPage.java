@@ -127,7 +127,6 @@ public class AccountInformationPage extends TestBasePage {
     //combine all methods from current page
     public boolean UserEditAccountInformation(String FirstName, String LastName, String Email, String Password) {
         Random r = new Random(1000);
-
         EnterFirstName(FirstName + r);
         EnterLastName(LastName + r);
         EnterEmailAddress(Email);
