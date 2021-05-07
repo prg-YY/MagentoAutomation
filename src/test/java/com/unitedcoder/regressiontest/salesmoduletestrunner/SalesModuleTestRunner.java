@@ -20,8 +20,6 @@ public class SalesModuleTestRunner extends TestBasePage {
     @Test
     public void addCategory(){
 
-
-
     }
 
     @AfterClass

@@ -1,8 +1,7 @@
 package com.unitedcoder.regressiontest.catalogmodultestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
-import com.seleniummaster.magento.backendpages.catalogpages.ManageProductsDashboardPage;
-import com.seleniummaster.magento.frontendpages.AccountInformationPage;
+import com.seleniummaster.magento.backendpages.catalogpages.EditCategoriesPage;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
@@ -17,20 +16,18 @@ public class CatalogModuleTestRunner extends TestBasePage {
         Log.info("Add new customer started");
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin = new BackEndLogin(driver);
-        backEndLogin.backEndLogin(prop.getProperty("customerManager"), prop.getProperty("password"));
+        backEndLogin.backEndLogin(prop.getProperty("catalogManager"), prop.getProperty("password"));
     }
-@Test(description = "Catalog Manager can add products-Leila")
+@Test
     public void addCategory(){
-//    ManageProductsDashboardPage manageproductspage=new ManageProductsDashboardPage(driver);
-//    ManageProductsDashboardPage.ClickOnAddProduct();
-//        ProductInformationPage.ClearFirstName();
-//        Assert.assertTrue(informationPage.verifySuccess());
 
     }
-
-
-
-
+    @Test(description = "edit root categories-yusuf")
+    public void editCategoriesTest(){
+        EditCategoriesPage categoriesPage=new EditCategoriesPage();
+        categoriesPage.editCategoriesPage(prop.getProperty("rootCategoryMetaTitlePrefix"));
+        Assert.assertTrue(categoriesPage.displaySuccessMessage());
+    }
 
     @AfterClass
     public void tearDown(){

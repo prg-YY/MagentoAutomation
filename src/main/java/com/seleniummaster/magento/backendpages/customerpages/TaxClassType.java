@@ -1,4 +1,5 @@
 package com.seleniummaster.magento.backendpages.customerpages;
 
-public class CustomerManageDashboarPage {
+public enum TaxClassType {
+    General,retailCustomer
 }

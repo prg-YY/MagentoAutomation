@@ -1,13 +1,14 @@
 package com.seleniummaster.magento.backendpages.customerpages;
 
 import com.seleniummaster.magento.utility.Log;
+import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class CustomerPage {
+public class CustomerPage extends TestBasePage {
 
     WebDriver driver;
     TestUtility utility;
@@ -29,7 +30,7 @@ public class CustomerPage {
 
 
     public CustomerPage(WebDriver driver) {
-        this.driver = driver;
+        this.driver=TestBasePage.driver;
         PageFactory.initElements(driver, this);
         utility=new TestUtility(driver);
     }
@@ -68,6 +69,15 @@ public class CustomerPage {
         utility.waitForElementPresent(successMessage);
         return successMessage.isDisplayed();
     }
+public boolean addNewCustomer(String firstname, String lastname, String emailAddress, String password){
+        clickOnAddCustomerLink();
+        enterFirstName(firstname);
+        enterLastName(lastname);
+        enterEmail(System.currentTimeMillis()+emailAddress);
+        enterPassword(password);
+        clickSaveCustomerLink();
+   return verifySuccessMessage();
 
+}
 
 }
