@@ -22,11 +22,8 @@ public class CatalogModuleTestRunner extends TestBasePage {
 @Test(description = "Catalog Manager can add products-Leila")
     public void addCategory(){
     ManageProductsDashboardPage manageproductspage=new ManageProductsDashboardPage(driver);
-    ManageProductsDashboardPage.ClickAddProductButton();
-        informationPage.ClearFirstName();
-        informationPage.EnterFirstName(prop.getProperty("FirstName"));
-        informationPage.EnterCurrentPassword(prop.getProperty("EnterCurrentPassword"));
-        informationPage.clickSaveButton();
+    ManageProductsDashboardPage.ClickOnAddProduct();
+        ProductInformationPage.ClearFirstName();
         Assert.assertTrue(informationPage.verifySuccess());
 
     }

@@ -14,7 +14,7 @@ public class AddNewProductPage extends TestBasePage {
     @FindBy(xpath = "//div[@class='content-header']")//2 Elements
     WebElement ManageProductsPage;
 
-    @FindBy(css = "button[class='scalable add']")//2 Elements
+    @FindBy(xpath = "(//span[text()='Manage Categories'])[1]")//2 Elements
     WebElement AddProductButton;
 
     @FindBy(css = "button[class='scalable save']")//correct
@@ -146,22 +146,5 @@ public class AddNewProductPage extends TestBasePage {
         return ConfirmationMessage.isDisplayed();
     }
 
-    public boolean AddNewProductPage(WebDriver driver, TestUtility utility, WebElement manageProductsPage, WebElement addProductButton, WebElement continueButton, WebElement productNameTextBox, WebElement descriptionTextBox, WebElement shortDescriptionTextBox, WebElement skuTextBox, WebElement weightTextBox, WebElement selectStatus, WebElement selectVisibility, WebElement clickSaveButton, WebElement priceTextBox, WebElement selectTaxClass, WebElement pressSaveButton, WebElement confirmationMessage) {
 
-        ManageProductsPage = manageProductsPage;
-        AddProductButton = addProductButton;
-        ContinueButton = continueButton;
-        ProductNameTextBox = productNameTextBox;
-        DescriptionTextBox = descriptionTextBox;
-        ShortDescriptionTextBox = shortDescriptionTextBox;
-        SkuTextBox = skuTextBox;
-        WeightTextBox = weightTextBox;
-        SelectStatus = selectStatus;
-        SelectVisibility = selectVisibility;
-        ClickSaveButton = clickSaveButton;
-        PriceTextBox = priceTextBox;
-        SelectTaxClass = selectTaxClass;
-        PressSaveButton = pressSaveButton;
-        ConfirmationMessage = confirmationMessage;
-    }
 }
