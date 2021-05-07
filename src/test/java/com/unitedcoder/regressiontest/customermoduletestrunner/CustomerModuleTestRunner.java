@@ -2,11 +2,13 @@ package com.unitedcoder.regressiontest.customermoduletestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
+import com.seleniummaster.magento.backendpages.customerpages.CustomerUpdatePage;
 import com.seleniummaster.magento.backendpages.customerpages.UpdateCustomerGroupPage;
 import com.seleniummaster.magento.testdata.TestDataHolder;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 
+import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIConversion;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -19,6 +21,7 @@ import java.util.Random;
 public class CustomerModuleTestRunner extends TestBasePage {
     static UpdateCustomerGroupPage customerGroupPage;
     String groupName=prop.getProperty("cus_GroupName");
+
 
     @BeforeClass
     public void setUp() {
@@ -69,6 +72,13 @@ public class CustomerModuleTestRunner extends TestBasePage {
         int r= ran.nextInt(300);
         customerGroupPage.updateCustomerGroup(groupName+r);
         Assert.assertTrue(customerGroupPage.successMessageDisplayed());
+    }
+
+    @Test(description ="User should be able to Update Customer information")
+    public void updateCustomerInformation(){
+        CustomerUpdatePage customerUpdatePage=new CustomerUpdatePage(driver);
+        customerUpdatePage.updateCustomerInformation();
+        Assert.assertTrue(customerUpdatePage.displaySuccessMessage());
     }
 
     @AfterClass

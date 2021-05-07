@@ -33,7 +33,7 @@ public class CatalogDashboardPage extends TestBasePage {
     @FindBy(xpath = "//*[@class=\"link-logout\"]")
     WebElement logOutLink;
 
-    public CatalogDashboardPage() {
+    public CatalogDashboardPage(WebDriver driver) {
         this.driver = TestBasePage.driver;
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver);
