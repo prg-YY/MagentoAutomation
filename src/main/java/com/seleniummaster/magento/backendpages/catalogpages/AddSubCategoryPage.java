@@ -10,19 +10,19 @@ import org.openqa.selenium.support.PageFactory;
 public class AddSubCategoryPage extends TestBasePage {
     WebDriver driver;
     TestUtility utility;
-    @FindBy(xpath = "//ul[@id=\"nav\"]")
-    WebElement catalog;
+    @FindBy(xpath = "//span[text()=\"Catalog\"]")
+    WebElement catalogLink;
     @FindBy(xpath = "//*[span=\"Manage Categories\"]/span")
     WebElement manageCategoriesList;
     @FindBy(xpath = "//button[@id=\"add_subcategory_button\"]")
     WebElement addSubcategoryButton;
-    @FindBy(xpath = "//td[@class=\"value\"]/input[@id=\"group_4name\"]")
+    @FindBy(id= "group_4name")
     WebElement nameTextField;
-    @FindBy(xpath = "//select[@id=\"group_4is_active\"]")
+    @FindBy(id= "group_4is_active")
     WebElement isActiveYes;
-    @FindBy(xpath = "//button[@id=\"id_adae205d01645f61da069bb5109f3a9a\"]")
+    @FindBy(xpath = "//span[text()=\"Save Category\"]")
     WebElement saveCategory;
-    @FindBy(xpath = "//ul[@class=\"messages\"]")
+    @FindBy(xpath = "//span[text()=\"The category has been saved.\"]")
     WebElement confirmSuccessMessage;
     //combine  webdriver
     public AddSubCategoryPage(WebDriver driver) {
@@ -31,33 +31,33 @@ public class AddSubCategoryPage extends TestBasePage {
         utility=new TestUtility(driver);
     }
     //method for each action
-    public void catelogList(){
-        utility.waitForElementPresent(catalog);
-        catalog.isDisplayed();
+    public void clickCatelogLink(){
+        utility.waitForElementPresent(catalogLink);
+        catalogLink.click();
     }
     //manage categories
-    public void manageCategories(){
+    public void clickOnManageCategories(){
         utility.waitForElementPresent(manageCategoriesList);
         manageCategoriesList.click();
 
     }
     // click on add subcategory
-    protected void addSubcategoryButton(){
+    protected void clickOnAddSubcategory(){
         utility.waitForElementPresent(addSubcategoryButton);
         addSubcategoryButton.click();
     }
     // fill out general information
-    public void nameTextField(){
+    public void enterCategoryName(String subCategoryName){
         utility.waitForElementPresent(nameTextField);
-        nameTextField.getText();
+        nameTextField.sendKeys(subCategoryName);
 
     }
     //is active field
-    public void isActiveYes(){
-        utility.waitForElementPresent(isActiveYes);
-        isActiveYes.isDisplayed();
+   // public void isActiveYes(){
+       // utility.waitForElementPresent(isActiveYes);
+        //isActiveYes.isDisplayed();
 
-    }
+   // }
     //click  on save category button
     public void clickSaveCategory(){
         utility.waitForElementPresent(saveCategory);
@@ -71,6 +71,7 @@ public class AddSubCategoryPage extends TestBasePage {
         } else {
             System.out.println("crate subCategory test failed");
         }
+
 
 
     }}
