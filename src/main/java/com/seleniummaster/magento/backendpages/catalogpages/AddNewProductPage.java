@@ -7,8 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class AddNewProductPage {
-    public class CustomerManagerResetPasswordPage extends TestBasePage {
+public class AddNewProductPage extends TestBasePage {
+
         WebDriver driver;
         TestUtility utility;
 
@@ -42,17 +42,30 @@ public class AddNewProductPage {
         @FindBy(css = "button[class='scalable save'][title='Save']")//correct
         WebElement ClickSaveButton;
 
+        @FindBy(xpath = "//input[@id=\"price\"and@type=\"text\"]")
+        WebElement PriceTextBox;
+
+        @FindBy(xpath = "//select[@id=\"tax_class_id\"]")
+        WebElement TaxClassTextBox;
+
+        @FindBy(css = "button[class='scalable save'][title='Save']")
+        WebElement PressSaveButton;//not sure
+
         @FindBy(xpath = "//div[@id=\"messages\"]")//not sure
         WebElement ConfirmationMessage;
 
         //create a constructor to initialize the page // page factory
-        public AddNewProductPage(WebDriver driver){
-            this.driver = driver;
-            PageFactory.initElements(driver,this);
-            utility = new TestUtility(driver);
-        }
 
-        //Enter Product name Method
+
+    public AddNewProductPage(WebDriver driver) {
+        this.driver =driver;
+        PageFactory.initElements(driver,this);
+        utility = new TestUtility(driver);
+    }
+
+
+
+    //Enter Product name Method
         public void enterProductName(String productName) {
             utility.waitForElementPresent(ProductNameTextBox);
             ProductNameTextBox.sendKeys(productName);
