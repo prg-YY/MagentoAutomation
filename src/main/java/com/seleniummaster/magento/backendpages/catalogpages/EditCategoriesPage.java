@@ -13,6 +13,7 @@ public class EditCategoriesPage extends TestBasePage {
     WebDriver driver;
     TestUtility utility;
 
+
     @FindBy(xpath = "//span[text()='Catalog']")
     WebElement catalogLink;
     @FindBy(xpath = "//span[text()='Manage Categories']")
@@ -68,12 +69,13 @@ public class EditCategoriesPage extends TestBasePage {
         utility.waitForElementPresent(successMessage);
         return successMessage.isDisplayed();
     }
-    public void editCategoriesPage(String categoryMetaTitlePrefix){
-        clickCatalogLink();
-        clickManageCategories();
+    public void editCategoriesPage1(){
+        CatalogDashboardPage catalogDashboardPage=new CatalogDashboardPage(driver);
+        catalogDashboardPage.clickCatalogLink();
+        catalogDashboardPage.clickManageCategories();
         clickTeam1CategoryLink();
         clearDescriptionTextBox();
-        fillDescriptionTextBox(categoryMetaTitlePrefix+System.currentTimeMillis());
+        fillDescriptionTextBox(prop.getProperty("ca-firstNmae"));
         clickSaveButton();
         displaySuccessMessage();
     }

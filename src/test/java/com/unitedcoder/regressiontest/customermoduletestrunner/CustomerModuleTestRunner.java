@@ -1,7 +1,7 @@
 package com.unitedcoder.regressiontest.customermoduletestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
-import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
+import com.seleniummaster.magento.backendpages.customerpages.AddCustomerPage;
 import com.seleniummaster.magento.backendpages.customerpages.UpdateCustomerGroupPage;
 import com.seleniummaster.magento.testdata.TestDataHolder;
 import com.seleniummaster.magento.utility.Log;
@@ -32,14 +32,9 @@ public class CustomerModuleTestRunner extends TestBasePage {
 
     @Test
     public void addCustomer(){
-        CustomerPage customerPage=new CustomerPage(driver);
-        customerPage.clickOnAddCustomerLink();
-        customerPage.enterFirstName(prop.getProperty("yusufFirstName"));
-        customerPage.enterLastName(prop.getProperty("yusufLastName"));
-        customerPage.enterEmail(prop.getProperty("yusufEmail"));
-        customerPage.enterPassword(prop.getProperty("yusufPassword"));
-        customerPage.clickSaveCustomerLink();
-        Assert.assertTrue(customerPage.verifySuccessMessage());
+        AddCustomerPage addCustomerPage=new AddCustomerPage(driver);
+        addCustomerPage.addNewCustomer();
+        Assert.assertTrue(addCustomerPage.verifySuccessMessage());
 
     }
 
