@@ -1,6 +1,7 @@
 package com.seleniummaster.magento.backendpages.catalogpages;
 
 import com.seleniummaster.magento.utility.ApplicationConfig;
+import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -8,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class DeleteRootCategoriesPage {
+public class DeleteRootCategoriesPage extends TestBasePage {
 
     WebDriver driver;
     String ConfigFile = "config.properties";

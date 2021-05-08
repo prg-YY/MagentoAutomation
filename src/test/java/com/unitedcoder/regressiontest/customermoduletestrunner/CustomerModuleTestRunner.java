@@ -2,6 +2,7 @@ package com.unitedcoder.regressiontest.customermoduletestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.customerpages.AddCustomerPage;
+import com.seleniummaster.magento.backendpages.customerpages.CustomerUpdatePage;
 import com.seleniummaster.magento.backendpages.customerpages.UpdateCustomerGroupPage;
 import com.seleniummaster.magento.testdata.TestDataHolder;
 import com.seleniummaster.magento.utility.Log;
@@ -65,6 +66,16 @@ public class CustomerModuleTestRunner extends TestBasePage {
         customerGroupPage.updateCustomerGroup(groupName+r);
         Assert.assertTrue(customerGroupPage.successMessageDisplayed());
     }
+
+    @Test
+    public  void UpdateCustomer(){
+        CustomerUpdatePage customerUpdatePage=new CustomerUpdatePage(driver);;
+        customerUpdatePage.updateCustomerInformation();
+        Assert.assertTrue(customerUpdatePage.displaySuccessMessage());
+    }
+
+
+
 
     @AfterClass
     public static void close(){
