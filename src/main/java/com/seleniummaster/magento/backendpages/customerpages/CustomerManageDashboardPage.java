@@ -18,6 +18,10 @@ public class CustomerManageDashboardPage {
     WebElement CustomerGroupLink;
     @FindBy(xpath = "button[@title='Add New Customer']")
     WebElement AddNewCustomerButton;
+    @FindBy(css = "input[type=\"text\"][id=\"customerGrid_filter_name\"]")
+    WebElement NameTextBox;
+    @FindBy(css = "button[title='Submit'][type='button']")
+    WebElement searchLink;
 
     public CustomerManageDashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -41,6 +45,15 @@ public class CustomerManageDashboardPage {
     public void clickAddNewCustomerButton(){
         utility.waitForElementPresent(AddNewCustomerButton);
         AddNewCustomerButton.click();
+    }
+    public void enterName(String CustomerName){
+        utility.waitForElementPresent(NameTextBox);
+        NameTextBox.sendKeys(CustomerName);
+
+    }
+    public void clickSearchLink(){
+        utility.waitForElementPresent(searchLink);
+        searchLink.click();
     }
 
 

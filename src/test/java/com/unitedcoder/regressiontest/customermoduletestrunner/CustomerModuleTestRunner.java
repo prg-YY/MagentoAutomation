@@ -2,6 +2,7 @@ package com.unitedcoder.regressiontest.customermoduletestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.customerpages.AddCustomerPage;
+import com.seleniummaster.magento.backendpages.customerpages.CustomerManagerResetPasswordPage;
 import com.seleniummaster.magento.backendpages.customerpages.UpdateCustomerGroupPage;
 import com.seleniummaster.magento.testdata.TestDataHolder;
 import com.seleniummaster.magento.utility.Log;
@@ -20,6 +21,8 @@ public class CustomerModuleTestRunner extends TestBasePage {
     static UpdateCustomerGroupPage customerGroupPage;
     String groupName=prop.getProperty("cus_GroupName");
 
+
+
     @BeforeClass
     public void setUp() {
         setUpBrowser();
@@ -27,6 +30,13 @@ public class CustomerModuleTestRunner extends TestBasePage {
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin=new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("customerManager"), prop.getProperty("password") );
+
+    }
+    @Test(description = "Customer Manager can filter customer by " +
+            "various filters such as Email,group.....-KamerTurdi,")
+    public void filterCustomerByName(){
+
+
 
     }
 
