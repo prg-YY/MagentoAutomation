@@ -15,8 +15,6 @@ public class ManageProductsPage extends TestBasePage {
     WebDriver driver;
     String ConfigFile = "config.properties";
     TestUtility utility;
-    //span[text()="Add Product"]
-    //button[@title='Add Product']
     @FindBy(xpath = "(//span[text()='Add Product'])[1]")
     WebElement addProductButton;
     @FindBy(xpath = "//button[@title=\"Continue\"]")
@@ -31,8 +29,6 @@ public class ManageProductsPage extends TestBasePage {
     WebElement SKUTextField;
     @FindBy(xpath = "//input[@id=\"weight\"]")
     WebElement weightTextField;
-    //    @FindBy(xpath = "select[@id=\"status\"]/option")
-//    List<WebElement> statusDropDownListOptions;
     @FindBy(xpath = "//option[text()=\"Enabled\"]")
     WebElement statusDropdownEnableOption;
     @FindBy(xpath = "//select[@id=\"status\"]")
@@ -41,8 +37,6 @@ public class ManageProductsPage extends TestBasePage {
     WebElement priceTextField;
     @FindBy(xpath = "//select[@id=\"tax_class_id\"]")
     WebElement taxClassDropDownList;
-    //    @FindBy(xpath = "select[@id=\"tax_class_id\"]")
-//    List<WebElement> taxClassDropDownList;
     @FindBy(xpath = "//*[@id='tax_class_id']/option[5]\n")
     WebElement taxClassGeneralOption;
     @FindBy(xpath = "//button[@title=\"Save and Continue Edit\"]")
@@ -69,17 +63,6 @@ public class ManageProductsPage extends TestBasePage {
         utility.waitForElementPresent(continueButton);
         continueButton.click();
     }
-
-    public void clickaddProductButton(){
-        utility.waitForElementPresent(addProductButton);
-        try{
-            addProductButton.click();
-        } catch (TimeoutException e){
-            e.printStackTrace();
-        }
-    }
-//            JavascriptExecutor js = (JavascriptExecutor) driver;
-//            js.executeScript("arguments[0].click();", addProductButton);
 
     public void typeProductName(){
         utility.waitForElementPresent(productNameTextField);
@@ -151,7 +134,6 @@ public class ManageProductsPage extends TestBasePage {
     public void AddProduct() {
         clickAddProductButton();
         clickContinueButton();
-        //clickaddProductButton();
         typeProductName();
         typeDescription();
         typeShortDescription();
