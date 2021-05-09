@@ -45,6 +45,12 @@ public class StoreModuleTestRunner extends TestBasePage {
     }
     @Test(description = "Store Manager can update products-ZuHra")
     public void updateProduct(){
+        ManageProductsPage manageProductsPage=new ManageProductsPage(driver);
+        StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
+        storeDashboardPage.clickAllCatalogLink();
+        storeDashboardPage.clickManageProductsLink();
+        manageProductsPage.updateProduct();
+        Assert.assertTrue(manageProductsPage.VerifySuccessfulUpdated());
 
     }
     @Test(description = "Store Manager can add product categories-KaMer")
