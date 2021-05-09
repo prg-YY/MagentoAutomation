@@ -38,9 +38,9 @@ public class CatalogModuleTestRunner extends TestBasePage {
         CatalogDashboardPage catalogDashboardPage=new CatalogDashboardPage(driver);
         catalogDashboardPage.clickCatalogLink();
         catalogDashboardPage.clickManageCategories();
+        deleteRootCategoriesPage.deleteRootCategory();
         Assert.assertTrue(deleteRootCategoriesPage.VerifySuccessfulMsgDisplay());
     }
-
 
 
     @AfterClass
