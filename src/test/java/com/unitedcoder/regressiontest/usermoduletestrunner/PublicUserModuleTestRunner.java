@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class PublicUserModuleTestRunner extends TestBasePage {
-   static CheckOutOrderPage checkOutOrderPage;
+
 
     @BeforeClass
     public void setUp(){
@@ -22,8 +22,8 @@ public class PublicUserModuleTestRunner extends TestBasePage {
 
     @Test(description = "user should be able to  check out order-yusuf")
     public void checkOrder(){
-        checkOutOrderPage =new CheckOutOrderPage(driver);
-        checkOutOrderPage.checkoutOrderM(driver);
+        CheckOutOrderPage checkOutOrderPage =new CheckOutOrderPage(driver);
+        checkOutOrderPage.checkoutOrderM();
 
     }
     @Test(description = "user should be able to add address")

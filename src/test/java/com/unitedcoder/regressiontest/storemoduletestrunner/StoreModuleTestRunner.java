@@ -16,7 +16,7 @@ public class StoreModuleTestRunner extends TestBasePage {
         Log.info("Add new customer started");
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin = new BackEndLogin(driver);
-        backEndLogin.backEndLogin(prop.getProperty("storemanager"), prop.getProperty("password"));
+        backEndLogin.backEndLogin(prop.getProperty("storeManager"), prop.getProperty("password"));
     }
     @Test(description = "Store Manager can create a new order-AbDuSaMed")
     public void createNewOrder(){

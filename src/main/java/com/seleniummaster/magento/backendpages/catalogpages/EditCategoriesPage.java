@@ -24,7 +24,7 @@ public class EditCategoriesPage extends TestBasePage {
     WebElement descriptionTextBox;
 //    @FindBy(name = "general[meta_description]")
 //    WebElement metaTextBox;
-    @FindBy(xpath = "button[title='Save Category'][type='button']")
+    @FindBy(xpath = "//span[text()='Save Category']")
     WebElement saveButton;
     @FindBy(xpath = "//*[@id=\"messages\"]/ul/li/ul/li/span")
     WebElement successMessage;
