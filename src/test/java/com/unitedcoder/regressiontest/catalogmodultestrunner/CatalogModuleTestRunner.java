@@ -1,6 +1,9 @@
 package com.unitedcoder.regressiontest.catalogmodultestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
+import com.seleniummaster.magento.backendpages.catalogpages.CatalogDashboardPage;
+import com.seleniummaster.magento.backendpages.catalogpages.DeleteProductPage;
+import com.seleniummaster.magento.backendpages.catalogpages.DeleteRootCategoriesPage;
 import com.seleniummaster.magento.backendpages.catalogpages.EditCategoriesPage;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
@@ -28,6 +31,16 @@ public class CatalogModuleTestRunner extends TestBasePage {
         categoriesPage.editCategoriesPage1();
         Assert.assertTrue(categoriesPage.displaySuccessMessage());
     }
+
+    @Test
+    public void deleteRootCategoriesTest(){
+        DeleteRootCategoriesPage deleteRootCategoriesPage=new DeleteRootCategoriesPage(driver);
+        CatalogDashboardPage catalogDashboardPage=new CatalogDashboardPage(driver);
+        catalogDashboardPage.clickCatalogLink();
+        catalogDashboardPage.clickManageCategories();
+        Assert.assertTrue(deleteRootCategoriesPage.VerifySuccessfulMsgDisplay());
+    }
+
 
 
     @AfterClass
