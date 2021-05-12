@@ -1,6 +1,8 @@
 package com.unitedcoder.regressiontest.salesmoduletestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
+import com.seleniummaster.magento.backendpages.salespages.OrdersPage;
+import com.seleniummaster.magento.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.annotations.AfterClass;
@@ -8,17 +10,34 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class SalesModuleTestRunner extends TestBasePage {
-
+    static SalesDashboardPage dashboardPage=new SalesDashboardPage(driver);
     @BeforeClass
     public void setUp() {
         setUpBrowser();
-        Log.info("Add new customer started");
+        Log.info("Sales Manager Model Has been Started");
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin = new BackEndLogin(driver);
-        backEndLogin.backEndLogin(prop.getProperty("salesmanager"), prop.getProperty("password"));
+        backEndLogin.backEndLogin(prop.getProperty("salesManager"), prop.getProperty("password"));
     }
-    @Test(description = "Sales Manager should be able to manage(create, update and cancel)orders - Yusuf")
-    public void manageCreateUpdateCancelOrder(){
+    @Test(description = "Sales Manager should be able to create orders ")
+    public void createOrder(){
+       dashboardPage.clickOnSalesLink();
+       dashboardPage.clickOrdersLink();
+        OrdersPage ordersPage=new OrdersPage(driver);
+        ordersPage.clickOnCreateOrderLink();
+        ordersPage.enterEmailToEmailSearchBox("dont-delete@team1.com");
+        ordersPage.clickOnSearchButton();
+
+
+    }
+    @Test(description = "Sales Manager should be able to Update an existing orders")
+    public void updateOrder(){
+
+
+    }
+    @Test(description = " Sales Manager should be able to cancel orders")
+    public void cancelOrder(){
+
 
     }
     @Test(description = "Sales Manager should be able to manage(view and update)" +

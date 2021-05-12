@@ -13,9 +13,9 @@ public class SalesDashboardPage extends TestBasePage {
     TestUtility utility;
     WebDriver driver;
 
-    @FindBy(xpath = "//span[text()='Sales']")
-    WebElement allSalesLink;
-    @FindBy(xpath = "//span[text()='Orders']")
+    @FindBy(xpath = "//span[normalize-space()='Sales']")
+    WebElement salesLink;
+    @FindBy(xpath = "//*[@id=\"nav\"]/li[2]/ul/li[1]/a")
     WebElement ordersLink;
     @FindBy(xpath = "//span[text()='Invoices']")
     WebElement invoicesLink;
@@ -32,15 +32,15 @@ public class SalesDashboardPage extends TestBasePage {
     @FindBy(xpath = "//*[@class=\"link-logout\"]")
     WebElement logOutLink;
 
-    public SalesDashboardPage() {
+    public SalesDashboardPage(WebDriver driver) {
         this.driver = TestBasePage.driver;
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver);
     }
 
-    public void clickAllSalesLink() {
-        utility.waitForElementPresent(allSalesLink);
-        allSalesLink.click();
+    public void clickOnSalesLink() {
+        utility.waitForElementPresent(salesLink);
+        salesLink.click();
         Log.info("All Sales Link clicked ");
     }
 

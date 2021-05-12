@@ -16,7 +16,7 @@ public class PublicUserModuleTestRunner extends TestBasePage {
     @BeforeClass
     public void setUp(){
         setUpBrowser();
-        Log.moduleName("Check Out Order Started");
+        Log.moduleName("FrontEnd");
         driver.get(prop.getProperty("login_url"));
         FrontEndLoginPage loginPage=new FrontEndLoginPage(driver);
         loginPage.loginUser(prop.getProperty("FrondEmail"), prop.getProperty("FrontPassword") );
