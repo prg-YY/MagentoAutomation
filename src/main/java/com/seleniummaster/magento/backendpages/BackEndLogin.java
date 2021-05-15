@@ -49,7 +49,7 @@ public class BackEndLogin extends TestBasePage {
         loginSuccessfully.isDisplayed();
 
     }
-    public void backEndLogin1(String userName, String password){
+    public void backEndLogin(String userName, String password){
         enterUserName(userName);
         enterPassword(password);
         clickLoginButton();

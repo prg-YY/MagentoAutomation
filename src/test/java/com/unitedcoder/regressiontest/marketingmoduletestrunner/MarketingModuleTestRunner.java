@@ -15,7 +15,7 @@ public class MarketingModuleTestRunner extends TestBasePage {
         Log.info("Add new customer started");
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin = new BackEndLogin(driver);
-        backEndLogin.backEndLogin1(prop.getProperty("marketingmanager"), prop.getProperty("password"));
+        backEndLogin.backEndLogin(prop.getProperty("marketingmanager"), prop.getProperty("password"));
     }
     @Test(description = "Marketing Manager can add new Catalog Price Rule - DilNur")
     public void addNewCatalogPriceRule(){

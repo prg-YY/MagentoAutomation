@@ -1,20 +1,24 @@
 package com.seleniummaster.magento.backendpages.catalogpages;
 
+import com.seleniummaster.magento.utility.ApplicationConfig;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 public class AddNewProductPage extends TestBasePage {
 
     WebDriver driver;
     TestUtility utility;
+    String ConfigFile = "config.properties";
+
     @FindBy(xpath = "//div[@class='content-header']")//2 Elements
     WebElement ManageProductsPage;
 
-    @FindBy(xpath = "(//span[text()='Manage Categories'])[1]")//2 Elements
+    @FindBy(xpath = "(//span[text()='Add Product'])[1]")//2 Elements
     WebElement AddProductButton;
 
     @FindBy(css = "button[class='scalable save']")//correct
@@ -37,6 +41,9 @@ public class AddNewProductPage extends TestBasePage {
 
     @FindBy(xpath = "//select[@id=\"status\"]")//correct
     WebElement SelectStatus;
+    @FindBy(xpath = "//select[@id=\"status\"]")
+    WebElement statusDropdown;
+
 
     @FindBy(xpath = "//select[@id=\"visibility\"]")//correct
     WebElement SelectVisibility;
@@ -47,8 +54,12 @@ public class AddNewProductPage extends TestBasePage {
     @FindBy(xpath = "//input[@id=\"price\"and@type=\"text\"]")
     WebElement PriceTextBox;
 
-    @FindBy(xpath = "//select[@id=\"tax_class_id\"]")
+    @FindBy(xpath = "//*[@id=\"tax_class_id\"]/option[5]")
     WebElement SelectTaxClass;
+
+    @FindBy(xpath = "//select[@id=\"tax_class_id\"]")
+    WebElement taxClassDropDownList;
+
 
     @FindBy(css = "button[class='scalable save'][title='Save']")
     WebElement PressSaveButton;//not sure
@@ -76,46 +87,55 @@ public class AddNewProductPage extends TestBasePage {
     }
 
     //Enter Product name Method
-    public void EnterProductName(String Name) {
+    String ProductName = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductName1");
+    public void EnterProductName() {
         utility.waitForElementPresent(ProductNameTextBox);
-        ProductNameTextBox.sendKeys(Name);
+        ProductNameTextBox.sendKeys(ProductName);
     }
 
     //Enter Description Method
-    public void EnterDescription(String Description) {
+    String ProductDescription = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductDescription1");
+    public void EnterDescription() {
         utility.waitForElementPresent(DescriptionTextBox);
-        DescriptionTextBox.sendKeys(Description);
+        DescriptionTextBox.sendKeys(ProductDescription);
     }
 
     //Enter Short Description  Method
-    public void EnterShortDescription(String ShortDescription) {
-        utility.waitForElementPresent(DescriptionTextBox);
-        DescriptionTextBox.sendKeys(ShortDescription);
+    String ProductShortDescription = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductShortDescription1");
+    public void EnterShortDescription() {
+        utility.waitForElementPresent(ShortDescriptionTextBox);
+        ShortDescriptionTextBox.sendKeys(ProductShortDescription);
     }
 
     //Enter SKU Method
-    public void EnterSKU(String SKU) {
+    String SKU = ApplicationConfig.readConfigProperties(ConfigFile, "SKU1");
+    public void EnterSKU() {
         utility.waitForElementPresent(SkuTextBox);
-        DescriptionTextBox.sendKeys(SKU);
+        SkuTextBox.sendKeys(SKU+System.currentTimeMillis());
     }
 
     //Enter Weight Method
-    public void EnterWeight(String Weight) {
+    String Weight = ApplicationConfig.readConfigProperties(ConfigFile, "Weight1");
+    public void EnterWeight() {
         utility.waitForElementPresent(WeightTextBox);
-        DescriptionTextBox.sendKeys(Weight);
+        WeightTextBox.sendKeys(Weight);
     }
 
     //Select Status Method
     public void SelectStatus() {
         utility.waitForElementPresent(SelectStatus);
-        SelectStatus.click();
+        Select StatusDropdown=new Select(statusDropdown);
+        StatusDropdown.selectByValue("1");
+
+        //utility.waitForElementPresent(SelectStatus);
+        //SelectStatus.click();
     }
 
     //Select Visibility Method
-    public void SelectVisibility() {
-        utility.waitForElementPresent(SelectVisibility);
-        SelectVisibility.click();
-    }
+//    public void SelectVisibility() {
+//        utility.waitForElementPresent(SelectVisibility);
+//        SelectVisibility.click();
+//    }
 
     //Click on Save button Method
     public void clickOnSaveButton() {
@@ -124,15 +144,21 @@ public class AddNewProductPage extends TestBasePage {
     }
 
     //Enter Price Method
-    public void EnterPrice(Integer Price) {
+//    String Price=ApplicationConfig.readConfigProperties(ConfigFile,"Price1");
+    public void EnterPrice(String prince1) {
         utility.waitForElementPresent(PriceTextBox);
-        PriceTextBox.sendKeys();
+        PriceTextBox.sendKeys(prince1);
+
     }
 
     //Enter Tax Class Method
     public void SelectTaxClass() {
+        //utility.waitForElementPresent(SelectTaxClass);
+        //SelectTaxClass.click();
         utility.waitForElementPresent(SelectTaxClass);
-        SelectTaxClass.click();
+        Select TaxDropdown=new Select(taxClassDropDownList);
+        TaxDropdown.selectByValue("6");
+
     }
 
     //Click on Save button Method
@@ -145,6 +171,29 @@ public class AddNewProductPage extends TestBasePage {
         utility.waitForElementPresent(ConfirmationMessage);
         return ConfirmationMessage.isDisplayed();
     }
+    public void AddProduct(){
+        clickOnAddProduct();
+        clickOnContinue();
+        EnterProductName();//String
+        EnterDescription( );//String
+        EnterShortDescription();//String
+        EnterSKU( );//String
+        EnterWeight();//String
+        SelectStatus();
+        //SelectVisibility();
+        clickOnSaveButton();
+        EnterPrice(prop.getProperty("Price1"));
+        SelectTaxClass();
+        setPressSaveButton();
+        verifySuccess();
 
+//String ProductName = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductName");
+//    String ProductDescription = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductDescription");
+//    String ProductShortDescription = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductShortDescription");
+//    String SKU = ApplicationConfig.readConfigProperties(ConfigFile, "SKU");
+//    String Weight = ApplicationConfig.readConfigProperties(ConfigFile, "Weight");
+//    String Price=ApplicationConfig.readConfigProperties(ConfigFile,"Price");
+
+    }
 
 }
