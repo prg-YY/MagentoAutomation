@@ -17,13 +17,13 @@ public class CustomerUpdatePage extends TestBasePage {
     //ul[@id='customer_info_tabs']/li[4]/a/span
     //a[@id='customer_info_tabs_account']
     //span[text()='Account Information']
-    @FindBy(xpath = "span[text()='Account Information']")
+    @FindBy(xpath = "(//span[text()='Account Information'])[1]")
     WebElement accountInformationLink;
-    @FindBy(xpath = "input[@name='account[taxvat]']")
+    @FindBy(xpath = "//input[@name='account[taxvat]']")
     WebElement TaxVatNumberTextField;
-    @FindBy(xpath = "span[text()='Save Customer']")
+    @FindBy(xpath = "(//span[text()='Save Customer'])[1]")
     WebElement saveCustomerButton;
-    @FindBy(linkText = "*[contains(text(),'The customer has been saved.')]")
+    @FindBy(xpath = "//span[contains(text(),'The customer has been saved.')]")
     WebElement SuccessMessage;
 
 
@@ -53,7 +53,19 @@ public class CustomerUpdatePage extends TestBasePage {
 
     public void typeTaxVat() {
         utility.waitForElementPresent(TaxVatNumberTextField);
+
+        TaxVatNumberTextField.clear();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         TaxVatNumberTextField.sendKeys(TaxVatNum);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickSaveCustomerButton() {

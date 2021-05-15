@@ -11,6 +11,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.List;
+
 public class ManageProductsPage extends TestBasePage {
     WebDriver driver;
     String ConfigFile = "config.properties";
@@ -63,27 +65,28 @@ public class ManageProductsPage extends TestBasePage {
         utility.waitForElementPresent(continueButton);
         continueButton.click();
     }
+    String ProductName=ApplicationConfig.readConfigProperties("NewProductName");
 
     public void typeProductName(){
         utility.waitForElementPresent(productNameTextField);
         productNameTextField.sendKeys(ProductName);
     }
 
-    public void typeDescription(){
+    public void typeDescription(String ProductDescription){
         utility.waitForElementPresent(descriptionTextField);
         descriptionTextField.sendKeys(ProductDescription);
     }
-    public void typeShortDescription(){
+    public void typeShortDescription(String ProductShortDescription){
         utility.waitForElementPresent(shortDescriptionTextField);
         shortDescriptionTextField.sendKeys(ProductShortDescription);
 
     }
-    public void typeSKU(){
+    public void typeSKU(String SKU){
         utility.waitForElementPresent(SKUTextField);
         SKUTextField.sendKeys(SKU+System.currentTimeMillis());
     }
 
-    public void typeWeight(){
+    public void typeWeight(String Weight){
         utility.waitForElementPresent(weightTextField);
         weightTextField.sendKeys(Weight);
     }
@@ -99,7 +102,7 @@ public class ManageProductsPage extends TestBasePage {
         saveAndContinueButton.click();
     }
 
-    public void typePrice(){
+    public void typePrice(String Price){
         utility.waitForElementPresent(priceTextField);
 
         priceTextField.sendKeys(Price);
@@ -124,30 +127,67 @@ public class ManageProductsPage extends TestBasePage {
     }
 
 
-    String ProductName = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductName");
-    String ProductDescription = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductDescription");
-    String ProductShortDescription = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductShortDescription");
-    String SKU = ApplicationConfig.readConfigProperties(ConfigFile, "SKU");
-    String Weight = ApplicationConfig.readConfigProperties(ConfigFile, "Weight");
-    String Price=ApplicationConfig.readConfigProperties(ConfigFile,"Price");
-
     public void AddProduct() {
         clickAddProductButton();
         clickContinueButton();
         typeProductName();
-        typeDescription();
-        typeShortDescription();
-        typeSKU();
-        typeWeight();
+        typeDescription(prop.getProperty("NewProductDescription"));
+        typeShortDescription(prop.getProperty("NewProductShortDescription"));
+        typeSKU(prop.getProperty("SKU"));
+        typeWeight(prop.getProperty("Weight"));
         chooseStatusEnableOption();
         clickSaveAndContinueButton();
-        typePrice();
+        typePrice(prop.getProperty("Price"));
         chooseTaxClassGeneralOption();
         clickSaveButton();
         VerifySuccessfullyAddedMessage.isDisplayed();
     }
 
 
-    // Store Manager can update products (@Zuhra)
+    // Store Manager can update products
 
+    @FindBy(xpath = "//div[@class=\"hor-scroll\"]/table/tbody/tr[\"+i+\"]/td[12]/a")
+    WebElement EditButton;
+    @FindBy(xpath="//div[@class=\"hor-scroll\"]/table/tbody/tr")
+    List<WebElement> ProductNameList;
+    @FindBy(xpath = "//div[@class=\"hor-scroll\"]/table/tbody/tr[\"+i+\"]/td[3]")
+    WebElement FondedProductName;
+    @FindBy(xpath = "//select[@id=\"country_of_manufacture\"]")
+    WebElement CountryOfManufactureDropDownList;
+    @FindBy(xpath = "//select[@id=\"country_of_manufacture\"]/option[35]" )
+    WebElement MadeInBrazilSelection;
+    @FindBy(xpath = "//span[text()='The product has been saved.']")
+    WebElement SuccessfulSavedMessage;
+
+
+    public void chooseCountryOfManufacture(){
+        utility.waitForElementPresent(MadeInBrazilSelection);
+            Select CountryDropdown=new Select(CountryOfManufactureDropDownList);
+            CountryDropdown.selectByValue("BR");
+    }
+
+    public boolean VerifySuccessfulUpdated(){
+        utility.waitForElementPresent(SuccessfulSavedMessage);
+        return SuccessfulSavedMessage.isDisplayed();
+    }
+
+    public void updateProduct(){
+    for(int i=1; i<=ProductNameList.size();i++){
+        String productName=FondedProductName.getText();
+        if(productName.equals(ProductName)){
+            try {
+                utility.waitForElementPresent(FondedProductName);
+                FondedProductName.click();
+            }
+            catch (TimeoutException e) {
+            }
+
+            chooseCountryOfManufacture();
+            clickSaveButton();
+            VerifySuccessfulUpdated();
+
+        }
+    }
+
+    }
 }

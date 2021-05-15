@@ -49,14 +49,13 @@ public class DeleteRootCategoriesPage extends TestBasePage {
         for (int i = 1; i <= RootCategoriesList.size(); i++) {
             WebElement RooCategoryName = driver.findElement(By.xpath("div[@class='x-tree-root-node']/li["+i+"]/div/a/span"));
             String rootName=RooCategoryName.getText();
-            if (rootName.contains(DeleteCategoryNAME)) {
+            if (rootName.equals(DeleteCategoryNAME)) {
                 utility.waitForElementPresent(RooCategoryName);
                try {
                    RooCategoryName.click();
                } catch (TimeoutException e){
 
                }
-
                 clickDeleteRootCategorylink();
                 utility.waitForAlertPresent();
                 Alert alert = driver.switchTo().alert();

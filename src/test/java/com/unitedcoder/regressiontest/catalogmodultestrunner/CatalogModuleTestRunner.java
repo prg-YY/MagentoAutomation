@@ -42,6 +42,7 @@ public class CatalogModuleTestRunner extends TestBasePage {
         CatalogDashboardPage catalogDashboardPage=new CatalogDashboardPage(driver);
         catalogDashboardPage.clickCatalogLink();
         catalogDashboardPage.clickManageCategories();
+        deleteRootCategoriesPage.deleteRootCategory();
         Assert.assertTrue(deleteRootCategoriesPage.VerifySuccessfulMsgDisplay());
     }
     @Test(description = "Edit Existing product Page-melike")
@@ -49,7 +50,6 @@ public class CatalogModuleTestRunner extends TestBasePage {
         EditExistingProductPage editExistingProductPage=new EditExistingProductPage(driver);
         editExistingProductPage.editExistingProduct();
     }
-
 
 
 
