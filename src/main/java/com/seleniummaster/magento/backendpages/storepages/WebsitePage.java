@@ -15,5 +15,17 @@ public class WebsitePage {
     @FindBy(xpath = "(//span[text()='Create Website'])[1]")
     WebElement CreateWebsiteButton;
 
+    @FindBy(css = "#website_name")
+    WebElement NameTextBox;
+
+    @FindBy(css = "#website_code")
+    WebElement CodeTextBox;
+
+    @FindBy(css = "#website_sort_order")
+    WebElement SortOrderTextBox;
+
+    @FindBy(css = "(//span[text()='Save Website'])[1]")
+    WebElement SaveWebsiteButton;
+
 
 }
