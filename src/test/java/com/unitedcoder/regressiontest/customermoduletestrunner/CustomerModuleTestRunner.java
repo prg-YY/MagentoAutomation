@@ -2,6 +2,7 @@ package com.unitedcoder.regressiontest.customermoduletestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.customerpages.AddCustomerPage;
+import com.seleniummaster.magento.backendpages.customerpages.CustomerDashboardPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerManagerResetPasswordPage;
 import com.seleniummaster.magento.backendpages.customerpages.UpdateCustomerGroupPage;
 import com.seleniummaster.magento.testdata.TestDataHolder;
@@ -35,6 +36,9 @@ public class CustomerModuleTestRunner extends TestBasePage {
     @Test(description = "Customer Manager can filter customer by " +
             "various filters such as Email,group.....-KamerTurdi,")
     public void filterCustomerByName(){
+        CustomerDashboardPage dashboardPage=new CustomerDashboardPage(driver);
+        dashboardPage.enterName(prop.getProperty("kamerCustomerName"));
+        dashboardPage.clickSearchLink();
 
 
 

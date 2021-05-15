@@ -1,5 +1,6 @@
 package com.unitedcoder.regressiontest.usermoduletestrunner;
 
+import com.seleniummaster.magento.backendpages.customerpages.CustomerDashboardPage;
 import com.seleniummaster.magento.frontendpages.CheckOutOrderPage;
 import com.seleniummaster.magento.frontendpages.FrontEndLoginPage;
 import com.seleniummaster.magento.frontendpages.MyWishListPage;
@@ -11,7 +12,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class PublicUserModuleTestRunner extends TestBasePage {
-   static CheckOutOrderPage checkOutOrderPage;
+    CheckOutOrderPage checkOutOrderPage;
 
     @BeforeClass
     public void setUp(){
@@ -36,12 +37,13 @@ public class PublicUserModuleTestRunner extends TestBasePage {
     public void editAccountInformation(){
 
     }
-    @Test(description="User should be able to view My Wish List- Kemer" )
-    public void viewWishList(){
-        MyWishListPage myWishListPage=new MyWishListPage(driver);
+    @Test(description="User should be able to view My Wish List- Kamer" )
+    public  void viewMyWishList(){
+      MyWishListPage myWishlistPage=new MyWishListPage(driver);
+        CheckOutOrderPage checkOutOrderPage=new CheckOutOrderPage(driver);
         checkOutOrderPage.clickAccountTag();
-        myWishListPage.clickMyWishList();
-        Assert.assertTrue(myWishListPage.verifyMyWishList());
+        myWishlistPage.clickMyWishList();
+        Assert.assertTrue(myWishlistPage.verifyMyWishList());
 
     }
     @AfterClass

@@ -2,6 +2,7 @@ package com.unitedcoder.regressiontest.catalogmodultestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.catalogpages.EditCategoriesPage;
+import com.seleniummaster.magento.backendpages.catalogpages.EditSubCategoryPage;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
@@ -28,7 +29,11 @@ public class CatalogModuleTestRunner extends TestBasePage {
         categoriesPage.editCategoriesPage1();
         Assert.assertTrue(categoriesPage.displaySuccessMessage());
     }
-
+    @Test(description = "edit sub root categories-kambernisa")
+    public void editCategories(){
+        EditSubCategoryPage subCategoryPage=new EditSubCategoryPage(driver);
+        subCategoryPage.editSubCategories();
+    }
 
     @AfterClass
     public void tearDown(){

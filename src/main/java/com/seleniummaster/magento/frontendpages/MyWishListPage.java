@@ -13,7 +13,7 @@ public class MyWishListPage extends TestBasePage {
     TestUtility utility;
 
 
-    @FindBy(css = "a[title=\"My Wishlist (1 item)\"]")
+    @FindBy(xpath = "//*[@id=\"header-account\"]/div/ul/li[2]/a")
     WebElement myWishList;
     @FindBy(css = "div[class=\"page-title title-buttons\"]")
     WebElement successMessage;
