@@ -1,10 +1,7 @@
 package com.unitedcoder.regressiontest.catalogmodultestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
-import com.seleniummaster.magento.backendpages.catalogpages.CatalogDashboardPage;
-import com.seleniummaster.magento.backendpages.catalogpages.DeleteProductPage;
-import com.seleniummaster.magento.backendpages.catalogpages.DeleteRootCategoriesPage;
-import com.seleniummaster.magento.backendpages.catalogpages.EditCategoriesPage;
+import com.seleniummaster.magento.backendpages.catalogpages.*;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
@@ -40,11 +37,19 @@ public class CatalogModuleTestRunner extends TestBasePage {
         catalogDashboardPage.clickManageCategories();
         Assert.assertTrue(deleteRootCategoriesPage.VerifySuccessfulMsgDisplay());
     }
+    @Test(description = "Edit Existing product Page-melike")
+    public void editExistingProductTest(){
+        EditExistingProductPage editExistingProductPage=new EditExistingProductPage(driver);
+        editExistingProductPage.editExistingProduct();
+    }
+
+
 
 
 
     @AfterClass
     public void tearDown(){
+        closeBrowser();
 
     }
 }
