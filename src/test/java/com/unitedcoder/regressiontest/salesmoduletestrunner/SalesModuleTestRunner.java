@@ -15,7 +15,7 @@ public class SalesModuleTestRunner extends TestBasePage {
         Log.info("Add new customer started");
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin = new BackEndLogin(driver);
-        backEndLogin.backEndLogin(prop.getProperty("salesmanager"), prop.getProperty("password"));
+        backEndLogin.backEndLogin1(prop.getProperty("salesmanager"), prop.getProperty("password"));
     }
     @Test(description = "Sales Manager should be able to manage(create, update and cancel)orders - Yusuf")
     public void manageCreateUpdateCancelOrder(){

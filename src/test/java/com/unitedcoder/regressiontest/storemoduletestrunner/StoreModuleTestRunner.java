@@ -5,7 +5,6 @@ import com.seleniummaster.magento.backendpages.storepages.ManageProductsPage;
 import com.seleniummaster.magento.backendpages.storepages.StoreDashboardPage;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
-import org.apache.poi.ss.formula.functions.T;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -19,7 +18,7 @@ public class StoreModuleTestRunner extends TestBasePage {
         Log.info("Add new customer started");
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin = new BackEndLogin(driver);
-        backEndLogin.backEndLogin(prop.getProperty("storeManager"), prop.getProperty("password"));
+        backEndLogin.backEndLogin1(prop.getProperty("storeManager"), prop.getProperty("password"));
     }
     @Test(description = "Store Manager can create a new order-AbDuSaMed")
     public void createNewOrder(){

@@ -2,7 +2,6 @@ package com.unitedcoder.regressiontest.catalogmodultestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.catalogpages.CatalogDashboardPage;
-import com.seleniummaster.magento.backendpages.catalogpages.DeleteProductPage;
 import com.seleniummaster.magento.backendpages.catalogpages.DeleteRootCategoriesPage;
 import com.seleniummaster.magento.backendpages.catalogpages.EditCategoriesPage;
 import com.seleniummaster.magento.utility.Log;
@@ -19,7 +18,7 @@ public class CatalogModuleTestRunner extends TestBasePage {
         Log.info("Add new customer started");
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin = new BackEndLogin(driver);
-        backEndLogin.backEndLogin(prop.getProperty("catalogManager"), prop.getProperty("password"));
+        backEndLogin.backEndLogin1(prop.getProperty("catalogManager"), prop.getProperty("password"));
     }
 @Test
     public void addCategory(){

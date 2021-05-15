@@ -27,7 +27,7 @@ public class CustomerModuleTestRunner extends TestBasePage {
         Log.info("Add new customer started");
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin=new BackEndLogin(driver);
-        backEndLogin.backEndLogin(prop.getProperty("customerManager"), prop.getProperty("password") );
+        backEndLogin.backEndLogin1(prop.getProperty("customerManager"), prop.getProperty("password") );
 
     }
 
