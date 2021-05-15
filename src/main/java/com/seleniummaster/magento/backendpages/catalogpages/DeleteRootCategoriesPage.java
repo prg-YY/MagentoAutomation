@@ -1,6 +1,7 @@
 package com.seleniummaster.magento.backendpages.catalogpages;
 
 import com.seleniummaster.magento.utility.ApplicationConfig;
+import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -8,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class DeleteRootCategoriesPage {
+public class DeleteRootCategoriesPage extends TestBasePage {
 
     WebDriver driver;
     String ConfigFile = "config.properties";
@@ -48,14 +49,13 @@ public class DeleteRootCategoriesPage {
         for (int i = 1; i <= RootCategoriesList.size(); i++) {
             WebElement RooCategoryName = driver.findElement(By.xpath("div[@class='x-tree-root-node']/li["+i+"]/div/a/span"));
             String rootName=RooCategoryName.getText();
-            if (rootName.contains(DeleteCategoryNAME)) {
+            if (rootName.equals(DeleteCategoryNAME)) {
                 utility.waitForElementPresent(RooCategoryName);
                try {
                    RooCategoryName.click();
                } catch (TimeoutException e){
 
                }
-
                 clickDeleteRootCategorylink();
                 utility.waitForAlertPresent();
                 Alert alert = driver.switchTo().alert();

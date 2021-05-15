@@ -18,6 +18,8 @@ public class BackEndLogin extends TestBasePage {
     WebElement passwordField;
     @FindBy(xpath = "//*[@class=\"form-button\"]")
     WebElement loginButton;
+    @FindBy(xpath = "//*[@id=\"html-body\"]/div[1]/div[1]/div[1]/a/img")
+    WebElement loginSuccessfully;
 
     public BackEndLogin(WebDriver driver) {
 
@@ -41,6 +43,11 @@ public class BackEndLogin extends TestBasePage {
         utility.waitForElementPresent(loginButton);
         loginButton.click();
         Log.info("Login Button clicked " + loginButton);
+    }
+    public void clickLoginSuccessfully(){
+        utility.waitForElementPresent(loginSuccessfully);
+        loginSuccessfully.isDisplayed();
+
     }
     public void backEndLogin(String userName, String password){
         enterUserName(userName);

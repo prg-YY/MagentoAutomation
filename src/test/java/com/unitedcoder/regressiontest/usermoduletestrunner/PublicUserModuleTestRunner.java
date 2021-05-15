@@ -17,7 +17,7 @@ public class PublicUserModuleTestRunner extends TestBasePage {
     @BeforeClass
     public void setUp(){
         setUpBrowser();
-        Log.moduleName("Check Out Order Started");
+        Log.moduleName("FrontEnd");
         driver.get(prop.getProperty("login_url"));
         FrontEndLoginPage loginPage=new FrontEndLoginPage(driver);
         loginPage.loginUser(prop.getProperty("FrondEmail"), prop.getProperty("FrontPassword") );
@@ -26,7 +26,7 @@ public class PublicUserModuleTestRunner extends TestBasePage {
     @Test(description = "user should be able to  check out order-yusuf")
     public void checkOrder(){
         checkOutOrderPage =new CheckOutOrderPage(driver);
-        checkOutOrderPage.checkoutOrderM(driver);
+        checkOutOrderPage.checkoutOrderM();
 
     }
     @Test(description = "user should be able to add address")
