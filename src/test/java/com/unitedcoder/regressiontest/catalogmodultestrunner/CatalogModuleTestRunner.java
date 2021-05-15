@@ -1,6 +1,7 @@
 package com.unitedcoder.regressiontest.catalogmodultestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
+import com.seleniummaster.magento.backendpages.catalogpages.AddNewProductPage;
 import com.seleniummaster.magento.backendpages.catalogpages.EditCategoriesPage;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
@@ -18,8 +19,13 @@ public class CatalogModuleTestRunner extends TestBasePage {
         BackEndLogin backEndLogin = new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("catalogManager"), prop.getProperty("password"));
     }
-@Test
-    public void addCategory(){
+
+    @Test(description = "AddProduct-Leila")
+    public void AddProduct(){
+        AddNewProductPage addNewProductPage=new AddNewProductPage(driver);
+        addNewProductPage.AddProduct();
+        Assert.assertTrue(addNewProductPage.verifySuccess());
+
 
     }
     @Test(description = "edit root categories-yusuf")
