@@ -17,9 +17,7 @@ public class CheckOutOrderPage extends TestBasePage {
     WebElement checkOutLink;
     @FindBy(xpath = "//div[@class=\"buttons-set\"]/button/span/span")
     WebElement continue1;
-    @FindBy(xpath = "//div[@id=\"shipping-buttons-container\"]/button")
-    WebElement continue2;
-    @FindBy(linkText = "//*[@id=\\\"shipping-method-buttons-container\\\"]/button/span/span")
+    @FindBy(linkText = "//*[@id=\"shipping-method-buttons-container\"]/button/span/span")
     WebElement continue3;
     @FindBy(xpath = "/html/body/div/div/div[2]/div/div[1]/ol/li[3]/div[2]/form/div[3]/button")
     WebElement moneyOrderCheckBox;
@@ -57,11 +55,7 @@ public class CheckOutOrderPage extends TestBasePage {
         continue1.click();
         Log.info("Continue1 clicked");
     }
-    public void clickOnContinue2(){
-        utility.waitForElementPresent(continue2);
-        continue2.click();
-        Log.info("Continue2 clicked");
-    }
+
     public void clickOnContinue3(){
         utility.waitForElementPresent(continue3);
         continue3.click();
@@ -87,7 +81,7 @@ public class CheckOutOrderPage extends TestBasePage {
         return orderVerifyMessage.isDisplayed();
 
     }
-    public void checkoutOrderM(WebDriver driver){
+    public void checkoutOrderM(){
         clickAccountTag();
         clickChekOutLink();
         clickOnContinue1();
