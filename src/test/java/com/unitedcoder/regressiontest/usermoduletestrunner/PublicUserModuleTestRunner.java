@@ -25,7 +25,7 @@ public class PublicUserModuleTestRunner extends TestBasePage {
     @Test(description = "user should be able to  check out order-yusuf")
     public void checkOrder(){
         checkOutOrderPage =new CheckOutOrderPage(driver);
-        checkOutOrderPage.checkoutOrderM(driver);
+        checkOutOrderPage.checkoutOrderM();
 
     }
     @Test(description = "user should be able to add address")

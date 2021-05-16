@@ -69,7 +69,7 @@ public class EditCategoriesPage extends TestBasePage {
         utility.waitForElementPresent(successMessage);
         return successMessage.isDisplayed();
     }
-    public void editCategoriesPage1(){
+    public void editCategoriesPage(){
         CatalogDashboardPage catalogDashboardPage=new CatalogDashboardPage(driver);
         catalogDashboardPage.clickCatalogLink();
         catalogDashboardPage.clickManageCategories();

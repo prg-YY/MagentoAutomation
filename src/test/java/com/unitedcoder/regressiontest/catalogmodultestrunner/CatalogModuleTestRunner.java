@@ -26,7 +26,7 @@ public class CatalogModuleTestRunner extends TestBasePage {
     @Test(description = "edit root categories-yusuf")
     public void editCategoriesTest(){
         EditCategoriesPage categoriesPage=new EditCategoriesPage();
-        categoriesPage.editCategoriesPage(prop.getProperty("rootCategoryMetaTitlePrefix"));
+        categoriesPage.editCategoriesPage();
         Assert.assertTrue(categoriesPage.displaySuccessMessage());
     }
     @Test(description = "add sub categories-zuhraubul")
