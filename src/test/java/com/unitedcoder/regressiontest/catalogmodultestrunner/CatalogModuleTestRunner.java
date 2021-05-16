@@ -1,8 +1,8 @@
 package com.unitedcoder.regressiontest.catalogmodultestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
+import com.seleniummaster.magento.backendpages.catalogpages.AddSubCategoryPage;
 import com.seleniummaster.magento.backendpages.catalogpages.EditCategoriesPage;
-import com.seleniummaster.magento.backendpages.catalogpages.EditSubCategoryPage;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
@@ -26,13 +26,16 @@ public class CatalogModuleTestRunner extends TestBasePage {
     @Test(description = "edit root categories-yusuf")
     public void editCategoriesTest(){
         EditCategoriesPage categoriesPage=new EditCategoriesPage();
-        categoriesPage.editCategoriesPage1();
+        categoriesPage.editCategoriesPage(prop.getProperty("rootCategoryMetaTitlePrefix"));
         Assert.assertTrue(categoriesPage.displaySuccessMessage());
     }
-    @Test(description = "edit sub root categories-kambernisa")
-    public void editCategories(){
-        EditSubCategoryPage subCategoryPage=new EditSubCategoryPage(driver);
-        subCategoryPage.editSubCategories();
+    @Test(description = "add sub categories-zuhraubul")
+    public void addSubCategoryTest(){
+        AddSubCategoryPage subCategoryPage=new AddSubCategoryPage(driver);
+        subCategoryPage.confirmSuccessMessage();
+
+
+
     }
 
     @AfterClass
