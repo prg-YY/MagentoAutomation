@@ -119,10 +119,5 @@ public class UpdateCustomerGroupPage extends TestBasePage {
         clickOnSaveButton();
         successMessageDisplayed();
     }
-
-
-
-
-
 }
 
