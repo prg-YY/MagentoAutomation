@@ -152,7 +152,6 @@ public class OrdersPage extends TestBasePage {
         checkOnFixedRadioButton();
         clickOnSubmitOrderButton();
         verifyOrderCreatedSuccessfully();
-
     }
 
 
@@ -173,7 +172,7 @@ public class OrdersPage extends TestBasePage {
             if (t1_Order.contains("team1")){
                 utility.waitForElementPresent(team1_Order);
                 team1_Order.click();
-            }
+            }break;
 
         }
 
