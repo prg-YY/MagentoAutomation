@@ -54,6 +54,18 @@ public class PublicUserModuleTestRunner extends TestBasePage {
         Assert.assertTrue(myWishlistPage.verifyMyWishList());
 
     }
+    @Test(description = "User should be able to see product reviews link")
+    public void seeProductReviewsLink(){
+        MyProductReviewsPage productReviewsPage=new MyProductReviewsPage(driver);
+        productReviewsPage.myProductReviewsLinkIsDisplay();
+        Assert.assertTrue(productReviewsPage.myProductReviewsLinkIsDisplay());
+    }
+    @Test(description = "User should be able to see product reviews content")
+    public void seeProductReviewsContent(){
+        MyProductReviewsPage productReviewsPage=new MyProductReviewsPage(driver);
+        productReviewsPage.reviewsContentIsDisplay();
+        Assert.assertTrue(productReviewsPage.reviewsContentIsDisplay());
+    }
 
     @Test(description = "user should be able to view my downloadable products-zuhra")
     public void ViewDownloadableProducts(){
@@ -61,11 +73,10 @@ public class PublicUserModuleTestRunner extends TestBasePage {
                 MyDownloadableProductsPage(driver);
         downloadableProductsPage.clickOnMyDownloadableProductsLink();
         downloadableProductsPage.viewMyDownloadableProducts();
-
     }
     @AfterClass
     public static void close(){
 
-//        closeBrowser();
+       closeBrowser();
     }
 }
