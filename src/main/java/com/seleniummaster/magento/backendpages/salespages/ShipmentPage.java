@@ -9,9 +9,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class shipmentPage extends TestBasePage {
+public class ShipmentPage extends TestBasePage {
     WebDriver driver;
     TestUtility utility;
     Alert alert;
@@ -54,7 +55,7 @@ public class shipmentPage extends TestBasePage {
 
 
     //combine webdriver
-    public shipmentPage(WebDriver driver) {
+    public ShipmentPage(WebDriver driver) {
         this.driver = TestBasePage.driver;
         PageFactory.initElements(driver, this);
          utility= new TestUtility(driver);
@@ -111,9 +112,9 @@ public class shipmentPage extends TestBasePage {
 
     }
     // method for trackingNumber
-    public void fieldldTrackingNumberTextBox(){
+    public void fieldldTrackingNumberTextBox(String number){
         utility.waitForElementPresent(trackingNumber);
-        trackingNumber.sendKeys();
+        trackingNumber.sendKeys(number);
         Log.info("trackingNumber has been fields");
 
     }
@@ -148,6 +149,14 @@ public class shipmentPage extends TestBasePage {
         utility.waitForElementPresent(verifySuccessMessage);
         verifySuccessMessage.isDisplayed();
         Log.info("Verified update shipments successful message ");
+    }
+    @FindBy (name = "carrier")
+    WebElement selectOption;
+
+    public void selectShipment(){
+        utility.waitForElementPresent(selectOption);
+        Select option=new Select(selectOption);
+        option.selectByValue("dhl");
     }
 
 
