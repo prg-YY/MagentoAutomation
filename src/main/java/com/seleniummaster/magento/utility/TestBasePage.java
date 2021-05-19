@@ -8,11 +8,13 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Properties;
 
 public class TestBasePage {
     public static WebDriver driver;
     public static Properties prop =new Properties();
+    public static String systemName =System.getProperty("os.name");
 
     static {
         String workingDir= System.getProperty("user.dir");
@@ -30,11 +32,8 @@ public class TestBasePage {
     }
 
 
-
-
     //set up driver to open browser
     public static void setUpBrowser() {
-        String systemName = System.getProperty("os.name");
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         if (systemName.contains("Mac")) {
@@ -74,13 +73,40 @@ public class TestBasePage {
         Log.info("Browser has been setup");
     }
 
+    public static void initialzation(String url) {
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+        if (driver==null){
 
-
+            if (systemName.contains("Mac")){
+                System.setProperty("webdriver.chrome.driver","/Applications/chromedriver");
+                driver=new ChromeDriver(chromeOptions);
+                driver.manage().window().maximize();
+                driver.get(url);
+            }
+            else if (systemName.contains("Windows")){
+                System.setProperty("webdriver.chrome.driver","c:/webdriver/chromedriver.exe");
+                driver=new ChromeDriver();
+                driver.manage().window().maximize();
+                driver.get(url);
+            }
+            else {
+                System.setProperty("webdriver.chrome.driver","/usr/bin/chromedriver");
+                driver=new ChromeDriver(chromeOptions);
+                chromeOptions.addArguments(Arrays.asList("--headless","disable-gpu"));
+                chromeOptions.addArguments("window-size=1920,1080");
+                driver.get(url);
+            }
+        }
+        }
 
     //close the browser
     public static void closeBrowser() {
         driver.close();
-        Log.info("Driver closed");
         driver.quit();
+        driver=null;
+        Log.info("Driver closed");
     }
+
+
 }
