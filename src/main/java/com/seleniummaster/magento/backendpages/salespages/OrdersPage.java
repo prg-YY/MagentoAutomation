@@ -94,30 +94,42 @@ public class OrdersPage extends TestBasePage {
     public void clickOnAddProductsLink(){
         utility.waitForElementPresent(addProductsLink);
         addProductsLink.click();
+        utility.sleep(2);
         Log.info("Add product Link For Order has been clicked");
     }
     public void clickOnUyghurBookChekBox(){
         utility.waitForElementPresent(uyghurBookChekBox);
-        uyghurBookChekBox.isSelected();
+        uyghurBookChekBox.click();
+        utility.sleep(3);
         Log.info("uyghur Book ChekBox has been clicked");
     }
     public void clickOnAddProductToOrderLink(){
         utility.waitForElementPresent(addProductToOrderLink);
         addProductToOrderLink.click();
+        utility.sleep(2);
         Log.info("Add Products to Order Link has been clicked");
+    }
+    public void checkPaymentMethod(){
+        utility.waitForElementPresent(paymentCheckBox);
+        paymentCheckBox.click();
+        utility.sleep(1);
+        Log.info("Payment method Check box has been clicked");
     }
     public void clickOnGetShippingMethodLink(){
         utility.waitForElementPresent(getShippingMethodLink);
         getShippingMethodLink.click();
+        utility.sleep(1);
         Log.info("get shipping method link has been clicked");
     }
     public void checkOnFixedRadioButton(){
         utility.waitForElementPresent(fixedRadioButton);
         fixedRadioButton.click();
+        utility.sleep(1);
         Log.info("fixed Radio button  has been checked");
     }
     public void clickOnSubmitOrderButton(){
         utility.waitForElementPresent(submitOrderButton);
+        utility.sleep(1);
         submitOrderButton.click();
     }
     public boolean verifyOrderCreatedSuccessfully(){
@@ -131,6 +143,21 @@ public class OrdersPage extends TestBasePage {
     public void searchCustomerForOrder(String email){
         enterEmailToEmailSearchBox(email);
         clickOnSearchButton();
+        utility.sleep(2);
+        clickOnCustomerRow();
+    }
+    public void addProductForOrder(){
+        clickOnTeam1Store();
+        utility.sleep(2);
+        clickOnAddProductsLink();
+        utility.sleep(2);
+        clickOnT1_Cus_CheckBox();
+        clickOnAddProductsLink();
+        clickOnUyghurBookChekBox();
+        clickOnAddProductToOrderLink();
+        utility.sleep(2);
+        clickOnGetShippingMethodLink();
+        utility.sleep(2);
     }
 
     public void createNewOrder(){
@@ -163,19 +190,40 @@ public class OrdersPage extends TestBasePage {
 
 
     // update Order Method
-    public void updateOrder(){
+    public void chooseOrder(){
         utility.waitForElementPresent(team1_Order);
         int i;
         int totalOrder=0;
-        for (i=0;i<ordersList.size();i++){
+        for (i=0;i<=ordersList.size();i++){
             String t1_Order=team1_Order.getText();
             if (t1_Order.contains("team1")){
                 utility.waitForElementPresent(team1_Order);
                 team1_Order.click();
             }break;
-
         }
+    }
+    @FindBy(xpath ="//span[text()='Edit']" )
+    WebElement editLink;
+    @FindBy(xpath = "//*[@id=\"sales_order_grid_table\"]/tbody/tr[1]/td[1]/input")
+    WebElement orderCheckBox;
+    @FindBy(id = "order-billing_address_company")
+    WebElement companyNameTextBox;
+    public void clickOnCheckBoxFOrUpdate(){
+        utility.waitForElementPresent(orderCheckBox);
+        orderCheckBox.click();
+    }
+    public void clickEditButton(){
+        utility.waitForElementPresent(editLink);
+        editLink.click();
+    }
+    public void enterCompanyName(String companyName){
+        utility.waitForElementPresent(companyNameTextBox);
+        companyNameTextBox.sendKeys(companyName);
+    }
+
+    public void update_Order(){
 
     }
+
 
 }
