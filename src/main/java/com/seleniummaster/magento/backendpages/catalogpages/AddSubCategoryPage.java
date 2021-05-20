@@ -1,5 +1,6 @@
 package com.seleniummaster.magento.backendpages.catalogpages;
 
+import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
@@ -10,68 +11,61 @@ import org.openqa.selenium.support.PageFactory;
 public class AddSubCategoryPage extends TestBasePage {
     WebDriver driver;
     TestUtility utility;
-    @FindBy(xpath = "//span[text()=\"Catalog\"]")
-    WebElement catalogLink;
-    @FindBy(xpath = "//*[span=\"Manage Categories\"]/span")
-    WebElement manageCategoriesList;
-    @FindBy(xpath = "//button[@id=\"add_subcategory_button\"]")
-    WebElement addSubcategoryButton;
-    @FindBy(id= "group_4name")
-    WebElement nameTextField;
-    @FindBy(id= "group_4is_active")
-    WebElement isActiveYes;
-    @FindBy(xpath = "//span[text()=\"Save Category\"]")
-    WebElement saveCategory;
-    @FindBy(xpath = "//span[text()=\"The category has been saved.\"]")
-    WebElement confirmSuccessMessage;
-    //combine  webdriver
-    public AddSubCategoryPage(WebDriver driver) {
-        this.driver=driver;
-        PageFactory.initElements(driver,this);
-        utility=new TestUtility(driver);
-    }
-    //method for each action
-    public void clickCatelogLink(){
-        utility.waitForElementPresent(catalogLink);
-        catalogLink.click();
-    }
-    //manage categories
-    public void clickOnManageCategories(){
-        utility.waitForElementPresent(manageCategoriesList);
-        manageCategoriesList.click();
+    CatalogDashboardPage catalogDashboardPage;
 
+    @FindBy(xpath = "//button[@id='add_subcategory_button']")
+    WebElement addSubcategoryButton;
+    @FindBy(id = "group_4name")
+    WebElement nameTextField;
+    @FindBy(xpath = "//span[text()='Save Category']")
+    WebElement saveCategory;
+    @FindBy(xpath = "//span[text()='The category has been saved.']")
+    WebElement addSubCategorySuccessMassage;
+
+    public AddSubCategoryPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        utility = new TestUtility(driver);
     }
-    // click on add subcategory
-    protected void clickOnAddSubcategory(){
+
+
+    protected void clickOnAddSubcategory() {
         utility.waitForElementPresent(addSubcategoryButton);
         addSubcategoryButton.click();
+        Log.info("Add Subcategory Link Clicked");
     }
-    // fill out general information
-    public void enterCategoryName(String subCategoryName){
+
+    public void enterCategoryName() {
         utility.waitForElementPresent(nameTextField);
-        nameTextField.sendKeys(subCategoryName);
-
+        nameTextField.sendKeys(prop.getProperty("NewRootCategories"));
+        Log.info("Name Text Box filled");
     }
-    //is active field
-   // public void isActiveYes(){
-       // utility.waitForElementPresent(isActiveYes);
-        //isActiveYes.isDisplayed();
 
-   // }
-    //click  on save category button
-    public void clickSaveCategory(){
+
+
+    public void clickSaveCategory() {
         utility.waitForElementPresent(saveCategory);
         saveCategory.click();
+        Log.info("New Sub Category Save Button Clicked");
     }
-    //confirm success message
-    public void confirmSuccessMessage() {
-        utility.waitForElementPresent(confirmSuccessMessage);
-        if (confirmSuccessMessage.isDisplayed()) {
-            System.out.println("test Passed, The category has been saved.");
-        } else {
-            System.out.println("crate subCategory test failed");
-        }
+    public boolean isAddSubCategorySuccessMassage(){
+        utility.waitForElementPresent(addSubCategorySuccessMassage);
+        return addSubCategorySuccessMassage.isDisplayed();
+
+    }
+
+    public void addSubCategory() {
+        catalogDashboardPage = new CatalogDashboardPage(driver);
+        catalogDashboardPage.clickCatalogLink();
+        catalogDashboardPage.clickManageCategories();
+        clickOnAddSubcategory();
+        utility.sleep(2);
+        enterCategoryName();
+        utility.sleep(2);
+        clickSaveCategory();
+        utility.sleep(2);
 
 
 
-    }}
+    }
+}

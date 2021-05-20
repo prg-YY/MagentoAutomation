@@ -123,9 +123,9 @@ public class DeleteAnExistingCustomerPage extends TestBasePage {
     //delete customer method
     public void deleteCustomer(String customerEmail){
         List<WebElement> customerList=driver
-                .findElements(By.xpath("//div[@class=\"hor-scroll\"]/table/tbody/tr"));
+                .findElements(By.xpath("//div[@class='hor-scroll']/table/tbody/tr"));
         String customersEmail=driver.
-                findElement(By.xpath("//div[@class=\"hor-scroll\"]/table/tbody/tr")).getText();
+                findElement(By.xpath("//div[@class='hor-scroll']/table/tbody/tr")).getText();
         for (int i=1;i<customerList.size();i++){
             if (customersEmail.contains(customerEmail)){
                 clicOncheckBox();
