@@ -5,7 +5,6 @@ import com.seleniummaster.magento.backendpages.catalogpages.AddSubCategoryPage;
 import com.seleniummaster.magento.backendpages.catalogpages.DeleteSubCategoryPage;
 import com.seleniummaster.magento.backendpages.catalogpages.EditCategoriesPage;
 import com.seleniummaster.magento.utility.Log;
-import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -42,7 +41,7 @@ public class CatalogModuleTestRunner extends TestBasePage {
     @Test(description = "add sub categories-zuhraubul")
     public void addSubCategoryTest(){
         AddSubCategoryPage subCategoryPage=new AddSubCategoryPage(driver);
-        subCategoryPage.confirmSuccessMessage();
+        subCategoryPage.isAddSubCategorySuccessMassage();
 
 
 

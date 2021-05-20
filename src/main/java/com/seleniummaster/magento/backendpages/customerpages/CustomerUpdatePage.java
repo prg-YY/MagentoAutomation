@@ -12,6 +12,8 @@ public class CustomerUpdatePage extends TestBasePage {
     WebDriver driver;
     String ConfigFile = "config.properties";
     TestUtility utility;
+    ManageCustomerDashboardPage dashboardPage;
+
     @FindBy(xpath = "//div[@class='hor-scroll']/table[1]/tbody/tr[1]/td[12]/a")
     WebElement editLink;
     //ul[@id='customer_info_tabs']/li[4]/a/span
@@ -80,13 +82,15 @@ public class CustomerUpdatePage extends TestBasePage {
     }
 
 
-    public boolean updateCustomerInformation() {
-
+    public void updateCustomerInformation() {
+        dashboardPage=new ManageCustomerDashboardPage(driver);
+        dashboardPage.clickCustomersLink();
+        dashboardPage.clickManageCustomerLink();
         clickEditLink();
         clickWithJSAccountLink();
         typeTaxVat();
         clickSaveCustomerButton();
-        return SuccessMessage.isDisplayed();
+
     }
 }
 

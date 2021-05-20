@@ -7,19 +7,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.Test;
 
 public class EditSubCategoryPage extends TestBasePage {
     WebDriver driver;
     TestUtility utility;
-    @FindBy(xpath = "//span[text()='Catalog']")
-    WebElement catalogLink;
-    @FindBy(xpath = "//span[text()='Manage Categories']")
-    WebElement manageCategories;
-    @FindBy(xpath = "//*[@id=\"extdd-76\"]")
+    CatalogDashboardPage catalogDashboardPage;
+
+    @FindBy(xpath = "//*[@id='extdd-76']")
     WebElement team1RootCategory;
-    @FindBy(xpath = "//*[@id=\"group_4description\"]")
+    @FindBy(xpath = "//*[@id='group_4description']")
     WebElement descriptionTextBox;
+    @FindBy(xpath = "//span[text()='The category has been saved.']")
+    WebElement editSubCategorySuccessMassage;
     @FindBy(xpath = "//span[text()='Save Category']")
     WebElement saveButton;
 
@@ -27,41 +26,42 @@ public class EditSubCategoryPage extends TestBasePage {
         this.driver = TestBasePage.driver;
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver);
-    }
-    public void clickCatalogLink(){
-        utility.waitForElementPresent(catalogLink);
-        catalogLink.click();
-        Log.info("Catalog Link clicked");
-    }
-    public void clickManageCategories(){
-        utility.waitForElementPresent(manageCategories);
-        manageCategories.click();
-        Log.info("manageCategories  clicked");
 
     }
-    public void clickTeam1RootCategory(){
+
+    public void clickTeam1RootCategory() {
         utility.waitForElementPresent(team1RootCategory);
         team1RootCategory.click();
         Log.info(" team1RootCategory  clicked");
     }
-    public void enterDescriptionTextBox(String KaMerDiscription){
+
+    public void enterDescriptionTextBox() {
         utility.waitForElementPresent(descriptionTextBox);
-        descriptionTextBox.sendKeys(KaMerDiscription);
+        descriptionTextBox.clear();
+        descriptionTextBox.sendKeys(prop.getProperty("ca-firstNmae"));
+        Log.info("Description is entered");
     }
-    public void clickSaveButton(){
+
+    public void clickSaveButton() {
         utility.waitForElementPresent(saveButton);
         saveButton.click();
-        Log.info("  saveButton clicked");
+        Log.info("Save Button Clicked");
+    }
+
+    public boolean isEditSubCategorySuccessMassage() {
+        utility.waitForElementPresent(editSubCategorySuccessMassage);
+        return editSubCategorySuccessMassage.isDisplayed();
 
     }
 
-    public boolean editSubCategories(){
-        clickCatalogLink();
-        clickManageCategories();
+    public void editSubCategories() {
+        catalogDashboardPage = new CatalogDashboardPage(driver);
+        catalogDashboardPage.clickCatalogLink();
+        catalogDashboardPage.clickManageCategories();
         clickTeam1RootCategory();
-        enterDescriptionTextBox(prop.getProperty("ca-firstNmae"));
+        enterDescriptionTextBox();
         clickSaveButton();
-        Log.info("  saveButton clicked");
-        return editSubCategories();
+
+
     }
 }

@@ -6,7 +6,6 @@ import com.seleniummaster.magento.backendpages.storepages.OrderPage;
 import com.seleniummaster.magento.backendpages.storepages.StoreDashboardPage;
 import com.seleniummaster.magento.backendpages.storepages.UpdateProductCategoriesPage;
 import com.seleniummaster.magento.utility.Log;
-import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -16,7 +15,7 @@ public class StoreModuleTestRunner extends TestBasePage {
 
     @BeforeClass
     public void setUp() {
-        setUpBrowser();
+        
         Log.info("Add new customer started");
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin = new BackEndLogin(driver);
@@ -73,6 +72,7 @@ public class StoreModuleTestRunner extends TestBasePage {
     }
     @Test(description = "Store Manager can add product categories-KaMer")
     public void addProductCategories(){
+
 
     }
     @Test(description = "Store Manager can update product categories-AyPer")
