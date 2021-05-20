@@ -7,6 +7,7 @@ import com.seleniummaster.magento.backendpages.customerpages.DeleteAnExistingCus
 import com.seleniummaster.magento.backendpages.customerpages.UpdateCustomerGroupPage;
 import com.seleniummaster.magento.testdata.TestDataHolder;
 import com.seleniummaster.magento.utility.Log;
+import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
