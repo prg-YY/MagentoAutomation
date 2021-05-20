@@ -7,24 +7,26 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class CustomerDashboardPage extends TestBasePage {
+public class ManageCustomerDashboardPage extends com.seleniummaster.magento.utility.TestBasePage {
     WebDriver driver;
 
     TestUtility utility;
-    @FindBy(xpath = "a[@class='link-logout']")
+    @FindBy(xpath = "//span[text()='Customers']")
+    WebElement customersLink;
+    @FindBy(xpath = "//a[@class='link-logout']")
     WebElement LogoutButton;
-    @FindBy(xpath = "span[text()='Manage Customers']")
+    @FindBy(xpath = "//span[text()='Manage Customers']")
     WebElement  ManageCustomerLink;
-    @FindBy(xpath = "span[text()='Customer Groups']")
+    @FindBy(xpath = "//span[text()='Customer Groups']")
     WebElement CustomerGroupLink;
-    @FindBy(xpath = "button[@title='Add New Customer']")
+    @FindBy(xpath = "(//span[text()='Add New Customer'])[1]")
     WebElement AddNewCustomerButton;
-    @FindBy(css = "input[type=\"text\"][id=\"customerGrid_filter_name\"]")
+    @FindBy(xpath = "//button[@title='Add New Customer']")
     WebElement NameTextBox;
     @FindBy(xpath = "//span[text()='Search']")
     WebElement searchLink;
 
-    public CustomerDashboardPage(WebDriver driver) {
+    public ManageCustomerDashboardPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver);
@@ -32,6 +34,10 @@ public class CustomerDashboardPage extends TestBasePage {
     public void cLickLogoutButton(){
         utility.waitForElementPresent(LogoutButton);
         LogoutButton.click();
+    }
+    public void clickCustomersLink(){
+        utility.waitForElementPresent(customersLink);
+        customersLink.click();
     }
 
     public void clickManageCustomerLink(){

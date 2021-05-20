@@ -104,7 +104,11 @@ public class ShoppingCartAndProductsPage extends TestBasePage {
 
     public void productsOrdered(){
         clickFromBoxOrdered();
+        utility.sleep(1);
         clickToBoxOrdered();
+        utility.sleep(1);
+        clickRefreshButton();
+        utility.sleep(1);
     }
 
 

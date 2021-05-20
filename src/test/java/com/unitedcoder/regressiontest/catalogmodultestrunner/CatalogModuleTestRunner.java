@@ -2,6 +2,7 @@ package com.unitedcoder.regressiontest.catalogmodultestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.catalogpages.AddSubCategoryPage;
+import com.seleniummaster.magento.backendpages.catalogpages.DeleteSubCategoryPage;
 import com.seleniummaster.magento.backendpages.catalogpages.EditCategoriesPage;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
@@ -26,13 +27,22 @@ public class CatalogModuleTestRunner extends TestBasePage {
     @Test(description = "edit root categories-yusuf")
     public void editCategoriesTest(){
         EditCategoriesPage categoriesPage=new EditCategoriesPage();
-        categoriesPage.editCategoriesPage(prop.getProperty("rootCategoryMetaTitlePrefix"));
+        categoriesPage.editCategoriesPage();
         Assert.assertTrue(categoriesPage.displaySuccessMessage());
     }
+    @Test(description = "Customer Manager can delete subcategory-Ayper")
+    public void deleteSubcategory(){
+        EditCategoriesPage categoriesPage=new EditCategoriesPage();
+        DeleteSubCategoryPage subCategoryPage = new DeleteSubCategoryPage(driver);
+        categoriesPage.editCategoriesPage();
+        subCategoryPage.deleteSub();
+
+    }
+
     @Test(description = "add sub categories-zuhraubul")
     public void addSubCategoryTest(){
         AddSubCategoryPage subCategoryPage=new AddSubCategoryPage(driver);
-        subCategoryPage.confirmSuccessMessage();
+        subCategoryPage.isAddSubCategorySuccessMassage();
 
 
 

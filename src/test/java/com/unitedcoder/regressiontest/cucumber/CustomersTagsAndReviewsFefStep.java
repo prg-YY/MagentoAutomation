@@ -2,9 +2,9 @@ package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.magento.backendpages.ReportingModule.CustomersTagsAndReviewsPage;
 import com.seleniummaster.magento.backendpages.ReportingModule.ReportingManagerDashboardPage;
-import com.seleniummaster.magento.backendpages.ReportingModule.SalesPage;
 import com.seleniummaster.magento.backendpages.ReportingModule.ShoppingCartAndProductsPage;
 import com.seleniummaster.magento.utility.TestBasePage;
+import com.seleniummaster.magento.utility.TestUtility;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -13,6 +13,7 @@ public class CustomersTagsAndReviewsFefStep extends TestBasePage {
     ReportingManagerDashboardPage dashboardPage = new ReportingManagerDashboardPage(driver);
     ShoppingCartAndProductsPage cartAndProductsPage = new ShoppingCartAndProductsPage(driver);
     CustomersTagsAndReviewsPage customersTagsAndReviewsPage=new CustomersTagsAndReviewsPage(driver);
+    TestUtility utility=new TestUtility(driver);
 
 
     @When("click on Reports drop down list than click on New Accounts under of Customers")
@@ -25,7 +26,6 @@ public class CustomersTagsAndReviewsFefStep extends TestBasePage {
     @And("fill the From field and To field then click on Refresh Button\\(New Accounts Report)")
     public void fillTheFromFieldAndToFieldThenClickOnRefreshButtonNewAccountsReport() {
         cartAndProductsPage.productsOrdered();
-        cartAndProductsPage.clickRefreshButton();
     }
 
     @Then("verify New Accounts on the right up")

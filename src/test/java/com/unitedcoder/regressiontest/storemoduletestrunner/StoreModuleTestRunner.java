@@ -4,6 +4,7 @@ import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.storepages.ManageProductsPage;
 import com.seleniummaster.magento.backendpages.storepages.OrderPage;
 import com.seleniummaster.magento.backendpages.storepages.StoreDashboardPage;
+import com.seleniummaster.magento.backendpages.storepages.UpdateProductCategoriesPage;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
@@ -15,7 +16,7 @@ public class StoreModuleTestRunner extends TestBasePage {
 
     @BeforeClass
     public void setUp() {
-        setUpBrowser();
+        
         Log.info("Add new customer started");
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin = new BackEndLogin(driver);
@@ -73,10 +74,17 @@ public class StoreModuleTestRunner extends TestBasePage {
     @Test(description = "Store Manager can add product categories-KaMer")
     public void addProductCategories(){
 
+
     }
     @Test(description = "Store Manager can update product categories-AyPer")
     public void updateProductCategories(){
-
+        ManageProductsPage manageProductsPage=new ManageProductsPage(driver);
+        StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
+        storeDashboardPage.clickAllCatalogLink();
+        storeDashboardPage.clickManageProductsLink();
+        UpdateProductCategoriesPage updateProductCategoriesPage = new UpdateProductCategoriesPage();
+        updateProductCategoriesPage.updateProductCategories();
+        Assert.assertTrue(updateProductCategoriesPage.isDisplaySuccessMessage());
     }
     @Test(description = "Store Manager can create a website-AbDuKaHar")
     public void createWebSite(){

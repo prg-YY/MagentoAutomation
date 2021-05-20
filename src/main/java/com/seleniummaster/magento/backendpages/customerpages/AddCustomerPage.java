@@ -11,9 +11,9 @@ import org.openqa.selenium.support.PageFactory;
 public class AddCustomerPage extends TestBasePage {
     WebDriver driver;
     TestUtility utility;
+    ManageCustomerDashboardPage customerDashboardPage;
 
-    @FindBy(xpath = "//button[@title=\"Add New Customer\"]")
-    WebElement addNewCustomerBox;
+
     @FindBy(name = "account[firstname]")
     WebElement firstNameInputBox;
     @FindBy(name = "account[lastname]")
@@ -34,30 +34,26 @@ public class AddCustomerPage extends TestBasePage {
         utility=new TestUtility(driver);
     }
 
-    public void clickOnAddCustomerLink(){
-        utility.waitForElementPresent(addNewCustomerBox);
-        addNewCustomerBox.click();
-        Log.info("Add new customer link clicked");
-    }
-    public void enterFirstName(String firstName){
+
+    public void enterFirstName(){
         utility.waitForElementPresent(firstNameInputBox);
-        firstNameInputBox.sendKeys(firstName);
-        Log.info("First name has been sent as " + firstName);
+        firstNameInputBox.sendKeys(prop.getProperty("yusufFirstName"));
+        Log.info("First name has entered");
     }
-    public void enterLastName(String lastName){
+    public void enterLastName(){
         utility.waitForElementPresent(lastNameInputBox);
-        lastNameInputBox.sendKeys(lastName);
-        Log.info("Last name has been sent as " + lastName);
+        lastNameInputBox.sendKeys(prop.getProperty("yusufLastName"));
+        Log.info("Last name has entered ");
     }
-    public void enterEmail(String email){
+    public void enterEmail(){
         utility.waitForElementPresent(emailInputBox);
-        emailInputBox.sendKeys(email);
-        Log.info("email has been sent as " + email);
+        emailInputBox.sendKeys(prop.getProperty("ca-email"));
+        Log.info("email has entered ");
     }
-    public void enterPassword(String password){
+    public void enterPassword(){
         utility.waitForElementPresent(passwordInputBox);
-        passwordInputBox.sendKeys(password);
-        Log.info("password has been sent as " + password);
+        passwordInputBox.sendKeys(prop.getProperty("password"));
+        Log.info("password has entered ");
     }
     public void clickSaveCustomerLink(){
         utility.waitForElementPresent(saveCustomerLink);
@@ -68,14 +64,19 @@ public class AddCustomerPage extends TestBasePage {
         utility.waitForElementPresent(successMessage);
         return successMessage.isDisplayed();
     }
-    public boolean addNewCustomer(){
-        clickOnAddCustomerLink();
-        enterFirstName(prop.getProperty("yusufFirstName"));
-        enterLastName(prop.getProperty("ca-firstNmae"));
-        enterEmail(prop.getProperty("yusufEmail"));
-        enterPassword(prop.getProperty("yusufPassword"));
+    public void addNewCustomer(){
+        customerDashboardPage=new ManageCustomerDashboardPage(driver);
+        customerDashboardPage.clickAddNewCustomerButton();
+        utility.sleep(1);
+        enterFirstName();
+        utility.sleep(1);
+        enterLastName();
+        utility.sleep(2);
+        enterEmail();
+        utility.sleep(1);
+        enterPassword();
+        utility.sleep(1);
         clickSaveCustomerLink();
-        return verifySuccessMessage();
-
+        utility.sleep(2);
     }
 }
