@@ -6,6 +6,7 @@ import com.seleniummaster.magento.backendpages.storepages.OrderPage;
 import com.seleniummaster.magento.backendpages.storepages.StoreDashboardPage;
 import com.seleniummaster.magento.backendpages.storepages.UpdateProductCategoriesPage;
 import com.seleniummaster.magento.utility.Log;
+import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
