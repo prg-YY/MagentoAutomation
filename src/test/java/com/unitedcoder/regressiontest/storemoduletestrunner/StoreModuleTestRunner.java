@@ -4,6 +4,7 @@ import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.storepages.ManageProductsPage;
 import com.seleniummaster.magento.backendpages.storepages.OrderPage;
 import com.seleniummaster.magento.backendpages.storepages.StoreDashboardPage;
+import com.seleniummaster.magento.backendpages.storepages.UpdateProductCategoriesPage;
 import com.seleniummaster.magento.utility.Log;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -76,7 +77,13 @@ public class StoreModuleTestRunner extends TestBasePage {
     }
     @Test(description = "Store Manager can update product categories-AyPer")
     public void updateProductCategories(){
-
+        ManageProductsPage manageProductsPage=new ManageProductsPage(driver);
+        StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
+        storeDashboardPage.clickAllCatalogLink();
+        storeDashboardPage.clickManageProductsLink();
+        UpdateProductCategoriesPage updateProductCategoriesPage = new UpdateProductCategoriesPage();
+        updateProductCategoriesPage.updateProductCategories();
+        Assert.assertTrue(updateProductCategoriesPage.isDisplaySuccessMessage());
     }
     @Test(description = "Store Manager can create a website-AbDuKaHar")
     public void createWebSite(){

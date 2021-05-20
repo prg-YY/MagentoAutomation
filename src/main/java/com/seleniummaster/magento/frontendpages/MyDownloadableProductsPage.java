@@ -17,8 +17,7 @@ public class MyDownloadableProductsPage extends TestBasePage {
     TestUtility utility;
     @FindBy(xpath = "//div[@class=\"block-content\"]/ul/li[12]")
     WebElement myDownloadableProductsLink;
-    //cobine Driver
-
+    //combine Driver
     public MyDownloadableProductsPage(WebDriver driver) {
         this.driver=driver;
         PageFactory.initElements(driver,this);
@@ -41,7 +40,6 @@ public class MyDownloadableProductsPage extends TestBasePage {
             }else {
                 System.out.println(" there is no existing products");
             }
-
         }
     }
 
