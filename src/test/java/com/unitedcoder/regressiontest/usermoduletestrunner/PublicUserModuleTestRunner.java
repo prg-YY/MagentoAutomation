@@ -1,5 +1,4 @@
 package com.unitedcoder.regressiontest.usermoduletestrunner;
-import com.seleniummaster.magento.backendpages.customerpages.CustomerDashboardPage;
 import com.seleniummaster.magento.frontendpages.*;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
