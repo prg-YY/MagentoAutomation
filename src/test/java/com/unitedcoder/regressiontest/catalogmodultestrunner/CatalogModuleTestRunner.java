@@ -5,6 +5,7 @@ import com.seleniummaster.magento.backendpages.catalogpages.AddSubCategoryPage;
 import com.seleniummaster.magento.backendpages.catalogpages.DeleteSubCategoryPage;
 import com.seleniummaster.magento.backendpages.catalogpages.EditCategoriesPage;
 import com.seleniummaster.magento.utility.Log;
+import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
