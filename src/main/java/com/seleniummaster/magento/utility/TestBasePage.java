@@ -73,7 +73,7 @@ public class TestBasePage {
         Log.info("Browser has been setup");
     }
 
-    public static void initialzation(String url) {
+    public static void initialization(String url) {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         if (driver==null){
