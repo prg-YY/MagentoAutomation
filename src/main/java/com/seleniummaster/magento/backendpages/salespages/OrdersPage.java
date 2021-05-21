@@ -238,6 +238,8 @@ public class OrdersPage extends TestBasePage {
         utility.waitForElementPresent(companyNameTextBox);
         companyNameTextBox.sendKeys(companyName);
         utility.sleep(1);
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("window.scrollBy(0,500)");
         Log.info("Order Description has been added");
     }
     public void clickEditSubmitButton(){
@@ -246,7 +248,7 @@ public class OrdersPage extends TestBasePage {
         checkOnFixedRadioButton();
         utility.sleep(1);
         JavascriptExecutor js = (JavascriptExecutor)driver;
-        js.executeScript("window.scrollBy(0,1000)");
+        js.executeScript("window.scrollBy(0,500)");
         clickSubmitOrderButton();
         Log.info("Submit Order button has been clicked");
 
