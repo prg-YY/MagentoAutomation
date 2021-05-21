@@ -37,7 +37,7 @@ public class TestBasePage {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         if (systemName.contains("Mac")) {
-            System.setProperty("webdriver.chrome.driver","/usr/local/bin/chromedriver");
+            System.setProperty("webdriver.chrome.driver","/Users/prg/Documents/chromedriver/chromedriver");
             /*
             chromeOptions.addArguments("--headless");
             chromeOptions.addArguments("--disable-gpu");

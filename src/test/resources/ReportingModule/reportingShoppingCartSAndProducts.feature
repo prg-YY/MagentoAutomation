@@ -1,4 +1,4 @@
-@ReportingModule(ShoppingCart)(Products)
+@ReportingModuleShoppingCartProducts
 Feature: Reporting Manager should be able to see Shopping Cart:
   - Product in carts Report
   - Abandoned carts Report
@@ -14,40 +14,40 @@ Feature: Reporting Manager should be able to see Shopping Cart:
     When user enter username and password click on login button
     Then user successfully login to the system
 
-  @SeeProductInCartsReport
+  #SeeProductInCartsReport
   Scenario: Reporting Manager should be able to see  Shopping Cart - Product in carts Report
     When click on Reports drop down list than click on Product in carts under of Shopping Cart
     Then verify Products in carts Report
 
-  @SeeAbandonedCartsReport
+  #SeeAbandonedCartsReport
   Scenario: Reporting Manager should be able to see  Shopping Cart - Abandoned carts Report
     When click on Reports drop down list than click on Abandoned carts of Shopping Cart
     Then verify Abandoned carts Report
 
-  @SeeProductsBestsellersReport
+  #SeeProductsBestsellersReport
   Scenario: Reporting Manager should be able to see - Products Bestsellers Report
     When click on Reports drop down list than click on Bestsellers under of Products
     And fill the Order Date on From field and To field then click on Show Report Button(Bestsellers)
     Then verify Products Bestsellers Report
 
-  @SeeProductsOrderedReport
+  #SeeProductsOrderedReport
   Scenario: Reporting Manager should be able to see - Products Ordered Report
     When click on Reports drop down list than click on Products Ordered of Products
     And fill the Order Date on From field and To field then click on Show Report Button(ProductsOrder)
     Then verify Products Ordered Report
 
-  @SeeProductsMostViewedReport
+  #SeeProductsMostViewedReport
   Scenario: Reporting Manager should be able to see - Products Most Viewed Report
     When click on Reports drop down list than click on Most Viewed of Products
     And fill the Order Date on From field and To field then click on Show Report Button(Most Viewed)
     Then verify Most Viewed Report Report
 
-  @SeeProductsLowStockReport
+  #SeeProductsLowStockReport
   Scenario: Reporting Manager should be able to see - Products low stock Report
     When click on Reports drop down list than click on Low Stock of Products
     Then verify Low stock Report
 
-  @SeeProductsDownloadsReport
+  #SeeProductsDownloadsReport
   Scenario: Reporting Manager should be able to see - Products Downloads Report
     When click on Reports drop down list than click on Downloads of Products
     And fill the Product Name on the Text box then click the search Button

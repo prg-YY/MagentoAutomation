@@ -11,7 +11,12 @@ public class CustomersTagsAndReviewsPage extends TestBasePage {
 
     WebDriver driver;
     TestUtility utility;
-
+    @FindBy(id = "period_date_from")
+    WebElement FromField;
+    @FindBy(id = "period_date_to")
+    WebElement ToField;
+    @FindBy(css = "button[title='Refresh']")
+    WebElement RefreshButton;
     @FindBy(xpath = "(//h3[text()='New Accounts'])[1]")
     WebElement newAccountsSuccessMassage;
     @FindBy(xpath = "(//h3[text()='Customers by Orders Total'])[1]")
@@ -60,6 +65,17 @@ public class CustomersTagsAndReviewsPage extends TestBasePage {
     public void clickProductsReviewsSuccessMassage(){
         utility.waitForElementPresent(productsReviewsSuccessMassage);
         productsReviewsSuccessMassage.isDisplayed();
+    }
+    public void chooseDateOfCustomersByOrdersTotalAndClickAndRefreshButton(){
+        utility.sleep(1);
+        FromField.sendKeys("04/1/2021");
+
+        utility.sleep(1);
+        ToField.sendKeys("05/1/2021");
+
+        utility.sleep(1);
+        RefreshButton.click();
+        utility.sleep(2);
     }
 
 }

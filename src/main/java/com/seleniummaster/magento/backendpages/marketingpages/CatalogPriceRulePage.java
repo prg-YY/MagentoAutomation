@@ -54,12 +54,12 @@ public class CatalogPriceRulePage extends TestBasePage {
     }
     public void clickRuleNameTextBox(){
         utility.waitForElementPresent(ruleNameTextBox);
-        ruleNameTextBox.click();
+        ruleNameTextBox.sendKeys("duttar");
         Log.info("New rule name entered");
     }
     public void clickRuleIdTextBox(){
         utility.waitForElementPresent(ruleIdTextBox);
-        ruleIdTextBox.click();
+        ruleIdTextBox.sendKeys("1");
         Log.info("New rule ID entered");
     }
     public void clickApplyRulesButton(){

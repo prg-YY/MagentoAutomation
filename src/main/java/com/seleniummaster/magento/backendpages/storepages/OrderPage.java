@@ -2,7 +2,6 @@ package com.seleniummaster.magento.backendpages.storepages;
 
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
-import org.apache.tools.ant.taskdefs.Sleep;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -28,7 +27,7 @@ public class OrderPage extends TestBasePage{
     WebElement selectedStoreCheckBox;
     @FindBy(xpath = "//span[text()=\"Add Products\"]")
     WebElement AddProductButton;
-    @FindBy(xpath = "(//input[@type=\"checkbox\" and @class=\"checkbox\"])[2]")
+    @FindBy(xpath = "(//input[@type=\"checkbox\" and @class=\"checkbox\"])[6]")
     WebElement selectedProductCheckBox;
     @FindBy(xpath = "//span[text()=\"Add Selected Product(s) to Order\"]")
     WebElement addSelectedProductToOrderButton;
@@ -62,7 +61,7 @@ public class OrderPage extends TestBasePage{
         PageFactory.initElements(driver, this);
         utility=new TestUtility(driver);
     }
-	//Store Manager can create a new order
+    //Store Manager can create a new order
     public void clickCreateNewOrderButton(){
         utility.waitForElementPresent(CreateNewOrderButton);
         CreateNewOrderButton.click();
@@ -101,7 +100,12 @@ public class OrderPage extends TestBasePage{
     }
     public void clickAddProductButton(){
         utility.waitForElementPresent(AddProductButton);
-        AddProductButton.click();
+        try {
+            AddProductButton.click();
+        } catch (ElementClickInterceptedException e) {
+            e.printStackTrace();
+        }
+
     }
     public void clickSelectedProductCheckBox(){
         utility.waitForElementPresent(selectedProductCheckBox);
@@ -154,7 +158,7 @@ public class OrderPage extends TestBasePage{
         verifySuccessfulAddedMsg();
     }
 
-	//Store Manager can edit orders
+    //Store Manager can edit orders
 
 
     public void selectStore(){

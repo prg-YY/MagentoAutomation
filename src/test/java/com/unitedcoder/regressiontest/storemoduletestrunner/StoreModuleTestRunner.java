@@ -1,10 +1,7 @@
 package com.unitedcoder.regressiontest.storemoduletestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
-import com.seleniummaster.magento.backendpages.storepages.ManageProductsPage;
-import com.seleniummaster.magento.backendpages.storepages.OrderPage;
-import com.seleniummaster.magento.backendpages.storepages.StoreDashboardPage;
-import com.seleniummaster.magento.backendpages.storepages.UpdateProductCategoriesPage;
+import com.seleniummaster.magento.backendpages.storepages.*;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
@@ -16,7 +13,7 @@ public class StoreModuleTestRunner extends TestBasePage {
 
     @BeforeClass
     public void setUp() {
-        
+        setUpBrowser();
         Log.info("Add new customer started");
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin = new BackEndLogin(driver);
@@ -42,7 +39,7 @@ public class StoreModuleTestRunner extends TestBasePage {
 
     }
     @Test(description = "Store Manager can delete orders-Yusuf")
-    public void deleteOrder(){
+    public void deleteOrder(){// cancelOrder
         StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
         storeDashboardPage.clickAllSalesLink();
         storeDashboardPage.clickOrdersLink();
@@ -73,45 +70,78 @@ public class StoreModuleTestRunner extends TestBasePage {
     }
     @Test(description = "Store Manager can add product categories-KaMer")
     public void addProductCategories(){
-
+        StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
+        storeDashboardPage.clickAllCatalogLink();
+        storeDashboardPage.clickManageCategoriesLink();
+        ProductCategoriesPage productCategoriesPage=new ProductCategoriesPage(driver);
+        productCategoriesPage.addProductCategory();
+        Assert.assertTrue(productCategoriesPage.VerifySuccessfullyAddCategoryMsg());
 
     }
     @Test(description = "Store Manager can update product categories-AyPer")
     public void updateProductCategories(){
-        ManageProductsPage manageProductsPage=new ManageProductsPage(driver);
         StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
         storeDashboardPage.clickAllCatalogLink();
-        storeDashboardPage.clickManageProductsLink();
-        UpdateProductCategoriesPage updateProductCategoriesPage = new UpdateProductCategoriesPage();
-        updateProductCategoriesPage.updateProductCategories();
-        Assert.assertTrue(updateProductCategoriesPage.isDisplaySuccessMessage());
+        storeDashboardPage.clickManageCategoriesLink();
+        ProductCategoriesPage productCategoriesPage=new ProductCategoriesPage(driver);
+        productCategoriesPage.UpdateProductCategory();
+        Assert.assertTrue(productCategoriesPage.VerifySuccessfullyAddCategoryMsg());
+
     }
     @Test(description = "Store Manager can create a website-AbDuKaHar")
     public void createWebSite(){
+        WebsitePage websitePage=new WebsitePage(driver);
+        websitePage.createWebsite();
+        Assert.assertTrue(websitePage.verifySuccess());
 
     }
     @Test(description = "Store Manager can edit a website-Sofia")
     public void editWebSite(){
+        WebsitePage websitePage=new WebsitePage(driver);
+        websitePage.editWebsite();
+        Assert.assertTrue(websitePage.verifySuccess());
 
     }
     @Test(description = "Store Manager can create a store-Yusuf")
     public void createStore(){
-
+        StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
+        storeDashboardPage.clickCreateStoreLink();
+        StorePage storePage=new StorePage(driver);
+        storePage.createStore();
+        Assert.assertTrue(storePage.verifySuccess());
     }
     @Test(description = "Store Manager can edit a store-ZuhRe")
     public void editStore(){
+        StorePage storePage=new StorePage(driver);
+        storePage.editStore();
+        Assert.assertTrue(storePage.verifySuccess());
 
     }
     @Test(description = "Store Manager can create a store view-KaMer")
     public void createStoreView(){
+        StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
+        storeDashboardPage.clickCreateStoreViewLink();
+        StoreViewPage storeViewPage=new StoreViewPage(driver);
+        storeViewPage.createStoreView();
+        Assert.assertTrue(storeViewPage.verifySuccess());
+
 
     }
     @Test(description = "Store Manager can edit a store view-AyPer")
     public void editStoreView(){
+        StoreViewPage storeViewPage=new StoreViewPage(driver);
+        storeViewPage.editStoreView();
+        Assert.assertTrue(storeViewPage.verifySuccess());
 
     }
     @Test(description = "Store Manager can view all stores-Leila")
     public void viewAllStores(){
+        StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
+        storeDashboardPage.clickAllSalesLink();
+        storeDashboardPage.clickOrdersLink();
+        StoreViewPage storeViewPage=new StoreViewPage(driver);
+        Assert.assertTrue(storeViewPage.viewOrder());
+
 
     }
     @Test(description = "Store Manager can configure a store-MeLiKe")

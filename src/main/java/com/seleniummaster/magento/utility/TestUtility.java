@@ -52,7 +52,7 @@ public class TestUtility extends TestBasePage {
         TakesScreenshot screenshot=(TakesScreenshot)driver;
         File screenShotFile=screenshot.getScreenshotAs(OutputType.FILE);
         String folder= ApplicationConfig.readConfigProperties("config.properties",
-                "imagefolder");
+                "imageFolder");
         File finalFile=new File(folder+File.separator+FileName+".png");
         try {
             FileUtils.copyFile(screenShotFile,finalFile);

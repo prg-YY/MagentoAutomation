@@ -49,11 +49,13 @@ public class MarketingDashBoarPage extends TestBasePage {
     WebElement searchLink;
     @FindBy(css = "button[title='Submit'][type='button']")
     WebElement submitLink;
+    @FindBy(xpath = "//*[@id=\"promo_quote_grid_table\"]/tbody/tr/td[2]")
+    WebElement cartPriceRules;
     @FindBy(xpath = "//*[@class=\"link-logout\"]")
     WebElement logOutLink;
 
 
-    public MarketingDashBoarPage() {
+    public MarketingDashBoarPage( ) {
         this.driver = TestBasePage.driver;
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver);
@@ -153,5 +155,11 @@ public class MarketingDashBoarPage extends TestBasePage {
         utility.waitForElementPresent(logOutLink);
         logOutLink.click();
         Log.info("Log Out Link Clicked");
+    }
+    public void ShoppingCartPriceRulesVerify(){
+        utility.sleep(2);
+        cartPriceRules.isDisplayed();
+
+
     }
 }

@@ -20,6 +20,7 @@ import java.util.Random;
 public class CustomerModuleTestRunner extends TestBasePage {
     static UpdateCustomerGroupPage customerGroupPage;
     String groupName = prop.getProperty("cus_GroupName");
+    AddCustomerPage addCustomerPage;
 
     @BeforeClass
     public void setUp() {
@@ -33,9 +34,10 @@ public class CustomerModuleTestRunner extends TestBasePage {
 
     @Test(description = "1:Customer Manager can add a new customer -Yusuf")
     public void addNewCustomer() {
-        AddCustomerPage addCustomerPage = new AddCustomerPage(driver);
+        addCustomerPage=new AddCustomerPage(driver);
         addCustomerPage.addNewCustomer();
         Assert.assertTrue(addCustomerPage.verifySuccessMessage());
+
 
     }
 
@@ -118,3 +120,4 @@ public class CustomerModuleTestRunner extends TestBasePage {
 
     }
 }
+
