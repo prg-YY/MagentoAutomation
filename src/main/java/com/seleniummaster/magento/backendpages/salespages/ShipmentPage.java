@@ -143,7 +143,7 @@ public class ShipmentPage extends TestBasePage {
     }
 
     //alert accept method
-    public void alretAccept(){
+    public void alertAccept(){
         try {
             WebDriverWait wait=new WebDriverWait(driver,2);
             wait.until(ExpectedConditions.alertIsPresent());
@@ -198,7 +198,7 @@ public class ShipmentPage extends TestBasePage {
         utility.sleep(2);
         clickSendInformationButton();
         utility.sleep(2);
-        alretAccept();
+        alertAccept();
     }
 
 
