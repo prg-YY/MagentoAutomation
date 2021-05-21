@@ -187,6 +187,8 @@ public class ManageProductsPage extends TestBasePage {
             VerifySuccessfulUpdated();
 
         }
+        break;
+
     }
 
     }

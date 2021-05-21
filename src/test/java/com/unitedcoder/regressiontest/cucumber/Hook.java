@@ -1,5 +1,7 @@
 package com.unitedcoder.regressiontest.cucumber;
 
+import com.seleniummaster.magento.backendpages.storepages.ManageProductsPage;
+import com.seleniummaster.magento.backendpages.storepages.StoreDashboardPage;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import io.cucumber.java.After;
@@ -16,8 +18,10 @@ public class Hook extends TestBasePage {
 
     @After
     public void tearDown() {
+        StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
+        storeDashboardPage.clickLogOutLink();
         driver.close();
-        driver.quit();
+        driver=null;
     }
 
 }

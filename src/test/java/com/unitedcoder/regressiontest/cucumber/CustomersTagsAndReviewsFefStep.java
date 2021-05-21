@@ -34,6 +34,7 @@ public class CustomersTagsAndReviewsFefStep extends TestBasePage {
 
     @Then("verify New Accounts on the right up")
     public void verifyNewAccountsOnTheRightUp() {
+
         customersTagsAndReviewsPage.clickNewAccountsSuccessMassage();
         utility.takeScreenShot("New_Accounts",driver);
     }

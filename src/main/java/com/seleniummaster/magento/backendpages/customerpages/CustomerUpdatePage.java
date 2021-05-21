@@ -12,8 +12,6 @@ public class CustomerUpdatePage extends TestBasePage {
     WebDriver driver;
     String ConfigFile = "config.properties";
     TestUtility utility;
-    ManageCustomerDashboardPage dashboardPage;
-
     @FindBy(xpath = "//div[@class='hor-scroll']/table[1]/tbody/tr[1]/td[12]/a")
     WebElement editLink;
     //ul[@id='customer_info_tabs']/li[4]/a/span
@@ -72,6 +70,11 @@ public class CustomerUpdatePage extends TestBasePage {
 
     public void clickSaveCustomerButton() {
         utility.waitForElementPresent(saveCustomerButton);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         saveCustomerButton.click();
     }
 
@@ -83,14 +86,12 @@ public class CustomerUpdatePage extends TestBasePage {
 
 
     public void updateCustomerInformation() {
-        dashboardPage=new ManageCustomerDashboardPage(driver);
-        dashboardPage.clickCustomersLink();
-        dashboardPage.clickManageCustomerLink();
+
         clickEditLink();
         clickWithJSAccountLink();
         typeTaxVat();
         clickSaveCustomerButton();
-
+        displaySuccessMessage();
     }
 }
 
