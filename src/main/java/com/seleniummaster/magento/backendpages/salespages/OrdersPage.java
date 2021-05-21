@@ -3,11 +3,14 @@ package com.seleniummaster.magento.backendpages.salespages;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
@@ -37,20 +40,23 @@ public class OrdersPage extends TestBasePage {
     @FindBy(xpath = "//span[text()='Add Products']")
     WebElement addProductsLink;
     //input[@type='checkbox' and @value='59']
-    @FindBy(xpath = "//*[@id=\"sales_order_create_search_grid_table\"]/tbody/tr[5]/td[2]")
-    WebElement uyghurBookChekBox;
+    @FindBy(xpath = "//div[@class='page-create-order']/table/tbody/tr/td[2]/div[2]/div/div[2]/div/div/div/table/tbody/tr[6]/td[5]")
+    WebElement uyghurBookCheckBox;
+    //(//input[@value='59'])[1]
     @FindBy(xpath = "//span[text()='Add Selected Product(s) to Order']")
     WebElement addProductToOrderLink;
-    @FindBy(id = "p_method_cashondelivery")
+    @FindBy(id = "p_method_checkmo")
     WebElement paymentCheckBox;
     @FindBy(xpath = "//*[@id='order-shipping-method-summary']/a")
     WebElement getShippingMethodLink;
     @FindBy(id = "s_method_flatrate_flatrate")
     WebElement fixedRadioButton;
-    @FindBy(xpath = "//span[text()='Submit Order']")
+    @FindBy(xpath = "//*[@class=\"order-totals-bottom\"]/p[3]/button/span/span/span")
     WebElement submitOrderButton;
     @FindBy(xpath = "//*[@class=\"messages\"]" )
-    WebElement successMessage;
+    WebElement successMessageForCreate;
+    @FindBy(xpath = "//*[@class=\"success-msg\"]" )
+    WebElement successMessageForUpdate;
 
 
     // method for create order actions
@@ -94,47 +100,45 @@ public class OrdersPage extends TestBasePage {
     public void clickOnAddProductsLink(){
         utility.waitForElementPresent(addProductsLink);
         addProductsLink.click();
-        utility.sleep(2);
         Log.info("Add product Link For Order has been clicked");
     }
     public void clickOnUyghurBookChekBox(){
-        utility.waitForElementPresent(uyghurBookChekBox);
-        uyghurBookChekBox.click();
-        utility.sleep(3);
+        utility.waitForElementPresent(uyghurBookCheckBox);
+        uyghurBookCheckBox.click();
         Log.info("uyghur Book ChekBox has been clicked");
     }
     public void clickOnAddProductToOrderLink(){
         utility.waitForElementPresent(addProductToOrderLink);
         addProductToOrderLink.click();
-        utility.sleep(2);
         Log.info("Add Products to Order Link has been clicked");
     }
     public void checkPaymentMethod(){
         utility.waitForElementPresent(paymentCheckBox);
         paymentCheckBox.click();
-        utility.sleep(1);
         Log.info("Payment method Check box has been clicked");
     }
     public void clickOnGetShippingMethodLink(){
+        utility.sleep(2);
         utility.waitForElementPresent(getShippingMethodLink);
+        utility.sleep(2);
         getShippingMethodLink.click();
-        utility.sleep(1);
         Log.info("get shipping method link has been clicked");
     }
     public void checkOnFixedRadioButton(){
         utility.waitForElementPresent(fixedRadioButton);
         fixedRadioButton.click();
-        utility.sleep(1);
+        utility.sleep(2);
         Log.info("fixed Radio button  has been checked");
     }
-    public void clickOnSubmitOrderButton(){
+    public void clickSubmitOrderButton(){
         utility.waitForElementPresent(submitOrderButton);
-        utility.sleep(1);
+        utility.sleep(3);
         submitOrderButton.click();
+        Log.info("Submit order button has been clicked");
     }
     public boolean verifyOrderCreatedSuccessfully(){
-        utility.waitForElementPresent(successMessage);
-        if (successMessage.getText().contains("Success")){
+        utility.waitForElementPresent(successMessageForCreate);
+        if (successMessageForCreate.getText().contains("Success")){
             Log.info("Test Passed ,The Order Created Successfully");
         }else Log.info("Test Failed,Cannot Create Order");
         return true;
@@ -150,14 +154,22 @@ public class OrdersPage extends TestBasePage {
         clickOnTeam1Store();
         utility.sleep(2);
         clickOnAddProductsLink();
-        utility.sleep(2);
-        clickOnT1_Cus_CheckBox();
-        clickOnAddProductsLink();
+        utility.sleep(3);
         clickOnUyghurBookChekBox();
+        utility.sleep(2);
         clickOnAddProductToOrderLink();
         utility.sleep(2);
-        clickOnGetShippingMethodLink();
-        utility.sleep(2);
+    }
+    public void clickShipmentAndSubmitButton(){
+       checkPaymentMethod();
+       utility.sleep(2);
+       clickOnGetShippingMethodLink();
+       utility.sleep(2);
+       checkOnFixedRadioButton();
+       utility.sleep(1);
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("window.scrollBy(0,1000)");
+        clickSubmitOrderButton();
     }
 
     public void createNewOrder(){
@@ -177,7 +189,7 @@ public class OrdersPage extends TestBasePage {
         clickOnAddProductToOrderLink();
         clickOnGetShippingMethodLink();
         checkOnFixedRadioButton();
-        clickOnSubmitOrderButton();
+        clickSubmitOrderButton();
         verifyOrderCreatedSuccessfully();
     }
 
@@ -204,25 +216,85 @@ public class OrdersPage extends TestBasePage {
     }
     @FindBy(xpath ="//span[text()='Edit']" )
     WebElement editLink;
-    @FindBy(xpath = "//*[@id=\"sales_order_grid_table\"]/tbody/tr[1]/td[1]/input")
-    WebElement orderCheckBox;
+    @FindBy(xpath = "//*[@id=\"sales_order_grid_table\"]/tbody/tr[1]/td[10]/a")
+    WebElement orderViewLink;
     @FindBy(id = "order-billing_address_company")
     WebElement companyNameTextBox;
-    public void clickOnCheckBoxFOrUpdate(){
-        utility.waitForElementPresent(orderCheckBox);
-        orderCheckBox.click();
+    public void clickOnOrderViewForUpdate(){
+        utility.waitForElementPresent(orderViewLink);
+        orderViewLink.click();
+        utility.sleep(2);
+        Log.info("Order view link has been clicked");
     }
     public void clickEditButton(){
         utility.waitForElementPresent(editLink);
         editLink.click();
+        Alert alert=driver.switchTo().alert();
+        utility.waitForAlertPresent();
+        alert.accept();
+        Log.info("Edit button has been Clicked");
     }
     public void enterCompanyName(String companyName){
         utility.waitForElementPresent(companyNameTextBox);
         companyNameTextBox.sendKeys(companyName);
+        utility.sleep(1);
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("window.scrollBy(0,500)");
+        Log.info("Order Description has been added");
+    }
+    public void clickEditSubmitButton(){
+        clickOnGetShippingMethodLink();
+        utility.sleep(2);
+        checkOnFixedRadioButton();
+        utility.sleep(1);
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("window.scrollBy(0,500)");
+        clickSubmitOrderButton();
+        Log.info("Submit Order button has been clicked");
+
+    }
+    public boolean isOrderUpdatedSuccessfully(){
+        utility.waitForElementPresent(successMessageForUpdate);
+        if (successMessageForUpdate.isDisplayed()){
+            System.out.println("Test Passed , The Order Updated Successfully");
+        }else System.out.println("Test Failed");
+        return true;
     }
 
-    public void update_Order(){
+    //cancel order elements
+    @FindBy(xpath = "//*[@id=\"sales_order_grid_table\"]/tbody/tr[1]/td[1]/input")
+    WebElement orderCheckBox;
+    @FindBy(id = "sales_order_grid_massaction-select")
+    WebElement cancelOption;
+    @FindBy(xpath = "//span[text()='Submit']")
+    WebElement submitButton;
+    @FindBy(xpath = " //*[@class='success-msg']")
+    WebElement cancelSuccessMessage;
 
+
+    // select cancel option method
+    public void clickOrderCheckBox(){
+        utility.waitForElementPresent(orderCheckBox);
+        orderCheckBox.click();
+        Log.info("Order check box has been clicked");
+    }
+    public void selectCancel(){
+        utility.waitForElementPresent(cancelOption);
+        Select option=new Select(cancelOption);
+        option.selectByValue("cancel_order");
+    }
+    public void clickOnCancelSubmitButton(){
+        utility.sleep(2);
+        utility.waitForElementPresent(submitButton);
+        utility.sleep(2);
+        submitButton.click();
+        Log.info("Cancel submit button has been clicked");
+    }
+    public boolean isCancelSuccessMessageDisplayed(){
+        utility.waitForElementPresent(cancelSuccessMessage);
+        cancelSuccessMessage.isDisplayed();
+        Log.info("1 Order successfully canceled");
+        return cancelSuccessMessage.isDisplayed();
     }
 
 

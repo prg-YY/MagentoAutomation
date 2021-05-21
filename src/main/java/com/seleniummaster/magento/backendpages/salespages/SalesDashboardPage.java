@@ -41,6 +41,7 @@ public class SalesDashboardPage extends TestBasePage {
     public void clickOnSalesLink() {
         utility.waitForElementPresent(salesLink);
         salesLink.click();
+        utility.sleep(1);
         Log.info("All Sales Link clicked ");
     }
 
@@ -53,6 +54,7 @@ public class SalesDashboardPage extends TestBasePage {
     public void clickInvoicesLink() {
         utility.waitForElementPresent(invoicesLink);
         invoicesLink.click();
+        utility.sleep(1);
         Log.info("Invoices Link clicked");
     }
 

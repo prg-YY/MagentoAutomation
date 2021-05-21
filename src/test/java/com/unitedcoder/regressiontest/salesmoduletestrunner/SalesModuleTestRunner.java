@@ -1,10 +1,12 @@
 package com.unitedcoder.regressiontest.salesmoduletestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
+import com.seleniummaster.magento.backendpages.salespages.CreditMemosPage;
 import com.seleniummaster.magento.backendpages.salespages.OrdersPage;
 import com.seleniummaster.magento.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -74,6 +76,12 @@ public class SalesModuleTestRunner extends TestBasePage {
     @Test(description = "Sales Manager should be able to view creditmemos by filters " +
             "and change columns to display and export)-AbDuKaHar")
     public void viewCreditMemos(){
+        SalesDashboardPage salesDashboardPage=new SalesDashboardPage(driver);
+        salesDashboardPage.clickOnSalesLink();
+        salesDashboardPage.clickCreditMemosLink();
+        CreditMemosPage creditMemosPage=new CreditMemosPage(driver);
+        Assert.assertTrue(creditMemosPage.viewCreditMemos());
+
 
     }
 

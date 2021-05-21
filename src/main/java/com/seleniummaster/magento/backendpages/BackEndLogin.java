@@ -16,9 +16,9 @@ public class BackEndLogin extends TestBasePage {
     WebElement userNameField;
     @FindBy(name = "login[password]")
     WebElement passwordField;
-    @FindBy(xpath = "//*[@class=\"form-button\"]")
+    @FindBy(xpath = "//*[@class='form-button']")
     WebElement loginButton;
-    @FindBy(xpath = "//*[@id=\"html-body\"]/div[1]/div[1]/div[1]/a/img")
+    @FindBy(xpath = "//*[@id='html-body']/div[1]/div[1]/div[1]/a/img")
     WebElement loginSuccessfully;
 
     public BackEndLogin(WebDriver driver) {

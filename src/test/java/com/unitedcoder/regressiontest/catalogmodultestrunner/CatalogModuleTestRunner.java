@@ -42,7 +42,7 @@ public class CatalogModuleTestRunner extends TestBasePage {
     @Test(description = "add sub categories-zuhraubul")
     public void addSubCategoryTest(){
         AddSubCategoryPage subCategoryPage=new AddSubCategoryPage(driver);
-        subCategoryPage.confirmSuccessMessage();
+        subCategoryPage.isAddSubCategorySuccessMassage();
 
 
 
@@ -50,6 +50,6 @@ public class CatalogModuleTestRunner extends TestBasePage {
 
     @AfterClass
     public void tearDown(){
-
+    closeBrowser();
     }
 }

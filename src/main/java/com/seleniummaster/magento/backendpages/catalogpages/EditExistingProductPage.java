@@ -11,13 +11,7 @@ public class EditExistingProductPage extends TestBasePage {
 
     WebDriver driver;
     TestUtility utility;
-    //click the catalog category
-    @FindBy(xpath = "//*[@id=\"nav\"]/li/a/span")
-    WebElement catalogCategory;
-    //select the manageProduct option
-
-    @FindBy(xpath = "//*[@id=\"nav\"]/li/ul/li[1]")
-    WebElement manageProduct;
+    CatalogDashboardPage catalogDashboardPage;
 
     //select the existing product and click
     @FindBy(xpath = "//*[@id=\"productGrid_table\"]/tbody/tr[1]/td[3]")
@@ -43,11 +37,10 @@ public class EditExistingProductPage extends TestBasePage {
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver);
     }
-    //select the product and click
-    public void clickTheProduct(){
+   public void clickSelectProduct(){
         utility.waitForElementPresent(selectProduct);
-        selectProduct.click();
-    }
+       selectProduct.click();
+   }
     //click the prices link
     public void clickPriceLink(){
         utility.waitForElementPresent(pricesLink);
@@ -56,6 +49,7 @@ public class EditExistingProductPage extends TestBasePage {
     //enter price in the special price field
     public void enterSpecialPrice(){
         utility.waitForElementPresent(specialPriceTextBoxField);
+        specialPriceTextBoxField.clear();
         specialPriceTextBoxField.sendKeys(prop.getProperty("specialPrice"));
 
         //click the save button
@@ -69,12 +63,15 @@ public class EditExistingProductPage extends TestBasePage {
         utility.waitForElementPresent(editSuccessMessage);
         return editSuccessMessage.isDisplayed();
     }
-    public boolean editExistingProduct(){
-        clickTheProduct();
+    public void editExistingProduct(){
+        catalogDashboardPage = new CatalogDashboardPage(driver);
+        catalogDashboardPage.clickCatalogLink();
+        catalogDashboardPage.clickManageProduct();
+        clickSelectProduct();
         clickPriceLink();
         enterSpecialPrice();
         clickSaveButton();
-        return verifySuccessfulMessage();
+
     }
 
 }

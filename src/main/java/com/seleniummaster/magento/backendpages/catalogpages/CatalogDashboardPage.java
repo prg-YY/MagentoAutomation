@@ -3,6 +3,7 @@ package com.seleniummaster.magento.backendpages.catalogpages;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,6 +17,8 @@ public class CatalogDashboardPage extends TestBasePage {
 
     @FindBy(xpath = "//span[text()='Catalog']")
     WebElement catalogLink;
+    @FindBy(xpath = "//span[text()='Manage Products']")
+    WebElement manageProduct;
     @FindBy(xpath = "//span[text()='Manage Categories']")
     WebElement manageCategories;
     @FindBy(css = "button[title='Add Product'][type='button']")
@@ -43,6 +46,11 @@ public class CatalogDashboardPage extends TestBasePage {
         utility.waitForElementPresent(catalogLink);
         catalogLink.click();
         Log.info("Catalog link clicked");
+    }
+    public void clickManageProduct() {
+        utility.waitForElementPresent(manageProduct);
+        manageProduct.click();
+        Log.info("ManageProduct link clicked");
     }
 
     public void clickManageCategories() {
@@ -73,6 +81,7 @@ public class CatalogDashboardPage extends TestBasePage {
         utility.waitForElementPresent(submitLink);
         submitLink.click();
         Log.info("Submit link clicked");
+
     }
 
     public void clickCheckBoxProduct() {
