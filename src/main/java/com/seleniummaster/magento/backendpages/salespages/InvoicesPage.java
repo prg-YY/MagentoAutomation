@@ -25,7 +25,7 @@ public class InvoicesPage extends TestBasePage {
     WebElement ordersTr;
     @FindBy(xpath = "//*[@id=\"sales_invoice_grid\"]/table/tbody/tr/td[1]/span[2]")
     WebElement totalInvoiceRecord;
-    @FindBy(name = "order_increment_id")
+    @FindBy(id = "sales_invoice_grid_filter_order_increment_id")
     WebElement orderIdSearchBox;
     @FindBy(xpath = "//span[text()='Search']")
     WebElement searchButton;
@@ -80,7 +80,7 @@ public class InvoicesPage extends TestBasePage {
         utility.waitForElementPresent(orderIdSearchBox);
         orderIdSearchBox.sendKeys(orderId);
         utility.sleep(2);
-        Log.info("Order Id"+orderId+"has been entered for search order");
+        Log.info("Order Id "+orderId+" has been entered for search order");
     }
     public void clickOnSearchButton(){
         utility.waitForElementPresent(searchButton);
@@ -103,7 +103,7 @@ public class InvoicesPage extends TestBasePage {
     public void enterComment(String myComments){
         utility.waitForElementPresent(commentTextBox);
         commentTextBox.sendKeys(myComments);
-        Log.info("The My comments has been entered");
+        Log.info("The My comments ("+myComments+") has been entered");
     }
     public void clickNotifyToEmailCheckBox(){
         utility.waitForElementPresent(notifyCheckBox);
@@ -117,7 +117,7 @@ public class InvoicesPage extends TestBasePage {
     }
     public boolean isCommentDisplay(){
         utility.waitForElementPresent(commentBlock);
-        commentBlock.isSelected();
+        commentBlock.isDisplayed();
         return commentBlock.isDisplayed();
     }
 
