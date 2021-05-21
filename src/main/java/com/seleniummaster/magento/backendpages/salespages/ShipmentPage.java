@@ -22,33 +22,34 @@ public class ShipmentPage extends TestBasePage {
     @FindBy(xpath = "//span[text()=\"Shipments\"]")
     WebElement shipments;
     //  display shipment dashboard page
-    @FindBy(className = "icon-head head-sales-shipment")
-    WebElement shipmentsPage;
-    //select check box from customer dropdown list
-    @FindBy(name = "shipment_ids")
-    WebElement customerListCheckBox;
-    //customer view from drop down list(number3)
-    @FindBy(xpath = "//td[@class=\" last\"]")//customer "name team one"
-    WebElement viewFromCustomerList;
-    //magento admin panel page on display
-    @FindBy(xpath = " @FindBy(xpath = \"\")\n")
-    WebElement adminPanelPage;
+    @FindBy(name = "order_increment_id")
+    WebElement searchBox;
+    @FindBy(xpath = "//span[text()='Search']")
+    WebElement searchButton;
+    @FindBy(xpath = "//*[@id=\"sales_shipment_grid_table\"]/tbody/tr/td[1]/input")//customer "name team one"
+    WebElement shipmentCheckBox;
+
+    @FindBy(xpath = "//*[@id=\"sales_shipment_grid_table\"]/tbody/tr/td[8]/a")
+    WebElement viewLink;
     //custom value list
-    @FindBy(xpath = "//select[@class=\"select\"]")
+    @FindBy(name = "carrier")
     WebElement customValue;
     //select DHL
     @FindBy(xpath = "//option[@value=\"dhl\"]")
     WebElement selectDHL;
     // enter tracking information number
-    @FindBy(name = "\"number\"")
+    @FindBy(id = "tracking_number")
     WebElement trackingNumber;
-    // click on add button
-    @FindBy(xpath = "//button[@id=\"id_3b895e69b31b252de96bbd3089b0b930\"]")
+    // commit text feild
+    @FindBy(name= "comment[comment]")
+    WebElement commentTextBox;
+    @FindBy(xpath = "//span[text()='Submit Comment']")
+    WebElement commentSubmitButton;
+    @FindBy(xpath = "//span[text()='Add']")
     WebElement clickAddButton;
     // click on send tracking information button
-    @FindBy(linkText = "//button[@id=\"id_5d4ba92cbf410a54015662664f619f6d\"]")
+    @FindBy(linkText = "(//span[text()='Send Tracking Information'])[1]")
     WebElement sendTrackingInformation;
-    // alert
     //Verify update shipments successful
     @FindBy(xpath = "//li[@class=\"success-msg\"]")
     WebElement verifySuccessMessage;
@@ -73,46 +74,53 @@ public class ShipmentPage extends TestBasePage {
         Log.info("shipments has been clicked");
     }
     //method for shipment dash board page
-    public void displayShipmentPage(){
-        utility.waitForElementPresent(shipmentsPage);
-        shipmentsPage.isDisplayed();
+    public void enterShipmentIdToSearchBox(){
+        utility.waitForElementPresent(searchBox);
+        searchBox.sendKeys("200000017");
         Log.info("shipment page is displayed");
 
     }
     //method for customerListCheckBox
-    public void clickOnCustomerListCheckBox(){
-        utility.waitForElementPresent(customerListCheckBox);
-        customerListCheckBox.click();
+    public void clickOnShipmentCheckBox(){
+        utility.waitForElementPresent(shipmentCheckBox);
+        shipmentCheckBox.click();
         Log.info("customerListCheckBox has been clicked");
 
     }
-    //  method for viewFromCustomerList
-    public void clickOnviewFromCustomerList(){
-        utility.waitForElementPresent(viewFromCustomerList);
-        viewFromCustomerList.click();
+    //  method for viewLink
+    public void clickOnViewLink(){
+        utility.waitForElementPresent(viewLink);
+        viewLink.click();
         Log.info("viewFromCustomerList has been clicked");
     }
-    // method for magento admin panel page on display
-    public void veiwAdminPanelPage(){
-        utility.waitForElementPresent(adminPanelPage);
-        adminPanelPage.isDisplayed();
-        Log.info("magento admin panel page on displayed");
+    // search button
+    public void clickOnSearchButton(){
+        utility.waitForElementPresent(searchButton);
+        searchButton.click();
+        Log.info("search button hase been clicked");
+
     }
-    //custom value list
-    public void clickCustomValueList(){
-        utility.waitForElementPresent(customValue);
-        customValue.click();
-        Log.info(" clicked custom value list ");
+    //define shipment
+    public void searchShipment(){
+        enterShipmentIdToSearchBox();
+        clickOnSearchButton();
+        utility.sleep(2);
+        clickOnShipmentCheckBox();
+        clickOnViewLink();
+        utility.sleep(2);
+
     }
+
     // method for select DHL
     public void selectDHL(){
-        utility.waitForElementPresent(selectDHL);
-        selectDHL.isSelected();
+        utility.waitForElementPresent(customValue);
+        Select option=new Select(customValue);
+        option.selectByValue("dhl");
         Log.info("selectDHL has been selected");
 
     }
     // method for trackingNumber
-    public void fieldldTrackingNumberTextBox(String number){
+    public void enterTrackingNumber(String number){
         utility.waitForElementPresent(trackingNumber);
         trackingNumber.sendKeys(number);
         Log.info("trackingNumber has been fields");
@@ -122,18 +130,20 @@ public class ShipmentPage extends TestBasePage {
     public void clickAddButton(){
         utility.waitForElementPresent(clickAddButton);
         clickAddButton.click();
+        utility.sleep(2);
         Log.info(" add button has been clicked");
 
     }
     // click on send tracking information button
-    public void clickSandInformationTracking(){
+    public void clickSendInformationButton(){
         utility.waitForElementPresent(sendTrackingInformation);
         sendTrackingInformation.click();
+
         Log.info("clicked on send tracking information button");
     }
 
     //alert accept method
-    public void clickAlret(){
+    public void alertAccept(){
         try {
             WebDriverWait wait=new WebDriverWait(driver,2);
             wait.until(ExpectedConditions.alertIsPresent());
@@ -142,13 +152,15 @@ public class ShipmentPage extends TestBasePage {
         }catch (Exception e){
 
         }
+
     }
 
     // //Verify update shipments successful
-    public void verifySuccessMessage(){
+    public boolean verifySuccessMessage(){
         utility.waitForElementPresent(verifySuccessMessage);
         verifySuccessMessage.isDisplayed();
         Log.info("Verified update shipments successful message ");
+        return true;
     }
     @FindBy (name = "carrier")
     WebElement selectOption;
@@ -157,6 +169,36 @@ public class ShipmentPage extends TestBasePage {
         utility.waitForElementPresent(selectOption);
         Select option=new Select(selectOption);
         option.selectByValue("dhl");
+
+    }
+    //add tracking history
+    public void enterCommentToTextBox(){
+        utility.waitForElementPresent(commentTextBox);
+        commentTextBox.sendKeys("good service");
+        Log.info("comment has been entered");
+
+    }
+    //click on subment button
+    public void clickCommentSubmitButton(){
+        utility.waitForElementPresent(commentSubmitButton);
+        commentSubmitButton.click();
+        Log.info("comment submit button has been clicked");
+
+    }
+    public void addShipment(){
+        selectDHL();
+        enterTrackingNumber("3");
+        clickAddButton();
+        utility.sleep(2);
+
+    }
+    public void addComment(){
+        enterCommentToTextBox();
+        clickCommentSubmitButton();
+        utility.sleep(2);
+        clickSendInformationButton();
+        utility.sleep(2);
+        alertAccept();
     }
 
 
