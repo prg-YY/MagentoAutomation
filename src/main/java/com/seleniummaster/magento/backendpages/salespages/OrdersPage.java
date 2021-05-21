@@ -37,11 +37,11 @@ public class OrdersPage extends TestBasePage {
     @FindBy(xpath = "//span[text()='Add Products']")
     WebElement addProductsLink;
     //input[@type='checkbox' and @value='59']
-    @FindBy(xpath = "//*[@id=\"sales_order_create_search_grid_table\"]/tbody/tr[5]/td[2]")
-    WebElement uyghurBookChekBox;
+    @FindBy(css = "(//input[@value='59'])[1]")
+    WebElement uyghurBookCheckBox;
     @FindBy(xpath = "//span[text()='Add Selected Product(s) to Order']")
     WebElement addProductToOrderLink;
-    @FindBy(id = "p_method_cashondelivery")
+    @FindBy(id = "p_method_checkmo")
     WebElement paymentCheckBox;
     @FindBy(xpath = "//*[@id='order-shipping-method-summary']/a")
     WebElement getShippingMethodLink;
@@ -94,37 +94,31 @@ public class OrdersPage extends TestBasePage {
     public void clickOnAddProductsLink(){
         utility.waitForElementPresent(addProductsLink);
         addProductsLink.click();
-        utility.sleep(2);
         Log.info("Add product Link For Order has been clicked");
     }
     public void clickOnUyghurBookChekBox(){
-        utility.waitForElementPresent(uyghurBookChekBox);
-        uyghurBookChekBox.click();
-        utility.sleep(3);
+        utility.waitForElementPresent(uyghurBookCheckBox);
+        uyghurBookCheckBox.click();
         Log.info("uyghur Book ChekBox has been clicked");
     }
     public void clickOnAddProductToOrderLink(){
         utility.waitForElementPresent(addProductToOrderLink);
         addProductToOrderLink.click();
-        utility.sleep(2);
         Log.info("Add Products to Order Link has been clicked");
     }
     public void checkPaymentMethod(){
         utility.waitForElementPresent(paymentCheckBox);
         paymentCheckBox.click();
-        utility.sleep(1);
         Log.info("Payment method Check box has been clicked");
     }
     public void clickOnGetShippingMethodLink(){
         utility.waitForElementPresent(getShippingMethodLink);
         getShippingMethodLink.click();
-        utility.sleep(1);
         Log.info("get shipping method link has been clicked");
     }
     public void checkOnFixedRadioButton(){
         utility.waitForElementPresent(fixedRadioButton);
         fixedRadioButton.click();
-        utility.sleep(1);
         Log.info("fixed Radio button  has been checked");
     }
     public void clickOnSubmitOrderButton(){
@@ -153,7 +147,9 @@ public class OrdersPage extends TestBasePage {
         utility.sleep(2);
         clickOnT1_Cus_CheckBox();
         clickOnAddProductsLink();
+        utility.sleep(3);
         clickOnUyghurBookChekBox();
+        utility.sleep(2);
         clickOnAddProductToOrderLink();
         utility.sleep(2);
         clickOnGetShippingMethodLink();

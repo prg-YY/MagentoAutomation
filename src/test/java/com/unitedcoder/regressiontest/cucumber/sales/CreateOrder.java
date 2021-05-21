@@ -20,6 +20,7 @@ public class CreateOrder extends TestBasePage {
 
     @And("choose customer for order")
     public void chooseCustomerForOrder() {
+
         ordersPage.searchCustomerForOrder(prop.getProperty("FrondEmail1"));
     }
 
@@ -30,6 +31,7 @@ public class CreateOrder extends TestBasePage {
 
     @And("choose payment method and shipment and click submit order button")
     public void choosePaymentMethodAndShipmentAndClickSubmitOrderButton() {
+
         ordersPage.checkPaymentMethod();
         ordersPage.clickOnGetShippingMethodLink();
         ordersPage.checkOnFixedRadioButton();
