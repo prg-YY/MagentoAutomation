@@ -1,9 +1,9 @@
 package com.unitedcoder.regressiontest.catalogmodultestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
-import com.seleniummaster.magento.backendpages.catalogpages.AddNewProductPage;
+import com.seleniummaster.magento.backendpages.catalogpages.AddSubCategoryPage;
+import com.seleniummaster.magento.backendpages.catalogpages.DeleteSubCategoryPage;
 import com.seleniummaster.magento.backendpages.catalogpages.EditCategoriesPage;
-import com.seleniummaster.magento.backendpages.catalogpages.*;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
@@ -20,43 +20,36 @@ public class CatalogModuleTestRunner extends TestBasePage {
         BackEndLogin backEndLogin = new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("catalogManager"), prop.getProperty("password"));
     }
-
-    @Test(description = "AddProduct-Leila")
-    public void AddProduct(){
-        AddNewProductPage addNewProductPage=new AddNewProductPage(driver);
-        addNewProductPage.AddProduct();
-        Assert.assertTrue(addNewProductPage.verifySuccess());
-
+@Test
+    public void addCategory(){
 
     }
     @Test(description = "edit root categories-yusuf")
     public void editCategoriesTest(){
         EditCategoriesPage categoriesPage=new EditCategoriesPage();
-        categoriesPage.editCategoriesPage1();
+        categoriesPage.editCategoriesPage();
         Assert.assertTrue(categoriesPage.displaySuccessMessage());
     }
+    @Test(description = "Customer Manager can delete subcategory-Ayper")
+    public void deleteSubcategory(){
+        EditCategoriesPage categoriesPage=new EditCategoriesPage();
+        DeleteSubCategoryPage subCategoryPage = new DeleteSubCategoryPage(driver);
+        categoriesPage.editCategoriesPage();
+        subCategoryPage.deleteSub();
 
-    @Test
-    public void deleteRootCategoriesTest(){
-        DeleteRootCategoriesPage deleteRootCategoriesPage=new DeleteRootCategoriesPage(driver);
-        CatalogDashboardPage catalogDashboardPage=new CatalogDashboardPage(driver);
-        catalogDashboardPage.clickCatalogLink();
-        catalogDashboardPage.clickManageCategories();
-        deleteRootCategoriesPage.deleteRootCategory();
-        Assert.assertTrue(deleteRootCategoriesPage.VerifySuccessfulMsgDisplay());
-    }
-    @Test(description = "Edit Existing product Page-melike")
-    public void editExistingProductTest(){
-        EditExistingProductPage editExistingProductPage=new EditExistingProductPage(driver);
-        editExistingProductPage.editExistingProduct();
     }
 
+    @Test(description = "add sub categories-zuhraubul")
+    public void addSubCategoryTest(){
+        AddSubCategoryPage subCategoryPage=new AddSubCategoryPage(driver);
+        subCategoryPage.isAddSubCategorySuccessMassage();
 
 
+
+    }
 
     @AfterClass
     public void tearDown(){
-        closeBrowser();
-
+    closeBrowser();
     }
 }

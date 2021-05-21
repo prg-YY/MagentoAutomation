@@ -1,29 +1,32 @@
 package com.seleniummaster.magento.backendpages.customerpages;
 
+import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class CustomerManageDashboardPage {
+public class ManageCustomerDashboardPage extends com.seleniummaster.magento.utility.TestBasePage {
     WebDriver driver;
-    String ConfigFile = "config.properties";
+
     TestUtility utility;
-    @FindBy(xpath = "a[@class='link-logout']")
+    @FindBy(xpath = "//span[text()='Customers']")
+    WebElement customersLink;
+    @FindBy(xpath = "//a[@class='link-logout']")
     WebElement LogoutButton;
-    @FindBy(xpath = "span[text()='Manage Customers']")
+    @FindBy(xpath = "//span[text()='Manage Customers']")
     WebElement  ManageCustomerLink;
-    @FindBy(xpath = "span[text()='Customer Groups']")
+    @FindBy(xpath = "//span[text()='Customer Groups']")
     WebElement CustomerGroupLink;
-    @FindBy(xpath = "button[@title='Add New Customer']")
+    @FindBy(xpath = "(//span[text()='Add New Customer'])[1]")
     WebElement AddNewCustomerButton;
-    @FindBy(css = "input[type=\"text\"][id=\"customerGrid_filter_name\"]")
+    @FindBy(xpath = "//button[@title='Add New Customer']")
     WebElement NameTextBox;
-    @FindBy(css = "button[title='Submit'][type='button']")
+    @FindBy(xpath = "//span[text()='Search']")
     WebElement searchLink;
 
-    public CustomerManageDashboardPage(WebDriver driver) {
+    public ManageCustomerDashboardPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver);
@@ -31,6 +34,10 @@ public class CustomerManageDashboardPage {
     public void cLickLogoutButton(){
         utility.waitForElementPresent(LogoutButton);
         LogoutButton.click();
+    }
+    public void clickCustomersLink(){
+        utility.waitForElementPresent(customersLink);
+        customersLink.click();
     }
 
     public void clickManageCustomerLink(){
@@ -55,6 +62,4 @@ public class CustomerManageDashboardPage {
         utility.waitForElementPresent(searchLink);
         searchLink.click();
     }
-
-
 }

@@ -87,35 +87,35 @@ public class AddNewProductPage extends TestBasePage {
     }
 
     //Enter Product name Method
-    String ProductName = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductName1");
+    String ProductName = ApplicationConfig.readConfigProperties(ConfigFile, "FirstName");
     public void EnterProductName() {
         utility.waitForElementPresent(ProductNameTextBox);
         ProductNameTextBox.sendKeys(ProductName);
     }
 
     //Enter Description Method
-    String ProductDescription = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductDescription1");
+    String ProductDescription = ApplicationConfig.readConfigProperties(ConfigFile, "Description");
     public void EnterDescription() {
         utility.waitForElementPresent(DescriptionTextBox);
         DescriptionTextBox.sendKeys(ProductDescription);
     }
 
     //Enter Short Description  Method
-    String ProductShortDescription = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductShortDescription1");
+    String ProductShortDescription = ApplicationConfig.readConfigProperties(ConfigFile, "Description");
     public void EnterShortDescription() {
         utility.waitForElementPresent(ShortDescriptionTextBox);
         ShortDescriptionTextBox.sendKeys(ProductShortDescription);
     }
 
     //Enter SKU Method
-    String SKU = ApplicationConfig.readConfigProperties(ConfigFile, "SKU1");
+    String SKU = ApplicationConfig.readConfigProperties(ConfigFile, "SKU");
     public void EnterSKU() {
         utility.waitForElementPresent(SkuTextBox);
         SkuTextBox.sendKeys(SKU+System.currentTimeMillis());
     }
 
     //Enter Weight Method
-    String Weight = ApplicationConfig.readConfigProperties(ConfigFile, "Weight1");
+    String Weight = ApplicationConfig.readConfigProperties(ConfigFile, "Weight");
     public void EnterWeight() {
         utility.waitForElementPresent(WeightTextBox);
         WeightTextBox.sendKeys(Weight);
@@ -145,9 +145,9 @@ public class AddNewProductPage extends TestBasePage {
 
     //Enter Price Method
 //    String Price=ApplicationConfig.readConfigProperties(ConfigFile,"Price1");
-    public void EnterPrice(String prince1) {
+    public void EnterPrice() {
         utility.waitForElementPresent(PriceTextBox);
-        PriceTextBox.sendKeys(prince1);
+        PriceTextBox.sendKeys(prop.getProperty("Price"));
 
     }
 
@@ -182,10 +182,10 @@ public class AddNewProductPage extends TestBasePage {
         SelectStatus();
         //SelectVisibility();
         clickOnSaveButton();
-        EnterPrice(prop.getProperty("Price1"));
+        EnterPrice();
         SelectTaxClass();
         setPressSaveButton();
-        verifySuccess();
+
 
 //String ProductName = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductName");
 //    String ProductDescription = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductDescription");

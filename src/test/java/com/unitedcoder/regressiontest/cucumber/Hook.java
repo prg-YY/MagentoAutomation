@@ -12,7 +12,7 @@ public class Hook extends TestBasePage {
     @Before
     public void setUp() {
         setUpBrowser();
-        Log.info("Add new customer started");
+
         driver.get(prop.getProperty("BackendURL"));
     }
 

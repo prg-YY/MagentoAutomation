@@ -23,7 +23,7 @@ public class ShoppingCartAndProductsPage extends TestBasePage {
     WebElement productsBestsellersReportSuccessfulMassage;
    @FindBy(css = "input[name='report_from'][type='text']")
     WebElement fromBoxOrdered;
-   @FindBy(css = "input[name='report_to'][type='text']")
+   @FindBy(id = "period_date_to")
     WebElement toBoxOrdered;
    @FindBy(xpath = "//span[text()='Refresh']")
     WebElement refreshButton;
@@ -91,7 +91,7 @@ public class ShoppingCartAndProductsPage extends TestBasePage {
     }
     public void clickProductNameTextBoxDownloads(){
         utility.waitForElementPresent(productNameTextBoxDownloads);
-        productNameTextBoxDownloads.sendKeys(prop.getProperty("productName"));
+        productNameTextBoxDownloads.sendKeys(prop.getProperty("ca-firstNmae"));
     }
     public void clickSearchButtonDownloads(){
         utility.waitForElementPresent(searchButtonDownloads);
@@ -104,7 +104,11 @@ public class ShoppingCartAndProductsPage extends TestBasePage {
 
     public void productsOrdered(){
         clickFromBoxOrdered();
+        utility.sleep(1);
         clickToBoxOrdered();
+        utility.sleep(1);
+        clickRefreshButton();
+        utility.sleep(1);
     }
 
 

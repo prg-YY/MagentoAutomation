@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(plugin = {"pretty","html:target/cubecart-cucumber",
         "json:target/magento.json"},
 features = {"src/test/resources"},
-        tags = "@SeeTaxesReportGroupedByTaxRate"
+        tags = "@SeeCustomersNewAccountsReports"
         ,monochrome = true
 )
 public class ReportingModuleTestRunner extends TestBasePage {

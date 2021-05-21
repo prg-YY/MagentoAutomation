@@ -90,6 +90,7 @@ public class ReportingManagerDashboardPage extends TestBasePage {
     public void clickReportsLink() {
         utility.waitForElementPresent(ReportsLink);
         ReportsLink.click();
+        utility.sleep(2);
         Log.info(" Reports Link clicked");
     }
     public void clickSalesLink() {

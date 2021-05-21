@@ -1,4 +1,4 @@
-package com.unitedcoder.regressiontest.cucumber;
+package com.unitedcoder.regressiontest.cucumber.store;
 
 import com.seleniummaster.magento.utility.TestBasePage;
 import io.cucumber.junit.Cucumber;
@@ -9,10 +9,11 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(plugin = {"json:target/CucumberReportingModule-Sales/reportingModule.json"},
         features = {"src/test/resources"},
-        tags = "@MarketingModule",
+        tags = "@SeeCustomersNewAccountsReports,@SeeCustomersByOrdersTotalReport,@SeeCustomersByNumberOfOrdersReport," +
+                "@SeeTagsCustomersReport,@SeeTagsProductsReport,@SeeTagsPopularReport,@SeeProductReviewsReport",
         monochrome = true
 )
-public class CucumberTestRunner extends TestBasePage {
+public class StoreTest extends TestBasePage {
 
 
 }
