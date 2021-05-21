@@ -50,6 +50,6 @@ public class CatalogModuleTestRunner extends TestBasePage {
 
     @AfterClass
     public void tearDown(){
-
+    closeBrowser();
     }
 }
