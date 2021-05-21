@@ -65,7 +65,7 @@ public class DeleteRootCategoriesPage extends TestBasePage {
 
         }
 
-         DeleteSuccessMessage.isDisplayed();
+        VerifySuccessfulMsgDisplay();
     }
 
 

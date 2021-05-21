@@ -70,6 +70,11 @@ public class CustomerUpdatePage extends TestBasePage {
 
     public void clickSaveCustomerButton() {
         utility.waitForElementPresent(saveCustomerButton);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         saveCustomerButton.click();
     }
 
@@ -80,13 +85,13 @@ public class CustomerUpdatePage extends TestBasePage {
     }
 
 
-    public boolean updateCustomerInformation() {
+    public void updateCustomerInformation() {
 
         clickEditLink();
         clickWithJSAccountLink();
         typeTaxVat();
         clickSaveCustomerButton();
-        return SuccessMessage.isDisplayed();
+        displaySuccessMessage();
     }
 }
 
