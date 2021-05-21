@@ -32,10 +32,7 @@ public class CreateOrder extends TestBasePage {
     @And("choose payment method and shipment and click submit order button")
     public void choosePaymentMethodAndShipmentAndClickSubmitOrderButton() {
 
-        ordersPage.checkPaymentMethod();
-        ordersPage.clickOnGetShippingMethodLink();
-        ordersPage.checkOnFixedRadioButton();
-        ordersPage.clickOnSubmitOrderButton();
+        ordersPage.clickShipmentAndSubmitButton();
     }
 
     @Then("verify the order successfully created")

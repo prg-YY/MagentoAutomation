@@ -3,6 +3,7 @@ package com.seleniummaster.magento.backendpages.salespages;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -37,8 +38,9 @@ public class OrdersPage extends TestBasePage {
     @FindBy(xpath = "//span[text()='Add Products']")
     WebElement addProductsLink;
     //input[@type='checkbox' and @value='59']
-    @FindBy(css = "(//input[@value='59'])[1]")
+    @FindBy(xpath = "//div[@class='page-create-order']/table/tbody/tr/td[2]/div[2]/div/div[2]/div/div/div/table/tbody/tr[6]/td[5]")
     WebElement uyghurBookCheckBox;
+    //(//input[@value='59'])[1]
     @FindBy(xpath = "//span[text()='Add Selected Product(s) to Order']")
     WebElement addProductToOrderLink;
     @FindBy(id = "p_method_checkmo")
@@ -47,7 +49,7 @@ public class OrdersPage extends TestBasePage {
     WebElement getShippingMethodLink;
     @FindBy(id = "s_method_flatrate_flatrate")
     WebElement fixedRadioButton;
-    @FindBy(xpath = "//span[text()='Submit Order']")
+    @FindBy(xpath = "//*[@class=\"order-totals-bottom\"]/p[3]/button/span/span/span")
     WebElement submitOrderButton;
     @FindBy(xpath = "//*[@class=\"messages\"]" )
     WebElement successMessage;
@@ -121,10 +123,11 @@ public class OrdersPage extends TestBasePage {
         fixedRadioButton.click();
         Log.info("fixed Radio button  has been checked");
     }
-    public void clickOnSubmitOrderButton(){
+    public void clickSubmitOrderButton(){
         utility.waitForElementPresent(submitOrderButton);
-        utility.sleep(1);
+        utility.sleep(3);
         submitOrderButton.click();
+        Log.info("Submit order button has been clicked");
     }
     public boolean verifyOrderCreatedSuccessfully(){
         utility.waitForElementPresent(successMessage);
@@ -144,16 +147,22 @@ public class OrdersPage extends TestBasePage {
         clickOnTeam1Store();
         utility.sleep(2);
         clickOnAddProductsLink();
-        utility.sleep(2);
-        clickOnT1_Cus_CheckBox();
-        clickOnAddProductsLink();
         utility.sleep(3);
         clickOnUyghurBookChekBox();
         utility.sleep(2);
         clickOnAddProductToOrderLink();
         utility.sleep(2);
-        clickOnGetShippingMethodLink();
-        utility.sleep(2);
+    }
+    public void clickShipmentAndSubmitButton(){
+       checkPaymentMethod();
+       utility.sleep(2);
+       clickOnGetShippingMethodLink();
+       utility.sleep(2);
+       checkOnFixedRadioButton();
+       utility.sleep(1);
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("window.scrollBy(0,1000)");
+        clickSubmitOrderButton();
     }
 
     public void createNewOrder(){
@@ -173,7 +182,7 @@ public class OrdersPage extends TestBasePage {
         clickOnAddProductToOrderLink();
         clickOnGetShippingMethodLink();
         checkOnFixedRadioButton();
-        clickOnSubmitOrderButton();
+        clickSubmitOrderButton();
         verifyOrderCreatedSuccessfully();
     }
 
