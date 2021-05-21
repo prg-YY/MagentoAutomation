@@ -1,5 +1,7 @@
 package com.seleniummaster.magento.backendpages.salespages;
 
+import com.seleniummaster.magento.utility.Log;
+import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,14 +10,14 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class CreditMemosPage {
+public class CreditMemosPage  {
     WebDriver driver;
     TestUtility utility;
     String ConfigFile = "config.properties";
 
     //Sales Manager should be able to view and add  credit memos
     @FindBy(xpath = "//table[@class=\"data\"]/tbody/tr")
-    List <WebElement> CreditMemosList;
+    List<WebElement> CreditMemosList;
 
     public CreditMemosPage(WebDriver driver) {
         this.driver = driver;
@@ -28,6 +30,8 @@ public class CreditMemosPage {
             if (i>=1){
                 System.out.println("test past");
             }
+            else
+                System.out.println("test failed");
         }
         return true;
     }
@@ -40,8 +44,7 @@ public class CreditMemosPage {
     @FindBy(xpath = "//select[@name=\"sales_creditmemo_grid_export\"]")
     WebElement ExportToDropDownList;
     @FindBy(xpath = "//span[text()=\"Export\"]")
-    WebElement ExportButton;
-
+    WebElement ExportButto;
 
 
 }
