@@ -3,13 +3,16 @@ package com.unitedcoder.regressiontest.cucumber;
 import com.seleniummaster.magento.backendpages.ReportingModule.ReportingManagerDashboardPage;
 import com.seleniummaster.magento.backendpages.ReportingModule.SalesPage;
 import com.seleniummaster.magento.utility.TestBasePage;
+import com.seleniummaster.magento.utility.TestUtility;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.JavascriptExecutor;
 
 public class SalesStepDefinition extends TestBasePage {
     ReportingManagerDashboardPage dashboardPage = new ReportingManagerDashboardPage(driver);
-    static SalesPage salesPage;
+    SalesPage salesPage=new SalesPage(driver);
+    TestUtility utility=new TestUtility(driver);
 
 
     @When("click on Reports drop down list than click on Orders under of Sales")
@@ -21,15 +24,15 @@ public class SalesStepDefinition extends TestBasePage {
 
     @And("fill the Order Date on From field and To field then click on Show Report Button")
     public void fillTheOrderDateOnFromFieldAndToFieldThenClickOnShowReportButton() {
-        salesPage = new SalesPage(driver);
         salesPage.totalOrderedReport();
         dashboardPage.clickShowReportLink();
+        utility.sleep(2);
     }
 
     @Then("verify total count of Ordered Report")
     public void verifyTotalCountOfOrderedReport() {
-        salesPage = new SalesPage(driver);
         salesPage.verifyTotalOrderedReportSuccessMassage();
+        utility.takeScreenShot("OrderReport.png",driver);
     }
 
     @When("click on Reports drop down list than click on Tax under of Sales")
@@ -41,16 +44,16 @@ public class SalesStepDefinition extends TestBasePage {
 
     @And("fill the Tax Date on  From field and TO field then click on Show Report Button")
     public void fillTheTaxDateOnFromFieldAndTOFieldThenClickOnShowReportButton() {
-        salesPage = new SalesPage(driver);
         salesPage.totalOrderedReport();
         dashboardPage.clickShowReportLink();
+        utility.sleep(2);
 
     }
 
     @Then("verify Order Taxes Report Grouped by Tax Tate")
     public void verifyOrderTaxesReportGroupedByTaxTate() {
-        salesPage = new SalesPage(driver);
         salesPage.verifyOrderTaxesReportGroupedByTaxRate();
+        utility.takeScreenShot("OrderTaxesReport.png",driver);
     }
 
     @When("click on Reports drop down list than click Invoiced under of Sales")
@@ -62,15 +65,15 @@ public class SalesStepDefinition extends TestBasePage {
 
     @And("fill the Invoiced Date on From field and To field then click on Show Report Button")
     public void fillTheInvoicedDateOnFromFieldAndToFieldThenClickOnShowReportButton() {
-        salesPage = new SalesPage(driver);
         salesPage.totalOrderedReport();
         dashboardPage.clickShowReportLink();
+        utility.sleep(2);
     }
 
     @Then("verify Total Invoiced vs.Paid Report")
     public void verifyTotalInvoicedVsPaidReport() {
-        salesPage = new SalesPage(driver);
         salesPage.verifyTotalInvoicedVsPaidReport();
+        utility.takeScreenShot("TotalInvoiced.png",driver);
     }
 
     @When("click on Reports drop down list than click on Shipping under of Sales")
@@ -78,19 +81,19 @@ public class SalesStepDefinition extends TestBasePage {
         dashboardPage.clickReportsLink();
         dashboardPage.clickSalesLink();
         dashboardPage.clickShippingLink();
+        utility.sleep(2);
     }
 
     @And("fill the Shipping Date on From field and To field then click on Show Report Button")
     public void fillTheShippingDateOnFromFieldAndToFieldThenClickOnShowReportButton() {
-        salesPage = new SalesPage(driver);
         salesPage.totalOrderedReport();
         dashboardPage.clickShowReportLink();
     }
 
     @Then("verify Total Shipped Report")
     public void verifyTotalShippedReport() {
-        salesPage = new SalesPage(driver);
         salesPage.verifyTotalShippedReport();
+        utility.takeScreenShot("TotalShippedReport.png",driver);
 
     }
 
@@ -103,15 +106,15 @@ public class SalesStepDefinition extends TestBasePage {
 
     @And("fill the Refunded Date From field and To field then click on Show Report Button")
     public void fillTheRefundedDateFromFieldAndToFieldThenClickOnShowReportButton() {
-        salesPage = new SalesPage(driver);
         salesPage.totalOrderedReport();
         dashboardPage.clickShowReportLink();
+        utility.sleep(2);
     }
 
     @Then("verify Total Refunded Report")
     public void verifyTotalRefundedReport() {
-        salesPage = new SalesPage(driver);
         salesPage.verifyTotalRefundedReport();
+        utility.takeScreenShot("TotalRefundedReport.png",driver);
     }
 
     @When("click on Reports drop down list than click on Coupons under of Sales")
@@ -123,15 +126,17 @@ public class SalesStepDefinition extends TestBasePage {
 
     @And("fill the Coupons Date From field and To field then click on Show Report Button")
     public void fillTheCouponsDateFromFieldAndToFieldThenClickOnShowReportButton() {
-        salesPage = new SalesPage(driver);
         salesPage.totalOrderedReport();
         dashboardPage.clickShowReportLink();
+        utility.sleep(2);
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("window.scrollBy(0,1000)");
     }
 
     @Then("verify Coupons Usage Report")
     public void verifyCouponsUsageReport() {
-        salesPage = new SalesPage(driver);
         salesPage.verifyCouponsUsageReport();
+        utility.takeScreenShot("CouponsUsageReport.png",driver);
     }
 
 
