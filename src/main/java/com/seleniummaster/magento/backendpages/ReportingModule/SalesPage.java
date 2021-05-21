@@ -83,7 +83,9 @@ public class SalesPage extends TestBasePage {
     public void totalOrderedReport(){
 
         clickFromTextBox();
+        utility.sleep(1);
         clickToTextBox();
+        utility.sleep(1);
 
 
 

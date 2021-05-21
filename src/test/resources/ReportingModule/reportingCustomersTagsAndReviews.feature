@@ -1,4 +1,4 @@
-@ReportingModule #(Customers)(Tags)(Reviews)
+@ReportingModuleCustomersTagsReviews
 Feature: Reporting Manager should be able to see Customers:
   - New Accounts Report
   - Customers by Orders Total Report

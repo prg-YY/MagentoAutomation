@@ -36,6 +36,7 @@ public class CustomerModuleTestRunner extends TestBasePage {
     public void addNewCustomer() {
         addCustomerPage=new AddCustomerPage(driver);
         addCustomerPage.addNewCustomer();
+        Assert.assertTrue(addCustomerPage.verifySuccessMessage());
 
 
     }

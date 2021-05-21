@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(plugin = {"json:target/CucumberReportingModule-Sales/reportingModule.json"},
         features = {"src/test/resources"},
-        tags = "@SeeTotalOrderedReport",
+        tags = "@MarketingModule",
         monochrome = true
 )
 public class CucumberTestRunner extends TestBasePage {

@@ -13,17 +13,19 @@ public class CheckOutOrderPage extends TestBasePage {
     TestUtility utility;
     @FindBy(xpath = "//div[@class=\"account-cart-wrapper\"]/a/span")
     WebElement accountTag;
-    @FindBy(linkText = "Checkout")
-    WebElement checkOutLink;
+    @FindBy(xpath = "//span[text()=\"Cart\"]")
+    WebElement clickCart;
+    @FindBy(xpath = "//*[@class=\"minicart-actions\"]/ul/li/a")
+    WebElement checkOutButton;
     @FindBy(xpath = "//div[@class=\"buttons-set\"]/button/span/span")
     WebElement continue1;
-    @FindBy(linkText = "//*[@id=\"shipping-method-buttons-container\"]/button/span/span")
+    @FindBy(xpath = "//*[@id=\"shipping-method-buttons-container\"]/button/span/span")
     WebElement continue3;
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[1]/ol/li[3]/div[2]/form/div[3]/button")
+    @FindBy(xpath = "//*[@id=\"dt_method_cashondelivery\"]/label")
     WebElement moneyOrderCheckBox;
     @FindBy(xpath = "//div[@id=\"payment-buttons-container\"]/button/span/span")
     WebElement continue4;
-    @FindBy(id = "//div[@id=\"review-buttons-container\"]/button/span/span")
+    @FindBy(xpath = "//div[@id=\"review-buttons-container\"]/button/span/span")
     WebElement placeOrderButton;
     @FindBy(xpath = "//div[@class=\"page-title\"]/h1")
     WebElement orderVerifyMessage;
@@ -33,61 +35,76 @@ public class CheckOutOrderPage extends TestBasePage {
     public CheckOutOrderPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        utility=new TestUtility(driver);
+        utility = new TestUtility(driver);
 
     }
 
+    public void clickClickCartButton() {
+        utility.waitForElementPresent(clickCart);
+        clickCart.click();
+    }
+
+    public void clickCheckOutButton() {
+        utility.waitForElementPresent(checkOutButton);
+        checkOutButton.click();
+    }
 
     //Method for each action
-    public void clickAccountTag(){
+    public void clickAccountTag() {
         utility.waitForElementPresent(accountTag);
         accountTag.click();
         Log.info("Account Tag clicked");
 
     }
-    public void clickChekOutLink(){
-        utility.waitForElementPresent(checkOutLink);
-        checkOutLink.click();
-        Log.info("Check Out Link clicked");
-    }
-    public void clickOnContinue1(){
+
+    public void clickOnContinue1() {
         utility.waitForElementPresent(continue1);
         continue1.click();
         Log.info("Continue1 clicked");
     }
 
-    public void clickOnContinue3(){
+    public void clickOnContinue3() {
         utility.waitForElementPresent(continue3);
         continue3.click();
         Log.info("Continue3 clicked");
     }
-    public void clickOnMoneyOrderCheckBox(){
+
+    public void clickOnMoneyOrderCheckBox() {
         utility.waitForElementPresent(moneyOrderCheckBox);
         moneyOrderCheckBox.click();
         Log.info("Money Order Check Box clicked");
     }
-    public void clickOnContinue4(){
+
+    public void clickOnContinue4() {
         utility.waitForElementPresent(continue4);
         continue4.click();
         Log.info("Continue4 clicked");
     }
-    public void clickOnPlaceOrderButton(){
+
+    public void clickOnPlaceOrderButton() {
         utility.waitForElementPresent(placeOrderButton);
         placeOrderButton.click();
         Log.info("Place order button clicked");
     }
-    public boolean verifyOrderMassage(){
+
+    public void verifyOrderMassage() {
         utility.waitForElementPresent(orderVerifyMessage);
-        return orderVerifyMessage.isDisplayed();
+        orderVerifyMessage.isDisplayed();
 
     }
-    public void checkoutOrderM(){
-        clickAccountTag();
-        clickChekOutLink();
+
+    public void checkoutOrderM() {
+        clickClickCartButton();
+        utility.sleep(1);
+        clickCheckOutButton();
+        utility.sleep(1);
         clickOnContinue1();
+        utility.sleep(1);
         clickOnContinue3();
-        clickOnContinue4();
+        utility.sleep(1);
         clickOnMoneyOrderCheckBox();
+        utility.sleep(1);
+        clickOnContinue4();
         clickOnPlaceOrderButton();
         verifyOrderMassage();
 
