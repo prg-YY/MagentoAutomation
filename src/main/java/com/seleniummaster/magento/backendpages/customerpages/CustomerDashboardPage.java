@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
+//Customer Manager can filter Customers such as Email,Group,Country.......
 public class CustomerDashboardPage extends TestBasePage {
     WebDriver driver;
 
