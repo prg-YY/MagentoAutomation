@@ -11,7 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 
 public class DeleteRootCategoriesPage extends TestBasePage {
-
+    CatalogDashboardPage dashboardPage;
     WebDriver driver;
     String ConfigFile = "config.properties";
     TestUtility utility;
@@ -31,12 +31,12 @@ public class DeleteRootCategoriesPage extends TestBasePage {
         utility = new TestUtility(driver);
     }
 
-    public void clickDeleteRootCategorylink() {
+    public void clickDeleteRootCategoryLink() {
         utility.waitForElementPresent(DeleteCategoryLink);
         DeleteCategoryLink.click();
     }
 
-    public boolean VerifySuccessfulMsgDisplay(){
+    public boolean VerifySuccessfulMsgDisplay() {
         utility.waitForElementPresent(DeleteSuccessMessage);
         DeleteSuccessMessage.isDisplayed();
         return true;
@@ -45,19 +45,20 @@ public class DeleteRootCategoriesPage extends TestBasePage {
     String DeleteCategoryNAME = ApplicationConfig.readConfigProperties(ConfigFile, "DeleteCategoryName");
 
     public void deleteRootCategory() {
-
-        List<WebElement> RootCategoriesList = driver.findElements(By.xpath("div[@class='x-tree-root-node']/li"));
+        dashboardPage = new CatalogDashboardPage(driver);
+        dashboardPage.clickCatalogLink();
+        dashboardPage.clickManageCategories();
+        List<WebElement> RootCategoriesList = driver.findElements(By.xpath("//*[@id=\"extdd-84\"]"));
         for (int i = 1; i <= RootCategoriesList.size(); i++) {
-            WebElement RooCategoryName = driver.findElement(By.xpath("div[@class='x-tree-root-node']/li["+i+"]/div/a/span"));
-            String rootName=RooCategoryName.getText();
+            WebElement RooCategoryName = driver.findElement(By.xpath("//div[@class='x-tree-root-node']/li[" + i + "]/div/a/span"));
+            String rootName = RooCategoryName.getText();
             if (rootName.equals(DeleteCategoryNAME)) {
                 utility.waitForElementPresent(RooCategoryName);
-               try {
-                   RooCategoryName.click();
-               } catch (TimeoutException e){
-
-               }
-                clickDeleteRootCategorylink();
+                try {
+                    RooCategoryName.click();
+                } catch (TimeoutException ignored) {
+                }
+                clickDeleteRootCategoryLink();
                 utility.waitForAlertPresent();
                 Alert alert = driver.switchTo().alert();
                 alert.accept();

@@ -1,4 +1,4 @@
-package com.unitedcoder.regressiontest.cucumber;
+package com.unitedcoder.regressiontest.cucumber.reporting;
 
 import com.seleniummaster.magento.backendpages.ReportingModule.CustomersTagsAndReviewsPage;
 import com.seleniummaster.magento.backendpages.ReportingModule.ReportingManagerDashboardPage;
