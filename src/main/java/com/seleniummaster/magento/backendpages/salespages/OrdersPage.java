@@ -35,13 +35,13 @@ public class OrdersPage extends TestBasePage {
     WebElement searchButton;
     @FindBy(xpath = "//*[@id=\"sales_order_create_customer_grid_table\"]/tbody/tr")
     WebElement team1CheckBox;
-    @FindBy(id = "store_18")
+    @FindBy(xpath = "//*[@id='store_18']")
     WebElement team1Store;
     @FindBy(xpath = "//span[text()='Add Products']")
     WebElement addProductsLink;
     //input[@type='checkbox' and @value='59']
-    @FindBy(xpath = "//div[@class='page-create-order']/table/tbody/tr/td[2]/div[2]/div/div[2]/div/div/div/table/tbody/tr[6]/td[5]")
-    WebElement uyghurBookCheckBox;
+    @FindBy(xpath = "//*[@id=\"sales_order_create_search_grid_table\"]/tbody/tr[1]/td[5]/input")
+    WebElement productCheckBox;
     //(//input[@value='59'])[1]
     @FindBy(xpath = "//span[text()='Add Selected Product(s) to Order']")
     WebElement addProductToOrderLink;
@@ -102,10 +102,10 @@ public class OrdersPage extends TestBasePage {
         addProductsLink.click();
         Log.info("Add product Link For Order has been clicked");
     }
-    public void clickOnUyghurBookChekBox(){
-        utility.waitForElementPresent(uyghurBookCheckBox);
-        uyghurBookCheckBox.click();
-        Log.info("uyghur Book ChekBox has been clicked");
+    public void clickOnProductChekBox(){
+        utility.waitForElementPresent(productCheckBox);
+        productCheckBox.click();
+        Log.info("Product ChekBox has been clicked");
     }
     public void clickOnAddProductToOrderLink(){
         utility.waitForElementPresent(addProductToOrderLink);
@@ -155,7 +155,7 @@ public class OrdersPage extends TestBasePage {
         utility.sleep(2);
         clickOnAddProductsLink();
         utility.sleep(3);
-        clickOnUyghurBookChekBox();
+        clickOnProductChekBox();
         utility.sleep(2);
         clickOnAddProductToOrderLink();
         utility.sleep(2);
@@ -185,7 +185,7 @@ public class OrdersPage extends TestBasePage {
         clickOnAddProductsLink();
         clickOnT1_Cus_CheckBox();
         clickOnAddProductsLink();
-        clickOnUyghurBookChekBox();
+        clickOnProductChekBox();
         clickOnAddProductToOrderLink();
         clickOnGetShippingMethodLink();
         checkOnFixedRadioButton();

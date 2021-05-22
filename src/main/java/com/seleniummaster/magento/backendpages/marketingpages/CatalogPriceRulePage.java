@@ -118,6 +118,4 @@ public class CatalogPriceRulePage extends TestBasePage {
         return successMessage.isDisplayed();
     }
 
-
-
 }
