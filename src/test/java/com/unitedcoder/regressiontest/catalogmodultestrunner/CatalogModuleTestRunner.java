@@ -1,17 +1,20 @@
 package com.unitedcoder.regressiontest.catalogmodultestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
-import com.seleniummaster.magento.backendpages.catalogpages.AddSubCategoryPage;
-import com.seleniummaster.magento.backendpages.catalogpages.DeleteSubCategoryPage;
-import com.seleniummaster.magento.backendpages.catalogpages.EditCategoriesPage;
+import com.seleniummaster.magento.backendpages.catalogpages.*;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
+import com.seleniummaster.magento.utility.TestUtility;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class CatalogModuleTestRunner extends TestBasePage {
+    AddRootCategoriesPage rootCategoriesPage;
+    TestUtility utility=new TestUtility(driver);
+
+
     @BeforeClass
     public void setUp() {
         setUpBrowser();
@@ -20,17 +23,35 @@ public class CatalogModuleTestRunner extends TestBasePage {
         BackEndLogin backEndLogin = new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("catalogManager"), prop.getProperty("password"));
     }
-@Test
-    public void addCategory(){
+@Test(description = "1-Catalog Manager can add root categories -AbdulKahHar")
+    public void addRootCategory(){
+        rootCategoriesPage=new AddRootCategoriesPage(driver);
+        rootCategoriesPage.addNewRootCategory();
 
     }
-    @Test(description = "edit root categories-yusuf")
+    @Test(description = "2-Catalog Manager can edit root categories -yusuf")
     public void editCategoriesTest(){
         EditCategoriesPage categoriesPage=new EditCategoriesPage();
         categoriesPage.editCategoriesPage();
         Assert.assertTrue(categoriesPage.displaySuccessMessage());
     }
-    @Test(description = "Customer Manager can delete subcategory-Ayper")
+    @Test(description = "3-Catalog Manager can delete root categories -SoFiYa")
+    public void deleteRootCategories(){
+        DeleteRootCategoriesPage deleteRootCategoriesPage=new DeleteRootCategoriesPage(driver);
+        deleteRootCategoriesPage.deleteRootCategory();
+
+
+    }
+    @Test(description = "4-Catalog Manager can add sub categories-ZuHre ")
+    public void addSubCategories(){
+        AddSubCategoryPage subCategoryPage=new AddSubCategoryPage(driver);
+        subCategoryPage.isAddSubCategorySuccessMassage();
+    }
+    @Test(description = "5-Catalog Manager can edit sub categories-KaMer ")
+    public void editSubCategories(){
+
+    }
+    @Test(description = "6-Catalog Manager can delete sub categories-AyPer")
     public void deleteSubcategory(){
         EditCategoriesPage categoriesPage=new EditCategoriesPage();
         DeleteSubCategoryPage subCategoryPage = new DeleteSubCategoryPage(driver);
@@ -38,16 +59,18 @@ public class CatalogModuleTestRunner extends TestBasePage {
         subCategoryPage.deleteSub();
 
     }
-
-    @Test(description = "add sub categories-zuhraubul")
-    public void addSubCategoryTest(){
-        AddSubCategoryPage subCategoryPage=new AddSubCategoryPage(driver);
-        subCategoryPage.isAddSubCategorySuccessMassage();
-
-
+    @Test(description = "7-Catalog Manager can add products-LeiLa")
+    public void addProduct(){
 
     }
+    @Test(description = "8-Catalog Manager can edit products - MeLiKe")
+    public void editProduct(){
 
+    }
+    @Test(description = "9-Catalog Manager can delete products -DilNur")
+    public void deleteProduct(){
+
+    }
     @AfterClass
     public void tearDown(){
     closeBrowser();

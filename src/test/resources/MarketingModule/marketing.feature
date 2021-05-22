@@ -1,5 +1,5 @@
 @MarketingModule
-  Feature: Marketing Manager can filter Cart Pricing Rule by Id and Rule(Yusufqan)
+  Feature: Marketing Manager can filter Cart Pricing Rule by Id and Rule
 
     Background:
       Given user on login page
