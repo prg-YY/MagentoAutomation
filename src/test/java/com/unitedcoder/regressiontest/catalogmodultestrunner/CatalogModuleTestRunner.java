@@ -47,6 +47,8 @@ public class CatalogModuleTestRunner extends TestBasePage {
 
 
     }
+    @Test
+    
 
     @AfterClass
     public void tearDown(){

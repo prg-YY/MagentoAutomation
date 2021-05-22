@@ -3,6 +3,7 @@ package com.seleniummaster.magento.backendpages.catalogpages;
 import com.seleniummaster.magento.utility.ApplicationConfig;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
+import org.apache.poi.hssf.record.PageBreakRecord;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -16,12 +17,12 @@ public class DeleteRootCategoriesPage extends TestBasePage {
     TestUtility utility;
     @FindBy(css = "button[title='Reset'][type='button']")
     WebElement ResetButton;
-    @FindBy(xpath = "button[@title='Delete Category']")
+    @FindBy(xpath = "//button[@title='Delete Category']")
     WebElement DeleteCategoryLink;
     //span[text()='The category has been deleted.']
     //*[contains(text(),'The category has been deleted.')]
     //div[@id="messages"]/ul/li/ul/li/span
-    @FindBy(xpath = "*[contains(text(),'The category has been deleted.')")
+    @FindBy(xpath = "//*[contains(text(),'The category has been deleted.')")
     WebElement DeleteSuccessMessage;
 
     public DeleteRootCategoriesPage(WebDriver driver) {
@@ -62,6 +63,7 @@ public class DeleteRootCategoriesPage extends TestBasePage {
                 alert.accept();
 
             }
+            break;
 
         }
 
