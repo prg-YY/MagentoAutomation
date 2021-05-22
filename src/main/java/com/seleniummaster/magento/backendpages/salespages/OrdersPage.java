@@ -161,12 +161,12 @@ public class OrdersPage extends TestBasePage {
         utility.sleep(2);
     }
     public void clickShipmentAndSubmitButton(){
-       checkPaymentMethod();
-       utility.sleep(2);
-       clickOnGetShippingMethodLink();
-       utility.sleep(2);
-       checkOnFixedRadioButton();
-       utility.sleep(1);
+        checkPaymentMethod();
+        utility.sleep(2);
+        clickOnGetShippingMethodLink();
+        utility.sleep(2);
+        checkOnFixedRadioButton();
+        utility.sleep(1);
         JavascriptExecutor js = (JavascriptExecutor)driver;
         js.executeScript("window.scrollBy(0,1000)");
         clickSubmitOrderButton();

@@ -7,7 +7,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.JavascriptExecutor;
 
 public class CreateUpdateCancelOrderStepDiff extends TestBasePage {
     SalesDashboardPage dashboardPage=new SalesDashboardPage(driver);
