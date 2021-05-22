@@ -58,12 +58,19 @@ public class AddRootCategoriesPage extends TestBasePage {
     }
     public void addNewRootCategory(){
         catalogDashboardPage=new CatalogDashboardPage(driver);
+        utility.sleep(1);
         catalogDashboardPage.clickCatalogLink();
+        utility.sleep(1);
         catalogDashboardPage.clickManageCategories();
+        utility.sleep(1);
         fillNameTextBox();
+        utility.sleep(1);
         selectIsActiveDropDown();
+        utility.sleep(1);
         fillDescriptionTextField();
+        utility.sleep(1);
         clickNewRootCategorySaveButton();
+        utility.sleep(1);
 
     }
 }

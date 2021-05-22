@@ -16,7 +16,7 @@ public class LoginSteps extends TestBasePage {
 
     @When("user enter username and password click on login button")
     public void userEnterUsernameAndPasswordClickOnLoginButton() {
-        backEndLogin.backEndLogin(prop.getProperty("marketingmodule"), prop.getProperty("password"));
+        backEndLogin.backEndLogin(prop.getProperty("ReportingManager"), prop.getProperty("password"));
     }
 
     @Then("user successfully login to the system")
