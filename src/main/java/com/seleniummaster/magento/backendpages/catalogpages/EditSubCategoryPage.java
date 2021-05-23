@@ -57,10 +57,15 @@ public class EditSubCategoryPage extends TestBasePage {
     public void editSubCategories() {
         catalogDashboardPage = new CatalogDashboardPage(driver);
         catalogDashboardPage.clickCatalogLink();
+        utility.sleep(1);
         catalogDashboardPage.clickManageCategories();
+        utility.sleep(1);
         clickTeam1RootCategory();
+        utility.sleep(1);
         enterDescriptionTextBox();
+        utility.sleep(1);
         clickSaveButton();
+        utility.sleep(1);
 
 
     }

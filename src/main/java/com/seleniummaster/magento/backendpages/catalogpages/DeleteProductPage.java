@@ -15,7 +15,6 @@ public class DeleteProductPage extends TestBasePage {
     CatalogDashboardPage catalogDashboardPage;
 
 
-
     @FindBy(xpath = "//*[@id=\"productGrid_table\"]/tbody/tr[1]/td[3]")
     WebElement selectTheProduct;
 
@@ -27,35 +26,41 @@ public class DeleteProductPage extends TestBasePage {
     WebElement DeleteSuccessMessage;
 
     public DeleteProductPage(WebDriver driver) {
-        this.driver=TestBasePage.driver;
+        this.driver = TestBasePage.driver;
         PageFactory.initElements(driver, this);
-        utility=new TestUtility(driver);
+        utility = new TestUtility(driver);
     }
 
 
-    public void selectTheProduct(){
+    public void selectTheProduct() {
         utility.waitForElementPresent(selectTheProduct);
         selectTheProduct.click();
     }
 
-    public void clickDeleteButton(){
+    public void clickDeleteButton() {
         utility.waitForElementPresent(deleteButton);
         deleteButton.click();
     }
 
 
-    public boolean verifySuccessMessage(){
+    public boolean verifySuccessMessage() {
         utility.waitForElementPresent(DeleteSuccessMessage);
         return DeleteSuccessMessage.isDisplayed();
     }
-    public void deleteProduct(){
+
+    public void deleteProduct() {
         catalogDashboardPage = new CatalogDashboardPage(driver);
         catalogDashboardPage.clickCatalogLink();
+        utility.sleep(1);
         catalogDashboardPage.clickManageProduct();
+        utility.sleep(1);
         selectTheProduct();
+        utility.sleep(1);
         clickDeleteButton();
-        Alert alert=driver.switchTo().alert();
+        utility.sleep(1);
+        Alert alert = driver.switchTo().alert();
         alert.accept();
+        utility.sleep(1);
 
 
     }

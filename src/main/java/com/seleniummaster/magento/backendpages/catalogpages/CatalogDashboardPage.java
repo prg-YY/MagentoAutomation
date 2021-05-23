@@ -47,6 +47,7 @@ public class CatalogDashboardPage extends TestBasePage {
         catalogLink.click();
         Log.info("Catalog link clicked");
     }
+
     public void clickManageProduct() {
         utility.waitForElementPresent(manageProduct);
         manageProduct.click();

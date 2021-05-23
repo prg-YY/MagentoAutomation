@@ -32,32 +32,37 @@ public class AddRootCategoriesPage extends TestBasePage {
     }
 
 
-    public void fillNameTextBox(){
+    public void fillNameTextBox() {
         utility.waitForElementPresent(nameTextBox);
         nameTextBox.sendKeys(prop.getProperty("NewRootCategories"));
         Log.info("Name Text Box filled");
     }
-    public void selectIsActiveDropDown(){
+
+    public void selectIsActiveDropDown() {
         utility.waitForElementPresent(isActiveDropDown);
         isActiveDropDown.click();
         Log.info("Yes is Selected");
     }
-    public void fillDescriptionTextField(){
+
+    public void fillDescriptionTextField() {
         utility.waitForElementPresent(descriptionTextField);
         descriptionTextField.sendKeys(prop.getProperty("NewRootCategories"));
         Log.info("Description Text Field Filled");
     }
-    public void clickNewRootCategorySaveButton(){
+
+    public void clickNewRootCategorySaveButton() {
         utility.waitForElementPresent(newRootCategorySaveButton);
         newRootCategorySaveButton.click();
         Log.info("New RootCategory Save Button Clicked");
     }
-    public boolean isAddRootCategorySuccessMassage(){
+
+    public boolean isAddRootCategorySuccessMassage() {
         utility.waitForElementPresent(addRootCategorySuccessMassage);
         return addRootCategorySuccessMassage.isDisplayed();
     }
-    public void addNewRootCategory(){
-        catalogDashboardPage=new CatalogDashboardPage(driver);
+
+    public void addNewRootCategory() {
+        catalogDashboardPage = new CatalogDashboardPage(driver);
         utility.sleep(1);
         catalogDashboardPage.clickCatalogLink();
         utility.sleep(1);

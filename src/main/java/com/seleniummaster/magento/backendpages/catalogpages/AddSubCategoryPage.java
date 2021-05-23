@@ -42,13 +42,13 @@ public class AddSubCategoryPage extends TestBasePage {
     }
 
 
-
     public void clickSaveCategory() {
         utility.waitForElementPresent(saveCategory);
         saveCategory.click();
         Log.info("New Sub Category Save Button Clicked");
     }
-    public boolean isAddSubCategorySuccessMassage(){
+
+    public boolean isAddSubCategorySuccessMassage() {
         utility.waitForElementPresent(addSubCategorySuccessMassage);
         return addSubCategorySuccessMassage.isDisplayed();
 
@@ -64,7 +64,6 @@ public class AddSubCategoryPage extends TestBasePage {
         utility.sleep(2);
         clickSaveCategory();
         utility.sleep(2);
-
 
 
     }
