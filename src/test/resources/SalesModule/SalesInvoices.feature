@@ -4,7 +4,6 @@ Feature: Sales manager can create edit and update order
   -Add Comment To Invoices History
   -View Refunds
 
-
   Background:
     Given user on login page
     When user enter username and password click on login button

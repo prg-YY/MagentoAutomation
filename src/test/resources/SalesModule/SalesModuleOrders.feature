@@ -28,3 +28,10 @@
           And click on cancel order action and submit it
           Then verify the order successfully cancelled
 
+    @UpdateShipments
+    Scenario: user should be able to update shipment
+      Given sales manager on the shipment dashboard
+      When  sales manager on the define order and click it
+      And add shipping and tracking information
+      Then shipping and tracking information added successfully
+

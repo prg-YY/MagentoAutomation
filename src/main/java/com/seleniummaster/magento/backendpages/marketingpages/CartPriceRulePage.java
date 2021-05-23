@@ -7,5 +7,5 @@ import org.openqa.selenium.WebDriver;
 public class CartPriceRulePage extends TestBasePage {
     WebDriver driver;
     TestUtility utility;
-    //Marketing Manager can add new Cart Price Rule(@Abdusamad)
+
 }

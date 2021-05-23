@@ -8,7 +8,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class FilterCartPriceByID extends TestBasePage {
+public class FilterCartPriceByID extends TestBasePage{
     MarketingDashBoarPage dashBoarPage=new MarketingDashBoarPage();
     TestUtility utility=new TestUtility(driver);
     CatalogPriceRulePage priceRulePage=new CatalogPriceRulePage();
