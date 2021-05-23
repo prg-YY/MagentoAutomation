@@ -146,6 +146,8 @@ public class CatalogPriceRulePage extends TestBasePage {
     // dilnur code -- add new catalog price rule
     @FindBy(xpath = "//input[@id=\"promo_catalog_grid_filter_name\"]")
     WebElement RuleNameTextBox;
+    @FindBy(id = "promo_catalog_grid_filter_rule_id")
+    WebElement ruleIdSearchBox;
     @FindBy(xpath = "//button[@class=\"scalable task\"]")
     WebElement SearchButton;
     @FindBy(xpath = "//div[@class=\"hor-scroll\"]/table/tbody/tr")
@@ -163,9 +165,16 @@ public class CatalogPriceRulePage extends TestBasePage {
 
     public void enterRuleName(String ruleName){
         utility.waitForElementPresent(ruleNameTextBox);
+        utility.waitForElementPresent(ruleNameTextBox);
         ruleNameTextBox.sendKeys(ruleName);
         Log.info("New rule name entered");
     }
+    public void enterRuleId(String ruleId){
+        utility.waitForElementPresent(ruleIdSearchBox);
+        ruleIdSearchBox.sendKeys(ruleId);
+        Log.info("rule id has been entered for searching");
+    }
+
 
     public void enterRuleNameToSearchBox(){
         utility.waitForElementPresent(ruleNameTextBox);

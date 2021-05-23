@@ -16,11 +16,13 @@ public class AddNewCatalogPriceRuleStepsD extends TestBasePage {
     TestUtility utility;
     @Given("user already on the dashboard page")
     public void userAlreadyOnTheDashboardPage() {
-        dashBoarPage=new MarketingDashBoarPage();
+
+
     }
     //Add New Catalog Price Rule
     @When("user click on the Promotions dropdown list then select on the Catalog Price Rules link")
     public void userClickOnThePromotionsDropdownListThenSelectOnTheCatalogPriceRulesLink() {
+        dashBoarPage=new MarketingDashBoarPage();
         dashBoarPage.clickAllPromotionsLink();
         dashBoarPage.clickCatalogPriceRules();
         utility.sleep(1);
@@ -34,18 +36,23 @@ public class AddNewCatalogPriceRuleStepsD extends TestBasePage {
         Assert.assertTrue(catalogPriceRulePage.verifySuccessMessage());
     }
     //update existing Catalog price Rule
+
     @When("user click on the Promotions dropdown list then select on the Catalog Price Rules link and select an existing Rule Name")
     public void userClickOnThePromotionsDropdownListThenSelectOnTheCatalogPriceRulesLinkAndSelectAnExistingRuleName() {
         dashBoarPage.clickAllPromotionsLink();
         dashBoarPage.clickCatalogPriceRules();
+        utility.sleep(2);
     }
     @And("user click on Actions link to update Price information then click on Save and Apply button")
     public void userClickOnActionsLinkToUpdatePriceInformationThenClickOnSaveAndApplyButton() {
-        catalogPriceRulePage.enterRuleNameToSearchBox();
+        catalogPriceRulePage.enterRuleId("45");
         catalogPriceRulePage.clickSearchButton();
+        utility.sleep(2);
         catalogPriceRulePage.clickOnMyRule();
+        utility.sleep(2);
         catalogPriceRulePage.enterDescription();
         catalogPriceRulePage.clickUpdateSaveButton();
+        utility.sleep(2);
     }
     @Then("existing Catalog Price Rule should be updated successfully")
     public void existingCatalogPriceRuleShouldBeUpdatedSuccessfully() {
