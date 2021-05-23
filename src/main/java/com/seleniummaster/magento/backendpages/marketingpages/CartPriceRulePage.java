@@ -3,10 +3,12 @@ package com.seleniummaster.magento.backendpages.marketingpages;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 public class CartPriceRulePage extends TestBasePage {
 
@@ -33,7 +35,7 @@ public class CartPriceRulePage extends TestBasePage {
         addNewRuleButton.click();
         Log.info("Add new rule button clicked");
     }
-    public void enterName(String ruleName){
+    public void enterRuleName(String ruleName){
         utility.waitForElementPresent(ruleNameField);
         ruleNameField.sendKeys(ruleName);
         utility.sleep(2);
@@ -56,6 +58,13 @@ public class CartPriceRulePage extends TestBasePage {
         utility.waitForElementPresent(verifySavedMessage);
         verifySavedMessage.isDisplayed();
     }
+    public void addNewCartPriceRule(String ruleName){
+        clickAddNewRuleButton();
+        enterRuleName(ruleName);
+        selectWebSitesOneOption();
+        selectCustomerGroupsOneOption();
+        clickSaveButton();
+    }
 
 
     //Update New Rule
@@ -76,7 +85,7 @@ public class CartPriceRulePage extends TestBasePage {
 
     // Update Rule price Methods
 
-    public void enterRuleName(String ruleName){
+    public void enterRuleNameToSearchBox(String ruleName){
         utility.waitForElementPresent(ruleNameFiled);
         ruleNameFiled.sendKeys(ruleName);
         utility.sleep(2);
@@ -124,14 +133,63 @@ public class CartPriceRulePage extends TestBasePage {
         return true;
     }
     public void updateCartRulePrice(){
-        enterRuleName("Malike-team1");
+        enterRuleNameToSearchBox(prop.getProperty("cartPriceRuleName"));
         clickSearchButton();
         utility.sleep(2);
         clickOneCartPriceRule();
         utility.sleep(2);
         clearRuleDescription();
-        enterRuleDescription("Team-1");
+        enterRuleDescription(prop.getProperty("cartPriceRuleDescription"));
         clickSaveEditButton();
         utility.sleep(2);
+    }
+
+    // search catalog price rule test methods
+    @FindBy(xpath = "//*[@id=\"promo_catalog_grid_filter_rule_id\"]")
+    WebElement ruleIdSearchingField;
+    @FindBy(xpath ="//*[@id=\"promo_catalog_grid_filter_name\"]")
+    WebElement ruleNameSearchingField;
+    @FindBy(xpath = "//*[@id=\"anchor-content\"]")
+    WebElement verifyPage;
+    @FindBy(xpath = "//span[text()='Reset Filter']")
+    WebElement resetFilter;
+    @FindBy(xpath = "//*[@id=\"promo_catalog_grid\"]/table/tbody/tr/td[1]")
+    WebElement searchingResultTab;
+
+    // methods
+    public void enterRuleNameForSearching(String ruleName){
+        utility.waitForElementPresent(ruleNameSearchingField);
+        ruleNameSearchingField.sendKeys(ruleName);
+        Log.info("Rule name has been Entered for searching");
+    }
+    public void clickOnResetFilter(){
+        utility.waitForElementPresent(resetFilter);
+        resetFilter.click();
+        Log.info("Reset Filter has been clicked");
+    }
+    public void enterRuleIdForSearching(String ruleId){
+        utility.waitForElementPresent(ruleIdSearchingField);
+        ruleIdSearchingField.sendKeys(ruleId);
+        Log.info("Rule ID has been Entered For searching");
+    }
+
+    public void searchingByRuleName(String ruleName){
+        enterRuleNameForSearching(ruleName);
+        clickSearchButton();
+        utility.sleep(2);
+    }
+    public void searchingByRuleId(String ruleId){
+        enterRuleIdForSearching(ruleId);
+        clickSearchButton();
+        utility.sleep(2);
+    }
+    // verify searching result
+    public boolean searchingResultDisplay(){
+        utility.waitForElementPresent(searchingResultTab);
+        List<WebElement> ruleResultList=driver.findElements(By.xpath("//*[@id=\"promo_catalog_grid_table\"]/tbody/tr"));
+        if (ruleResultList.size()>0){
+            System.out.println("Test Passed Total result already displayed");
+        }else System.out.println("There no any result");
+        return true;
     }
 }

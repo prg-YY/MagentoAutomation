@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+
 import java.util.List;
 
 public class ReviewsPage extends TestBasePage {
@@ -16,18 +17,27 @@ public class ReviewsPage extends TestBasePage {
     TestUtility utility;
     MarketingDashBoarPage marketingDashBoarPage;
 
+    public ReviewsPage() {
+        this.driver=TestBasePage.driver;
+        PageFactory.initElements(driver,this);
+        utility=new TestUtility(driver);
+    }
+
     //View Pending views Elements
-    @FindBy(xpath = "//*[@id=\"reviwGrid_table\"]/tbody/tr")
+    @FindBy(xpath = "//*[@id=\"reviwGrid_table\"]/tbody/tr[1]")
     WebElement pendingRows;
     @FindBy(xpath = "//*[@id=\"reviwGrid\"]/table/tbody/tr/td[1]")
     WebElement totalViewLink;
     //method for view pending review
     public void viewPendingReviews(){
-        utility.waitForElementPresent(pendingRows);
-        List<WebElement> pendingViewsList=driver.findElements(By.xpath("//*[@id=\"reviwGrid_table\"]/tbody/tr"));
-        if (pendingViewsList.size()>=1){
+         WebElement pendingViewsList=driver.findElement(By.xpath("//*[@id=\"reviwGrid_table\"]/tbody/tr[1]/td[6]"));
+        if (pendingViewsList.isDisplayed()){
             System.out.println("Pending Reviews Test passed ");
         }else System.out.println("Pending Reviews Test Failed");
+    }
+    public void pendingReviewsAlreadyDisplay(){
+        utility.waitForElementPresent(pendingRows);
+        pendingRows.isDisplayed();
     }
     public boolean isTotalReviewsLinkDisplayed(){
         utility.waitForElementPresent(totalViewLink);
@@ -76,6 +86,10 @@ public class ReviewsPage extends TestBasePage {
         searchButton.click();
         Log.info("Search Button has benn clicked");
     }
+    public void searchByIdForEdit(String id){
+        enterIdToIdSearchBox(id);
+        clickOnSearchButton();
+    }
     public void clickOnPendingEditButton() {
         utility.waitForElementPresent(pendingEditButton);
         pendingEditButton.click();
@@ -91,6 +105,12 @@ public class ReviewsPage extends TestBasePage {
         saveReviewButton.click();
         Log.info("Save Review Button has been clicked");
     }
+    public void addReviewForEdit(String textForAdding){
+        clickOnPendingEditButton();
+        enterReviewToReviewTextBox(textForAdding);
+        clickOnSaveReviewButton();
+    }
+
     public boolean isPendingReviewUpdate(){
         utility.waitForElementPresent(successMessage);
         if (successMessage.isDisplayed()){
@@ -111,13 +131,13 @@ public class ReviewsPage extends TestBasePage {
     @FindBy(xpath = "//*[@id=\"messages\"]/ul/li")
     WebElement allReviewSuccessMessage;
 
-    // method for all reivews actions
+    // method for all reviews actions
     public void enterIdToAllReviewsIdSearchBox(String allReviewId){
         utility.waitForElementPresent(allReviewsIdSearchBox);
         allReviewsIdSearchBox.sendKeys(allReviewId);
         Log.info("All reviews Id Hss been Entered");
     }
-    public void clickOnALLReviewsEdit(){
+    public void clickOnALLReviewsEditLink(){
         utility.waitForElementPresent(allReviewsEdit);
         allReviewsEdit.click();
         Log.info("All reviews Edit Button has been clicked");
@@ -132,6 +152,16 @@ public class ReviewsPage extends TestBasePage {
         allReviewsSaveButton.click();
         Log.info("All reviews Save button Has been clicked");
     }
+    public void defineOneReviewForEdit(String reviewID ){
+        enterIdToAllReviewsIdSearchBox(reviewID);
+        clickOnSearchButton();
+        clickOnALLReviewsEditLink();
+    }
+    public void addReviewAndClickSaveButton(String reviewText){
+        enterReviewToALlReviewTextBox(reviewText);
+        clickOnAllReviewsSaveButton();
+    }
+
     public boolean isAllReviewUpdated(){
         utility.waitForElementPresent(allReviewSuccessMessage);
         if (allReviewSuccessMessage.isDisplayed()){

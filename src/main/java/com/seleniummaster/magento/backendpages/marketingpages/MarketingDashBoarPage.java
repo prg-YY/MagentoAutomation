@@ -161,6 +161,20 @@ public class MarketingDashBoarPage extends TestBasePage {
         utility.sleep(2);
         cartPriceRules.isDisplayed();
 
+      }
 
-    }
+      public void goToPendingReviewsPage(){
+        clickAllCatalogLink();
+        clickReviewsAndRatingsLink();
+        clickCustomerReviewsLink();
+        clickPendingReviewsLink();
+        utility.sleep(1);
+      }
+      public void goToAllReviewsPage(){
+          clickAllCatalogLink();
+          clickReviewsAndRatingsLink();
+          clickCustomerReviewsLink();
+          clickAllReviewsLink();
+          utility.sleep(1);
+      }
 }

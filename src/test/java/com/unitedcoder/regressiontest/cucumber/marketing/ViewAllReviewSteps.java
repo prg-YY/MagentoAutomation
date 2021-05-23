@@ -3,7 +3,6 @@ package com.unitedcoder.regressiontest.cucumber.marketing;
 import com.seleniummaster.magento.backendpages.marketingpages.MarketingDashBoarPage;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
-import cucumber.api.TestStep;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

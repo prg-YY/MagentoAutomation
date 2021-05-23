@@ -23,11 +23,7 @@ public class AddCartPriceRuleSteps  extends TestBasePage {
     @And("user click on add new rule button to fill out cart price rule  information")
     public void userClickOnAddNewRuleButtonToFillOutCartPriceRuleInformation() {
         CartPriceRulePage cartPriceRulePage=new CartPriceRulePage();
-        cartPriceRulePage.clickAddNewRuleButton();
-        cartPriceRulePage.enterName("Malike-team1");
-        cartPriceRulePage.selectWebSitesOneOption();
-        cartPriceRulePage.selectCustomerGroupsOneOption();
-        cartPriceRulePage.clickSaveButton();
+        cartPriceRulePage.addNewCartPriceRule(prop.getProperty("cartPriceRuleName"));
     }
     @Then("cart price rule  should be added")
     public void cartPriceRuleShouldBeAdded() {
