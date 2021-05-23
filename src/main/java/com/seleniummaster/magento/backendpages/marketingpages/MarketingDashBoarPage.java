@@ -177,4 +177,11 @@ public class MarketingDashBoarPage extends TestBasePage {
           clickAllReviewsLink();
           utility.sleep(1);
       }
+      public void goToNewsLetterSubscribersPage(){
+        clickAllNewsLetterLink();
+        clickNewsletterSubscribersLink();
+        utility.sleep(1);
+      }
+
+
 }
