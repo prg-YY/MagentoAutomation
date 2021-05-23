@@ -11,8 +11,8 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 public class ViewUpdateReviewsStepDiff extends TestBasePage {
-    TestUtility utility;
-    MarketingDashBoarPage dashBoarPage;
+    TestUtility utility=new TestUtility(driver);
+    MarketingDashBoarPage dashBoarPage=new MarketingDashBoarPage();
     ReviewsPage reviewsPage=new ReviewsPage();
     @Given("Marketing Manager Already On Dashboard Pages")
     public void marketingManagerAlreadyOnDashboardPages() {
@@ -21,15 +21,14 @@ public class ViewUpdateReviewsStepDiff extends TestBasePage {
 
     @When("Marketing Manager click On pending reviews link")
     public void marketingManagerClickOnPendingReviewsLink() {
-        dashBoarPage.clickAllCatalogLink();
-        dashBoarPage.clickReviewsAndRatingsLink();
-        dashBoarPage.clickCustomerReviewsLink();
-        dashBoarPage.clickPendingReviewsLink();
+        dashBoarPage.goToPendingReviewsPage();
     }
 
     @And("Marketing manager review pending reviews")
     public void marketingManagerReviewPendingReviews() {
-        reviewsPage.viewPendingReviews();
+
+        reviewsPage.pendingReviewsAlreadyDisplay();
+        utility.takeScreenShot("pendingReviews.png",driver);
     }
 
     @Then("all pending reviews already displayed on the UI")
@@ -41,33 +40,48 @@ public class ViewUpdateReviewsStepDiff extends TestBasePage {
 
     @And("Marketing Manager search review for update")
     public void marketingManagerSearchReviewForUpdate() {
+        reviewsPage.searchByIdForEdit(prop.getProperty("reviewId"));
+
     }
 
     @And("Marketing manager Edit review information and click save button")
     public void marketingManagerEditReviewInformationAndClickSaveButton() {
+        reviewsPage.addReviewForEdit(prop.getProperty("reviewText"));
     }
 
     @Then("Pending Reviews updated successfully")
     public void pendingReviewsUpdatedSuccessfully() {
+        reviewsPage.isPendingReviewUpdate();
+        Assert.assertTrue(reviewsPage.isTotalReviewsLinkDisplayed());
     }
 
     @When("Marketing Manager click On all reviews link")
     public void marketingManagerClickOnAllReviewsLink() {
+        dashBoarPage.goToAllReviewsPage();
     }
 
     @And("Marketing manager review All reviews")
     public void marketingManagerReviewAllReviews() {
+        reviewsPage.viewAllReviews();
+        utility.takeScreenShot("allReviews.png",driver);
     }
 
     @Then("all reviews already displayed on the UI")
     public void allReviewsAlreadyDisplayedOnTheUI() {
+        reviewsPage.isTotalReviewsLinkDisplayed();
+        Assert.assertTrue(reviewsPage.isTotalReviewsLinkDisplayed());
     }
 
     @And("Marketing manager Edit All review information and click save button")
     public void marketingManagerEditAllReviewInformationAndClickSaveButton() {
+        reviewsPage.defineOneReviewForEdit(prop.getProperty("allReviewId"));
+        reviewsPage.addReviewAndClickSaveButton(prop.getProperty("reviewTextForUpdate"));
+
     }
 
     @Then("All Reviews updated successfully")
     public void allReviewsUpdatedSuccessfully() {
+        reviewsPage.isAllReviewUpdated();
+        Assert.assertTrue(reviewsPage.isAllReviewUpdated());
     }
 }
