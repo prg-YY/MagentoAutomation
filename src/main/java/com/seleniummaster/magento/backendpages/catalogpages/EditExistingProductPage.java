@@ -33,44 +33,56 @@ public class EditExistingProductPage extends TestBasePage {
 
 
     public EditExistingProductPage(WebDriver driver) {
-        this.driver= driver;
+        this.driver = driver;
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver);
     }
-   public void clickSelectProduct(){
+
+    public void clickSelectProduct() {
         utility.waitForElementPresent(selectProduct);
-       selectProduct.click();
-   }
+        selectProduct.click();
+    }
+
     //click the prices link
-    public void clickPriceLink(){
+    public void clickPriceLink() {
         utility.waitForElementPresent(pricesLink);
         pricesLink.click();
     }
+
     //enter price in the special price field
-    public void enterSpecialPrice(){
+    public void enterSpecialPrice() {
         utility.waitForElementPresent(specialPriceTextBoxField);
         specialPriceTextBoxField.clear();
-        specialPriceTextBoxField.sendKeys(prop.getProperty("specialPrice"));
+        specialPriceTextBoxField.sendKeys(prop.getProperty("Price1"));
 
         //click the save button
     }
-    public void clickSaveButton(){
+
+    public void clickSaveButton() {
         utility.waitForElementPresent(saveButton);
         saveButton.click();
 
     }
-    public boolean verifySuccessfulMessage(){
+
+    public boolean verifySuccessfulMessage() {
         utility.waitForElementPresent(editSuccessMessage);
         return editSuccessMessage.isDisplayed();
     }
-    public void editExistingProduct(){
+
+    public void editExistingProduct() {
         catalogDashboardPage = new CatalogDashboardPage(driver);
         catalogDashboardPage.clickCatalogLink();
+        utility.sleep(1);
         catalogDashboardPage.clickManageProduct();
+        utility.sleep(1);
         clickSelectProduct();
+        utility.sleep(1);
         clickPriceLink();
+        utility.sleep(1);
         enterSpecialPrice();
+        utility.sleep(1);
         clickSaveButton();
+        utility.sleep(1);
 
     }
 

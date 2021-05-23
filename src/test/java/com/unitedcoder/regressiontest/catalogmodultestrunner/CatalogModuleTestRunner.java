@@ -27,6 +27,7 @@ public class CatalogModuleTestRunner extends TestBasePage {
     public void addRootCategory(){
         rootCategoriesPage=new AddRootCategoriesPage(driver);
         rootCategoriesPage.addNewRootCategory();
+        Assert.assertTrue(rootCategoriesPage.isAddRootCategorySuccessMassage());
 
     }
     @Test(description = "2-Catalog Manager can edit root categories -yusuf")
@@ -39,36 +40,51 @@ public class CatalogModuleTestRunner extends TestBasePage {
     public void deleteRootCategories(){
         DeleteRootCategoriesPage deleteRootCategoriesPage=new DeleteRootCategoriesPage(driver);
         deleteRootCategoriesPage.deleteRootCategory();
+        Assert.assertTrue(deleteRootCategoriesPage.VerifySuccessfulMsgDisplay());
 
 
     }
     @Test(description = "4-Catalog Manager can add sub categories-ZuHre ")
     public void addSubCategories(){
         AddSubCategoryPage subCategoryPage=new AddSubCategoryPage(driver);
-        subCategoryPage.isAddSubCategorySuccessMassage();
+        subCategoryPage.addSubCategory();
+        Assert.assertTrue(subCategoryPage.isAddSubCategorySuccessMassage());
     }
     @Test(description = "5-Catalog Manager can edit sub categories-KaMer ")
     public void editSubCategories(){
+        EditSubCategoryPage editSubCategoryPage=new EditSubCategoryPage(driver);
+        editSubCategoryPage.editSubCategories();
+        Assert.assertTrue(editSubCategoryPage.isEditSubCategorySuccessMassage());
+
 
     }
     @Test(description = "6-Catalog Manager can delete sub categories-AyPer")
     public void deleteSubcategory(){
-        EditCategoriesPage categoriesPage=new EditCategoriesPage();
-        DeleteSubCategoryPage subCategoryPage = new DeleteSubCategoryPage(driver);
-        categoriesPage.editCategoriesPage();
-        subCategoryPage.deleteSub();
+      DeleteSubCategoryPage deleteSubCategoryPage=new DeleteSubCategoryPage(driver);
+      deleteSubCategoryPage.deleteSub();
+      Assert.assertTrue(deleteSubCategoryPage.isConfirmationDisplayed());
 
     }
     @Test(description = "7-Catalog Manager can add products-LeiLa")
     public void addProduct(){
+        AddNewProductPage productPage=new AddNewProductPage(driver);
+        productPage.AddProduct();
+        Assert.assertTrue(productPage.verifySuccess());
 
     }
     @Test(description = "8-Catalog Manager can edit products - MeLiKe")
     public void editProduct(){
+        EditExistingProductPage productPage=new EditExistingProductPage(driver);
+        productPage.editExistingProduct();
+        Assert.assertTrue(productPage.verifySuccessfulMessage());
 
     }
     @Test(description = "9-Catalog Manager can delete products -DilNur")
     public void deleteProduct(){
+        DeleteProductPage deleteProductPage=new DeleteProductPage(driver);
+        deleteProductPage.deleteProduct();
+        Assert.assertTrue(deleteProductPage.verifySuccessMessage());
+
 
     }
     @AfterClass
