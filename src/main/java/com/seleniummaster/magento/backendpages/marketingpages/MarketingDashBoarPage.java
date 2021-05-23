@@ -104,6 +104,7 @@ public class MarketingDashBoarPage extends TestBasePage {
     public void clickShoppingCartPriceRules(){
         utility.waitForElementPresent(shoppingCartPriceRules);
         shoppingCartPriceRules.click();
+        utility.sleep(2);
         Log.info("ShoppingCart Price Rules Clicked");
     }
     public void clickAllNewsLetterLink(){
