@@ -50,12 +50,22 @@ public class SalesDashboardPage extends TestBasePage {
         ordersLink.click();
         Log.info("Orders link clicked");
     }
+    public void goToOrderPage(){
+        clickOnSalesLink();
+        clickOrdersLink();
+        utility.sleep(1);
+    }
 
     public void clickInvoicesLink() {
         utility.waitForElementPresent(invoicesLink);
         invoicesLink.click();
         utility.sleep(1);
         Log.info("Invoices Link clicked");
+    }
+    public void goToInvoicesPage(){
+        clickOnSalesLink();
+        clickInvoicesLink();
+        utility.sleep(1);
     }
 
     public void clickShipmentsLink() {
