@@ -1,7 +1,7 @@
 package com.unitedcoder.regressiontest.cucumber.marketing;
 
 import com.seleniummaster.magento.backendpages.marketingpages.AddAndUpDateCPriceRuleP;
-import com.seleniummaster.magento.backendpages.marketingpages.AddNewsLetterTemplate;
+import com.seleniummaster.magento.backendpages.marketingpages.NewsLetterPage;
 import com.seleniummaster.magento.backendpages.marketingpages.MarketingDashBoarPage;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
@@ -9,12 +9,11 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
 
 public class AddNewCatalogPriceRuleStepsD extends TestBasePage {
     MarketingDashBoarPage dashBoarPage=new MarketingDashBoarPage();
     AddAndUpDateCPriceRuleP priceRuleP=new AddAndUpDateCPriceRuleP();
-    AddNewsLetterTemplate newsLetterTemplate=new AddNewsLetterTemplate();
+    NewsLetterPage newsLetterTemplate=new NewsLetterPage();
     TestUtility utility=new TestUtility(driver);
     @Given("user already on the dashboard page")
     public void userAlreadyOnTheDashboardPage() {
