@@ -16,7 +16,6 @@ public class SalesModuleStepDef extends TestBasePage {
     CreditMemosPage creditMemosPage=new CreditMemosPage(driver);
     TaxRulesPage rulesPage=new TaxRulesPage(driver);
 
-
     @Given("sales manager on the sales module dashboard")
     public void salesManagerOnTheSalesModuleDashboard() {
         OrdersPage ordersPage=new OrdersPage(driver);
@@ -149,13 +148,13 @@ public class SalesModuleStepDef extends TestBasePage {
 
     @And("sales manager define a shipment to edit")
     public void salesManagerDefineAShipmentToEdit() {
-        shipmentPage.searchShipment();
+        shipmentPage.searchShipment(prop.getProperty("shipmentId"));
     }
 
     @And("sales manager add shipping and tracking information")
     public void salesManagerAddShippingAndTrackingInformation() {
         shipmentPage.addShipment();
-        shipmentPage.addComment();
+        shipmentPage.addComment(prop.getProperty("commentText"));
     }
 
     @Then("shipping and tracking information added successfully")
@@ -193,24 +192,28 @@ public class SalesModuleStepDef extends TestBasePage {
     @And("sales manager fill out all required filed")
     public void salesManagerFillOutAllRequiredFiled() {
         rulesPage.fillOutNewTaxRuleInformation();
-
+        rulesPage.clickSaveRuleButton();
     }
 
     @Then("new tax rule added successfully")
     public void newTaxRuleAddedSuccessfully() {
-        rulesPage.isNewRuleAddedSuccessfully();
-        Assert.assertTrue(rulesPage.isNewRuleAddedSuccessfully());
+        rulesPage.successMessageIsDisplay();
+        Assert.assertTrue(rulesPage.successMessageIsDisplay());
     }
 
     @And("sales manager define one rule to edit")
     public void salesManagerDefineOneRuleToEdit() {
+        rulesPage.defineRuleForEdit(prop.getProperty("ruleName"));
     }
 
     @And("sales manager edit some information")
     public void salesManagerEditSomeInformation() {
+        rulesPage.enterPriority(prop.getProperty("priority"));
     }
 
     @Then("Existing tax rule updated successfully")
     public void existingTaxRuleUpdatedSuccessfully() {
+        rulesPage.successMessageIsDisplay();
+        Assert.assertTrue(rulesPage.successMessageIsDisplay());
     }
 }

@@ -4,6 +4,7 @@ import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,7 +17,7 @@ public class ShipmentPage  {
     WebDriver driver;
     TestUtility utility;
 
-    @FindBy(name = "order_increment_id")
+    @FindBy(xpath = "//*[@id=\"sales_shipment_grid_filter_increment_id\"]")
     WebElement searchBox;
     @FindBy(xpath = "//span[text()='Search']")
     WebElement searchButton;
@@ -41,30 +42,31 @@ public class ShipmentPage  {
     @FindBy(xpath = "//li[@class=\"success-msg\"]")
     WebElement verifySuccessMessage;
 
+
     public ShipmentPage(WebDriver driver) {
         this.driver = TestBasePage.driver;
         PageFactory.initElements(driver, this);
          utility= new TestUtility(driver);
     }
 
-    public void enterShipmentIdToSearchBox(){
+    public void enterShipmentIdToSearchBox( String id){
         utility.waitForElementPresent(searchBox);
-        searchBox.sendKeys("200000017");
-        Log.info("shipment page is displayed");
+        searchBox.sendKeys(id);
+        Log.info("shipment Id has been entered for searching");
 
     }
-    //method for customerListCheckBox
+    //method
     public void clickOnShipmentCheckBox(){
         utility.waitForElementPresent(shipmentCheckBox);
         shipmentCheckBox.click();
-        Log.info("customerListCheckBox has been clicked");
+        Log.info("shipment CheckBox has been clicked");
 
     }
     //  method for viewLink
     public void clickOnViewLink(){
         utility.waitForElementPresent(viewLink);
         viewLink.click();
-        Log.info("viewFromCustomerList has been clicked");
+        Log.info("view link has been clicked");
     }
     // search button
     public void clickOnSearchButton(){
@@ -74,8 +76,8 @@ public class ShipmentPage  {
 
     }
     //define shipment
-    public void searchShipment(){
-        enterShipmentIdToSearchBox();
+    public void searchShipment(String shipmentId){
+        enterShipmentIdToSearchBox(shipmentId);
         clickOnSearchButton();
         utility.sleep(1);
         clickOnShipmentCheckBox();
@@ -103,7 +105,6 @@ public class ShipmentPage  {
     public void clickAddButton(){
         utility.waitForElementPresent(clickAddButton);
         clickAddButton.click();
-        utility.sleep(2);
         Log.info(" add button has been clicked");
 
     }
@@ -112,7 +113,7 @@ public class ShipmentPage  {
         utility.waitForElementPresent(sendTrackingInformation);
         sendTrackingInformation.click();
 
-        Log.info("clicked on send tracking information button");
+        Log.info("send tracking information button has been clicked");
     }
 
 
@@ -120,18 +121,18 @@ public class ShipmentPage  {
     public boolean shipmentUpdatedSuccessfully(){
         utility.waitForElementPresent(verifySuccessMessage);
         verifySuccessMessage.isDisplayed();
-        Log.info("Verified update shipments successful message ");
+        Log.info("Successful message has been displayed ");
         return true;
     }
 
     //add tracking history
-    public void enterCommentToTextBox(){
+    public void enterCommentToTextBox(String commentText){
         utility.waitForElementPresent(commentTextBox);
-        commentTextBox.sendKeys("good service");
+        commentTextBox.sendKeys(commentText);
         Log.info("comment has been entered");
 
     }
-    //click on subment button
+    //click on submit button
     public void clickCommentSubmitButton(){
         utility.waitForElementPresent(commentSubmitButton);
         commentSubmitButton.click();
@@ -140,13 +141,13 @@ public class ShipmentPage  {
     }
     public void addShipment(){
         selectDHL();
-        enterTrackingNumber("3");
+        enterTrackingNumber("2");
         clickAddButton();
-        utility.sleep(2);
+        utility.sleep(1);
 
     }
-    public void addComment(){
-        enterCommentToTextBox();
+    public void addComment(String commentText){
+        enterCommentToTextBox(commentText);
         clickCommentSubmitButton();
         utility.sleep(1);
         clickSendInformationButton();
