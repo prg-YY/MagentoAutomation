@@ -1,8 +1,6 @@
 package com.unitedcoder.regressiontest.cucumber.sales;
 
-import com.seleniummaster.magento.backendpages.salespages.InvoicesPage;
-import com.seleniummaster.magento.backendpages.salespages.OrdersPage;
-import com.seleniummaster.magento.backendpages.salespages.SalesDashboardPage;
+import com.seleniummaster.magento.backendpages.salespages.*;
 import com.seleniummaster.magento.utility.TestBasePage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -10,10 +8,16 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import javax.swing.table.TableStringConverter;
+
 public class SalesModuleStepDef extends TestBasePage {
     SalesDashboardPage dashboardPage=new SalesDashboardPage(driver);
     OrdersPage ordersPage=new OrdersPage(driver);
     InvoicesPage invoicesPage=new InvoicesPage(driver);
+    ShipmentPage shipmentPage=new ShipmentPage(driver);
+    CreditMemosPage creditMemosPage=new CreditMemosPage(driver);
+    TaxRulesPage rulesPage=new TaxRulesPage(driver);
+
 
     @Given("sales manager on the sales module dashboard")
     public void salesManagerOnTheSalesModuleDashboard() {
@@ -93,78 +97,106 @@ public class SalesModuleStepDef extends TestBasePage {
 
     @And("sales manager can see all invoices")
     public void salesManagerCanSeeAllInvoices() {
+        invoicesPage.viewAllInvoice();
     }
 
     @Then("verify user sow all invoices")
     public void verifyUserSowAllInvoices() {
+        invoicesPage.totalInvoicesRecordDisplay();
+        Assert.assertTrue(invoicesPage.totalInvoicesRecordDisplay());
     }
 
     @When("sales manager go to invoices page")
     public void salesManagerGoToInvoicesPage() {
+        dashboardPage.goToInvoicesPage();
     }
 
     @And("sales manager define a invoice history")
     public void salesManagerDefineAInvoiceHistory() {
+       invoicesPage.defineInvoiceHistory(prop.getProperty("invoicesId"));
     }
 
     @And("sales manager add comment to invoice history")
     public void salesManagerAddCommentToInvoiceHistory() {
+        invoicesPage.addCommentToInvoice(prop.getProperty("invoiceComment"));
     }
 
     @Then("verify comment added successfully")
     public void verifyCommentAddedSuccessfully() {
+        invoicesPage.isCommentDisplay();
+        Assert.assertTrue(invoicesPage.isCommentDisplay());
     }
 
     @And("sales manager define a order and click view button")
     public void salesManagerDefineAOrderAndClickViewButton() {
+        invoicesPage.defineCreditMemos(prop.getProperty("creditMemosId"));
+        invoicesPage.totalRefundRecordIsDisplayed();
     }
 
     @Then("refunds record displayed successfully")
     public void refundsRecordDisplayedSuccessfully() {
+        invoicesPage.isTotalRefundsDisplayed();
+        Assert.assertTrue(invoicesPage.isCommentDisplay());
     }
 
     @When("sales manager go to shipment page")
     public void salesManagerGoToShipmentPage() {
+        dashboardPage.goToShipmentPage();
     }
 
     @And("sales manager define a shipment to edit")
     public void salesManagerDefineAShipmentToEdit() {
+        shipmentPage.searchShipment();
     }
 
     @And("sales manager add shipping and tracking information")
     public void salesManagerAddShippingAndTrackingInformation() {
+        shipmentPage.addShipment();
+        shipmentPage.addComment();
     }
 
     @Then("shipping and tracking information added successfully")
     public void shippingAndTrackingInformationAddedSuccessfully() {
+        shipmentPage.verifySuccessMessage();
+        Assert.assertTrue(shipmentPage.verifySuccessMessage());
     }
 
     @When("sales manager click credit memos link")
     public void salesManagerClickCreditMemosLink() {
+        dashboardPage.goToCreditMemosPage();
     }
 
     @And("sales manager see credit memos")
     public void salesManagerSeeCreditMemos() {
+        creditMemosPage.viewCreditMemos();
     }
 
     @Then("credit memos records already displayed")
     public void creditMemosRecordsAlreadyDisplayed() {
+        creditMemosPage.viewCreditMemos();
+        Assert.assertTrue(creditMemosPage.viewCreditMemos());
     }
 
     @When("sales manager go to manage tax rule page")
     public void salesManagerGoToManageTaxRulePage() {
+        dashboardPage.goToManageTaxRulesPage();
     }
 
     @And("sales manager click on add new rule button")
     public void salesManagerClickOnAddNewRuleButton() {
+        rulesPage.clickAddNewTaxRuleButton();
     }
 
     @And("sales manager fill out all required filed")
     public void salesManagerFillOutAllRequiredFiled() {
+        rulesPage.fillOutNewTaxRuleInformation();
+
     }
 
     @Then("new tax rule added successfully")
     public void newTaxRuleAddedSuccessfully() {
+        rulesPage.isNewRuleAddedSuccessfully();
+        Assert.assertTrue(rulesPage.isNewRuleAddedSuccessfully());
     }
 
     @And("sales manager define one rule to edit")

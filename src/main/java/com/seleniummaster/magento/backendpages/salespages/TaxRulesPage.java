@@ -3,10 +3,12 @@ package com.seleniummaster.magento.backendpages.salespages;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 public class TaxRulesPage extends TestBasePage {
     WebDriver driver;
@@ -31,7 +33,7 @@ public class TaxRulesPage extends TestBasePage {
     WebElement newRulePage;
     // tax information name field
     @FindBy(xpath = "//input[@class=\"required-entry input-text required-entry\"]")
-    WebElement taxInformationNameTextField;
+    WebElement taxRuleNameTextBox;
     //retail customer
     @FindBy(xpath = "//option[@value=\"3\"]")
     WebElement retailCustomer;
@@ -88,6 +90,7 @@ public class TaxRulesPage extends TestBasePage {
     public void clickAddNewTaxRuleButton(){
         utility.waitForElementPresent(addNewTaxRuleButton);
         addNewTaxRuleButton.click();
+        utility.sleep(1);
         Log.info("add New Tax Rule Button is clicked");
 
     }
@@ -99,10 +102,10 @@ public class TaxRulesPage extends TestBasePage {
 
     }
     // tax information name  text box field
-    public void fieldTaxInformationNametextBox(String taxtName){
-        utility.waitForElementPresent(taxInformationNameTextField);
-        taxInformationNameTextField.sendKeys(taxtName);
-        Log.info("tax information name  text box field");
+    public void enterTaxRuleName(String taxName){
+        utility.waitForElementPresent(taxRuleNameTextBox);
+        taxRuleNameTextBox.sendKeys(taxName);
+        Log.info("tax Rule name name  text box field");
 
     }
     // select "retail customer"
@@ -133,18 +136,45 @@ public class TaxRulesPage extends TestBasePage {
         Log.info("Priority text field number 1");
 
     }
+    public void selectVIP(String value){
+        Select customerTaxClassOption=new Select(driver.findElement(By.id("tax_customer_class")));
+        customerTaxClassOption.deselectByValue(value);
+    }
+    public void selectGeneral(String value){
+        Select productTaxClassOption=new Select(driver.findElement(By.id("tax_product_class")));
+        productTaxClassOption.deselectByValue(value);
+    }
+    public void selectTexRate(String value){
+        Select taxRateOption=new Select(driver.findElement(By.id("tax_rate")));
+        taxRateOption.deselectByValue(value);
+    }
+
     // click save rule button
     public void clickSaveRuleButton(){
         utility.waitForElementPresent(saveRuleButton);
         saveRuleButton.click();
         Log.info("save rule button is clicked");
     }
-    // verify success message
-    public void verifySuccessMassage(){
-        utility.waitForElementPresent(successMassage);
-        successMassage.isDisplayed();
-        Log.info("success message verified");
+    public void fillOutNewTaxRuleInformation(){
+        enterTaxRuleName(prop.getProperty("taxRuleName"));
+        selectVIP(prop.getProperty("vipValue"));
+        selectGeneral(prop.getProperty("selectGeneral"));
+        selectTexRate(prop.getProperty("taxRateValue"));
+        clickSaveRuleButton();
+        utility.sleep(2);
+
+
     }
+    // verify success message
+    public boolean isNewRuleAddedSuccessfully(){
+        utility.waitForElementPresent(successMassage);
+       if (successMassage.isDisplayed()){
+           System.out.println("Test Passed");
+       }else System.out.println("Test Failed");
+        Log.info("success message verified");
+        return true;
+    }
+
 
 
 
