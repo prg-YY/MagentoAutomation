@@ -8,8 +8,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-import javax.swing.table.TableStringConverter;
-
 public class SalesModuleStepDef extends TestBasePage {
     SalesDashboardPage dashboardPage=new SalesDashboardPage(driver);
     OrdersPage ordersPage=new OrdersPage(driver);
@@ -127,16 +125,21 @@ public class SalesModuleStepDef extends TestBasePage {
         Assert.assertTrue(invoicesPage.isCommentDisplay());
     }
 
+    @When("sales manager go to credit memos page")
+    public void salesManagerGoToCreditMemosPage() {
+        dashboardPage.goToCreditMemosPage();
+    }
+
     @And("sales manager define a order and click view button")
     public void salesManagerDefineAOrderAndClickViewButton() {
         invoicesPage.defineCreditMemos(prop.getProperty("creditMemosId"));
-        invoicesPage.totalRefundRecordIsDisplayed();
+        invoicesPage.isRefundsDisplay();
     }
 
     @Then("refunds record displayed successfully")
     public void refundsRecordDisplayedSuccessfully() {
-        invoicesPage.isTotalRefundsDisplayed();
-        Assert.assertTrue(invoicesPage.isCommentDisplay());
+        invoicesPage.isRefundsDisplay();
+        Assert.assertTrue(invoicesPage.isRefundsDisplay());
     }
 
     @When("sales manager go to shipment page")
@@ -157,8 +160,8 @@ public class SalesModuleStepDef extends TestBasePage {
 
     @Then("shipping and tracking information added successfully")
     public void shippingAndTrackingInformationAddedSuccessfully() {
-        shipmentPage.verifySuccessMessage();
-        Assert.assertTrue(shipmentPage.verifySuccessMessage());
+        shipmentPage.shipmentUpdatedSuccessfully();
+        Assert.assertTrue(shipmentPage.shipmentUpdatedSuccessfully());
     }
 
     @When("sales manager click credit memos link")

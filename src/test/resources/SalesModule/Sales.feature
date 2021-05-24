@@ -60,7 +60,7 @@
     @ViewRefunds
     Scenario: Sales Manager should be able to view refunds in the Reports
       Given sales manager on the sales module dashboard
-      When  sales manager go to order page
+      When  sales manager go to credit memos page
       And sales manager define a order and click view button
      Then refunds record displayed successfully
 

@@ -25,7 +25,7 @@ public class InvoicesPage extends TestBasePage {
     WebElement ordersTr;
     @FindBy(xpath = "//*[@id=\"sales_invoice_grid\"]/table/tbody/tr/td[1]/span[2]")
     WebElement totalInvoiceRecord;
-    @FindBy(id = "//*[@id=\"sales_invoice_grid_filter_increment_id\"]")
+    @FindBy(xpath = "//*[@id=\"sales_invoice_grid_filter_increment_id\"]")
     WebElement invoicesIdSearchBox;
     @FindBy(xpath = "//span[text()='Search']")
     WebElement searchButton;
@@ -46,6 +46,8 @@ public class InvoicesPage extends TestBasePage {
     WebElement creditMemoViewLink;
     @FindBy(xpath = "//span[text()='Row Total']")
     WebElement totalRefundsRow;
+    @FindBy(xpath = "//*[@id=\"creditmemo_items_container\"]/div/div/table/tbody/tr/td[1]/div")
+    WebElement refundProduct;
     //element for refund
     @FindBy(xpath = "//*[@id=\"sales_creditmemo_grid_filter_increment_id\"]")
     WebElement creditMemosIdSearchBox;
@@ -128,6 +130,13 @@ public class InvoicesPage extends TestBasePage {
         enterComment(commentText);
         clickNotifyToEmailCheckBox();
         clickOnSubmitCommentButton();
+    }
+    public boolean isRefundsDisplay(){
+        utility.waitForElementPresent(refundProduct);
+        if (refundProduct.isDisplayed()){
+            System.out.println("view refund test passed");
+        }else System.out.println("Test Failed");
+        return refundProduct.isDisplayed();
     }
     public boolean isCommentDisplay(){
         utility.waitForElementPresent(commentBlock);
