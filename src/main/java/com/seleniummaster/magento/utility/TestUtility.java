@@ -5,10 +5,7 @@ import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
@@ -16,8 +13,6 @@ import java.io.IOException;
 
 
 public class TestUtility extends TestBasePage {
-
-
 
     private final int timeout=Integer.parseInt(ApplicationConfig
             .readConfigProperties("config.properties","timeout"));
@@ -32,7 +27,7 @@ public class TestUtility extends TestBasePage {
     }
     public void sleep(int seconds){
         try {
-            Thread.sleep(seconds* 1000L);
+            Thread.sleep(seconds* 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -59,7 +54,5 @@ public class TestUtility extends TestBasePage {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
 }

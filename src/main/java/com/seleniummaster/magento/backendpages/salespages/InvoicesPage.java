@@ -25,8 +25,8 @@ public class InvoicesPage extends TestBasePage {
     WebElement ordersTr;
     @FindBy(xpath = "//*[@id=\"sales_invoice_grid\"]/table/tbody/tr/td[1]/span[2]")
     WebElement totalInvoiceRecord;
-    @FindBy(id = "sales_invoice_grid_filter_order_increment_id")
-    WebElement orderIdSearchBox;
+    @FindBy(xpath = "//*[@id=\"sales_invoice_grid_filter_increment_id\"]")
+    WebElement invoicesIdSearchBox;
     @FindBy(xpath = "//span[text()='Search']")
     WebElement searchButton;
     @FindBy(xpath = "//*[@id=\"sales_invoice_grid_table\"]/tbody/tr/td[9]/a")
@@ -41,12 +41,16 @@ public class InvoicesPage extends TestBasePage {
     WebElement submitCommentButton;
     @FindBy(xpath = "//*[@id=\"comments_block\"]/ul/li")
     WebElement commentBlock;
-
     // element for review refund
     @FindBy(xpath = "//*[@id=\"sales_creditmemo_grid_table\"]/tbody/tr/td[9]/a")
     WebElement creditMemoViewLink;
     @FindBy(xpath = "//span[text()='Row Total']")
     WebElement totalRefundsRow;
+    @FindBy(xpath = "//*[@id=\"creditmemo_items_container\"]/div/div/table/tbody/tr/td[1]/div")
+    WebElement refundProduct;
+    //element for refund
+    @FindBy(xpath = "//*[@id=\"sales_creditmemo_grid_filter_increment_id\"]")
+    WebElement creditMemosIdSearchBox;
 
     //Method for view invoice
     public void viewAllInvoice(){
@@ -76,11 +80,11 @@ public class InvoicesPage extends TestBasePage {
         }else System.out.println("There are 0 record found");*/
         return true;
     }
-    public void enterOrderId(String orderId){
-        utility.waitForElementPresent(orderIdSearchBox);
-        orderIdSearchBox.sendKeys(orderId);
+    public void enterInvoicesId(String invoicesId){
+        utility.waitForElementPresent(invoicesIdSearchBox);
+        invoicesIdSearchBox.sendKeys(invoicesId);
         utility.sleep(2);
-        Log.info("Order Id "+orderId+" has been entered for search order");
+        Log.info("Order Id "+invoicesId+" has been entered for search order");
     }
     public void clickOnSearchButton(){
         utility.waitForElementPresent(searchButton);
@@ -93,6 +97,13 @@ public class InvoicesPage extends TestBasePage {
         viewButton.click();
         utility.sleep(2);
         Log.info("View button has been clicked");
+    }
+    public void defineInvoiceHistory(String invoicesId){
+        enterInvoicesId(invoicesId);
+        clickOnSearchButton();
+        utility.sleep(1);
+        clickViewButton();
+        utility.sleep(1);
     }
     public boolean isGrandTotalDisplayed(){
         utility.waitForElementPresent(grandTotalInvoicesLink);
@@ -115,18 +126,37 @@ public class InvoicesPage extends TestBasePage {
         submitCommentButton.click();
         Log.info("submit Comment Button has been clicked");
     }
+    public void addCommentToInvoice(String commentText){
+        enterComment(commentText);
+        clickNotifyToEmailCheckBox();
+        clickOnSubmitCommentButton();
+    }
+    public boolean isRefundsDisplay(){
+        utility.waitForElementPresent(refundProduct);
+        if (refundProduct.isDisplayed()){
+            System.out.println("view refund test passed");
+        }else System.out.println("Test Failed");
+        return refundProduct.isDisplayed();
+    }
     public boolean isCommentDisplay(){
         utility.waitForElementPresent(commentBlock);
         commentBlock.isDisplayed();
         return commentBlock.isDisplayed();
     }
 
-    // Methods for review Refunds
+    // Methods for view Refunds
     public void clickOnCreditMemosViewLink(){
         utility.waitForElementPresent(creditMemoViewLink);
         creditMemoViewLink.click();
         Log.info("Credit Memos Link has been clicked");
     }
+    public void defineCreditMemos(String creditMemosId){
+        utility.waitForElementPresent(creditMemosIdSearchBox);
+        creditMemosIdSearchBox.sendKeys(creditMemosId);
+        clickOnSearchButton();
+        clickOnCreditMemosViewLink();
+    }
+
     public void totalRefundRecordIsDisplayed(){
         utility.waitForElementPresent(totalRefundsRow);
         totalRefundsRow.isDisplayed();

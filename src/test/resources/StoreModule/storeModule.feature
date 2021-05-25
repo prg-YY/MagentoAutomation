@@ -7,6 +7,11 @@ Feature: Store Manager can
   - Delete order
   - Add product category
   - Update product category
+  - CreateWebsite
+  - EditWebsite
+  - CreateStoreView
+  - EditStoreView
+  - ViewAllStore
 
   Background:
     Given user on login page

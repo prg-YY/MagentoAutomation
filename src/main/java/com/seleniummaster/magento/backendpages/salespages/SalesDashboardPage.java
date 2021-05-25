@@ -3,10 +3,12 @@ package com.seleniummaster.magento.backendpages.salespages;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 public class SalesDashboardPage extends TestBasePage {
 
@@ -50,6 +52,11 @@ public class SalesDashboardPage extends TestBasePage {
         ordersLink.click();
         Log.info("Orders link clicked");
     }
+    public void goToOrderPage(){
+        clickOnSalesLink();
+        clickOrdersLink();
+        utility.sleep(1);
+    }
 
     public void clickInvoicesLink() {
         utility.waitForElementPresent(invoicesLink);
@@ -57,17 +64,32 @@ public class SalesDashboardPage extends TestBasePage {
         utility.sleep(1);
         Log.info("Invoices Link clicked");
     }
+    public void goToInvoicesPage(){
+        clickOnSalesLink();
+        clickInvoicesLink();
+        utility.sleep(1);
+    }
 
     public void clickShipmentsLink() {
         utility.waitForElementPresent(shipmentsLink);
         shipmentsLink.click();
         Log.info("shipments Link clicked");
     }
+    public void goToShipmentPage(){
+        clickOnSalesLink();
+        clickShipmentsLink();
+        utility.sleep(1);
+    }
 
     public void clickCreditMemosLink() {
         utility.waitForElementPresent(creditMemosLink);
         creditMemosLink.click();
         Log.info("Credit Memos Link clicked");
+    }
+    public void goToCreditMemosPage(){
+        clickOnSalesLink();
+        clickCreditMemosLink();
+        utility.sleep(1);
     }
 
     public void clickTaxLink() {
@@ -80,6 +102,15 @@ public class SalesDashboardPage extends TestBasePage {
         utility.waitForElementPresent(manageTexRulesLink);
         manageTexRulesLink.click();
         Log.info("Manage Tex Rules Link clicked");
+    }
+
+    public void goToManageTaxRulesPage(){
+        clickOnSalesLink();
+        clickTaxLink();
+        clickManageTexRulesLink();
+        utility.sleep(1);
+
+
     }
 
     public void clickChooseStoreViewDropDownList() {

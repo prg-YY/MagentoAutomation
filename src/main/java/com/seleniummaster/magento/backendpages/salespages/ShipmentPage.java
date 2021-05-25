@@ -4,6 +4,7 @@ import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,35 +13,22 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ShipmentPage extends TestBasePage {
+public class ShipmentPage  {
     WebDriver driver;
     TestUtility utility;
-    Alert alert;
-    @FindBy(xpath = "//span[text()=\"Sales\"]")
-    WebElement salesLink;
-    //element for shipments
-    @FindBy(xpath = "//span[text()=\"Shipments\"]")
-    WebElement shipments;
-    //  display shipment dashboard page
-    @FindBy(name = "order_increment_id")
+
+    @FindBy(xpath = "//*[@id=\"sales_shipment_grid_filter_increment_id\"]")
     WebElement searchBox;
     @FindBy(xpath = "//span[text()='Search']")
     WebElement searchButton;
     @FindBy(xpath = "//*[@id=\"sales_shipment_grid_table\"]/tbody/tr/td[1]/input")//customer "name team one"
     WebElement shipmentCheckBox;
-
     @FindBy(xpath = "//*[@id=\"sales_shipment_grid_table\"]/tbody/tr/td[8]/a")
     WebElement viewLink;
-    //custom value list
     @FindBy(name = "carrier")
     WebElement customValue;
-    //select DHL
-    @FindBy(xpath = "//option[@value=\"dhl\"]")
-    WebElement selectDHL;
-    // enter tracking information number
     @FindBy(id = "tracking_number")
     WebElement trackingNumber;
-    // commit text feild
     @FindBy(name= "comment[comment]")
     WebElement commentTextBox;
     @FindBy(xpath = "//span[text()='Submit Comment']")
@@ -55,43 +43,30 @@ public class ShipmentPage extends TestBasePage {
     WebElement verifySuccessMessage;
 
 
-    //combine webdriver
     public ShipmentPage(WebDriver driver) {
         this.driver = TestBasePage.driver;
         PageFactory.initElements(driver, this);
          utility= new TestUtility(driver);
     }
-    // method sales link
-    public void clickOnSalesLink(){
-      utility.waitForElementPresent(salesLink);
-      salesLink.click();
-        Log.info("sales link has been clicked");
-    }
-    //method shipments
-    public void clickOnshipments(){
-        utility.waitForElementPresent(shipments);
-        shipments.click();
-        Log.info("shipments has been clicked");
-    }
-    //method for shipment dash board page
-    public void enterShipmentIdToSearchBox(){
+
+    public void enterShipmentIdToSearchBox( String id){
         utility.waitForElementPresent(searchBox);
-        searchBox.sendKeys("200000017");
-        Log.info("shipment page is displayed");
+        searchBox.sendKeys(id);
+        Log.info("shipment Id has been entered for searching");
 
     }
-    //method for customerListCheckBox
+    //method
     public void clickOnShipmentCheckBox(){
         utility.waitForElementPresent(shipmentCheckBox);
         shipmentCheckBox.click();
-        Log.info("customerListCheckBox has been clicked");
+        Log.info("shipment CheckBox has been clicked");
 
     }
     //  method for viewLink
     public void clickOnViewLink(){
         utility.waitForElementPresent(viewLink);
         viewLink.click();
-        Log.info("viewFromCustomerList has been clicked");
+        Log.info("view link has been clicked");
     }
     // search button
     public void clickOnSearchButton(){
@@ -101,13 +76,13 @@ public class ShipmentPage extends TestBasePage {
 
     }
     //define shipment
-    public void searchShipment(){
-        enterShipmentIdToSearchBox();
+    public void searchShipment(String shipmentId){
+        enterShipmentIdToSearchBox(shipmentId);
         clickOnSearchButton();
-        utility.sleep(2);
+        utility.sleep(1);
         clickOnShipmentCheckBox();
         clickOnViewLink();
-        utility.sleep(2);
+        utility.sleep(1);
 
     }
 
@@ -130,7 +105,6 @@ public class ShipmentPage extends TestBasePage {
     public void clickAddButton(){
         utility.waitForElementPresent(clickAddButton);
         clickAddButton.click();
-        utility.sleep(2);
         Log.info(" add button has been clicked");
 
     }
@@ -139,46 +113,26 @@ public class ShipmentPage extends TestBasePage {
         utility.waitForElementPresent(sendTrackingInformation);
         sendTrackingInformation.click();
 
-        Log.info("clicked on send tracking information button");
+        Log.info("send tracking information button has been clicked");
     }
 
-    //alert accept method
-    public void alertAccept(){
-        try {
-            WebDriverWait wait=new WebDriverWait(driver,2);
-            wait.until(ExpectedConditions.alertIsPresent());
-            Alert alert=driver.switchTo().alert();
-            alert.accept();
-        }catch (Exception e){
-
-        }
-
-    }
 
     // //Verify update shipments successful
-    public boolean verifySuccessMessage(){
+    public boolean shipmentUpdatedSuccessfully(){
         utility.waitForElementPresent(verifySuccessMessage);
         verifySuccessMessage.isDisplayed();
-        Log.info("Verified update shipments successful message ");
+        Log.info("Successful message has been displayed ");
         return true;
     }
-    @FindBy (name = "carrier")
-    WebElement selectOption;
 
-    public void selectShipment(){
-        utility.waitForElementPresent(selectOption);
-        Select option=new Select(selectOption);
-        option.selectByValue("dhl");
-
-    }
     //add tracking history
-    public void enterCommentToTextBox(){
+    public void enterCommentToTextBox(String commentText){
         utility.waitForElementPresent(commentTextBox);
-        commentTextBox.sendKeys("good service");
+        commentTextBox.sendKeys(commentText);
         Log.info("comment has been entered");
 
     }
-    //click on subment button
+    //click on submit button
     public void clickCommentSubmitButton(){
         utility.waitForElementPresent(commentSubmitButton);
         commentSubmitButton.click();
@@ -187,18 +141,20 @@ public class ShipmentPage extends TestBasePage {
     }
     public void addShipment(){
         selectDHL();
-        enterTrackingNumber("3");
+        enterTrackingNumber("2");
         clickAddButton();
-        utility.sleep(2);
+        utility.sleep(1);
 
     }
-    public void addComment(){
-        enterCommentToTextBox();
+    public void addComment(String commentText){
+        enterCommentToTextBox(commentText);
         clickCommentSubmitButton();
-        utility.sleep(2);
+        utility.sleep(1);
         clickSendInformationButton();
-        utility.sleep(2);
-        alertAccept();
+       Alert alert=driver.switchTo().alert();
+        utility.waitForAlertPresent();
+       alert.accept();
+
     }
 
 

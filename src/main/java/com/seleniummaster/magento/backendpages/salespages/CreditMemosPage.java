@@ -36,7 +36,7 @@ public class CreditMemosPage  {
         return true;
     }
 
-    //Sales Manager should be able to view creditmemos by filters and change
+    //Sales Manager should be able to view credit memos by filters and change
     // columns to display and export)
 
     @FindBy(xpath = "//span[text()=\"Order Date\"]")
