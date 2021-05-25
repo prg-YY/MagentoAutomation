@@ -11,4 +11,4 @@
 #    Then verify manage tax rules new page
 #  @clickAddNewTaxRulesButton
 #    Given sales manager can able to see add new tax rules button
-#
+
