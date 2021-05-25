@@ -2,12 +2,15 @@ package com.seleniummaster.magento.frontendpages;
 
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+
 public class AccountInformationPage extends TestBasePage {
+    final static Logger logger=Logger.getLogger(AccountInformationPage.class);
     WebDriver driver;
     TestUtility utility;
     String ConfigFile = "config.properties";
@@ -33,6 +36,9 @@ public class AccountInformationPage extends TestBasePage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver);
+        logger.info("Entering the Execute method");
+        logger.info("Save successful");
+        logger.error("Error while saving.Message:");
     }
     public void clickCheckBox() {
         utility.waitForElementPresent(CheckBox);
@@ -65,5 +71,6 @@ public class AccountInformationPage extends TestBasePage {
         enterConfirmNewPasswordField(prop.getProperty("EnterCurrentPassword"));
         clickSaveButton();
         verifySuccessfulMessage();
-    }}
+    }
 
+}

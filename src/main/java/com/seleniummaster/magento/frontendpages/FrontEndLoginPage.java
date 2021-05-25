@@ -18,6 +18,12 @@ public class FrontEndLoginPage extends TestBasePage {
     WebElement passwordField;
     @FindBy(name = "send")
     WebElement loginButton;
+    @FindBy(xpath = "//span[text()=\"Create an Account\"]")
+    WebElement CreateAnAccountButton;
+    @FindBy(xpath = "//a[@title=\"Register\"]")
+    WebElement RegisterLink;
+
+
 
 
     public FrontEndLoginPage(WebDriver driver) {
@@ -36,6 +42,10 @@ public class FrontEndLoginPage extends TestBasePage {
         utility.waitForElementPresent(passwordField);
         passwordField.sendKeys(Password);
         Log.info("Password has been sent as " + Password);
+    }
+    public void clickCreateAnAccountButton(){
+        utility.waitForElementPresent(CreateAnAccountButton);
+        CreateAnAccountButton.click();
     }
     public void clickLoginButton(){
         utility.waitForElementPresent(loginButton);
