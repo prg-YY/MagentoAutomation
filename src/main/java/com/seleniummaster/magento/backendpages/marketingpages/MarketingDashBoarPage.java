@@ -104,6 +104,7 @@ public class MarketingDashBoarPage extends TestBasePage {
     public void clickShoppingCartPriceRules(){
         utility.waitForElementPresent(shoppingCartPriceRules);
         shoppingCartPriceRules.click();
+        utility.sleep(2);
         Log.info("ShoppingCart Price Rules Clicked");
     }
     public void clickAllNewsLetterLink(){
@@ -160,6 +161,27 @@ public class MarketingDashBoarPage extends TestBasePage {
         utility.sleep(2);
         cartPriceRules.isDisplayed();
 
+      }
 
-    }
+      public void goToPendingReviewsPage(){
+        clickAllCatalogLink();
+        clickReviewsAndRatingsLink();
+        clickCustomerReviewsLink();
+        clickPendingReviewsLink();
+        utility.sleep(1);
+      }
+      public void goToAllReviewsPage(){
+          clickAllCatalogLink();
+          clickReviewsAndRatingsLink();
+          clickCustomerReviewsLink();
+          clickAllReviewsLink();
+          utility.sleep(1);
+      }
+      public void goToNewsLetterSubscribersPage(){
+        clickAllNewsLetterLink();
+        clickNewsletterSubscribersLink();
+        utility.sleep(1);
+      }
+
+
 }

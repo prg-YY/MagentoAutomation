@@ -88,6 +88,7 @@ public class AddNewProductPage extends TestBasePage {
 
     //Enter Product name Method
     String ProductName = ApplicationConfig.readConfigProperties(ConfigFile, "FirstName");
+
     public void EnterProductName() {
         utility.waitForElementPresent(ProductNameTextBox);
         ProductNameTextBox.sendKeys(ProductName);
@@ -95,6 +96,7 @@ public class AddNewProductPage extends TestBasePage {
 
     //Enter Description Method
     String ProductDescription = ApplicationConfig.readConfigProperties(ConfigFile, "Description");
+
     public void EnterDescription() {
         utility.waitForElementPresent(DescriptionTextBox);
         DescriptionTextBox.sendKeys(ProductDescription);
@@ -102,6 +104,7 @@ public class AddNewProductPage extends TestBasePage {
 
     //Enter Short Description  Method
     String ProductShortDescription = ApplicationConfig.readConfigProperties(ConfigFile, "Description");
+
     public void EnterShortDescription() {
         utility.waitForElementPresent(ShortDescriptionTextBox);
         ShortDescriptionTextBox.sendKeys(ProductShortDescription);
@@ -109,13 +112,15 @@ public class AddNewProductPage extends TestBasePage {
 
     //Enter SKU Method
     String SKU = ApplicationConfig.readConfigProperties(ConfigFile, "SKU");
+
     public void EnterSKU() {
         utility.waitForElementPresent(SkuTextBox);
-        SkuTextBox.sendKeys(SKU+System.currentTimeMillis());
+        SkuTextBox.sendKeys(SKU + System.currentTimeMillis());
     }
 
     //Enter Weight Method
     String Weight = ApplicationConfig.readConfigProperties(ConfigFile, "Weight");
+
     public void EnterWeight() {
         utility.waitForElementPresent(WeightTextBox);
         WeightTextBox.sendKeys(Weight);
@@ -124,7 +129,7 @@ public class AddNewProductPage extends TestBasePage {
     //Select Status Method
     public void SelectStatus() {
         utility.waitForElementPresent(SelectStatus);
-        Select StatusDropdown=new Select(statusDropdown);
+        Select StatusDropdown = new Select(statusDropdown);
         StatusDropdown.selectByValue("1");
 
         //utility.waitForElementPresent(SelectStatus);
@@ -156,7 +161,7 @@ public class AddNewProductPage extends TestBasePage {
         //utility.waitForElementPresent(SelectTaxClass);
         //SelectTaxClass.click();
         utility.waitForElementPresent(SelectTaxClass);
-        Select TaxDropdown=new Select(taxClassDropDownList);
+        Select TaxDropdown = new Select(taxClassDropDownList);
         TaxDropdown.selectByValue("6");
 
     }
@@ -171,20 +176,33 @@ public class AddNewProductPage extends TestBasePage {
         utility.waitForElementPresent(ConfirmationMessage);
         return ConfirmationMessage.isDisplayed();
     }
-    public void AddProduct(){
+
+    public void AddProduct() {
         clickOnAddProduct();
+        utility.sleep(1);
         clickOnContinue();
+        utility.sleep(1);
         EnterProductName();//String
-        EnterDescription( );//String
+        utility.sleep(1);
+        EnterDescription();//String
+        utility.sleep(1);
         EnterShortDescription();//String
-        EnterSKU( );//String
+        utility.sleep(1);
+        EnterSKU();//String
+        utility.sleep(1);
         EnterWeight();//String
+        utility.sleep(1);
         SelectStatus();
+        utility.sleep(1);
         //SelectVisibility();
         clickOnSaveButton();
+        utility.sleep(1);
         EnterPrice();
+        utility.sleep(1);
         SelectTaxClass();
+        utility.sleep(1);
         setPressSaveButton();
+        utility.sleep(1);
 
 
 //String ProductName = ApplicationConfig.readConfigProperties(ConfigFile, "NewProductName");

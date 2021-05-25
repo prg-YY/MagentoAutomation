@@ -42,7 +42,6 @@ public class DeleteSubCategoryPage extends TestBasePage {
     }
 
 
-
     public boolean isConfirmationDisplayed() {
         utility.waitForElementPresent(confirmationMessage);
         Log.info("Confirm message found");
@@ -52,10 +51,15 @@ public class DeleteSubCategoryPage extends TestBasePage {
     public void deleteSub() {
         catalogDashboardPage = new CatalogDashboardPage(driver);
         catalogDashboardPage.clickCatalogLink();
+        utility.sleep(1);
         catalogDashboardPage.clickManageCategories();
+        utility.sleep(1);
         clickSubcategories();
+        utility.sleep(1);
         clickDeleteButton();
+        utility.sleep(1);
         Alert alert = driver.switchTo().alert();
         alert.accept();
+        utility.sleep(1);
     }
 }

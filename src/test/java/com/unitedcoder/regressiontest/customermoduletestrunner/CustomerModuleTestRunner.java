@@ -37,8 +37,6 @@ public class CustomerModuleTestRunner extends TestBasePage {
         addCustomerPage=new AddCustomerPage(driver);
         addCustomerPage.addNewCustomer();
         Assert.assertTrue(addCustomerPage.verifySuccessMessage());
-
-
     }
 
     @Test(description = "2:Customer Manager can update an existing customer - SoFiYe")
@@ -86,7 +84,6 @@ public class CustomerModuleTestRunner extends TestBasePage {
 
     TestDataHolder holder;
     Random ran = new Random();
-
     @Test(description = "9:Customer Manager can add and update customer groups - Abdusemed ")
     public void addGroups() {
         int r = ran.nextInt(50);

@@ -1,22 +1,23 @@
 package com.seleniummaster.magento.backendpages.marketingpages;
-
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 public class CatalogPriceRulePage extends TestBasePage {
     WebDriver driver;
     TestUtility utility;
 
-        @FindBy(xpath = "(//span[text()='Add New Rule'])[1]")
-    WebElement addNewRuleButton;
+
     @FindBy(xpath = "//input[@name='name'][@type=\"text\"]")
     WebElement ruleNameTextBox;
-    @FindBy(css = "input[name='rule_id'][type=\"text\"]")
+    @FindBy(css = "input[name='rule_id'][type='text']")
     WebElement ruleIdTextBox;
     @FindBy(xpath = "(//span[text()='Apply Rules'])[1]")
     WebElement applyRulesButton;
@@ -36,6 +37,10 @@ public class CatalogPriceRulePage extends TestBasePage {
     WebElement inActive;
     @FindBy(xpath = "//select[@name='rule_website']")
     WebElement webSite;
+    @FindBy(css = "option[value='14']")
+    WebElement websitesSelectOptions;
+    @FindBy(xpath = "//*[@id=\"rule_customer_group_ids\"]/option[11]")
+    WebElement CustomerGroup;
     @FindBy(css = "(//span[text()='Save'])[1]")
     WebElement saveButton;
     @FindBy(xpath = "//span[text()='The rule has been saved.']")
@@ -47,11 +52,7 @@ public class CatalogPriceRulePage extends TestBasePage {
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver);
     }
-    public void clickAddNewRuleButton(){
-        utility.waitForElementPresent(addNewRuleButton);
-        addNewRuleButton.click();
-        Log.info("Add new rule button clicked");
-    }
+
     public void clickRuleNameTextBox(){
         utility.waitForElementPresent(ruleNameTextBox);
         ruleNameTextBox.sendKeys("duttar");
@@ -77,6 +78,11 @@ public class CatalogPriceRulePage extends TestBasePage {
         searchButton.click();
         Log.info("Search  button clicked");
     }
+//    public void clickOnMyRule(){
+//        utility.waitForElementPresent(myRule);
+//        myRule.click();
+//        Log.info("My Rule Has Been Clicked");
+//    }
     public void clickFromDateTextBox(String fromDate){
         utility.waitForElementPresent(fromDateTextBox);
         fromDateTextBox.sendKeys(fromDate);
@@ -107,7 +113,18 @@ public class CatalogPriceRulePage extends TestBasePage {
         webSite.click();
         Log.info("WebSite Button clicked");
     }
-    public void clicksSveButton(){
+
+    public void selectWebsites(){
+        utility.waitForElementPresent(websitesSelectOptions);
+        websitesSelectOptions.isSelected();
+        Log.info("Websites name is selected");
+    }
+    public void selectCustomerGroup(){
+        utility.waitForElementPresent(CustomerGroup);
+        CustomerGroup.isSelected();
+        Log.info("Customer Group has been selected");
+    }
+    public void clickSaveButton(){
         utility.waitForElementPresent(saveButton);
         saveButton.click();
         Log.info("Save Button clicked");
@@ -117,6 +134,8 @@ public class CatalogPriceRulePage extends TestBasePage {
         Log.info("Success message is display");
         return successMessage.isDisplayed();
     }
+
+
 
 
 
