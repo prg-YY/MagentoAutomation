@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+
 import java.util.Random;
 
 public class AddNewAddressPage extends TestBasePage {
@@ -27,9 +29,9 @@ public class AddNewAddressPage extends TestBasePage {
     WebElement addCity;
     @FindBy(xpath = "//*[@id='zip']")
     WebElement addZip;
-    @FindBy(css = "div.primary>button>span")
+    @FindBy(xpath = "//span[text()=\"Save Address\"]")
     WebElement saveAddressLink;
-    @FindBy(css = "div.messages")
+    @FindBy(xpath = "//span[text()=\"The address has been saved.\"]")
     WebElement confirmationMessage;
 
     //create a constructor to initialize the page // page factory
@@ -68,18 +70,19 @@ public class AddNewAddressPage extends TestBasePage {
         Log.info("Address has been sent as " + address);
     }
     // Enter Country method
-    public void selectCountry(String country)
+    public void selectCountry()
     {
         utility.waitForElementPresent(selectCountry);
-        selectCountry.sendKeys(country);
-        Log.info("Country has been sent as " + country);
+       Select countryDropdownList= new Select(selectCountry);
+       countryDropdownList.selectByValue("US");
+
     }
     // Enter state method
-    public void selectState(String state)
+    public void selectState()
     {
         utility.waitForElementPresent(selectState);
-        selectState.sendKeys(state);
-        Log.info("State has been sent as " + state);
+        Select StateDropdownList=new Select(selectState);
+        StateDropdownList.selectByValue("18");
     }
     // Enter city method
     public void enterCity(String city)
@@ -104,22 +107,21 @@ public class AddNewAddressPage extends TestBasePage {
     }
     public boolean verifySuccess(){
         utility.waitForElementPresent(confirmationMessage);
+        utility.sleep(3);
         return confirmationMessage.isDisplayed();
     }
     // combine all methods from the current page
-    public boolean addNewAddress(String firstName,String lastName,String phoneNumber,String address,String country,String state,String city,
-                                 String zip)
+    public boolean addNewAddress()
     {
         Random r=new Random(1000);
 
-        enterFirstname(firstName+r);
-        enterLastname(lastName+r);
-        enterPhoneNumber(phoneNumber+r);
-        enterAddress(address+r);
-        selectCountry(country);
-        selectState(state);
-        enterCity(city);
-        enterZip(zip);
+
+        enterPhoneNumber(prop.getProperty("PhoneNum"));
+        enterAddress(prop.getProperty("StreetAddress"));
+        selectCountry();
+        selectState();
+        enterCity(prop.getProperty("City"));
+        enterZip(prop.getProperty("Zip"));
         clickSaveAddress();
         return verifySuccess();
     }
