@@ -1,8 +1,6 @@
 package com.unitedcoder.regressiontest.cucumber;
 
-import com.seleniummaster.magento.backendpages.storepages.ManageProductsPage;
 import com.seleniummaster.magento.backendpages.storepages.StoreDashboardPage;
-import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
