@@ -2,6 +2,7 @@ package com.seleniummaster.magento.backendpages.catalogpages;
 
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
+import org.apache.poi.hssf.record.PageBreakRecord;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -36,6 +37,8 @@ public class DeleteRootCategoriesPage extends TestBasePage {
         return true;
     }
 
+
+
     @FindBy(xpath = "(//span[text()=\"Sofia (1)\"])[1]")
     WebElement RootCategoryName;
 
@@ -49,6 +52,8 @@ public class DeleteRootCategoriesPage extends TestBasePage {
         Alert alert = driver.switchTo().alert();
         alert.accept();
         VerifySuccessfulMsgDisplay();
+
+
         //String DeleteCategoryNAME = ApplicationConfig.readConfigProperties(ConfigFile, "DeleteCategoryName");
 //        List<WebElement> RootCategoriesList = driver.findElements(By.xpath("//div[@class=\"tree-holder\"]/div/ul/div/li"));
 //        for (int i = 1; i <= RootCategoriesList.size(); i++) {
@@ -72,4 +77,29 @@ public class DeleteRootCategoriesPage extends TestBasePage {
 //    }
     }
 
-}
+
+        //String DeleteCategoryNAME = ApplicationConfig.readConfigProperties(ConfigFile, "DeleteCategoryName");
+//        List<WebElement> RootCategoriesList = driver.findElements(By.xpath("//div[@class=\"tree-holder\"]/div/ul/div/li"));
+//        for (int i = 1; i <= RootCategoriesList.size(); i++) {
+//            WebElement RooCategoryName = driver.findElement(By.xpath("//div[@class='x-tree-root-node']/li[" + i + "]/div/a/span"));
+//            String rootName = RooCategoryName.getText();
+//            if ( RooCategoryName.getText().contains(DeleteCategoryNAME)) {
+//                utility.waitForElementPresent(RooCategoryName);
+//                utility.sleep(3);
+//                    RooCategoryName.click();
+//                clickDeleteRootCategoryLink();
+//                utility.waitForAlertPresent();
+//                Alert alert = driver.switchTo().alert();
+//                alert.accept();
+//
+//            }
+//            break;
+//
+//        }
+//
+//        VerifySuccessfulMsgDisplay();
+//    }
+    }
+
+
+

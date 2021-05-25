@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import javax.lang.model.element.Element;
+import java.util.List;
 
 public class MyDashboardPage extends TestBasePage {
     WebDriver driver;
@@ -17,14 +18,14 @@ public class MyDashboardPage extends TestBasePage {
     @FindBy(xpath = "//div[@class=\"account-cart-wrapper\"]/a/span")
     WebElement accountTag;
 
-    @FindBy(linkText = "Address Book")
+    @FindBy(xpath = "//div[@class=\"block-content\"]/ul/li[3]/a")
     WebElement addressBookLink;
-    //@FindBy(xpath = "//span[text()='Add New Address']")
-    @FindBy(xpath = "//span[text()='Add New Address']/parent::button")
+    //@FindBy(xpath = "//span[text()='Add New Address']/parent::button")
+    @FindBy(xpath = "//span[text()='Add New Address']")
     WebElement addNewAddressLink;
     @FindBy(linkText = "Accountinformation")
     WebElement accountInformationLink;
-    @FindBy(linkText = "MyOrders")
+    @FindBy(xpath = "//div[@class=\"block-content\"]/ul/li[4]")
     WebElement myOrdersLink;
     @FindBy(linkText = "BillingAgreements")
     WebElement billingAgreementLink;
@@ -38,11 +39,11 @@ public class MyDashboardPage extends TestBasePage {
     WebElement myWishListLink;
     @FindBy(linkText = "MyApplication")
     WebElement myApplicationLink;
-    @FindBy(linkText = "NewsLetterSubscriptions")
+    @FindBy(xpath = "//div[@class='block-content']/ul/li[11]")
     WebElement newsLetterSubscriptionsLink;
     @FindBy(xpath ="//div[@class='block-content']/ul/li[12]")
     WebElement downloadableProductsLink;
-    @FindBy(linkText = "Changepasswordlink")
+    @FindBy(linkText = "Change Password")
     WebElement changePasswordLink;
     @FindBy(linkText = "Checkoutlink")
     WebElement checkOutLink;
@@ -52,6 +53,8 @@ public class MyDashboardPage extends TestBasePage {
     WebElement logOutLink;
     @FindBy(xpath = "//div[@class=\"welcome-msg\"]")
     WebElement welcomeMessage;
+    @FindBy(xpath = "//label[@for=\"subscription\"]")
+    WebElement NewsletterContent;
 
 
     public MyDashboardPage(WebDriver driver) {
@@ -68,13 +71,20 @@ public class MyDashboardPage extends TestBasePage {
 
     public void clickAddressBookLink() {
         utility.waitForElementPresent(addressBookLink);
+        utility.sleep(3);
         addressBookLink.click();
         Log.info("Address book link clicked");
     }
 
     public void clickAddNewAddressLink() {
+        utility.waitForElementPresent(addNewAddressLink);
+        utility.sleep(3);
         addNewAddressLink.click();
         Log.info("Add new address link clicked");
+    }
+    public void clickChangePasswordLink(){
+        utility.waitForElementPresent(changePasswordLink);
+        changePasswordLink.click();
     }
 
     public AddNewAddressPage clickNewAddressPage() {
@@ -142,5 +152,61 @@ public class MyDashboardPage extends TestBasePage {
         utility.waitForElementPresent(welcomeMessage);
         welcomeMessage.isDisplayed();
     }
+    @FindBy(xpath = "(//div[@id=\"header-nav\"]/nav/ol/li/a)[1]")
+    WebElement team1Link;
+    @FindBy(xpath = "(//span[text()=\"Add to Cart\"])[1]")
+    WebElement selectedProductAddToCartButton;
+    @FindBy(xpath = "//*[contains(text(), \"was added to your shopping cart.\")]")
+    WebElement AddToCartSuccessfulMsg;
+
+    public void clickTeam1Link(){
+        utility.waitForElementPresent(team1Link);
+        team1Link.click();
+    }
+    public void clickAddToCartButton(){
+        utility.waitForElementPresent(selectedProductAddToCartButton);
+        selectedProductAddToCartButton.click();
+    }
+    public boolean VerifyAddToCartSuccessful(){
+        utility.waitForElementPresent(AddToCartSuccessfulMsg);
+        return AddToCartSuccessfulMsg.isDisplayed();
+
+    }
+
+    public void addNewProduct(){
+        clickTeam1Link();
+        clickAddToCartButton();
+        VerifyAddToCartSuccessful();
+
+    }
+    @FindBy(xpath = "//div[@class=\"my-account\"]/table/tbody/tr")
+    List<WebElement> MyOrdersList;
+    public boolean viewOrders(){
+        clickMyOrders();
+        for (int i=1;i<=MyOrdersList.size();i++){
+            if (i>=1){
+                System.out.println("test past");
+            }
+            else
+                System.out.println("test failed");
+        }
+        return true;
+    }
+
+    public boolean newsLetterSubscriptionsLinkIsDisplay(){
+        utility.waitForElementPresent(newsLetterSubscriptionsLink);
+        if (newsLetterSubscriptionsLink.isDisplayed()) {
+            System.out.println("Test Passed,Newsletter Subscription Link has been seen");
+        }else System.out.println("Test Failed");
+        return true;
+    }
+
+    public boolean NewsletterReviewsContent() {
+        clickNewsLetterSubscription();
+        utility.waitForElementPresent(NewsletterContent);
+        NewsletterContent.isDisplayed();
+        return true;
+    }
+
 
 }

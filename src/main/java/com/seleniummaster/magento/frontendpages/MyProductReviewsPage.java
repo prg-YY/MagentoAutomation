@@ -19,9 +19,9 @@ public class MyProductReviewsPage extends TestBasePage {
     }
 
     // Define the Elements
-    @FindBy(xpath = "//a[@href='http://magentoqa.unitedcoder.com/review/customer/']")
+    @FindBy(xpath = "//div[@class='block-content']/ul/li[7]")
     WebElement myProductReviewsLink;
-    @FindBy(xpath = "//*[@id=\"top\"]/body/div/div/div[2]/div/div[2]/div/p")
+    @FindBy(xpath = "//div[@class=\"my-account\"]/p")
     WebElement noReviewsMessage;
 
     public void clickMyProductsLink() {
