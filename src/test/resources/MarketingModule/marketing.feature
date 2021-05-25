@@ -1,7 +1,6 @@
 @MarketingModule
-
-  Feature: Marketing Manager can filter Cart Pricing Rule by Id and Rule
-    Feature: Marketing Manager can view and update pending and all Reviews(Ayper)
+  Feature: Marketing manager should be able to...
+    -Filter Cart Pricing
     -view pending Reviews
     -update pending Reviews
     -view All Reviews
@@ -17,13 +16,12 @@
       When user enter username and password click on login button
       Then user successfully login to the system
 
-      #ManagerCanFilterCartPricingByRuleByRuleNameAndId
+    @FilterCartPricing
     Scenario: Marketing Manager can filter Cart Pricing Rule by Id and Rule Name
       When click on Promotions drop down list than click on Shopping Cart Price Rules
       And fill the ID field and Rule Name field then click on Search Button
       Then verify Shopping Cart Price Rules on the right up
 
-      #Ayper
     @ViewPendingReviews
     Scenario: Marketing Manager can view pending Reviews
       Given Marketing Manager Already On Dashboard Pages
@@ -51,7 +49,6 @@
       And Marketing manager Edit All review information and click save button
       Then All Reviews updated successfully
 
-      # Dilnur
     @AddNewCatalogPriceRule
     Scenario: Marketing Manager should be able to add new Catalog Price Rule
       Given user already on the dashboard page
@@ -71,7 +68,6 @@
       And user click on the Add New Template link to fill out the Template Information form
       Then new Newsletter Template added successfully
 
-      #Melike
     @addNewCartPriceRule
     Scenario: User should be able to add new rule
       Given User already on the dashboard page

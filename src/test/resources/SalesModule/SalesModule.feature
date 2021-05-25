@@ -1,5 +1,5 @@
 @SalesModule
-  Feature: Sales manager can create edit and update order
+  Feature: Sales manager should be able to ....
     -Create Order
     -Update Order
     -Cancel Order
@@ -43,61 +43,56 @@
 
 
     @ViewInvoices
-    Scenario: Sales manager should be able to view invoices
-      Given sales manager on the sales module dashboard
-      When sales manager click on invoice link
-      And  sales manager can see all invoices
-      Then verify user sow all invoices
+        Scenario: Sales manager should be able to view invoices
+         Given sales manager on the sales module dashboard
+         When sales manager click on invoice link
+         And  sales manager can see all invoices
+         Then verify user sow all invoices
 
     @AddCommentsToInvoices
-    Scenario: Sales manager should be able to add comments to invoice history
-      Given sales manager on the sales module dashboard
-      When sales manager go to invoices page
-      And sales manager define a invoice history
-      And sales manager add comment to invoice history
-      Then verify comment added successfully
+       Scenario: Sales manager should be able to add comments to invoice history
+       Given sales manager on the sales module dashboard
+       When sales manager go to invoices page
+       And sales manager define a invoice history
+       And sales manager add comment to invoice history
+        Then verify comment added successfully
 
     @ViewRefunds
-    Scenario: Sales Manager should be able to view refunds in the Reports
-      Given sales manager on the sales module dashboard
-      When  sales manager go to credit memos page
-      And sales manager define a order and click view button
-     Then refunds record displayed successfully
+      Scenario: Sales Manager should be able to view refunds in the Reports
+       Given sales manager on the sales module dashboard
+       When  sales manager go to credit memos page
+       And sales manager define a order and click view button
+       Then refunds record displayed successfully
 
-# Sales Manager should be able to update ,add shipment history ,and tracking information
-    #@zuhra
     @UpdateShipments
-    Scenario: user should be able to update shipment
-      Given sales manager on the sales module dashboard
-      When  sales manager go to shipment page
-      And  sales manager define a shipment to edit
-      And sales manager add shipping and tracking information
-      Then shipping and tracking information added successfully
+      Scenario: user should be able to update shipment
+       Given sales manager on the sales module dashboard
+       When  sales manager go to shipment page
+        And  sales manager define a shipment to edit
+         And sales manager add shipping and tracking information
+         Then shipping and tracking information added successfully
 
-      #Sales manager can view credit memos
     @ViewCreditMemos
-    Scenario: Sales manager should be able to view credit memos
-      Given sales manager on the sales module dashboard
-      When sales manager click credit memos link
-      And sales manager see credit memos
-      Then credit memos records already displayed
+        Scenario: Sales manager should be able to view credit memos
+         Given sales manager on the sales module dashboard
+         When sales manager click credit memos link
+          And sales manager see credit memos
+         Then credit memos records already displayed
+    @AddNewTaxRule
+       Scenario: Sales Manager should be able to add new tax rule
+        Given sales manager on the sales module dashboard
+        When sales manager go to manage tax rule page
+        And sales manager click on add new rule button
+        And sales manager fill out all required filed
+        Then new tax rule added successfully
 
-      #Sales Manager should be able to manage (add and update) tax rules
-  @AddNewTaxRule
-  Scenario: Sales Manager should be able to add new tax rule
-    Given sales manager on the sales module dashboard
-    When sales manager go to manage tax rule page
-    And sales manager click on add new rule button
-    And sales manager fill out all required filed
-    Then new tax rule added successfully
-
-  @updateExistingTaxRule
-  Scenario: Sales Manager should be able to update an existing tax rule
-    Given sales manager on the sales module dashboard
-    When sales manager go to manage tax rule page
-    And sales manager define one rule to edit
-    And sales manager edit some information
-    Then Existing tax rule updated successfully
+    @updateExistingTaxRule
+       Scenario: Sales Manager should be able to update an existing tax rule
+         Given sales manager on the sales module dashboard
+        When sales manager go to manage tax rule page
+        And sales manager define one rule to edit
+         And sales manager edit some information
+         Then Existing tax rule updated successfully
 
 
 
