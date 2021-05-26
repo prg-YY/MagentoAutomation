@@ -79,7 +79,7 @@ public class TestBasePage {
         if (driver==null){
 
             if (systemName.contains("Mac")){
-                System.setProperty("webdriver.chrome.driver","/Applications/chromedriver");
+                System.setProperty("webdriver.chrome.driver","/Users/prg/Documents/chromedriver/chromedriver");
                 driver=new ChromeDriver(chromeOptions);
                 driver.manage().window().maximize();
                 driver.get(url);
