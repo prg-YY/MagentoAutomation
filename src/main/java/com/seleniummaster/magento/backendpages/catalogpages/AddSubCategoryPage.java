@@ -37,7 +37,7 @@ public class AddSubCategoryPage extends TestBasePage {
 
     public void enterCategoryName() {
         utility.waitForElementPresent(nameTextField);
-        nameTextField.sendKeys(prop.getProperty("NewRootCategories"));
+        nameTextField.sendKeys(prop.getProperty("Status"));
         Log.info("Name Text Box filled");
     }
 
