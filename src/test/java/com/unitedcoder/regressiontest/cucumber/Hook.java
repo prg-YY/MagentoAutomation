@@ -13,15 +13,10 @@ public class Hook extends TestBasePage {
         driver.get(prop.getProperty("BackendURL"));
     }
 
-    @After(order = 1)
-    public void logOut(){
+
+    public void tearDown() {
         StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
         storeDashboardPage.clickLogOutLink();
-    }
-
-
-    @After(order = 0)
-    public void tearDown() {
         driver.close();
         driver=null;
     }
