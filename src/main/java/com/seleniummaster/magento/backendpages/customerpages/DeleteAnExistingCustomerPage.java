@@ -18,11 +18,10 @@ public class DeleteAnExistingCustomerPage extends TestBasePage {
     // elements for add customer
    @FindBy(xpath= "//span[text()='Add New Customer']")
     WebElement addNewCustomersLink;
-   //click on cutomer link
     @FindBy(name = "account[firstname]")
     WebElement firstNameTextField;
     @FindBy(name = "account[lastname]")
-    WebElement lastNamefield;
+    WebElement lastNameField;
     @FindBy(name ="account[email]")
     WebElement emailAddressField;
     @FindBy(name = "account[password]")
@@ -43,8 +42,6 @@ public class DeleteAnExistingCustomerPage extends TestBasePage {
     @FindBy(xpath = "//div[@id='messages']/ul")
     WebElement deleteSuccessMessage;
 
-    // combine webdriver
-
 
     public DeleteAnExistingCustomerPage(WebDriver driver) {
         this.driver=driver;
@@ -63,8 +60,8 @@ public class DeleteAnExistingCustomerPage extends TestBasePage {
     }
     // method for enter last name
     public void enterLastName(String lastName){
-        utility.waitForElementPresent(lastNamefield);
-        lastNamefield.sendKeys(lastName);
+        utility.waitForElementPresent(lastNameField);
+        lastNameField.sendKeys(lastName);
     }
     // method for email address
     public void enterEmailAddress(String emailAddress){
@@ -103,7 +100,7 @@ public class DeleteAnExistingCustomerPage extends TestBasePage {
 
     }
     // method for delete customer
-    public void clicOncheckBox(){
+    public void clickOnCheckBox(){
         utility.waitForElementPresent(customerCheckBox);
         customerCheckBox.click();
     }
@@ -128,7 +125,7 @@ public class DeleteAnExistingCustomerPage extends TestBasePage {
                 findElement(By.xpath("//div[@class='hor-scroll']/table/tbody/tr")).getText();
         for (int i=1;i<customerList.size();i++){
             if (customersEmail.contains(customerEmail)){
-                clicOncheckBox();
+                clickOnCheckBox();
                 break;
             }
             Select select=new Select(selectAction);
@@ -142,11 +139,8 @@ public class DeleteAnExistingCustomerPage extends TestBasePage {
             }
             //successMessageIsDisplayed();
 
-
         }
-
     }
-
 }
 
 

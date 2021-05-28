@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 
-public class CustomerUpdatePage extends TestBasePage {
+public class UpdateCustomerPage extends TestBasePage {
     WebDriver driver;
     String ConfigFile = "config.properties";
     TestUtility utility;
@@ -27,7 +27,7 @@ public class CustomerUpdatePage extends TestBasePage {
     WebElement SuccessMessage;
 
 
-    public CustomerUpdatePage(WebDriver driver) {
+    public UpdateCustomerPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver);
@@ -53,28 +53,15 @@ public class CustomerUpdatePage extends TestBasePage {
 
     public void typeTaxVat() {
         utility.waitForElementPresent(TaxVatNumberTextField);
-
         TaxVatNumberTextField.clear();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+       utility.sleep(1);
         TaxVatNumberTextField.sendKeys(TaxVatNum);
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+      utility.sleep(1);
     }
 
     public void clickSaveCustomerButton() {
         utility.waitForElementPresent(saveCustomerButton);
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+      utility.sleep(2);
         saveCustomerButton.click();
     }
 
@@ -86,7 +73,6 @@ public class CustomerUpdatePage extends TestBasePage {
 
 
     public void updateCustomerInformation() {
-
         clickEditLink();
         clickWithJSAccountLink();
         typeTaxVat();
