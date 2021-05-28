@@ -18,7 +18,6 @@ Feature: Store Manager can
     When user enter username and password click on login button
     Then user successfully login to the system
 
-
   @AddProduct
   Scenario: Store Manager should be able to add product
     Given user already on the Manage store dashboard page

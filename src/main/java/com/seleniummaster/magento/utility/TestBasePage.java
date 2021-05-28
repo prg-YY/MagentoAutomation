@@ -1,5 +1,6 @@
 package com.seleniummaster.magento.utility;
 
+import com.seleniummaster.magento.backendpages.BackEndLogin;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -75,6 +76,7 @@ public class TestBasePage {
 
     public static void initialization(String url) {
         ChromeOptions chromeOptions = new ChromeOptions();
+
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         if (driver==null){
 
