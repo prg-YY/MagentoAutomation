@@ -2,8 +2,6 @@ package com.unitedcoder.regressiontest.customermoduletestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
-import com.seleniummaster.magento.backendpages.customerpages.UpdateCustomerPage;
-import com.seleniummaster.magento.backendpages.customerpages.DeleteAnExistingCustomerPage;
 import com.seleniummaster.magento.backendpages.customerpages.UpdateCustomerGroupPage;
 import com.seleniummaster.magento.testdata.TestDataHolder;
 import com.seleniummaster.magento.utility.Log;
