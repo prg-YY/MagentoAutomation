@@ -20,7 +20,7 @@ public class Hook extends TestBasePage {
 
     }
 
-    @After(order = 0, value = "@ViewAllStore")
+    @After(order = 0, value = "@DeleteOrder")
     public void tearDown() {
         driver.close();
         driver.quit();
