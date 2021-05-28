@@ -8,6 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import java.io.File;
+
 public class CustomerPage extends TestBasePage {
     WebDriver driver;
     TestUtility utility;
@@ -50,6 +52,7 @@ public class CustomerPage extends TestBasePage {
     WebElement submitButton;
     @FindBy(xpath = "//div[@id='messages']/ul")
     WebElement deleteSuccessMessage;
+//Export Customers
 
 
 
@@ -199,6 +202,48 @@ public class CustomerPage extends TestBasePage {
             System.out.println("Test passed , customer has been deleted");
         }else System.out.println("Test failed ");
         return true;
+    }
+
+    //Export customer list as csv file
+
+    @FindBy(id = "customerGrid_export")
+    WebElement exportTo;
+    @FindBy(id = "customerGrid_export")
+    WebElement fileFormatOption;
+    @FindBy(xpath = "//span[text()='Export']")
+    WebElement exportButton;
+
+    public void selectFileType(String type){
+        utility.waitForElementPresent(fileFormatOption);
+        Select option=new Select(fileFormatOption);
+        option.selectByValue(type);
+        Log.info("CSV file type has been selected");
+    }
+    public void clickOnExportButton(){
+        utility.waitForElementPresent(exportButton);
+        exportButton.click();
+        Log.info("Export button has been clicked");
+    }
+    public void exportCustomerList(){
+        clickOnExportButton();
+        utility.sleep(7);
+    }
+
+    public boolean isCustomerFileExported () {
+
+        String systemUserName= System.getProperty("user.name");
+        String exportedFilePath="C:\\Users\\"+ systemUserName+"\\Downloads\\export.csv";
+        File exportedFileName = new File(exportedFilePath);
+        Boolean isFileExported;
+        isFileExported = exportedFileName.exists();
+        Boolean isExported;
+        if(isFileExported)
+        {
+            isExported=true;
+        }
+        else
+            isExported=false;
+        return isExported;
     }
 
 }
