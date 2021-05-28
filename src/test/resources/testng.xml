@@ -9,7 +9,7 @@
 
     <test  name="Catalog Module Test" >
         <classes>
-            <class name="com.unitedcoder.regressiontest.customermoduletestrunner.CustomerModuleTestRunner"/>
+            <class name="com.unitedcoder.regressiontest.usermoduletestrunner.PublicUserModuleTestRunner"/>
         </classes>
     </test>
 
