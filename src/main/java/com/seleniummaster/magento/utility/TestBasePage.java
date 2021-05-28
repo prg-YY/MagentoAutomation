@@ -38,13 +38,13 @@ public class TestBasePage {
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         if (systemName.contains("Mac")) {
             System.setProperty("webdriver.chrome.driver","/Users/prg/Documents/chromedriver/chromedriver");
-            /*
+
             chromeOptions.addArguments("--headless");
             chromeOptions.addArguments("--disable-gpu");
             chromeOptions.addArguments("window-size=1920,1080");
             chromeOptions.addArguments("--start-maximized");
             chromeOptions.addArguments("--allow-insecure-localhost");
-             */
+
             driver = new ChromeDriver(chromeOptions);
             driver.manage().window().maximize();
             driver.manage().deleteAllCookies();
