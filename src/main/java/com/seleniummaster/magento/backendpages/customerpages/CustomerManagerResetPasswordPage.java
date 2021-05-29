@@ -53,7 +53,7 @@ public class CustomerManagerResetPasswordPage {
     }
     public boolean resetPassword()
     {
-        CustomerPage customerPage = new CustomerPage(driver);
+        CustomerPage customerPage = new CustomerPage();
         clickEditButton();
         clickEditLink();
         clickResetPassword();
