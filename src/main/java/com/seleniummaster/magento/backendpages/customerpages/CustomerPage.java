@@ -13,9 +13,22 @@ import java.io.File;
 public class CustomerPage extends TestBasePage {
     WebDriver driver;
     TestUtility utility;
+    Select option;
     CustomerDashboardPage customerDashboardPage;
 
-// For Add Customer
+    public CustomerPage() {
+        this.driver=TestBasePage.driver;
+        PageFactory.initElements(driver,this);
+        utility=new TestUtility(driver);
+    }
+
+    /*Add customer
+         Update customer
+         Delete customer
+         Export Customer
+         Assign Customer to group
+        */
+ // Add Customer
     @FindBy(name = "account[firstname]")
     WebElement firstNameInputBox;
     @FindBy(name = "account[lastname]")
@@ -47,20 +60,25 @@ public class CustomerPage extends TestBasePage {
     @FindBy(xpath = "//span[text()='Search']")
     WebElement searchButton;
     @FindBy(id= "customerGrid_massaction-select")
-    WebElement selectAction;
+    WebElement actionDropDownList;
     @FindBy(xpath = "//span[text()='Submit']")
     WebElement submitButton;
     @FindBy(xpath = "//div[@id='messages']/ul")
     WebElement deleteSuccessMessage;
 //Export Customers
+    @FindBy(id = "customerGrid_export")
+    WebElement exportTo;
+    @FindBy(id = "customerGrid_export")
+    WebElement fileFormatOption;
+    @FindBy(xpath = "//span[text()='Export']")
+    WebElement exportButton;
+//Assign Customer to Group
+    @FindBy(id = "visibility")
+    WebElement groupDropDownList;
+    @FindBy(xpath = "//span[text()='Total of 1 record(s) were updated.']")
+    WebElement assignSuccessMessage;
 
 
-
-    public CustomerPage(WebDriver driver) {
-        this.driver=TestBasePage.driver;
-        PageFactory.initElements(driver, this);
-        utility=new TestUtility(driver);
-    }
 
 // Add customer method
     public void enterFirstName(){
@@ -188,7 +206,7 @@ public class CustomerPage extends TestBasePage {
         utility.sleep(2);
         clickOnCustomerCheckBox();
         utility.sleep(1);
-        Select option=new Select(driver.findElement(By.id("customerGrid_massaction-select")));
+        option=new Select(actionDropDownList);
         option.selectByValue("delete");
         clickSubmitButton();
         Alert alert=driver.switchTo().alert();
@@ -204,18 +222,10 @@ public class CustomerPage extends TestBasePage {
         return true;
     }
 
-    //Export customer list as csv file
-
-    @FindBy(id = "customerGrid_export")
-    WebElement exportTo;
-    @FindBy(id = "customerGrid_export")
-    WebElement fileFormatOption;
-    @FindBy(xpath = "//span[text()='Export']")
-    WebElement exportButton;
-
+//Export customer list as csv file
     public void selectFileType(String type){
         utility.waitForElementPresent(fileFormatOption);
-        Select option=new Select(fileFormatOption);
+        option=new Select(fileFormatOption);
         option.selectByValue(type);
         Log.info("CSV file type has been selected");
     }
@@ -245,5 +255,43 @@ public class CustomerPage extends TestBasePage {
             isExported=false;
         return isExported;
     }
+
+//Assign Customer to group method
+    public void selectAssignAction(String actionValue ){
+        utility.waitForElementPresent(actionDropDownList);
+        option=new Select(actionDropDownList);
+        option.selectByValue(actionValue);
+       Log.info("(Assign a customer) Action is selected");
+    }
+    public void selectGroupForAssign(String groupValue){
+        utility.waitForElementPresent(groupDropDownList);
+        option=new Select(groupDropDownList);
+        option.selectByValue(groupValue);
+        Log.info("(Group)  is selected");
+    }
+    public void assignCustomerToGroup(String email,String actionValue,String groupValue){
+        enterEmailToSearchBox(email);
+        clickOnSearchButton();
+        utility.sleep(2);
+        clickOnCustomerCheckBox();
+        utility.sleep(2);
+        selectAssignAction(actionValue);
+        utility.sleep(1);
+        selectGroupForAssign(groupValue);
+        utility.sleep(1);
+        clickSubmitButton();
+        utility.sleep(3);
+    }
+
+    public boolean customerAssignedToGroupSuccessfully(){
+        utility.waitForElementPresent(assignSuccessMessage);
+        if (assignSuccessMessage.isDisplayed()){
+            System.out.println("Test Passed, Customer assigned to group successfully");
+            return true;
+        } else System.out.println("Test failed");
+        return false;
+    }
+
+
 
 }

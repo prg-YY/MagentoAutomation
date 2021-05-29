@@ -1,10 +1,9 @@
 package com.unitedcoder.regressiontest.customermoduletestrunner;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
+import com.seleniummaster.magento.backendpages.customerpages.CustomerGroupPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
 import com.seleniummaster.magento.backendpages.customerpages.FilterCustomerPage;
-import com.seleniummaster.magento.backendpages.customerpages.UpdateCustomerGroupPage;
-import com.seleniummaster.magento.testdata.TestDataHolder;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
@@ -12,13 +11,11 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Random;
 
 public class CustomerModuleTestRunner extends TestBasePage {
     CustomerPage customerPage;
     FilterCustomerPage filterCustomerPage;
+    CustomerGroupPage customerGroupPage;
 
     @BeforeClass
     public void setUp() {
@@ -31,7 +28,7 @@ public class CustomerModuleTestRunner extends TestBasePage {
 
     @Test(description = "1:Customer Manager can add a new customer -Yusuf")
     public void addNewCustomer() {
-        customerPage=new CustomerPage(driver);
+        customerPage=new CustomerPage();
         customerPage.addNewCustomer();
         Log.info("Add new customer started");
         Assert.assertTrue(customerPage.verifySuccessMessage());
@@ -39,7 +36,7 @@ public class CustomerModuleTestRunner extends TestBasePage {
 
     @Test(description = "2:Customer Manager can update an existing customer - SoFiYe")
     public void upDateExistingCustomer() {
-        customerPage=new CustomerPage(driver);
+        customerPage=new CustomerPage();
         customerPage.updateCustomer(prop.getProperty("cus_Email"));
         Assert.assertTrue(customerPage.displaySuccessMessage());
 
@@ -47,7 +44,7 @@ public class CustomerModuleTestRunner extends TestBasePage {
 
     @Test(description = "3:Customer Manager can delete an existing customer - ZohRe")
     public void deleteExistingCustomer() {
-        customerPage=new CustomerPage(driver);
+        customerPage=new CustomerPage();
        customerPage.deleteCustomer(prop.getProperty("cus_Email"));
        customerPage.customerDeletedSuccessfully();
        Assert.assertTrue(customerPage.customerDeletedSuccessfully());
@@ -95,7 +92,7 @@ public class CustomerModuleTestRunner extends TestBasePage {
 
     @Test(description = "Customer Manager can export customers - AyPer")
     public void exportCustomer() {
-        customerPage=new CustomerPage(driver);
+        customerPage=new CustomerPage();
         customerPage.exportCustomerList();
         Assert.assertTrue(customerPage.isCustomerFileExported());
     }
@@ -103,53 +100,55 @@ public class CustomerModuleTestRunner extends TestBasePage {
     @Test(description = "6:Customer Manager can reset customer's password - LeiLa")
     public void resetCustomersPassword() {
 
+
+
     }
 
-    @Test(description = "7:Customer Manager can add a new address for a customer - MeliKe ")
+    @Test(description = "Customer Manager can add a new address for a customer - MeliKe ")
     public void addNewAddress() {
+
 
     }
 
     @Test(description = "8:Customer Manager can assign a customer to a Customer Group" +
             " in the Actions on the All Customer page -  DilNur ")
     public void assignCustomer() {
-
+        String email=prop.getProperty("FrondEmail1");
+        String valueOfAssign=prop.getProperty("valueOfAssign");
+        String valueOfGroup=prop.getProperty("valueOfGroup");
+        customerPage=new CustomerPage();
+        customerPage.assignCustomerToGroup(email,valueOfAssign,valueOfGroup);
+        Assert.assertTrue(customerPage.customerAssignedToGroupSuccessfully());
     }
 
-    TestDataHolder holder;
-    Random ran = new Random();
-    @Test(description = "9:Customer Manager can add and update customer groups - Abdusemed ")
-    public void addGroups() {
-//        int r = ran.nextInt(50);
-//        customerGroupPage = new UpdateCustomerGroupPage(driver);
-//        holder = new TestDataHolder();
-//        customerGroupPage.addCustomerGroup(groupName + r);
-//        holder.setCustomerGroupName(groupName + r);
-//        prop.setProperty("cus_GroupName_Update", holder.getCustomerGroupName());
-//        try {
-//            prop.store(new FileOutputStream("C:\\Users\\Admin\\ameap_team1\\config.properties"),
-//                    "holdingGroupData");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        Assert.assertTrue(customerGroupPage.successMessageDisplayed());
+    @Test(description = "Customer Manager can add customer groups - Abdusemed ")
+    public void addCustomerGroup() {
+        String groupName=prop.getProperty("groupName");
+        String general=prop.getProperty("valueOfGeneral");
+        customerGroupPage=new CustomerGroupPage();
+        customerGroupPage.createCustomerGroup(groupName,general);
+        Assert.assertTrue(customerGroupPage.addCustomerGroupSuccessfully());
     }
-
-    @Test(description = "User should be able to Update Customer Group - abdusemed")
+    @Test(description = "Customer Manager should be able to Update Customer Group - abdusemed")
+    //dependsOnMethods = {"addCustomerGroup"}
     public void updateCustomerGroup() {
-//        String newGroupName = prop.getProperty("cus_GroupName_Update");
-//        customerGroupPage.searchCustomerForUpdate(newGroupName);
-//        int r = ran.nextInt(300);
-//        customerGroupPage.updateCustomerGroup(groupName + r);
-//        Assert.assertTrue(customerGroupPage.successMessageDisplayed());
+        String groupName=prop.getProperty("groupName");
+        String general=prop.getProperty("valueOfVIP");
+        customerGroupPage=new CustomerGroupPage();
+        customerGroupPage.updateCustomerGroup(groupName,general);
+        Assert.assertTrue(customerGroupPage.updateCustomerGroupSuccessfully());
     }
-
-
+    @Test(description = "Customer Manager should be able to delete Customer Group - abdusemed")
+    //dependsOnMethods = {"updateCustomerGroup"}
+    public void deleteCustomerGroup() {
+        String groupName=prop.getProperty("groupName");
+        customerGroupPage=new CustomerGroupPage();
+        customerGroupPage.deleteCustomerGroup(groupName);
+        Assert.assertTrue(customerGroupPage.deleteCustomerGroupSuccessfully());
+    }
     @AfterClass
     public static void close() {
         closeBrowser();
-
     }
 }
 
