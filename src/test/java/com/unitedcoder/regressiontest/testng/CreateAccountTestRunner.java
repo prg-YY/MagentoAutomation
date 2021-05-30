@@ -1,4 +1,4 @@
-package com.unitedcoder.regressiontest.usermoduletestrunner;
+package com.unitedcoder.regressiontest.testng;
 
 import com.seleniummaster.magento.frontendpages.CreateAccountPage;
 import com.seleniummaster.magento.utility.Log;

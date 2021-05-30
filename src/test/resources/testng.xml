@@ -7,9 +7,9 @@
         <listener class-name="org.testng.reporters.SuiteHTMLReporter"/>
     </listeners>
 
-    <test  name="Catalog Module Test" >
+    <test  name="Public user Module Test" >
         <classes>
-            <class name="com.unitedcoder.regressiontest.usermoduletestrunner.PublicUserModuleTestRunner"/>
+            <class name="com.unitedcoder.regressiontest.testng.PublicUserModuleTestRunner"/>
         </classes>
     </test>
 
