@@ -75,29 +75,38 @@ public class StoreViewPage extends TestBasePage {
         verifySuccess();
     }
     //Store Manager can edit a store view
+    @FindBy(xpath = "//*[@id=\"page:main-container\"]/div[3]/div/table/tbody/tr[1]/td[3]/a")
+    WebElement StoreViewName;
     @FindBy(xpath = "//td[@class=\"a-left last\"][\"+i+\"]")
     List<WebElement> storeViewList;
-    public boolean editStoreView() {
-        String StoreViewNAME = ApplicationConfig.readConfigProperties(ConfigFile, "Name");
-//            JavascriptExecutor js = (JavascriptExecutor) driver;
-//            js.executeScript("window.scrollBy(0,1000)");
-            for (int i = 1; i <= storeViewList.size(); i++) {
-                utility.sleep(3);
-                WebElement StoreviewName = driver.findElement(By.xpath("//td[@class=\"a-left last\"][\"+i+\"]/a"));
-                if ( StoreviewName.getText().contains(StoreViewNAME)) {
-                    StoreviewName.click();
-                    utility.sleep(3);
-                    selectStatus();
-                    clickSaveStoreViewButton();
-                    verifySuccess();
-
-                }
-
-            }
-
-            return verifySuccess();
-
-        }
+    public void editStoreView() {
+        StoreViewName.click();
+        selectStatus();
+        clickSaveStoreViewButton();
+        verifySuccess();
+        verifySuccess();
+    }
+//    public boolean editStoreView() {
+//        String StoreViewNAME = ApplicationConfig.readConfigProperties(ConfigFile, "Name");
+////            JavascriptExecutor js = (JavascriptExecutor) driver;
+////            js.executeScript("window.scrollBy(0,1000)");
+//            for (int i = 1; i <= storeViewList.size(); i++) {
+//                utility.sleep(3);
+//                WebElement StoreviewName = driver.findElement(By.xpath("//td[@class=\"a-left last\"][\"+i+\"]/a"));
+//                if ( StoreviewName.getText().contains(StoreViewNAME)) {
+//                    StoreviewName.click();
+//                    utility.sleep(3);
+//                    selectStatus();
+//                    clickSaveStoreViewButton();
+//                    verifySuccess();
+//
+//                }
+//
+//            }
+//
+//            return verifySuccess();
+//
+//        }
 
 
         //Store Manager can view all stores
