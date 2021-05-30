@@ -12,6 +12,8 @@ public class StoreDashboardPage extends TestBasePage {
 
     WebDriver driver;
     TestUtility utility;
+    @FindBy(xpath = "//img[@alt='Magento Logo']")
+    WebElement homePage;
 
     @FindBy(xpath = "//span[text()='Sales']")
     WebElement allSalesLink;
@@ -52,6 +54,11 @@ public class StoreDashboardPage extends TestBasePage {
         utility = new TestUtility(this.driver);
     }
 
+    public void clickHomePage(){
+        utility.waitForElementPresent(homePage);
+        homePage.click();
+        Log.info("home page has been clicked");
+    }
     public void clickAllSalesLink() {
         utility.waitForElementPresent(allSalesLink);
         allSalesLink.click();

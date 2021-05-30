@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class ManageCustomerDashboardPage extends com.seleniummaster.magento.utility.TestBasePage {
+public class CustomerDashboardPage extends com.seleniummaster.magento.utility.TestBasePage {
     WebDriver driver;
 
     TestUtility utility;
@@ -26,7 +26,7 @@ public class ManageCustomerDashboardPage extends com.seleniummaster.magento.util
     @FindBy(xpath = "//span[text()='Search']")
     WebElement searchLink;
 
-    public ManageCustomerDashboardPage(WebDriver driver) {
+    public CustomerDashboardPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver);

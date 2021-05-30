@@ -1,5 +1,6 @@
 package com.seleniummaster.magento.utility;
 
+import com.seleniummaster.magento.backendpages.BackEndLogin;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -38,13 +39,13 @@ public class TestBasePage {
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         if (systemName.contains("Mac")) {
             System.setProperty("webdriver.chrome.driver","/Users/prg/Documents/chromedriver/chromedriver");
-            /*
+
             chromeOptions.addArguments("--headless");
             chromeOptions.addArguments("--disable-gpu");
             chromeOptions.addArguments("window-size=1920,1080");
             chromeOptions.addArguments("--start-maximized");
             chromeOptions.addArguments("--allow-insecure-localhost");
-             */
+
             driver = new ChromeDriver(chromeOptions);
             driver.manage().window().maximize();
             driver.manage().deleteAllCookies();
@@ -75,11 +76,12 @@ public class TestBasePage {
 
     public static void initialization(String url) {
         ChromeOptions chromeOptions = new ChromeOptions();
+
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         if (driver==null){
 
             if (systemName.contains("Mac")){
-                System.setProperty("webdriver.chrome.driver","/Applications/chromedriver");
+                System.setProperty("webdriver.chrome.driver","/Users/prg/Documents/chromedriver/chromedriver");
                 driver=new ChromeDriver(chromeOptions);
                 driver.manage().window().maximize();
                 driver.get(url);

@@ -68,9 +68,14 @@ public class CreateAccountPage {
     }
     public boolean verifySuccess(){
         utility.waitForElementPresent(successMessage);
-        return successMessage.isDisplayed();
+        if (successMessage.isDisplayed()) {
+            Log.info("Test Passed ,Account creates successfully");
+            return true;
+        }else
+            Log.info("Test Failed");
+            return false;
+        };
 
-    }
     //combine all methods from current page
     public boolean userCreateAccount(String firstName, String lastName, String email, String password){
         Random ran=new Random();
