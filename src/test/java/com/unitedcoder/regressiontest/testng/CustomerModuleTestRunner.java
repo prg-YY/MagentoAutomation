@@ -1,4 +1,4 @@
-package com.unitedcoder.regressiontest.customermoduletestrunner;
+package com.unitedcoder.regressiontest.testng;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerGroupPage;
