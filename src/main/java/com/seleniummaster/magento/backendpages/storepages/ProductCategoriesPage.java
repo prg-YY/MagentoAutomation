@@ -97,13 +97,14 @@ public class ProductCategoriesPage extends TestBasePage{
 
     //Store Manager can update product categories
 
-    @FindBy(xpath = "//span[text()=\"TEAM1_CATEGORY (3)\"]")
+    @FindBy(xpath = "//span[text()=\"Team1 (6)\"]")
     WebElement Team1CategoryLink;
     @FindBy(xpath = "//textarea[@id=\"group_4description\"]")
     WebElement descriptionTextArea;
 
     public void clickExistCategoryLink(){
         utility.waitForElementPresent(Team1CategoryLink);
+        utility.sleep(3);
         Team1CategoryLink.click();
     }
     public void EnterDescription(String Description){

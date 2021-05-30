@@ -101,6 +101,7 @@ public class OrderPage extends TestBasePage{
     public void clickAddProductButton(){
         utility.waitForElementPresent(AddProductButton);
         try {
+        utility.sleep(3);
             AddProductButton.click();
         } catch (ElementClickInterceptedException e) {
             e.printStackTrace();
@@ -148,6 +149,8 @@ public class OrderPage extends TestBasePage{
         clickSearchButton();
         clickSelectedCustomer();
         clickSelectedStore();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,-500)");
         clickAddProductButton();
         clickSelectedProductCheckBox();
         clickAddSelectedProductToOrderButton();
