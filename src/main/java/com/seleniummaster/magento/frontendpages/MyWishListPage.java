@@ -31,7 +31,11 @@ public class MyWishListPage extends TestBasePage {
     }
     public boolean verifyMyWishList(){
         utility.waitForElementPresent(successMessage);
-        Log.info("My Wish List Displayed");
-        return successMessage.isDisplayed();
+        if (successMessage.isDisplayed()) {
+            Log.info("My Wish List Displayed");
+            return true;
+        }else
+            Log.info("test failed");
+        return false;
     }
 }
