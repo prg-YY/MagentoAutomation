@@ -24,6 +24,7 @@ public class SalesModuleStepDef extends TestBasePage {
     @When("sales manager go to order page and click create new order link")
     public void salesManagerGoToOrderPageAndClickCreateNewOrderLink() {
         dashboardPage.goToOrderPage();
+        ordersPage.clickOnCreateOrderLink();
     }
 
     @And("sales manager choose customer for order")
@@ -54,6 +55,7 @@ public class SalesModuleStepDef extends TestBasePage {
 
     @And("user choose  order for update and click on edit button")
     public void userChooseOrderForUpdateAndClickOnEditButton() {
+        ordersPage.selectPendingOrder(prop.getProperty("pending"));
         ordersPage.clickOnOrderViewForUpdate();
         ordersPage.clickEditButton();
     }
@@ -72,12 +74,13 @@ public class SalesModuleStepDef extends TestBasePage {
 
     @And("sales manager choose one order to cancel")
     public void salesManagerChooseOneOrderToCancel() {
+        ordersPage.selectPendingOrder("pending");
         ordersPage.clickOrderCheckBox();
     }
 
     @And("click on cancel order action and submit it")
     public void clickOnCancelOrderActionAndSubmitIt() {
-        ordersPage.selectCancel();
+        ordersPage.selectCancel(prop.getProperty("cancelOrder"));
         ordersPage.clickOnCancelSubmitButton();
     }
 
@@ -191,8 +194,11 @@ public class SalesModuleStepDef extends TestBasePage {
 
     @And("sales manager fill out all required filed")
     public void salesManagerFillOutAllRequiredFiled() {
-        rulesPage.fillOutNewTaxRuleInformation();
-        rulesPage.clickSaveRuleButton();
+        String taxRuleName=prop.getProperty("taxRuleName");
+        String customerTaxClass=prop.getProperty("vipValue");
+        String productTaxClass=prop.getProperty("taxableGoods");
+        String taxRate=prop.getProperty("taxRateValue");
+        rulesPage.createTaxRule(taxRuleName,customerTaxClass,productTaxClass,taxRate);
     }
 
     @Then("new tax rule added successfully")
@@ -203,17 +209,31 @@ public class SalesModuleStepDef extends TestBasePage {
 
     @And("sales manager define one rule to edit")
     public void salesManagerDefineOneRuleToEdit() {
-        rulesPage.defineRuleForEdit(prop.getProperty("ruleName"));
+        rulesPage.defineTaxRule(prop.getProperty("taxRuleName"));
     }
 
     @And("sales manager edit some information")
     public void salesManagerEditSomeInformation() {
-        rulesPage.enterPriority(prop.getProperty("priority"));
+      rulesPage.editTaxRule(prop.getProperty("goldCustomer"));
     }
 
     @Then("Existing tax rule updated successfully")
     public void existingTaxRuleUpdatedSuccessfully() {
-        rulesPage.successMessageIsDisplay();
         Assert.assertTrue(rulesPage.successMessageIsDisplay());
+    }
+
+    @And("sales manager define one tax rule for delete")
+    public void salesManagerDefineOneTaxRuleForDelete() {
+        rulesPage.defineTaxRule(prop.getProperty("taxRuleName"));
+    }
+
+    @And("sales manager click on delete button")
+    public void salesManagerClickOnDeleteButton() {
+        rulesPage.deleteTaxRule();
+    }
+
+    @Then("tax rule deleted successfully")
+    public void taxRuleDeletedSuccessfully() {
+        Assert.assertTrue(rulesPage.deleteSuccessfulMessageIsDisplayed());
     }
 }

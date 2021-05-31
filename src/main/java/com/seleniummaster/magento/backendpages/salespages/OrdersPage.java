@@ -39,15 +39,13 @@ public class OrdersPage extends TestBasePage {
     WebElement team1Store;
     @FindBy(xpath = "//span[text()='Add Products']")
     WebElement addProductsLink;
-    //input[@type='checkbox' and @value='59']
     @FindBy(xpath = "//*[@id=\"sales_order_create_search_grid_table\"]/tbody/tr[1]/td[5]/input")
     WebElement productCheckBox;
-    //(//input[@value='59'])[1]
     @FindBy(xpath = "//span[text()='Add Selected Product(s) to Order']")
     WebElement addProductToOrderLink;
     @FindBy(id = "p_method_checkmo")
     WebElement paymentCheckBox;
-    @FindBy(xpath = "//*[@id='order-shipping-method-summary']/a")
+    @FindBy(xpath = "//a[contains(text(),'Get shipping methods and rates')]")
     WebElement getShippingMethodLink;
     @FindBy(id = "s_method_flatrate_flatrate")
     WebElement fixedRadioButton;
@@ -118,9 +116,7 @@ public class OrdersPage extends TestBasePage {
         Log.info("Payment method Check box has been clicked");
     }
     public void clickOnGetShippingMethodLink(){
-        utility.sleep(2);
         utility.waitForElementPresent(getShippingMethodLink);
-        utility.sleep(2);
         getShippingMethodLink.click();
         Log.info("get shipping method link has been clicked");
     }
@@ -154,7 +150,7 @@ public class OrdersPage extends TestBasePage {
         clickOnTeam1Store();
         utility.sleep(2);
         clickOnAddProductsLink();
-        utility.sleep(3);
+        utility.sleep(2);
         clickOnProductChekBox();
         utility.sleep(2);
         clickOnAddProductToOrderLink();
@@ -168,7 +164,7 @@ public class OrdersPage extends TestBasePage {
         checkOnFixedRadioButton();
         utility.sleep(1);
         JavascriptExecutor js = (JavascriptExecutor)driver;
-        js.executeScript("window.scrollBy(0,1000)");
+        js.executeScript("window.scrollBy(0,-500)");
         clickSubmitOrderButton();
     }
 
@@ -197,29 +193,24 @@ public class OrdersPage extends TestBasePage {
     // Define Elements For Update Orders
     @FindAll(@FindBy(xpath = "//*[@id=\"sales_order_grid_table\"]/tbody/tr"))
     List<WebElement> ordersList;
+    @FindBy(id = "sales_order_grid_filter_status")
+    WebElement pendingDropDownList;
     @FindBy(xpath = "//*[@id=\"sales_order_grid_table\"]/tbody/tr[1]")
-    WebElement team1_Order;
-
-
-    // update Order Method
-    public void chooseOrder(){
-        utility.waitForElementPresent(team1_Order);
-        int i;
-        int totalOrder=0;
-        for (i=0;i<=ordersList.size();i++){
-            String t1_Order=team1_Order.getText();
-            if (t1_Order.contains("team1")){
-                utility.waitForElementPresent(team1_Order);
-                team1_Order.click();
-            }break;
-        }
-    }
+    WebElement OrderRow;
     @FindBy(xpath ="//span[text()='Edit']" )
     WebElement editLink;
     @FindBy(xpath = "//*[@id=\"sales_order_grid_table\"]/tbody/tr[1]/td[10]/a")
     WebElement orderViewLink;
     @FindBy(id = "order-billing_address_company")
     WebElement companyNameTextBox;
+// update Order Method
+    public void selectPendingOrder(String value){
+        utility.waitForElementPresent(pendingDropDownList);
+        Select select=new Select(pendingDropDownList);
+        select.selectByValue(value);
+        clickOnSearchButton();
+        utility.sleep(2);
+    }
     public void clickOnOrderViewForUpdate(){
         utility.waitForElementPresent(orderViewLink);
         orderViewLink.click();
@@ -257,8 +248,9 @@ public class OrdersPage extends TestBasePage {
         utility.waitForElementPresent(successMessageForUpdate);
         if (successMessageForUpdate.isDisplayed()){
             System.out.println("Test Passed , The Order Updated Successfully");
+            return true;
         }else System.out.println("Test Failed");
-        return true;
+        return false;
     }
 
     //cancel order elements
@@ -278,10 +270,10 @@ public class OrdersPage extends TestBasePage {
         orderCheckBox.click();
         Log.info("Order check box has been clicked");
     }
-    public void selectCancel(){
+    public void selectCancel(String value){
         utility.waitForElementPresent(cancelOption);
         Select option=new Select(cancelOption);
-        option.selectByValue("cancel_order");
+        option.selectByValue(value);
     }
     public void clickOnCancelSubmitButton(){
         utility.sleep(2);
