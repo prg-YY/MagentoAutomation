@@ -66,8 +66,10 @@ public class InvoicesPage extends TestBasePage {
         String totalInvoiceResult=totalInvoiceRecord.getText();
         System.out.println(totalInvoiceResult);
         if (totalInvoiceRecord.isDisplayed()){
-            System.out.println("Test Passed ");
-        }else System.out.println("Test Failed");
+            System.out.println("Test Passed,Total invoice record is display");
+            return true;
+        }else System.out.println("Test Failed,no fund any invoice records");
+        return false;
         /*String totalInvoices=totalInvoiceRecord.getText();
         utility.sleep(2);
         System.out.println(totalInvoices);//Total 120 records found
@@ -78,7 +80,6 @@ public class InvoicesPage extends TestBasePage {
         if (actualResult>=1){
             System.out.println("Test Passed,Total "+actualResult+" invoices record Found");
         }else System.out.println("There are 0 record found");*/
-        return true;
     }
     public void enterInvoicesId(String invoicesId){
         utility.waitForElementPresent(invoicesIdSearchBox);
@@ -135,8 +136,9 @@ public class InvoicesPage extends TestBasePage {
         utility.waitForElementPresent(refundProduct);
         if (refundProduct.isDisplayed()){
             System.out.println("view refund test passed");
+            return true;
         }else System.out.println("Test Failed");
-        return refundProduct.isDisplayed();
+        return false;
     }
     public boolean isCommentDisplay(){
         utility.waitForElementPresent(commentBlock);

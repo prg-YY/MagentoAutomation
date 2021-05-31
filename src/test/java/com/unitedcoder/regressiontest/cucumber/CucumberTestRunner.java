@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = {"json:target/CucumberReportingModule-Sales/reportingModule.json"},
+@CucumberOptions(plugin = {"json:target/CucumberReportingModule-Sales/salesModule.json"},
         features = {"src/test/resources"},
         tags = "@SalesModule",
         monochrome = true

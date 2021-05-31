@@ -15,12 +15,8 @@ public class Hook extends TestBasePage {
 
     @After(order = 1)
     public void logOut() {
-        SalesDashboardPage dashboardPage=new SalesDashboardPage(driver);
-        dashboardPage.backToDashboard();
-
-//      StoreDashboardPage storeDashboardPage = new StoreDashboardPage(driver);
-//      storeDashboardPage.clickLogOutLink();
-
+      StoreDashboardPage storeDashboardPage = new StoreDashboardPage(driver);
+      storeDashboardPage.clickLogOutLink();
 
     }
 

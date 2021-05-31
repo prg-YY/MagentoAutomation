@@ -1,5 +1,6 @@
 package com.unitedcoder.regressiontest.cucumber.sales;
 
+import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.salespages.*;
 import com.seleniummaster.magento.utility.TestBasePage;
 import io.cucumber.java.en.And;
@@ -18,7 +19,7 @@ public class SalesModuleStepDef extends TestBasePage {
 
     @Given("sales manager on the sales module dashboard")
     public void salesManagerOnTheSalesModuleDashboard() {
-        OrdersPage ordersPage=new OrdersPage(driver);
+        dashboardPage=new SalesDashboardPage(driver);
     }
 
     @When("sales manager go to order page and click create new order link")

@@ -33,7 +33,7 @@ public class SalesDashboardPage extends TestBasePage {
     WebElement chooseStoreViewDropDownList;
     @FindBy(xpath = "//*[@class=\"link-logout\"]")
     WebElement logOutLink;
-    @FindBy(linkText = "logo")
+    @FindBy(xpath = "//span[text()='Dashboard']")
     WebElement dashboard;
 
     public SalesDashboardPage(WebDriver driver) {
@@ -129,7 +129,7 @@ public class SalesDashboardPage extends TestBasePage {
     public void backToDashboard(){
         utility.waitForElementPresent(dashboard);
         dashboard.click();
+        Log.info("dashboard link has been  clicked");
         utility.sleep(2);
-
     }
 }
