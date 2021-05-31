@@ -1,5 +1,6 @@
 package com.unitedcoder.regressiontest.cucumber;
 
+import com.seleniummaster.magento.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.magento.backendpages.storepages.StoreDashboardPage;
 import com.seleniummaster.magento.utility.TestBasePage;
 import io.cucumber.java.After;
@@ -14,16 +15,18 @@ public class Hook extends TestBasePage {
 
     @After(order = 1)
     public void logOut() {
-      StoreDashboardPage storeDashboardPage = new StoreDashboardPage(driver);
-      storeDashboardPage.clickLogOutLink();
+        SalesDashboardPage dashboardPage=new SalesDashboardPage(driver);
+        dashboardPage.backToDashboard();
+
+//      StoreDashboardPage storeDashboardPage = new StoreDashboardPage(driver);
+//      storeDashboardPage.clickLogOutLink();
 
 
     }
 
-    @After(order = 0, value = "@viewNewsletterSubscribers")
+    @After(order = 0, value = "@DeleteExistingTaxRule")
     public void tearDown() {
         driver.close();
-        driver.quit();
         driver = null;
     }
 
