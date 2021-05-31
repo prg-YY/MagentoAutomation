@@ -92,6 +92,13 @@
         And sales manager define one rule to edit
          And sales manager edit some information
          Then Existing tax rule updated successfully
+      @DeleteExistingTaxRule
+      Scenario: Sales Manager should be able to delete an existing tax rule
+        Given sales manager on the sales module dashboard
+        When sales manager go to manage tax rule page
+        And sales manager define one tax rule for delete
+        And sales manager click on delete button
+        Then tax rule deleted successfully
 
 
 
