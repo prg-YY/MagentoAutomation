@@ -1,6 +1,7 @@
 package com.seleniummaster.magento.backendpages.storepages;
 
 import com.seleniummaster.magento.utility.ApplicationConfig;
+import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
@@ -57,7 +58,12 @@ public class StorePage extends TestBasePage {
     }
     public boolean verifySuccess(){
         utility.waitForElementPresent(ConfirmationMessage);
-        return ConfirmationMessage.isDisplayed();
+        if (ConfirmationMessage.isDisplayed()) {
+            Log.info("The store has been saved.");
+            return true;
+        }else
+            Log.info("test failed");
+        return false;
     }
     public void createStore(){
         selectWebsite();

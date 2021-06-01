@@ -1,5 +1,6 @@
 package com.seleniummaster.magento.backendpages.storepages;
 
+import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
@@ -71,7 +72,12 @@ public class ProductCategoriesPage extends TestBasePage{
     }
     public boolean VerifySuccessfullyAddCategoryMsg(){
         utility.waitForElementPresent(successfullySavedMsg);
-        return successfullySavedMsg.isDisplayed();
+        if (successfullySavedMsg.isDisplayed()) {
+            Log.info("The order has been cancelled.");
+            return true;
+        }else
+            Log.info("test failed");
+        return false;
     }
 
     public void addProductCategory(){

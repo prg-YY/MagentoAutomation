@@ -1,5 +1,6 @@
 package com.seleniummaster.magento.backendpages.storepages;
 
+import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.*;
@@ -139,7 +140,12 @@ public class OrderPage extends TestBasePage{
     }
     public boolean verifySuccessfulAddedMsg(){
         utility.waitForElementPresent(OrderSuccessfulCreatedMsg);
-        return OrderSuccessfulCreatedMsg.isDisplayed();
+        if (OrderSuccessfulCreatedMsg.isDisplayed()) {
+            Log.info("The order has been created");
+            return true;
+        }else
+            Log.info("test failed");
+        return false;
 
     }
 
@@ -228,7 +234,12 @@ public class OrderPage extends TestBasePage{
     }
     public boolean VerifySuccessfulCancelMsg(){
         utility.waitForElementPresent(successfulCancelMsg);
-        return successfulCancelMsg.isDisplayed();
+        if (OrderSuccessfulCreatedMsg.isDisplayed()) {
+            Log.info("The order has been cancelled.");
+            return true;
+        }else
+            Log.info("test failed");
+        return false;
     }
 
     public void CancelOrder(){

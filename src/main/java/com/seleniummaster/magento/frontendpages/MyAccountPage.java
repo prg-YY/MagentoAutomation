@@ -26,8 +26,12 @@ public class MyAccountPage extends TestBasePage {
     }
     public boolean verifyMyAccountLink(){
         utility.waitForElementPresent(successMessage);
-        Log.info("My Account Link Displayed");
-        return successMessage.isDisplayed();
+        if (successMessage.isDisplayed()) {
+            Log.info("Test Passed");
+            return true;
+        }else
+            Log.info("Test Failed");
+        return false;
     }
 
 }

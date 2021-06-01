@@ -87,13 +87,18 @@ public class CheckOutOrderPage extends TestBasePage {
         Log.info("Place order button clicked");
     }
 
-    public void verifyOrderMassage() {
+    public boolean verifyOrderMassage() {
         utility.waitForElementPresent(orderVerifyMessage);
-        orderVerifyMessage.isDisplayed();
+        if (orderVerifyMessage.isDisplayed()) {
+            Log.info("Test Passed");
+            return true;
+        }else
+            Log.info("Test Failed");
+        return false;
 
     }
 
-    public void checkoutOrderM() {
+    public void checkoutOrder() {
         clickClickCartButton();
         utility.sleep(1);
         clickCheckOutButton();
@@ -106,7 +111,6 @@ public class CheckOutOrderPage extends TestBasePage {
         utility.sleep(1);
         clickOnContinue4();
         clickOnPlaceOrderButton();
-        verifyOrderMassage();
 
 
     }
