@@ -11,19 +11,22 @@ import org.openqa.selenium.support.ui.Select;
 public class TaxRulesPage extends TestBasePage {
     WebDriver driver;
     TestUtility utility;
+    Select select;
     @FindBy(xpath = "(//span[text()='Add New Tax Rule'])[1]")
     WebElement addNewTaxRuleButton;
     @FindBy(xpath = "//input[@class=\"required-entry input-text required-entry\"]")
     WebElement taxRuleNameTextBox;
-    @FindBy(xpath = "//option[@value=\"3\"]")
-    WebElement retailCustomer;
-    @FindBy(xpath = "//option[@value=\"1\"]")
-    WebElement usCaRate;
+    @FindBy(id = "tax_customer_class")
+    WebElement customerTaxClass;
+    @FindBy(id = "tax_product_class")
+    WebElement productTaxClass;
+    @FindBy(id = "tax_rate")
+    WebElement taxRateSelection;
     @FindBy(id= "priority")
     WebElement priorityNo;
     @FindBy(xpath = "(//span[text()='Save Rule'])[1]")
     WebElement saveRuleButton;
-    @FindBy(xpath = "//*[@id=\"messages\"]/ul/li")
+    @FindBy(xpath = "//span[text()='The tax rule has been saved.']")
     WebElement successMassage;
 
     public TaxRulesPage(WebDriver driver) {
@@ -41,34 +44,27 @@ public class TaxRulesPage extends TestBasePage {
         taxRuleNameTextBox.sendKeys(taxName);
         Log.info("tax Rule name name  text box field");
     }
-    public void clickOnRetailCustomer(){
-        utility.waitForElementPresent(retailCustomer);
-        retailCustomer.click();
-        Log.info("retail customer is selected");
-    }
 
-    public void clickUsCaRate(){
-        utility.waitForElementPresent(usCaRate);
-        usCaRate.click();
-        Log.info(" tax rate US-CA-*-Rate1 selected");
-    }
     public void enterOrderNumber(String orderNumber){
         utility.waitForElementPresent(priorityNo);
         priorityNo.sendKeys(orderNumber);
         Log.info("Priority text field number 1");
 
     }
-    public void selectVIP(String value){
-        Select customerTaxClassOption=new Select(driver.findElement(By.id("tax_customer_class")));
-        customerTaxClassOption.selectByValue(value);
+    public void selectCustomerTaxClass(String value){
+        utility.waitForElementPresent(customerTaxClass);
+        select=new Select(customerTaxClass);
+        select.selectByValue(value);
     }
-    public void selectGeneral(String value){
-        Select productTaxClassOption=new Select(driver.findElement(By.id("tax_product_class")));
-        productTaxClassOption.selectByValue(value);
+    public void selectProductTaxClass(String value){
+        utility.waitForElementPresent(productTaxClass);
+        select=new Select(productTaxClass);
+        select.selectByValue(value);
     }
     public void selectTexRate(String value){
-        Select taxRateOption=new Select(driver.findElement(By.id("tax_rate")));
-        taxRateOption.selectByValue(value);
+        utility.waitForElementPresent(taxRateSelection);
+        select=new Select(taxRateSelection);
+        select.selectByValue(value);
     }
 
     public void clickSaveRuleButton(){
@@ -76,53 +72,81 @@ public class TaxRulesPage extends TestBasePage {
         saveRuleButton.click();
         Log.info("save rule button is clicked");
     }
-    public void fillOutNewTaxRuleInformation(){
-        enterTaxRuleName(prop.getProperty("taxRuleName")+System.currentTimeMillis());
-        selectVIP(prop.getProperty("vipValue"));
-        selectGeneral(prop.getProperty("selectGeneral"));
-        selectTexRate(prop.getProperty("taxRateValue"));
+ //create Tax rule
+    public void createTaxRule(String ruleName,String customerTaxValue,String productTaxValue,String taxRateValue){
+        enterTaxRuleName(ruleName);
+        selectCustomerTaxClass(customerTaxValue);
+        selectProductTaxClass(productTaxValue);
+        selectTexRate(taxRateValue);
         utility.sleep(2);
         JavascriptExecutor js=(JavascriptExecutor)driver;
         js.executeScript("window.scrollBy(0,-200)");
         clickSaveRuleButton();
+        utility.sleep(2);
     }
     public boolean successMessageIsDisplay(){
         utility.waitForElementPresent(successMassage);
-       if (successMassage.getText().contains(" ")){
+       if (successMassage.isDisplayed()){
            System.out.println("Test Passed");
-       }else System.out.println("Test Failed");
-        Log.info("success message verified");
-        return true;
+           return true;
+       }else
+        return false;
     }
 
     //update text rule
     @FindBy(id = "taxRuleGrid_filter_code")
-    WebElement ruleNameTextBox;
+    WebElement ruleNameSearchBox;
     @FindBy(xpath = "//*[@id=\"taxRuleGrid_table\"]/tbody/tr[1]")
     WebElement taxRuleRow;
+    @FindBy(xpath = "//span[text()='Search']")
+    WebElement searchButton;
 
-    public void enterRuleName(String ruleName){
-        utility.waitForElementPresent(ruleNameTextBox);
-        ruleNameTextBox.sendKeys(ruleName);
+
+
+
+    public void enterRuleNameToSearchBox(String ruleName){
+        utility.waitForElementPresent(ruleNameSearchBox);
+        ruleNameSearchBox.sendKeys(ruleName);
         Log.info("Rule Name has been Entered");
     }
-    public void clickOnTaxRuleRow(){
+    public void defineTaxRule(String ruleName){
+        enterRuleNameToSearchBox(ruleName);
+        utility.waitForElementPresent(searchButton);
+        searchButton.click();
+        utility.sleep(2);
         utility.waitForElementPresent(taxRuleRow);
         taxRuleRow.click();
-        Log.info("Tax rule has been clicked");
+        utility.sleep(2);
     }
-    public void enterPriority(String priority){
-        utility.waitForElementPresent(priorityNo);
-        priorityNo.clear();
-        priorityNo.sendKeys(priority);
-        utility.sleep(1);
+    public void editTaxRule(String customerTax){
+        selectCustomerTaxClass(customerTax);
         clickSaveRuleButton();
         utility.sleep(2);
     }
-    public void defineRuleForEdit(String ruleName){
-        enterRuleName(ruleName);
-        clickOnTaxRuleRow();
+
+//delete tax rule
+    @FindBy(xpath = "(//span[text()='Delete Rule'])[1]")
+    WebElement deleteRuleButton;
+    @FindBy(xpath = "//span[text()='The tax rule has been deleted.']")
+    WebElement deleteSuccessMessage;
+
+    public void deleteTaxRule(){
+        utility.waitForElementPresent(deleteRuleButton);
+        deleteRuleButton.click();
+        Alert alert=driver.switchTo().alert();
+        utility.waitForAlertPresent();
+        alert.accept();
     }
+    public boolean deleteSuccessfulMessageIsDisplayed(){
+        utility.waitForElementPresent(deleteSuccessMessage);
+        if (deleteSuccessMessage.isDisplayed()){
+            Log.info("Test Passed Tax rule deleted successfully");
+            return true;
+        }else
+            Log.info("delete tax rule test failed");
+            return false;
+    }
+
 
 
 }
