@@ -14,11 +14,11 @@ import java.util.Properties;
 
 public class TestBasePage {
     public static WebDriver driver;
-    public static Properties prop =new Properties();
-    public static String systemName =System.getProperty("os.name");
+    public static Properties prop = new Properties();
+    public static String systemName = System.getProperty("os.name");
 
     static {
-        String workingDir= System.getProperty("user.dir");
+        String workingDir = System.getProperty("user.dir");
         try {
             FileInputStream fileInputStream = new FileInputStream(workingDir + File.separator
                     + "config.properties");
@@ -38,7 +38,7 @@ public class TestBasePage {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         if (systemName.contains("Mac")) {
-            System.setProperty("webdriver.chrome.driver","/Users/prg/Documents/chromedriver/chromedriver");
+            System.setProperty("webdriver.chrome.driver", "/Users/prg/Documents/chromedriver/chromedriver");
 
             chromeOptions.addArguments("--headless");
             chromeOptions.addArguments("--disable-gpu");
@@ -78,35 +78,33 @@ public class TestBasePage {
         ChromeOptions chromeOptions = new ChromeOptions();
 
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-        if (driver==null){
+        if (driver == null) {
 
-            if (systemName.contains("Mac")){
-                System.setProperty("webdriver.chrome.driver","/Users/prg/Documents/chromedriver/chromedriver");
-                driver=new ChromeDriver(chromeOptions);
+            if (systemName.contains("Mac")) {
+                System.setProperty("webdriver.chrome.driver", "/Users/prg/Documents/chromedriver/chromedriver");
+                driver = new ChromeDriver(chromeOptions);
                 driver.manage().window().maximize();
                 driver.get(url);
-            }
-            else if (systemName.contains("Windows")){
-                System.setProperty("webdriver.chrome.driver","c:/webdriver/chromedriver.exe");
-                driver=new ChromeDriver();
+            } else if (systemName.contains("Windows")) {
+                System.setProperty("webdriver.chrome.driver", "c:/webdriver/chromedriver.exe");
+                driver = new ChromeDriver();
                 driver.manage().window().maximize();
                 driver.get(url);
-            }
-            else {
-                System.setProperty("webdriver.chrome.driver","/usr/bin/chromedriver");
-                driver=new ChromeDriver(chromeOptions);
-                chromeOptions.addArguments(Arrays.asList("--headless","disable-gpu"));
+            } else {
+                System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+                driver = new ChromeDriver(chromeOptions);
+                chromeOptions.addArguments(Arrays.asList("--headless", "disable-gpu"));
                 chromeOptions.addArguments("window-size=1920,1080");
                 driver.get(url);
             }
         }
-        }
+    }
 
     //close the browser
     public static void closeBrowser() {
         driver.close();
         driver.quit();
-        driver=null;
+        driver = null;
         Log.info("Driver closed");
     }
 
