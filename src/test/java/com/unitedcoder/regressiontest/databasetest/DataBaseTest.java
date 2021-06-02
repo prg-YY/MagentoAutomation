@@ -19,10 +19,13 @@ public class DataBaseTest extends TestBasePage {
     Connection  connection;
     @BeforeClass
     public void setUp(){
+
         connection= ConnectionManager.connectToDataBaseServer(username,password,ConnectionType.MYSQLServer);
     }
+
     @Test(description = "Verify that newly added customers should be in the database")//abdusamad
     public void isAddedCustomerExist(){
+
         DataAccess access=new DataAccess();
         CachedRowSet cachedRowSet=access.readFromDataBase(connection, QueryScript.getNewlyAddedCustomer());
         Assert.assertTrue(access.getRowCount(cachedRowSet));
@@ -89,7 +92,7 @@ public class DataBaseTest extends TestBasePage {
         DataAccess access=new DataAccess();
 
     }
-    @Test(description = "Verify that newly added refund should be in the database")//Yusupjan
+    @Test(description = "Verify that newly added refund should be in the database")//Sofia
     public void isAddedRefundExist(){
         DataAccess access=new DataAccess();
 

@@ -40,4 +40,66 @@ public class DataAccess {
         }
         return true;
     }
+
+    //Abdusamad
+    public void getCustomers() {
+
+    }
+
+    //Abdukahar
+    public void getCustomerGroups() {
+
+    }
+
+    //yusuf
+    public void getProductInfo() {
+
+    }
+
+    //Sofia
+    public void getProductRootCategory() {
+
+    }
+
+    //Zuhra
+    public void getRegisteredUsers() {
+
+    }
+
+    //Kamer
+    public void getOrders() {
+
+    }
+
+    //Ayper
+    public void getCreditMemos() {
+
+    } //Leila
+
+    public void getStoreInfo() {
+
+    } //Melika
+
+    public void getStockInfo() {
+
+    }
+
+    //Dilnur
+    public void getSubCategory() {
+
+    }
+
+    //Abdusamad
+    public void getStoreView() {
+
+    }
+
+    //Yusuf
+    public void getTaxRule() {
+
+    }
+    //Sofia
+    public void getRefund() {
+
+    }
 }
