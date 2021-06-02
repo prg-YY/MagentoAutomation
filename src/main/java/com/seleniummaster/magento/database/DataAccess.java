@@ -5,124 +5,129 @@ import javax.sql.rowset.RowSetProvider;
 import java.sql.*;
 
 public class DataAccess {
-    //get product information
-    public boolean getProductID(int productID, Connection connection){
-        boolean isProductExist=false;
-        Statement statement=null;
-        ResultSet resultSet=null;
-        CachedRowSet cachedRowSet=null;
+    //get product information - Yusuf
+    public boolean getProductID(String productID, Connection connection) {
+        boolean isProductExist = false;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        CachedRowSet cachedRowSet = null;
         try {
-            cachedRowSet= RowSetProvider.newFactory().createCachedRowSet();
+            cachedRowSet = RowSetProvider.newFactory().createCachedRowSet();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement=connection.createStatement();
+            statement = connection.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String sqlScript=String.format("select *from mg_catalog_category_product where product_id=299",productID);
+        String sqlScript = String.format("select *from mg_catalog_category_product where product_id=299", productID);
         try {
-            resultSet=statement.executeQuery(sqlScript);
+            resultSet = statement.executeQuery(sqlScript);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if(cachedRowSet==null){
+        if (cachedRowSet == null) {
             System.out.println("No records Found");
             return false;
-        }else{
+        } else {
             try {
                 cachedRowSet.populate(resultSet);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        int count=0;
-        while(true){
+        int count = 0;
+        while (true) {
             try {
-                if(!cachedRowSet.next()){
+                if (!cachedRowSet.next()) {
                     break;
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            try{
-                int productId=cachedRowSet.getInt("product_id");
-                String name=cachedRowSet.getString("name");
-                double price=cachedRowSet.getDouble("price");
-                System.out.println(String.format("product_id=%d name=%s price=%.2f",
-                        productId,name,price));
-                count=cachedRowSet.getRow();
-                System.out.println("Total Rows: "+count);}
-            catch (SQLException e){
+            try {
+                int productId = cachedRowSet.getInt("product_id");
+                int productPosition = cachedRowSet.getInt("position");
+                int categoryId = cachedRowSet.getInt("category_id");
+                System.out.printf("product_id=%d position=%s category_id=%s",
+                        productId, productPosition, categoryId);
+                count = cachedRowSet.getRow();
+                System.out.println("Total Rows: " + count);
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        if(count>=1){
-            isProductExist=true;
+        if (count >= 1) {
+            isProductExist = true;
         }
         return isProductExist;
 
     }
-    public boolean getCustomer(String customerEmail, Connection connection){
-        boolean isCustomerExist=false;
-        Statement statement=null;
-        ResultSet resultSet=null;
-        CachedRowSet cachedRowSet=null;
+
+    //get tax rule information - Yusuf
+    public boolean getTaxRule(String taxRuleID, Connection connection) {
+        boolean isCustomerExist = false;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        CachedRowSet cachedRowSet = null;
         try {
-            cachedRowSet= RowSetProvider.newFactory().createCachedRowSet();
+            cachedRowSet = RowSetProvider.newFactory().createCachedRowSet();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement=connection.createStatement();
+            statement = connection.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String sqlScript=String.format("select customer_id,email from cc_CubeCart_customer where email='%s'",
-                customerEmail);
+        String sqlScript = String.format("select *from mg_tax_calculation_rule where tax_calculation_rule_id=76",
+                taxRuleID);
         try {
-            resultSet=statement.executeQuery(sqlScript);
+            resultSet = statement.executeQuery(sqlScript);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if(resultSet==null){
+        if (resultSet == null) {
             System.out.println("No records Found");
             return isCustomerExist;
-        }else{
+        } else {
             try {
                 cachedRowSet.populate(resultSet);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        int count=0;
-        while(true){
+        int count = 0;
+        while (true) {
             try {
-                if(!cachedRowSet.next()){
+                if (!cachedRowSet.next()) {
                     break;
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            try{
-                int customerId=cachedRowSet.getInt("customer_id");
-                String email=cachedRowSet.getString("email");
-                System.out.println(String.format("customer_id=%d email=%s",
-                        customerId,email));
-                count=cachedRowSet.getRow();
-                System.out.println("Total Rows: "+count);}
-            catch (SQLException e){
+            try {
+                int taxRuleId = cachedRowSet.getInt("tax_calculation_rule_id");
+                String code = cachedRowSet.getString("code");
+                int priority = cachedRowSet.getInt("priority");
+                int position = cachedRowSet.getInt("position");
+                System.out.println(String.format("taxRuleId=%d code=%s priority=%d position=%d ",
+                        taxRuleId, code, priority, position));
+                count = cachedRowSet.getRow();
+                System.out.println("Total Rows: " + count);
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        if(count>=1){
-            isCustomerExist=true;
+        if (count >= 1) {
+            isCustomerExist = true;
         }
         return isCustomerExist;
 
     }
-//    public boolean insertNewCategory(CategoryObject categoryObject,Connection connection){
+
+    //    public boolean insertNewCategory(CategoryObject categoryObject,Connection connection){
 //        String insertQuery="insert into cc_CubeCart_category" +
 //                "(cat_name,cat_desc,cat_parent_id,cat_image,per_ship,seo_meta_title,seo_meta_description," +
 //                "seo_meta_keywords,priority,status)values(?,?,?,?,?,?,?,?,?,?)";
@@ -158,29 +163,30 @@ public class DataAccess {
 //        else
 //            return false;
 //    }
-    public boolean deleteCategory(String categoryName,Connection connection){
-        String deleteQuery="delete from cc_CubeCart_category where cat_name=?";
-        PreparedStatement deleteStatement=null;
+    public boolean deleteCategory(String categoryName, Connection connection) {
+        String deleteQuery = "delete from cc_CubeCart_category where cat_name=?";
+        PreparedStatement deleteStatement = null;
         try {
-            deleteStatement=connection.prepareStatement(deleteQuery);
+            deleteStatement = connection.prepareStatement(deleteQuery);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            deleteStatement.setString(1,categoryName);
+            deleteStatement.setString(1, categoryName);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        int affectedRows=0;
+        int affectedRows = 0;
         try {
-            affectedRows=deleteStatement.executeUpdate();
+            affectedRows = deleteStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(String.format("%d row affected",affectedRows));
-        if(affectedRows>=1)
+        System.out.println(String.format("%d row affected", affectedRows));
+        if (affectedRows >= 1)
             return true;
         else
             return false;
     }
+
 }
