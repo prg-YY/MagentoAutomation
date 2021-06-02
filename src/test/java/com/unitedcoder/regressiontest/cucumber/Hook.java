@@ -16,14 +16,11 @@ public class Hook extends TestBasePage {
     public void logOut() {
       StoreDashboardPage storeDashboardPage = new StoreDashboardPage(driver);
       storeDashboardPage.clickLogOutLink();
-
-
     }
 
-    @After(order = 0, value = "@viewNewsletterSubscribers")
+    @After(order = 0, value = "@DeleteExistingTaxRule" )
     public void tearDown() {
         driver.close();
-        driver.quit();
         driver = null;
     }
 
