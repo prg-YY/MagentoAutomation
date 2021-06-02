@@ -19,7 +19,7 @@ public class MyProductReviewsPage extends TestBasePage {
     }
 
     // Define the Elements
-    @FindBy(xpath = "//div[@class='block-content']/ul/li[7]")
+    @FindBy(xpath = "//div[@class='block-content']/ul/li[7]/a")
     WebElement myProductReviewsLink;
     @FindBy(xpath = "//div[@class=\"my-account\"]/p")
     WebElement noReviewsMessage;
@@ -44,8 +44,10 @@ public class MyProductReviewsPage extends TestBasePage {
         String reviewReport=noReviewsMessage.getText();
         if (reviewReport.contains("no reviews")) {
             System.out.println(noReviewsMessage.getText());
+            Log.info("Test Passed");
         } else {
             System.out.println("The Product reviews contents has been seen");
+            Log.info("Test Failed");
         }
         return true;
     }

@@ -134,11 +134,11 @@ public class AccountPage extends TestBasePage {
         Log.info("Add new address link clicked");
     }
 
-    public AddNewAddressPage clickNewAddressPage()
+    public UpdateAddressPage clickNewAddressPage()
     {
         clickAddressBookLink();
         clickAddNewAddressLink();
-        return new AddNewAddressPage(driver);
+        return new UpdateAddressPage(driver);
     }
 }
 

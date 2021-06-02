@@ -1,6 +1,7 @@
 package com.seleniummaster.magento.frontendpages;
 
 
+import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.By;
@@ -15,36 +16,47 @@ import java.util.List;
 public class MyDownloadableProductsPage extends TestBasePage {
     WebDriver driver;
     TestUtility utility;
-    @FindBy(xpath = "//div[@class=\"block-content\"]/ul/li[12]")
+    @FindBy(xpath = "//div[@class=\"block-content\"]/ul/li[12]/a")
     WebElement myDownloadableProductsLink;
+
     //combine Driver
     public MyDownloadableProductsPage(WebDriver driver) {
-        this.driver=driver;
-        PageFactory.initElements(driver,this);
-        utility=new TestUtility(driver);
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        utility = new TestUtility(driver);
     }
 
     // method for click
-    public void clickOnMyDownloadableProductsLink(){
+    public void clickOnMyDownloadableProductsLink() {
         utility.waitForElementPresent(myDownloadableProductsLink);
+        utility.sleep(3);
         myDownloadableProductsLink.click();
     }
-//method for view myDownloadable products page
-    public void viewMyDownloadableProducts(){
+
+    //method for view myDownloadable products page
+    public boolean viewMyDownloadableProducts() {
         clickOnMyDownloadableProductsLink();
-        List<WebElement> downloadableProductsList=driver
+        List<WebElement> downloadableProductsList = driver
                 .findElements(By.xpath("//div[@class=\"my-account\"]/table/tbody/tr"));
-        for (int i=1;i<=downloadableProductsList.size();i++){
-            if (i>0){
+        for (int i = 1; i <= downloadableProductsList.size(); i++) {
+            if (i > 0) {
                 System.out.println(" Test past .my Downloadable Products already exist");
-            }else {
+
+                Log.info("Test Passed");
+            } else {
                 System.out.println(" there is no existing products");
+
+                Log.info("Test Failed");
             }
         }
+        return true;
     }
-
-
-
-
-
 }
+
+
+
+
+
+
+
+

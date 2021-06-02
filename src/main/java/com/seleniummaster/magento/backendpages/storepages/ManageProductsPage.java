@@ -1,6 +1,7 @@
 package com.seleniummaster.magento.backendpages.storepages;
 
 import com.seleniummaster.magento.utility.ApplicationConfig;
+import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.Keys;
@@ -168,7 +169,12 @@ public class ManageProductsPage extends TestBasePage {
 
     public boolean VerifySuccessfulUpdated(){
         utility.waitForElementPresent(SuccessfulSavedMessage);
-        return SuccessfulSavedMessage.isDisplayed();
+        if (SuccessfulSavedMessage.isDisplayed()) {
+            Log.info("The product has been saved");
+            return true;
+        }else
+            Log.info("test failed");
+        return false;
     }
 
     public void updateProduct(){
