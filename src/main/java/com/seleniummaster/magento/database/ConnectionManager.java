@@ -1,36 +1,19 @@
 package com.seleniummaster.magento.database;
 
+import com.seleniummaster.magento.utility.TestBasePage;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionManager {
+public class ConnectionManager extends TestBasePage {
     //create a method to connect database
-    public static Connection connectToDataBaseServer(String dburl,String dbPort,
-                                                     String dbUserName,String dbPassword,
-                                                     String defaultDatabase,ConnectionType connectionType) {
-        Connection connection=null;
-        String JTDS_Driver="net.sourceforge.jtds.jdbc.Driver";//sql
-        String MYSQL_Driver="com.mysql.cj.jdbc.Driver";//my sql
+    public static Connection connectToDataBaseServer(ConnectionType connectionType) {
+        Connection connection = null;
         switch (connectionType){
-            case MSSQLSERVER:
-                try {
-                    Class.forName(JTDS_Driver);//load the drive in to memory
-                } catch (ClassNotFoundException e) {
-                    new RuntimeException("Please check driver information");
-                }
-                String connectionUrl="jdbc:jtds:sqlserver://" + dburl + ":"
-                        + ";databaseName=" + defaultDatabase;
-                try {
-                    connection= DriverManager.getConnection(connectionUrl,dbUserName,dbPassword);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                break;
             case MYSQLServer:
-                // Class.forName(MYSQL_Driver).newInstance();
                 try {
-                    Class.forName(MYSQL_Driver).newInstance();
+                 Class.forName(prop.getProperty("MYSQLDriver")).newInstance();
                 } catch (InstantiationException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
@@ -38,13 +21,29 @@ public class ConnectionManager {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-                String mySqlConnection="jdbc:mysql://"+dburl+":"+dbPort+"/"+defaultDatabase;
                 try {
-                    connection=DriverManager.getConnection(mySqlConnection,dbUserName,dbPassword);
-                } catch (SQLException e) {
+                    connection=DriverManager.getConnection(ConnectionURL.getMysqlString(),prop.getProperty("dbUserName"),
+                            prop.getProperty("dbPassword"));
+                } catch (SQLException throttles) {
+                    throttles.printStackTrace();
+                }
+                break;
+            case MSSQLSERVER:
+                try {
+                    Class.forName(prop.getProperty("JTDS_Driver")).newInstance();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-                System.out.println(mySqlConnection);
+                try {
+                    connection=DriverManager.getConnection(ConnectionURL.getMssqlString(),prop.getProperty("dbUserName")
+                            ,prop.getProperty("dbPassword"));
+                } catch (SQLException throttles) {
+                    throttles.printStackTrace();
+                }
                 break;
             default:
                 System.out.println("You need to specify data base connection type(MSSQL or MySQL)");
@@ -54,8 +53,8 @@ public class ConnectionManager {
             if(!connection.isClosed()){
                 System.out.println("Data base connection is established");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException throttles) {
+            throttles.printStackTrace();
         }
         return connection;
     }
@@ -67,8 +66,8 @@ public class ConnectionManager {
                 connection.close();
                 System.out.println("connection is closed!");
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throttles) {
+            throttles.printStackTrace();
         }
     }
 }

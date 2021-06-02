@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class DataAccess {
     //get product information
-    public boolean getProductName(String productName, Connection connection){
+    public boolean getProductID(int productID, Connection connection){
         boolean isProductExist=false;
         Statement statement=null;
         ResultSet resultSet=null;
@@ -21,7 +21,7 @@ public class DataAccess {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String sqlScript=String.format("select product_id,name,price from cc_CubeCart_inventory where name='%s'",productName);
+        String sqlScript=String.format("select *from mg_catalog_category_product where product_id=299",productID);
         try {
             resultSet=statement.executeQuery(sqlScript);
         } catch (SQLException e) {
@@ -29,7 +29,7 @@ public class DataAccess {
         }
         if(cachedRowSet==null){
             System.out.println("No records Found");
-            return isProductExist;
+            return false;
         }else{
             try {
                 cachedRowSet.populate(resultSet);

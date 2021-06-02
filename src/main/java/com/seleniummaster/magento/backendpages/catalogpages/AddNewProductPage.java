@@ -115,7 +115,7 @@ public class AddNewProductPage extends TestBasePage {
 
     public void EnterSKU() {
         utility.waitForElementPresent(SkuTextBox);
-        SkuTextBox.sendKeys(SKU + System.currentTimeMillis());
+        SkuTextBox.sendKeys(SKU);
     }
 
     //Enter Weight Method
