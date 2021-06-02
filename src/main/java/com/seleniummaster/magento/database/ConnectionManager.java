@@ -1,17 +1,20 @@
 package com.seleniummaster.magento.database;
 
+import com.seleniummaster.magento.utility.TestBasePage;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionManager {
+public class ConnectionManager extends TestBasePage {
     //create a method to connect database
-    public static Connection connectToDataBaseServer(String dburl,String dbPort,
-                                                     String dbUserName,String dbPassword,
-                                                     String defaultDatabase,ConnectionType connectionType) {
+    public static Connection connectToDataBaseServer(String  dbUserName,String dbPassword,ConnectionType connectionType) {
         Connection connection=null;
         String JTDS_Driver="net.sourceforge.jtds.jdbc.Driver";//sql
         String MYSQL_Driver="com.mysql.cj.jdbc.Driver";//my sql
+        String dburl=prop.getProperty("dbURL");
+        String defaultDatabase=prop.getProperty("defaultSchema");
+        String dbPort=prop.getProperty("dbPort");
         switch (connectionType){
             case MSSQLSERVER:
                 try {
