@@ -15,17 +15,18 @@ public class MyDashboardPage extends TestBasePage {
     WebDriver driver;
     TestUtility utility;
 
-    @FindBy(xpath = "//div[@class=\"account-cart-wrapper\"]/a/span")
+    @FindBy(xpath = "(//div[@class=\"account-cart-wrapper\"]/a/span)[2]")
     WebElement accountTag;
-
+    @FindBy(xpath = "//div[@class=\"links\"]/ul/li/a")
+    WebElement myAccountLink;
     @FindBy(xpath = "//div[@class=\"block-content\"]/ul/li[3]/a")
     WebElement addressBookLink;
     //@FindBy(xpath = "//span[text()='Add New Address']/parent::button")
     @FindBy(xpath = "//span[text()='Add New Address']")
     WebElement addNewAddressLink;
-    @FindBy(linkText = "Accountinformation")
+    @FindBy(xpath = "//div[@class=\"block-content\"]/ul/li[2]/a")
     WebElement accountInformationLink;
-    @FindBy(xpath = "//div[@class=\"block-content\"]/ul/li[4]")
+    @FindBy(xpath = "//div[@class=\"block-content\"]/ul/li[4]/a")
     WebElement myOrdersLink;
     @FindBy(linkText = "BillingAgreements")
     WebElement billingAgreementLink;
@@ -39,11 +40,11 @@ public class MyDashboardPage extends TestBasePage {
     WebElement myWishListLink;
     @FindBy(linkText = "MyApplication")
     WebElement myApplicationLink;
-    @FindBy(xpath = "//div[@class='block-content']/ul/li[11]")
+    @FindBy(xpath = "//div[@class='block-content']/ul/li[11]/a")
     WebElement newsLetterSubscriptionsLink;
-    @FindBy(xpath ="//div[@class='block-content']/ul/li[12]")
+    @FindBy(xpath ="//div[@class='block-content']/ul/li[12]/a")
     WebElement downloadableProductsLink;
-    @FindBy(linkText = "Change Password")
+    @FindBy(xpath = "//div[@class=\"box-content\"]/p/a")
     WebElement changePasswordLink;
     @FindBy(linkText = "Checkoutlink")
     WebElement checkOutLink;
@@ -55,6 +56,8 @@ public class MyDashboardPage extends TestBasePage {
     WebElement welcomeMessage;
     @FindBy(xpath = "//label[@for=\"subscription\"]")
     WebElement NewsletterContent;
+    @FindBy(xpath = "//span[text()=\"Continue Shopping\"]")
+    WebElement ContinueShoppingButton;
 
 
     public MyDashboardPage(WebDriver driver) {
@@ -67,6 +70,17 @@ public class MyDashboardPage extends TestBasePage {
     public void clickAccountTag() {
         utility.waitForElementPresent(accountTag);
         accountTag.click();
+    }
+    public void clickMyAccountLink(){
+        utility.waitForElementPresent(myAccountLink);
+        utility.sleep(2);
+        myAccountLink.click();
+    }
+
+    public void clickAccounInformationLink(){
+        utility.waitForElementPresent(accountInformationLink);
+        utility.sleep(3);
+        accountInformationLink.click();
     }
 
     public void clickAddressBookLink() {
@@ -87,13 +101,14 @@ public class MyDashboardPage extends TestBasePage {
         changePasswordLink.click();
     }
 
-    public AddNewAddressPage clickNewAddressPage() {
+    public UpdateAddressPage clickNewAddressPage() {
         clickAddressBookLink();
         clickAddNewAddressLink();
-        return new AddNewAddressPage(driver);
+        return new UpdateAddressPage(driver);
     }
     public void clickMyOrders(){
         utility.waitForElementPresent(myOrdersLink);
+        utility.sleep(3);
         myOrdersLink.click();
     }
     public void clickBillingAgreements(){
@@ -113,6 +128,10 @@ public class MyDashboardPage extends TestBasePage {
         utility.waitForElementPresent(myTagsLink);
         myTagsLink.click();
     }
+    public void clickContinueShoppingButton(){
+        utility.waitForElementPresent(ContinueShoppingButton);
+        ContinueShoppingButton.click();
+    }
 
     public void clickMyWishList(){
         utility.waitForElementPresent(myWishListLink);
@@ -124,6 +143,7 @@ public class MyDashboardPage extends TestBasePage {
     }
     public void clickNewsLetterSubscription(){
         utility.waitForElementPresent(newsLetterSubscriptionsLink);
+        utility.sleep(3);
         newsLetterSubscriptionsLink.click();
     }
     public void clickDownloadableProducts(){
@@ -161,15 +181,22 @@ public class MyDashboardPage extends TestBasePage {
 
     public void clickTeam1Link(){
         utility.waitForElementPresent(team1Link);
+        utility.sleep(3);
         team1Link.click();
     }
     public void clickAddToCartButton(){
         utility.waitForElementPresent(selectedProductAddToCartButton);
+        utility.sleep(3);
         selectedProductAddToCartButton.click();
     }
     public boolean VerifyAddToCartSuccessful(){
         utility.waitForElementPresent(AddToCartSuccessfulMsg);
-        return AddToCartSuccessfulMsg.isDisplayed();
+        if (AddToCartSuccessfulMsg.isDisplayed()) {
+            Log.info("Test Passed ,product successfully add to cart");
+            return true;
+        }else
+            Log.info("Test Failed");
+        return false;
 
     }
 
@@ -195,6 +222,7 @@ public class MyDashboardPage extends TestBasePage {
 
     public boolean newsLetterSubscriptionsLinkIsDisplay(){
         utility.waitForElementPresent(newsLetterSubscriptionsLink);
+        utility.sleep(3);
         if (newsLetterSubscriptionsLink.isDisplayed()) {
             System.out.println("Test Passed,Newsletter Subscription Link has been seen");
         }else System.out.println("Test Failed");
@@ -204,6 +232,7 @@ public class MyDashboardPage extends TestBasePage {
     public boolean NewsletterReviewsContent() {
         clickNewsLetterSubscription();
         utility.waitForElementPresent(NewsletterContent);
+        utility.sleep(3);
         NewsletterContent.isDisplayed();
         return true;
     }

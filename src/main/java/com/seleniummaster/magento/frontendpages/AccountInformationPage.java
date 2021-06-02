@@ -1,5 +1,6 @@
 package com.seleniummaster.magento.frontendpages;
 
+import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.apache.log4j.Logger;
@@ -40,6 +41,11 @@ public class AccountInformationPage extends TestBasePage {
         logger.info("Save successful");
         logger.error("Error while saving.Message:");
     }
+    public void changeLastName(String LastName){
+        utility.waitForElementPresent(lastNameField);
+        lastNameField.clear();
+        lastNameField.sendKeys(LastName);
+    }
     public void clickCheckBox() {
         utility.waitForElementPresent(CheckBox);
         utility.sleep(3);
@@ -63,14 +69,33 @@ public class AccountInformationPage extends TestBasePage {
     }
     public boolean verifySuccessfulMessage() {
         utility.waitForElementPresent(successfulSaveMessage);
-        return successfulSaveMessage.isDisplayed();
+        if (successfulSaveMessage.isDisplayed()) {
+            Log.info("Test Passed ,The account information has been saved");
+            return true;
+        }else
+            Log.info("Test Failed");
+        return false;
     }
-    public void changePassword() {
+    
+    public void EditAccountInfo() {
+        changeLastName(prop.getProperty("LastNameChanged"));
+        enterCurrentPassword(prop.getProperty("EnterCurrentPassword"));
+//        enterNewPassword(prop.getProperty("EnterCurrentPassword"));
+//        enterConfirmNewPasswordField(prop.getProperty("EnterCurrentPassword"));
+
+        clickSaveButton();
+        verifySuccessfulMessage();
+    }
+
+    public void ChangePassword(){
+
         enterCurrentPassword(prop.getProperty("EnterCurrentPassword"));
         enterNewPassword(prop.getProperty("EnterCurrentPassword"));
         enterConfirmNewPasswordField(prop.getProperty("EnterCurrentPassword"));
+
         clickSaveButton();
         verifySuccessfulMessage();
+
     }
 
 }

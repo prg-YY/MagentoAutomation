@@ -1,6 +1,7 @@
 package com.seleniummaster.magento.backendpages.storepages;
 
 import com.seleniummaster.magento.utility.ApplicationConfig;
+import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.By;
@@ -64,7 +65,12 @@ public class StoreViewPage extends TestBasePage {
     }
     public boolean verifySuccess(){
         utility.waitForElementPresent(ConfirmationMessage);
-        return ConfirmationMessage.isDisplayed();
+        if (ConfirmationMessage.isDisplayed()) {
+            Log.info("The store view has been saved");
+            return true;
+        }else
+            Log.info("test failed");
+        return false;
     }
     public void createStoreView(){
         selectStore();
@@ -83,7 +89,6 @@ public class StoreViewPage extends TestBasePage {
         StoreViewName.click();
         selectStatus();
         clickSaveStoreViewButton();
-        verifySuccess();
         verifySuccess();
     }
 //    public boolean editStoreView() {
