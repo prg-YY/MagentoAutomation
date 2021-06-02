@@ -23,5 +23,4 @@ public class Hook extends TestBasePage {
         driver.close();
         driver = null;
     }
-
 }
