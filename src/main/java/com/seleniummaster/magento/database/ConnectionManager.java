@@ -19,8 +19,6 @@ public class ConnectionManager extends TestBasePage {
                 } catch (ClassNotFoundException e) {
                     new RuntimeException("Please check driver information");
                 }
-//                String connectionUrl="jdbc:jtds:sqlserver://" + dburl + ":"
-//                        + ";databaseName=" + defaultDatabase;
                 try {
                     connection= DriverManager.getConnection(ConnectionURL.getMssqlString(),dbUserName,dbPassword);
                 } catch (SQLException e) {
@@ -38,7 +36,6 @@ public class ConnectionManager extends TestBasePage {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-               // String mySqlConnection="jdbc:mysql://"+dburl+":"+dbPort+"/"+defaultDatabase;
                 try {
                     connection=DriverManager.getConnection(ConnectionURL.getMysqlString(),dbUserName,dbPassword);
                 } catch (SQLException e) {
