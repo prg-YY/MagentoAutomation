@@ -1,17 +1,19 @@
-package com.unitedcoder.regressiontest.testng;
+package com.unitedcoder.regressiontest.databasetest;
 
 import com.seleniummaster.magento.database.ConnectionManager;
 import com.seleniummaster.magento.database.ConnectionType;
 import com.seleniummaster.magento.database.DataAccess;
+import com.seleniummaster.magento.database.QueryScript;
 import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import javax.sql.rowset.CachedRowSet;
 import java.sql.Connection;
 
-public class ConnectionTest extends TestBasePage {
+public class DataBaseTest extends TestBasePage {
     static String username=prop.getProperty("dbUserName");
     static String password=prop.getProperty("dbPassword");
     Connection  connection;
@@ -22,7 +24,8 @@ public class ConnectionTest extends TestBasePage {
     @Test(description = "Verify that newly added customers should be in the database")//abdusamad
     public void isAddedCustomerExist(){
         DataAccess access=new DataAccess();
-
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection, QueryScript.getNewlyAddedCustomer());
+        Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
     @Test(description = "Verify that  new added customer groups should be in the database")//Abdukahar
     public void isAddedCustomerGroupExist(){
@@ -33,8 +36,7 @@ public class ConnectionTest extends TestBasePage {
     @Test
     public void isAddedProductExist(){
         DataAccess access=new DataAccess();
-        boolean isProductIDFound=access.getProductID(299,connection);
-        Assert.assertTrue(isProductIDFound);
+
     }
     @Test(description = "Verify that newly added product root category should be in the database")//Sofia
     public void isAddedProductRootCategoryExist(){

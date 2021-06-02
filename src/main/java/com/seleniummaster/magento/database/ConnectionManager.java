@@ -10,11 +10,8 @@ public class ConnectionManager extends TestBasePage {
     //create a method to connect database
     public static Connection connectToDataBaseServer(String  dbUserName,String dbPassword,ConnectionType connectionType) {
         Connection connection=null;
-        String JTDS_Driver="net.sourceforge.jtds.jdbc.Driver";//sql
-        String MYSQL_Driver="com.mysql.cj.jdbc.Driver";//my sql
-        String dburl=prop.getProperty("dbURL");
-        String defaultDatabase=prop.getProperty("defaultSchema");
-        String dbPort=prop.getProperty("dbPort");
+        String JTDS_Driver=prop.getProperty("JTDS_Driver");//sql
+        String MYSQL_Driver=prop.getProperty("MYSQLDriver");//my sql
         switch (connectionType){
             case MSSQLSERVER:
                 try {
@@ -22,10 +19,10 @@ public class ConnectionManager extends TestBasePage {
                 } catch (ClassNotFoundException e) {
                     new RuntimeException("Please check driver information");
                 }
-                String connectionUrl="jdbc:jtds:sqlserver://" + dburl + ":"
-                        + ";databaseName=" + defaultDatabase;
+//                String connectionUrl="jdbc:jtds:sqlserver://" + dburl + ":"
+//                        + ";databaseName=" + defaultDatabase;
                 try {
-                    connection= DriverManager.getConnection(connectionUrl,dbUserName,dbPassword);
+                    connection= DriverManager.getConnection(ConnectionURL.getMssqlString(),dbUserName,dbPassword);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -41,13 +38,13 @@ public class ConnectionManager extends TestBasePage {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-                String mySqlConnection="jdbc:mysql://"+dburl+":"+dbPort+"/"+defaultDatabase;
+               // String mySqlConnection="jdbc:mysql://"+dburl+":"+dbPort+"/"+defaultDatabase;
                 try {
-                    connection=DriverManager.getConnection(mySqlConnection,dbUserName,dbPassword);
+                    connection=DriverManager.getConnection(ConnectionURL.getMysqlString(),dbUserName,dbPassword);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                System.out.println(mySqlConnection);
+                System.out.println(ConnectionURL.getMysqlString());
                 break;
             default:
                 System.out.println("You need to specify data base connection type(MSSQL or MySQL)");
