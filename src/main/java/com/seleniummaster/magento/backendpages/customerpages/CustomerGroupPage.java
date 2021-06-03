@@ -96,6 +96,7 @@ public class CustomerGroupPage extends TestBasePage {
 //Methods (Update Customer Groups)
    public void enterGroupNameToSearchBox(String groupName){
         utility.waitForElementPresent(groupNameSearchBox);
+        groupNameSearchBox.clear();
         groupNameSearchBox.sendKeys(groupName);
         Log.info(groupName+" has been entered");
    }
