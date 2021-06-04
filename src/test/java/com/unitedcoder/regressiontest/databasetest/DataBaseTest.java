@@ -6,6 +6,7 @@ import com.seleniummaster.magento.database.ConnectionManager;
 import com.seleniummaster.magento.database.ConnectionType;
 import com.seleniummaster.magento.database.DataAccess;
 import com.seleniummaster.magento.database.QueryScript;
+import com.seleniummaster.magento.frontendpages.CreateAccountPage;
 import com.seleniummaster.magento.testdata.TestDataHolder;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
@@ -27,10 +28,11 @@ public class DataBaseTest extends TestBasePage {
     public void setUp(){
         connection= ConnectionManager.connectToDataBaseServer(username,password,ConnectionType.MYSQLServer);
         setUpBrowser();
-        driver.get(prop.getProperty("BackendURL"));
+
     }
     @Test(description = "",priority = 1)
     public void addCustomer(){
+        driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin = new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("customerManager"), prop.getProperty("password"));
         String customer_email=String.format(prop.getProperty("cus_Email"),System.currentTimeMillis());
@@ -39,7 +41,7 @@ public class DataBaseTest extends TestBasePage {
         TestDataHolder.setCustomerEmail(customer_email);
         Log.info("Add new customer started");
         Assert.assertTrue(customerPage.newCustomerAddedSuccessfully());
-        driver.close();
+        //driver.close();
         System.out.println("Driver is cloused");
     }
 
@@ -67,9 +69,25 @@ public class DataBaseTest extends TestBasePage {
         DataAccess access=new DataAccess();
 
     }
-    @Test(description = "Verify that newly registered users should be in the database")//Zuhra
+    @Test(description = "create new user test",priority = 3)
+    public void createNewUser(){
+        driver.get(prop.getProperty("create_url"));
+        String firstName= prop.getProperty("ca-firstName");
+        String lastName= prop.getProperty("ca-lastName");
+        String email=String.format(prop.getProperty("ca-email"),System.currentTimeMillis());
+        TestDataHolder.setUserEmail(email);
+        String password= prop.getProperty("ca-password");
+        CreateAccountPage accountPage=new CreateAccountPage(driver);
+        accountPage.userCreateAccount(firstName,lastName,email,password);
+        Assert.assertTrue(accountPage.verifySuccess());
+    }
+    @Test(description = "Verify that newly registered users should be in the database",priority = 4)//Zuhra
     public void isRegisteredUserExist(){
         DataAccess access=new DataAccess();
+        String addNewUserQueryScript=String.format(QueryScript.getNewlyRegisteredUser(),TestDataHolder.getUserEmail());
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection,addNewUserQueryScript);
+        System.out.println("The Query script for verify new user is : "+"\n"+addNewUserQueryScript);
+        Assert.assertTrue(access.getRowCount(cachedRowSet));
 
     }
     @Test(description = "Verify that newly added orders should be in the database")//Kembarnisa
@@ -121,6 +139,7 @@ public class DataBaseTest extends TestBasePage {
 
     @AfterClass
     public void tearDown(){
+        closeBrowser();
         ConnectionManager.closeDataBaseConnection(connection);
     }
 }
