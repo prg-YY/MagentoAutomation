@@ -22,7 +22,7 @@ public class DataBaseTest extends TestBasePage {
     static String username=prop.getProperty("dbUserName");
     static String password=prop.getProperty("dbPassword");
     Connection  connection;
-    BackEndLogin backEndLogin = new BackEndLogin(driver);
+    BackEndLogin backEndLogin;
     CustomerPage customerPage;
     @BeforeClass
     public void setUp(){
@@ -33,7 +33,7 @@ public class DataBaseTest extends TestBasePage {
     @Test(description = "",priority = 1)
     public void addCustomer(){
         driver.get(prop.getProperty("BackendURL"));
-        BackEndLogin backEndLogin = new BackEndLogin(driver);
+        backEndLogin = new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("customerManager"), prop.getProperty("password"));
         String customer_email=String.format(prop.getProperty("cus_Email"),System.currentTimeMillis());
         customerPage=new CustomerPage();
@@ -69,6 +69,7 @@ public class DataBaseTest extends TestBasePage {
         DataAccess access=new DataAccess();
 
     }
+ //Zuhra
     @Test(description = "create new user test",priority = 3)
     public void createNewUser(){
         driver.get(prop.getProperty("create_url"));
