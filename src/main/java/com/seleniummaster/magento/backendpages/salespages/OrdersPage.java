@@ -55,6 +55,8 @@ public class OrdersPage extends TestBasePage {
     WebElement successMessageForCreate;
     @FindBy(xpath = "//*[@class=\"success-msg\"]" )
     WebElement successMessageForUpdate;
+    @FindBy(xpath = "//*[@id=\"sales_order_view_tabs_order_info_content\"]/div[1]/div[2]/div/div[1]/h4")
+    WebElement orderId;
 
 
     // method for create order actions
@@ -166,6 +168,13 @@ public class OrdersPage extends TestBasePage {
         JavascriptExecutor js = (JavascriptExecutor)driver;
         js.executeScript("window.scrollBy(0,-500)");
         clickSubmitOrderButton();
+    }
+    //Order # 3200000031 (the order confirmation email was sent)
+    public void getOrderIdWhenOrderCreated(){
+       // utility.waitForElementPresent(orderId);
+//        String orderText=orderId.getText();
+//        System.out.println(orderText);
+
     }
 
     public void createNewOrder(){
