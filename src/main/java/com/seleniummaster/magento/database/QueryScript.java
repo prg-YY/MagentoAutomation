@@ -19,7 +19,7 @@ public class QueryScript {
     //4-catalog module(sofia)
     public static String getNewlyAddedRootCategory()
     {
-        return "select name, root_category_id from mg_core_store_group where name='Main Website Store'";
+        return "select * from mg_catalog_category_entity_varchar where value='%s'";
     }
 //5-select entity_id,website_id,email,group_id from mg_customer_entity where email='zuhrabatush@gmail.com';
     public static String getNewlyRegisteredUser()

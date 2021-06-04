@@ -32,9 +32,9 @@ public class AddRootCategoriesPage extends TestBasePage {
     }
 
 
-    public void fillNameTextBox() {
+    public void fillNameTextBox(String catName) {
         utility.waitForElementPresent(nameTextBox);
-        nameTextBox.sendKeys(prop.getProperty("NewRootCategories"));
+        nameTextBox.sendKeys(catName);
         Log.info("Name Text Box filled");
     }
 
@@ -61,14 +61,14 @@ public class AddRootCategoriesPage extends TestBasePage {
         return addRootCategorySuccessMassage.isDisplayed();
     }
 
-    public void addNewRootCategory() {
+    public void addNewRootCategory(String catName) {
         catalogDashboardPage = new CatalogDashboardPage(driver);
         utility.sleep(1);
         catalogDashboardPage.clickCatalogLink();
         utility.sleep(1);
         catalogDashboardPage.clickManageCategories();
         utility.sleep(1);
-        fillNameTextBox();
+        fillNameTextBox(catName);
         utility.sleep(1);
         selectIsActiveDropDown();
         utility.sleep(1);

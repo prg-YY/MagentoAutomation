@@ -1,6 +1,7 @@
 package com.unitedcoder.regressiontest.databasetest;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
+import com.seleniummaster.magento.backendpages.catalogpages.AddRootCategoriesPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
 import com.seleniummaster.magento.database.ConnectionManager;
 import com.seleniummaster.magento.database.ConnectionType;
@@ -42,7 +43,7 @@ public class DataBaseTest extends TestBasePage {
         Log.info("Add new customer started");
         Assert.assertTrue(customerPage.newCustomerAddedSuccessfully());
         //driver.close();
-        System.out.println("Driver is cloused");
+        System.out.println("Driver is closed");
     }
 
     @Test(description = "Verify that newly added customers should be in the database",priority = 2)
@@ -64,12 +65,26 @@ public class DataBaseTest extends TestBasePage {
         DataAccess access=new DataAccess();
 
     }
-    @Test(description = "Verify that newly added product root category should be in the database")//Sofia
+    @Test(description = "create new Category test",priority = 5)
+    public void addRootCategory(){
+        AddRootCategoriesPage rootCategoriesPage;
+        driver.get(prop.getProperty("BackendURL"));
+        BackEndLogin backEndLogin = new BackEndLogin(driver);
+        backEndLogin.backEndLogin(prop.getProperty("catalogManager"), prop.getProperty("password"));
+        String catName=String.format(prop.getProperty("NewRootCategories"),System.currentTimeMillis());
+        TestDataHolder.setProductCategoryName(catName);
+        rootCategoriesPage = new AddRootCategoriesPage(driver);
+        rootCategoriesPage.addNewRootCategory(catName);
+        Assert.assertTrue(rootCategoriesPage.isAddRootCategorySuccessMassage());
+
+    }
+    @Test(description = "Verify that newly added product root category should be in the database",priority = 6)//Sofia
     public void isAddedProductRootCategoryExist(){
         DataAccess access=new DataAccess();
-        CachedRowSet cachedRowSet=access.readFromDataBase(connection, QueryScript.getNewlyAddedRootCategory());
-        access.getRowCount(cachedRowSet);
-        Assert.assertTrue(access.getProductRootCategory("Main Website Store"));
+        String getRootCategoryQueryScript=String.format(QueryScript.getNewlyAddedRootCategory(),TestDataHolder.getProductCategoryName());
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection,getRootCategoryQueryScript);
+        System.out.println("The Query Script was Executed for Adding root Category is"+"\n"+getRootCategoryQueryScript);
+        Assert.assertTrue(access.getRowCount(cachedRowSet));
 
 
     }
