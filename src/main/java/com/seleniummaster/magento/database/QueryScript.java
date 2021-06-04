@@ -19,7 +19,7 @@ public class QueryScript {
     //4-catalog module(sofia)
     public static String getNewlyAddedRootCategory()
     {
-        return "select category_id from mg_catalog_category_product where category_id=7";
+        return "select name, root_category_id from mg_core_store_group where name='Main Website Store'";
     }
 
     //sales module(Yusuf)

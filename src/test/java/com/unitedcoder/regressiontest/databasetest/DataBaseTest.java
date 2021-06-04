@@ -44,6 +44,10 @@ public class DataBaseTest extends TestBasePage {
     @Test(description = "Verify that newly added product root category should be in the database")//Sofia
     public void isAddedProductRootCategoryExist(){
         DataAccess access=new DataAccess();
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection, QueryScript.getNewlyAddedRootCategory());
+        access.getRowCount(cachedRowSet);
+        Assert.assertTrue(access.getProductRootCategory("Main Website Store"));
+
 
     }
     @Test(description = "Verify that newly registered users should be in the database")//Zuhra
