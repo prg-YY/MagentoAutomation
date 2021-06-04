@@ -3,6 +3,7 @@ package com.unitedcoder.regressiontest.testng;
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.catalogpages.*;
 import com.seleniummaster.magento.database.ConnectionManager;
+import com.seleniummaster.magento.testdata.TestDataHolder;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
@@ -27,8 +28,10 @@ public class CatalogModuleTestRunner extends TestBasePage {
 
     @Test(description = "1-Catalog Manager can add root categories -AbdulKahHar")
     public void addRootCategory() {
+        String catName=String.format(prop.getProperty("NewRootCategories"),System.currentTimeMillis());
+        TestDataHolder.setProductCategoryName(catName);
         rootCategoriesPage = new AddRootCategoriesPage(driver);
-        rootCategoriesPage.addNewRootCategory();
+        rootCategoriesPage.addNewRootCategory(catName);
         Assert.assertTrue(rootCategoriesPage.isAddRootCategorySuccessMassage());
 
     }
