@@ -1,9 +1,13 @@
 package com.unitedcoder.regressiontest.databasetest;
 
+import com.seleniummaster.magento.backendpages.BackEndLogin;
+import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
 import com.seleniummaster.magento.database.ConnectionManager;
 import com.seleniummaster.magento.database.ConnectionType;
 import com.seleniummaster.magento.database.DataAccess;
 import com.seleniummaster.magento.database.QueryScript;
+import com.seleniummaster.magento.testdata.TestDataHolder;
+import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -17,17 +21,33 @@ public class DataBaseTest extends TestBasePage {
     static String username=prop.getProperty("dbUserName");
     static String password=prop.getProperty("dbPassword");
     Connection  connection;
+    BackEndLogin backEndLogin = new BackEndLogin(driver);
+    CustomerPage customerPage;
     @BeforeClass
     public void setUp(){
-
         connection= ConnectionManager.connectToDataBaseServer(username,password,ConnectionType.MYSQLServer);
+        setUpBrowser();
+        driver.get(prop.getProperty("BackendURL"));
+    }
+    @Test(description = "",priority = 1)
+    public void addCustomer(){
+        BackEndLogin backEndLogin = new BackEndLogin(driver);
+        backEndLogin.backEndLogin(prop.getProperty("customerManager"), prop.getProperty("password"));
+        String customer_email=String.format(prop.getProperty("cus_Email"),System.currentTimeMillis());
+        customerPage=new CustomerPage();
+        customerPage.addNewCustomer(customer_email);
+        TestDataHolder.setCustomerEmail(customer_email);
+        Log.info("Add new customer started");
+        Assert.assertTrue(customerPage.newCustomerAddedSuccessfully());
+        driver.close();
     }
 
-    @Test(description = "Verify that newly added customers should be in the database")//abdusamad
+    @Test(description = "Verify that newly added customers should be in the database",priority = 2)
     public void isAddedCustomerExist(){
-
         DataAccess access=new DataAccess();
-        CachedRowSet cachedRowSet=access.readFromDataBase(connection, QueryScript.getNewlyAddedCustomer());
+        String queryForAddCustomer=String.format(QueryScript.getNewlyAddedCustomer(),TestDataHolder.getCustomerEmail());
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection, queryForAddCustomer);
+        System.out.println("The Query Script was Executed for Adding Customer is"+"\n"+queryForAddCustomer);
         Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
     @Test(description = "Verify that  new added customer groups should be in the database")//Abdukahar

@@ -4,7 +4,7 @@ public class QueryScript {
     //1-customer module(AbDuSaMed)
     public static String getNewlyAddedCustomer()
     {
-        return "select category_id from mg_catalog_category_product where category_id=7";
+        return "select entity_id,website_id,email from mg_customer_entity where email ='%s';";
     }
     //2-customer group(AbDuKaHar)
     public static String getNewlyAddedCustomerGroup()

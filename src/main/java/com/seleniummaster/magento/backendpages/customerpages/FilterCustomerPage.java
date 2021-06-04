@@ -38,6 +38,8 @@ public class FilterCustomerPage extends TestBasePage {
     WebElement stateSearchBox;
     @FindBy(id = "customerGrid_filter_website_id")
     WebElement webSiteDropDownList;
+    @FindBy(xpath = "//span[text()='Reset Filter']")
+    WebElement resetFilterButton;
     @FindBy(xpath = "//span[text()='Search']")
     WebElement searchButton;
 //    @FindAll(@FindBy(xpath = "//*[@id=\"customerGrid_table\"]/tbody/tr"))
@@ -47,8 +49,13 @@ public class FilterCustomerPage extends TestBasePage {
 
 
     //methods for action
+    public void  clickResetFilterButton(){
+        utility.waitForElementPresent(resetFilterButton);
+        resetFilterButton.click();
+    }
     public void enterCustomerNameToNameSearchBox(String customerName){
         utility.waitForElementPresent(nameSearchBox);
+        nameSearchBox.clear();
         nameSearchBox.sendKeys(customerName);
         Log.info("Customer name has been entered");
     }
@@ -88,6 +95,8 @@ public class FilterCustomerPage extends TestBasePage {
     }
     // Filter By name method
     public void filterByName(String customerName){
+        clickResetFilterButton();
+        utility.sleep(1);
         enterCustomerNameToNameSearchBox(customerName);
         utility.sleep(2);
         clickOnSearchButton();
@@ -95,30 +104,40 @@ public class FilterCustomerPage extends TestBasePage {
     }
     //Filter By email method
     public void filterByEmail(String customerEmail){
+        clickResetFilterButton();
+        utility.sleep(1);
         enterEmailToEmailSearchBox(customerEmail);
         clickOnSearchButton();
         utility.sleep(3);
     }
     //Filter bu group method
     public void filterByGroup(String cus_groupName){
+        clickResetFilterButton();
+        utility.sleep(1);
         selectGroup(cus_groupName);
         clickOnSearchButton();
         utility.sleep(3);
     }
     //Filter by county method
     public void filterByCountry(String countryName){
+        clickResetFilterButton();
+        utility.sleep(1);
         selectCountry(countryName);
         clickOnSearchButton();
         utility.sleep(3);
     }
     //Filter bu state method
     public void filterByState(String stateName){
+        clickResetFilterButton();
+        utility.sleep(1);
         enterCityNameToStateSearchBox(stateName);
         clickOnSearchButton();
         utility.sleep(3);
     }
     //Filter by website method
     public void filterByWebsite(String website){
+        clickResetFilterButton();
+        utility.sleep(1);
         selectWebsite(website);
         utility.sleep(1);
         clickOnSearchButton();
@@ -127,7 +146,7 @@ public class FilterCustomerPage extends TestBasePage {
     public boolean filteringCompletedSuccessfully(){
         List<WebElement> customersList=driver.findElements(By.xpath("//*[@id=\"customerGrid_table\"]/tbody/tr"));
         if (customersList.size()>=1){
-            System.out.println("Test Passed");
+            System.out.println("Test Passed,Filter customer test passed");
             return true;
         }else System.out.println("Test Failed");
         return false;
