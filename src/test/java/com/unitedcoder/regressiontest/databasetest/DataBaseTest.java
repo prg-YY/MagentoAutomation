@@ -1,9 +1,14 @@
 package com.unitedcoder.regressiontest.databasetest;
 
+import com.seleniummaster.magento.backendpages.BackEndLogin;
+import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
 import com.seleniummaster.magento.database.ConnectionManager;
 import com.seleniummaster.magento.database.ConnectionType;
 import com.seleniummaster.magento.database.DataAccess;
 import com.seleniummaster.magento.database.QueryScript;
+import com.seleniummaster.magento.frontendpages.CreateAccountPage;
+import com.seleniummaster.magento.testdata.TestDataHolder;
+import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -17,17 +22,35 @@ public class DataBaseTest extends TestBasePage {
     static String username=prop.getProperty("dbUserName");
     static String password=prop.getProperty("dbPassword");
     Connection  connection;
+    BackEndLogin backEndLogin = new BackEndLogin(driver);
+    CustomerPage customerPage;
     @BeforeClass
     public void setUp(){
-
         connection= ConnectionManager.connectToDataBaseServer(username,password,ConnectionType.MYSQLServer);
+        setUpBrowser();
+
+    }
+    @Test(description = "",priority = 1)
+    public void addCustomer(){
+        driver.get(prop.getProperty("BackendURL"));
+        BackEndLogin backEndLogin = new BackEndLogin(driver);
+        backEndLogin.backEndLogin(prop.getProperty("customerManager"), prop.getProperty("password"));
+        String customer_email=String.format(prop.getProperty("cus_Email"),System.currentTimeMillis());
+        customerPage=new CustomerPage();
+        customerPage.addNewCustomer(customer_email);
+        TestDataHolder.setCustomerEmail(customer_email);
+        Log.info("Add new customer started");
+        Assert.assertTrue(customerPage.newCustomerAddedSuccessfully());
+        //driver.close();
+        System.out.println("Driver is cloused");
     }
 
-    @Test(description = "Verify that newly added customers should be in the database")//abdusamad
+    @Test(description = "Verify that newly added customers should be in the database",priority = 2)
     public void isAddedCustomerExist(){
-
         DataAccess access=new DataAccess();
-        CachedRowSet cachedRowSet=access.readFromDataBase(connection, QueryScript.getNewlyAddedCustomer());
+        String queryForAddCustomer=String.format(QueryScript.getNewlyAddedCustomer(),TestDataHolder.getCustomerEmail());
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection, queryForAddCustomer);
+        System.out.println("The Query Script was Executed for Adding Customer is"+"\n"+queryForAddCustomer);
         Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
     @Test(description = "Verify that  new added customer groups should be in the database")//Abdukahar
@@ -50,9 +73,25 @@ public class DataBaseTest extends TestBasePage {
 
 
     }
-    @Test(description = "Verify that newly registered users should be in the database")//Zuhra
+    @Test(description = "create new user test",priority = 3)
+    public void createNewUser(){
+        driver.get(prop.getProperty("create_url"));
+        String firstName= prop.getProperty("ca-firstName");
+        String lastName= prop.getProperty("ca-lastName");
+        String email=String.format(prop.getProperty("ca-email"),System.currentTimeMillis());
+        TestDataHolder.setUserEmail(email);
+        String password= prop.getProperty("ca-password");
+        CreateAccountPage accountPage=new CreateAccountPage(driver);
+        accountPage.userCreateAccount(firstName,lastName,email,password);
+        Assert.assertTrue(accountPage.verifySuccess());
+    }
+    @Test(description = "Verify that newly registered users should be in the database",priority = 4)//Zuhra
     public void isRegisteredUserExist(){
         DataAccess access=new DataAccess();
+        String addNewUserQueryScript=String.format(QueryScript.getNewlyRegisteredUser(),TestDataHolder.getUserEmail());
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection,addNewUserQueryScript);
+        System.out.println("The Query script for verify new user is : "+"\n"+addNewUserQueryScript);
+        Assert.assertTrue(access.getRowCount(cachedRowSet));
 
     }
     @Test(description = "Verify that newly added orders should be in the database")//Kembarnisa
@@ -104,6 +143,7 @@ public class DataBaseTest extends TestBasePage {
 
     @AfterClass
     public void tearDown(){
+        closeBrowser();
         ConnectionManager.closeDataBaseConnection(connection);
     }
 }

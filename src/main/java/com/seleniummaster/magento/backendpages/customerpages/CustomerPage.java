@@ -91,9 +91,9 @@ public class CustomerPage extends TestBasePage {
         lastNameInputBox.sendKeys(prop.getProperty("yusufLastName"));
         Log.info("Last name has entered ");
     }
-    public void enterEmail(){
+    public void enterEmail(String email){
         utility.waitForElementPresent(emailInputBox);
-        emailInputBox.sendKeys(prop.getProperty("cus_Email"));
+        emailInputBox.sendKeys(email);
         Log.info("email has entered ");
     }
     public void enterPassword(){
@@ -106,11 +106,15 @@ public class CustomerPage extends TestBasePage {
         saveCustomerLink.click();
         Log.info("Save customer link clicked");
     }
-    public boolean verifySuccessMessage(){
+    public boolean newCustomerAddedSuccessfully(){
         utility.waitForElementPresent(successMessage);
-        return successMessage.isDisplayed();
+       if (successMessage.isDisplayed()){
+           System.out.println("Test Passed ; A New Customer created Successfully");
+           return true;
+       }else System.out.println("Test Failed, add customer test failed");
+       return false;
     }
-    public void addNewCustomer(){
+    public void addNewCustomer(String email){
         customerDashboardPage=new CustomerDashboardPage(driver);
         customerDashboardPage.clickAddNewCustomerButton();
         utility.sleep(1);
@@ -118,7 +122,7 @@ public class CustomerPage extends TestBasePage {
         utility.sleep(1);
         enterLastName();
         utility.sleep(2);
-        enterEmail();
+        enterEmail(email);
         utility.sleep(1);
         enterPassword();
         utility.sleep(1);
@@ -177,11 +181,20 @@ public class CustomerPage extends TestBasePage {
         utility.sleep(2);
         displaySuccessMessage();
     }
+    public boolean customerUpdatedSuccessfully(){
+        utility.waitForElementPresent(successMessage);
+        if (successMessage.isDisplayed()){
+            System.out.println("Test Passed ; Customer Updated Successfully");
+            return true;
+        }else System.out.println("Test Failed, update customer test failed");
+        return false;
+    }
 
 
 //Delete Customer method
     public void enterEmailToSearchBox(String email){
         utility.waitForElementPresent(emailSearchBox);
+        emailSearchBox.clear();
         emailSearchBox.sendKeys(email);
         Log.info("Customer Email has been entered for searching");
     }
@@ -203,12 +216,13 @@ public class CustomerPage extends TestBasePage {
     public void deleteCustomer(String cus_Email){
         enterEmailToSearchBox(cus_Email);
         clickOnSearchButton();
-        utility.sleep(2);
+        utility.sleep(3);
         clickOnCustomerCheckBox();
-        utility.sleep(1);
+        utility.sleep(2);
         option=new Select(actionDropDownList);
         option.selectByValue("delete");
         clickSubmitButton();
+        utility.sleep(1);
         Alert alert=driver.switchTo().alert();
         utility.waitForAlertPresent();
         alert.accept();
@@ -217,9 +231,10 @@ public class CustomerPage extends TestBasePage {
     public boolean customerDeletedSuccessfully(){
         utility.waitForElementPresent(deleteSuccessMessage);
         if (deleteSuccessMessage.isDisplayed()){
-            System.out.println("Test passed , customer has been deleted");
-        }else System.out.println("Test failed ");
-        return true;
+            System.out.println("Test passed , customer deleted successfully");
+            return true;
+        }else System.out.println("Test failed, customer couldn't deleted ");
+        return false;
     }
 
 //Export customer list as csv file

@@ -4,7 +4,7 @@ public class QueryScript {
     //1-customer module(AbDuSaMed)
     public static String getNewlyAddedCustomer()
     {
-        return "select category_id from mg_catalog_category_product where category_id=7";
+        return "select entity_id,website_id,email from mg_customer_entity where email ='%s';";
     }
     //2-customer group(AbDuKaHar)
     public static String getNewlyAddedCustomerGroup()
@@ -21,7 +21,12 @@ public class QueryScript {
     {
         return "select name, root_category_id from mg_core_store_group where name='Main Website Store'";
     }
+//5-select entity_id,website_id,email,group_id from mg_customer_entity where email='zuhrabatush@gmail.com';
+    public static String getNewlyRegisteredUser()
+    {
+       return "select entity_id,website_id,email,group_id from mg_customer_entity where email='%s';" ;
 
+    }
     //sales module(Yusuf)
     public static String getNewlyAddedTaxRule(){
         return "select count(*) from mg_tax_calculation_rule where code = '%s'";
