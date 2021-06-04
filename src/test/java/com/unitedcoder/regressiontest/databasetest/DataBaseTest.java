@@ -40,6 +40,7 @@ public class DataBaseTest extends TestBasePage {
         Log.info("Add new customer started");
         Assert.assertTrue(customerPage.newCustomerAddedSuccessfully());
         driver.close();
+        System.out.println("Driver is cloused");
     }
 
     @Test(description = "Verify that newly added customers should be in the database",priority = 2)
