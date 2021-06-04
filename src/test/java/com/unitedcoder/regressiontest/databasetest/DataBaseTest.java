@@ -2,6 +2,7 @@ package com.unitedcoder.regressiontest.databasetest;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
+import com.seleniummaster.magento.backendpages.salespages.OrdersPage;
 import com.seleniummaster.magento.database.ConnectionManager;
 import com.seleniummaster.magento.database.ConnectionType;
 import com.seleniummaster.magento.database.DataAccess;
@@ -22,7 +23,7 @@ public class DataBaseTest extends TestBasePage {
     static String username=prop.getProperty("dbUserName");
     static String password=prop.getProperty("dbPassword");
     Connection  connection;
-    BackEndLogin backEndLogin = new BackEndLogin(driver);
+    BackEndLogin backEndLogin ;
     CustomerPage customerPage;
     @BeforeClass
     public void setUp(){
@@ -33,7 +34,7 @@ public class DataBaseTest extends TestBasePage {
     @Test(description = "",priority = 1)
     public void addCustomer(){
         driver.get(prop.getProperty("BackendURL"));
-        BackEndLogin backEndLogin = new BackEndLogin(driver);
+        backEndLogin = new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("customerManager"), prop.getProperty("password"));
         String customer_email=String.format(prop.getProperty("cus_Email"),System.currentTimeMillis());
         customerPage=new CustomerPage();
@@ -90,9 +91,21 @@ public class DataBaseTest extends TestBasePage {
         Assert.assertTrue(access.getRowCount(cachedRowSet));
 
     }
+    @Test(description = "create new order")//Kambernisa
+    public void createOrder(){
+        driver.get(prop.getProperty("login_url"));
+      backEndLogin=new BackEndLogin(driver);
+      backEndLogin.backEndLogin(prop.getProperty("salesManager"),prop.getProperty("password"));
+        OrdersPage ordersPage=new OrdersPage(driver);
+        ordersPage.createNewOrder();
+       Assert.assertTrue(ordersPage.verifyOrderCreatedSuccessfully());
+    }
     @Test(description = "Verify that newly added orders should be in the database")//Kembarnisa
     public void isAddedOrderExist(){
         DataAccess access=new DataAccess();
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection,QueryScript.getNewlyOrder());
+        System.out.println("The Query script for verify new Order is:" +"\n"+QueryScript.getNewlyOrder());
+        Assert.assertTrue(access.getRowCount(cachedRowSet));
 
     }
     @Test(description = "Verify that newly added credit memos should be in the database")//Ayper
