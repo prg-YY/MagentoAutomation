@@ -2,8 +2,11 @@ package com.unitedcoder.regressiontest.databasetest;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.catalogpages.AddRootCategoriesPage;
+import com.seleniummaster.magento.backendpages.catalogpages.CatalogDashboardPage;
+import com.seleniummaster.magento.backendpages.customerpages.CustomerDashboardPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
 import com.seleniummaster.magento.backendpages.salespages.OrdersPage;
+import com.seleniummaster.magento.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.magento.database.ConnectionManager;
 import com.seleniummaster.magento.database.ConnectionType;
 import com.seleniummaster.magento.database.DataAccess;
@@ -32,7 +35,7 @@ public class DataBaseTest extends TestBasePage {
         setUpBrowser();
 
     }
-    @Test(description = "",priority = 1)
+    @Test(description = "add customer test",priority = 1)
     public void addCustomer(){
         driver.get(prop.getProperty("BackendURL"));
         backEndLogin = new BackEndLogin(driver);
@@ -43,8 +46,8 @@ public class DataBaseTest extends TestBasePage {
         TestDataHolder.setCustomerEmail(customer_email);
         Log.info("Add new customer started");
         Assert.assertTrue(customerPage.newCustomerAddedSuccessfully());
-        //driver.close();
-        System.out.println("Driver is closed");
+        CustomerDashboardPage dashboardPage=new CustomerDashboardPage(driver);
+        dashboardPage.cLickLogoutButton();
     }
 
     @Test(description = "Verify that newly added customers should be in the database",priority = 2)
@@ -77,6 +80,8 @@ public class DataBaseTest extends TestBasePage {
         rootCategoriesPage = new AddRootCategoriesPage(driver);
         rootCategoriesPage.addNewRootCategory(catName);
         Assert.assertTrue(rootCategoriesPage.isAddRootCategorySuccessMassage());
+        CatalogDashboardPage dashboardPage=new CatalogDashboardPage(driver);
+        dashboardPage.clickLogOutLink();
 
     }
     @Test(description = "Verify that newly added product root category should be in the database",priority = 6)//Sofia
@@ -86,8 +91,6 @@ public class DataBaseTest extends TestBasePage {
         CachedRowSet cachedRowSet=access.readFromDataBase(connection,getRootCategoryQueryScript);
         System.out.println("The Query Script was Executed for Adding root Category is"+"\n"+getRootCategoryQueryScript);
         Assert.assertTrue(access.getRowCount(cachedRowSet));
-
-
     }
     @Test(description = "create new user test",priority = 3)
     public void createNewUser(){
@@ -101,7 +104,7 @@ public class DataBaseTest extends TestBasePage {
         accountPage.userCreateAccount(firstName,lastName,email,password);
         Assert.assertTrue(accountPage.verifySuccess());
     }
-    @Test(description = "Verify that newly registered users should be in the database",priority = 4)//Zuhra
+    @Test(enabled = false,description = "Verify that newly registered users should be in the database",priority = 4)//Zuhra
     public void isRegisteredUserExist(){
         DataAccess access=new DataAccess();
         String addNewUserQueryScript=String.format(QueryScript.getNewlyRegisteredUser(),TestDataHolder.getUserEmail());
@@ -110,22 +113,28 @@ public class DataBaseTest extends TestBasePage {
         Assert.assertTrue(access.getRowCount(cachedRowSet));
 
     }
-    @Test(description = "create new order")//Kambernisa
+    @Test(description = "create new order",priority = 7)//Kambernisa
     public void createOrder(){
-        driver.get(prop.getProperty("login_url"));
+        String email=prop.getProperty("FrondEmail");
+        driver.get(prop.getProperty("BackendURL"));
       backEndLogin=new BackEndLogin(driver);
       backEndLogin.backEndLogin(prop.getProperty("salesManager"),prop.getProperty("password"));
         OrdersPage ordersPage=new OrdersPage(driver);
-        ordersPage.createNewOrder();
+        ordersPage.createNewOrder(email);
+        TestDataHolder.setOrderId(ordersPage.orderIdGetter());
        Assert.assertTrue(ordersPage.verifyOrderCreatedSuccessfully());
+        SalesDashboardPage dashboardPage=new SalesDashboardPage(driver);
+        dashboardPage.clickLogOutLink();
     }
-    @Test(description = "Verify that newly added orders should be in the database")//Kembarnisa
+
+    @Test(description = "Verify that newly added orders should be in the database",priority = 8)//Kembarnisa
     public void isAddedOrderExist(){
         DataAccess access=new DataAccess();
-        CachedRowSet cachedRowSet=access.readFromDataBase(connection,QueryScript.getNewlyOrder());
-        System.out.println("The Query script for verify new Order is:" +"\n"+QueryScript.getNewlyOrder());
+        System.out.println("Order Id is ( "+TestDataHolder.getOrderId()+" )");
+        String getOrderQueryScript=String.format(QueryScript.getNewlyOrder(),TestDataHolder.getOrderId());
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection,getOrderQueryScript);
+        System.out.println("The Query script for verify new order is : "+"\n"+getOrderQueryScript);
         Assert.assertTrue(access.getRowCount(cachedRowSet));
-
     }
     @Test(description = "Verify that newly added credit memos should be in the database")//Ayper
     public void isAddedCreditMemosExist(){

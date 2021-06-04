@@ -29,7 +29,7 @@ public class QueryScript {
     }
     //Kamer
     public static String getNewlyOrder(){
-        return "select entity_id,protect_code,increment_id from mg_sales_flat_order where increment_id=100000410;";
+        return "select entity_id,protect_code,increment_id from mg_sales_flat_order where increment_id='%s';";
     }
     //sales module(Yusuf)
     public static String getNewlyAddedTaxRule(){

@@ -1,5 +1,6 @@
 package com.seleniummaster.magento.backendpages.salespages;
 
+import com.seleniummaster.magento.testdata.TestDataHolder;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
@@ -92,7 +93,7 @@ public class OrdersPage extends TestBasePage {
         customerRow.click();
         Log.info("The Team1 Customer has been clicked");
     }
-    public void clickOnT1_Cus_CheckBox(){
+    public void clickOnCus_CheckBox(){
         utility.waitForElementPresent(team1CheckBox);
         team1CheckBox.click();
         Log.info("team1 customer check box has been clicked");
@@ -177,25 +178,55 @@ public class OrdersPage extends TestBasePage {
 
     }
 
-    public void createNewOrder(){
-        String team1Email=prop.getProperty("FrondEmail");
+    public static void main(String[] args) {
+        String orderFullText="Order # 3200000031 (the order confirmation email was sent)";
+        int beginIndex=orderFullText.indexOf("(");
+        orderFullText=orderFullText.substring(0,beginIndex-1);
+        orderFullText=orderFullText.replace("Order # ","");
+        System.out.println(orderFullText);
+        long orderNumber=Long.parseLong(orderFullText);
+        System.out.println(orderNumber);
+    }
+
+    public void createNewOrder(String email){
+       // String team1Email=prop.getProperty("FrondEmail");
         SalesDashboardPage dashboardPage=new SalesDashboardPage(driver);
         dashboardPage.clickOnSalesLink();
         dashboardPage.clickOrdersLink();
-        clickOnCreateOrderLink();
-        searchCustomerForOrder(team1Email);
         utility.sleep(2);
-        clickOnCustomerRow();
+        clickOnCreateOrderLink();
+        utility.sleep(3);
+        searchCustomerForOrder(email);
+        utility.sleep(2);
         clickOnTeam1Store();
+        utility.sleep(2);
         clickOnAddProductsLink();
-        clickOnT1_Cus_CheckBox();
-        clickOnAddProductsLink();
+        utility.sleep(2);
         clickOnProductChekBox();
+        utility.sleep(2);
         clickOnAddProductToOrderLink();
+        utility.sleep(2);
+        checkPaymentMethod();
+        utility.sleep(2);
         clickOnGetShippingMethodLink();
+        utility.sleep(2);
         checkOnFixedRadioButton();
+        utility.sleep(1);
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("window.scrollBy(0,-500)");
         clickSubmitOrderButton();
-        verifyOrderCreatedSuccessfully();
+
+    }
+    public  String orderIdGetter(){
+        utility.waitForElementPresent(orderId);
+        String orderNumber=orderId.getText();
+        int beginIndex=orderNumber.indexOf("(");
+        orderNumber=orderNumber.substring(0,beginIndex-1);
+        orderNumber=orderNumber.replace("Order # ","");
+        System.out.println(orderNumber);
+        // long orderNumber=Long.parseLong(orderNumber);
+        System.out.println("The Order Id That getted from the Order Result : "+orderNumber);
+        return orderNumber;
     }
 
 
