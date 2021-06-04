@@ -27,6 +27,10 @@ public class QueryScript {
        return "select entity_id,website_id,email,group_id from mg_customer_entity where email='%s';" ;
 
     }
+    //Kamer
+    public static String getNewlyOrder(){
+        return "select entity_id,protect_code,increment_id from mg_sales_flat_order where increment_id=100000410;";
+    }
     //sales module(Yusuf)
     public static String getNewlyAddedTaxRule(){
         return "select count(*) from mg_tax_calculation_rule where code = '%s'";
