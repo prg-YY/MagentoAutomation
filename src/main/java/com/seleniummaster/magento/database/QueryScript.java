@@ -14,7 +14,7 @@ public class QueryScript {
     //3-catalog module(Yusuf)
     public static String getNewlyAddedProduct()
     {
-        return "select *from mg_catalog_category_product where product_id=299";
+        return "select *from mg_catalog_product_entity_varchar where value='%s';";
     }
     //4-catalog module(sofia)
     public static String getNewlyAddedRootCategory()
@@ -38,7 +38,7 @@ public class QueryScript {
     }
     //sales module(Yusuf)
     public static String getNewlyAddedTaxRule(){
-        return "select count(*) from mg_tax_calculation_rule where code = '%s'";
+        return "select * from mg_tax_calculation_rule where code = '%s'";
     }
 
     public static String getNewlyAddedCreditMemo(){
