@@ -14,6 +14,7 @@ public class TestDataHolder {
     private static String cartPriceRuleName;
     private static String taxRuleName;
     private static String refundRecordName;
+    private static String newProductName;
 
     public TestDataHolder() {
     }
@@ -113,5 +114,13 @@ public class TestDataHolder {
 
     public static void setRefundRecordName(String refundRecordName) {
         TestDataHolder.refundRecordName = refundRecordName;
+    }
+
+    public static String getNewProductName() {
+        return newProductName;
+    }
+
+    public static void setNewProductName(String newProductName) {
+        TestDataHolder.newProductName = newProductName;
     }
 }
