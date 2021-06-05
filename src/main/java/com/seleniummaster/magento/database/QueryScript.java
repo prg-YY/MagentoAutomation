@@ -31,6 +31,11 @@ public class QueryScript {
     public static String getNewlyOrder(){
         return "select entity_id,protect_code,increment_id from mg_sales_flat_order where increment_id=100000410;";
     }
+    //melike
+    public static String getNewAddedProduct()
+    {
+        return "select *from mg_catalog_product_entity_varchar where value='%s';";
+    }
     //sales module(Yusuf)
     public static String getNewlyAddedTaxRule(){
         return "select count(*) from mg_tax_calculation_rule where code = '%s'";

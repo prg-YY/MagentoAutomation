@@ -4,6 +4,8 @@ import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.catalogpages.AddRootCategoriesPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
 import com.seleniummaster.magento.backendpages.salespages.OrdersPage;
+import com.seleniummaster.magento.backendpages.storepages.ManageProductsPage;
+import com.seleniummaster.magento.backendpages.storepages.StoreDashboardPage;
 import com.seleniummaster.magento.database.ConnectionManager;
 import com.seleniummaster.magento.database.ConnectionType;
 import com.seleniummaster.magento.database.DataAccess;
@@ -32,7 +34,7 @@ public class DataBaseTest extends TestBasePage {
         setUpBrowser();
 
     }
-    @Test(description = "",priority = 1)
+    @Test(enabled = false,description = "",priority = 1)
     public void addCustomer(){
         driver.get(prop.getProperty("BackendURL"));
         backEndLogin = new BackEndLogin(driver);
@@ -47,7 +49,7 @@ public class DataBaseTest extends TestBasePage {
         System.out.println("Driver is closed");
     }
 
-    @Test(description = "Verify that newly added customers should be in the database",priority = 2)
+    @Test(enabled = false,description = "Verify that newly added customers should be in the database",priority = 2)
     public void isAddedCustomerExist(){
         DataAccess access=new DataAccess();
         String queryForAddCustomer=String.format(QueryScript.getNewlyAddedCustomer(),TestDataHolder.getCustomerEmail());
@@ -66,7 +68,7 @@ public class DataBaseTest extends TestBasePage {
         DataAccess access=new DataAccess();
 
     }
-    @Test(description = "create new Category test",priority = 5)
+    @Test(enabled = false,description = "create new Category test",priority = 5)
     public void addRootCategory(){
         AddRootCategoriesPage rootCategoriesPage;
         driver.get(prop.getProperty("BackendURL"));
@@ -79,7 +81,7 @@ public class DataBaseTest extends TestBasePage {
         Assert.assertTrue(rootCategoriesPage.isAddRootCategorySuccessMassage());
 
     }
-    @Test(description = "Verify that newly added product root category should be in the database",priority = 6)//Sofia
+    @Test(enabled = false,description = "Verify that newly added product root category should be in the database",priority = 6)//Sofia
     public void isAddedProductRootCategoryExist(){
         DataAccess access=new DataAccess();
         String getRootCategoryQueryScript=String.format(QueryScript.getNewlyAddedRootCategory(),TestDataHolder.getProductCategoryName());
@@ -89,7 +91,7 @@ public class DataBaseTest extends TestBasePage {
 
 
     }
-    @Test(description = "create new user test",priority = 3)
+    @Test(enabled = false,description = "create new user test",priority = 3)
     public void createNewUser(){
         driver.get(prop.getProperty("create_url"));
         String firstName= prop.getProperty("ca-firstName");
@@ -101,7 +103,7 @@ public class DataBaseTest extends TestBasePage {
         accountPage.userCreateAccount(firstName,lastName,email,password);
         Assert.assertTrue(accountPage.verifySuccess());
     }
-    @Test(description = "Verify that newly registered users should be in the database",priority = 4)//Zuhra
+    @Test(enabled = false,description = "Verify that newly registered users should be in the database",priority = 4)//Zuhra
     public void isRegisteredUserExist(){
         DataAccess access=new DataAccess();
         String addNewUserQueryScript=String.format(QueryScript.getNewlyRegisteredUser(),TestDataHolder.getUserEmail());
@@ -110,7 +112,7 @@ public class DataBaseTest extends TestBasePage {
         Assert.assertTrue(access.getRowCount(cachedRowSet));
 
     }
-    @Test(description = "create new order")//Kambernisa
+    @Test(enabled = false,description = "create new order")//Kambernisa
     public void createOrder(){
         driver.get(prop.getProperty("login_url"));
       backEndLogin=new BackEndLogin(driver);
@@ -119,7 +121,7 @@ public class DataBaseTest extends TestBasePage {
         ordersPage.createNewOrder();
        Assert.assertTrue(ordersPage.verifyOrderCreatedSuccessfully());
     }
-    @Test(description = "Verify that newly added orders should be in the database")//Kembarnisa
+    @Test(enabled = false,description = "Verify that newly added orders should be in the database")//Kembarnisa
     public void isAddedOrderExist(){
         DataAccess access=new DataAccess();
         CachedRowSet cachedRowSet=access.readFromDataBase(connection,QueryScript.getNewlyOrder());
@@ -138,10 +140,28 @@ public class DataBaseTest extends TestBasePage {
 //
     }
 
-    @Test(description = "Verify that newly added stock should be in the database")//melike
+    @Test(description = " add new  product ",priority = 9) //melike
+    public void addNewProduct(){
+        ManageProductsPage productsPage=new ManageProductsPage(driver);
+        driver.get(prop.getProperty("BackendURL"));
+        backEndLogin = new BackEndLogin(driver);
+        backEndLogin.backEndLogin(prop.getProperty("storeManager"), prop.getProperty("password"));
+        String newProductName=String.format(prop.getProperty("newProductName"),System.currentTimeMillis());
+        productsPage.addNewProduct(newProductName);
+        TestDataHolder.setStockName(newProductName);
+        Assert.assertTrue(productsPage.VerifySuccessfulMessage());
+        StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
+        dashboardPage.clickLogOutLink();
+    }
+
+    @Test(description = "Verify that newly added stock should be in the database",priority = 10)//melike
     public void isAddedStockExist(){
         DataAccess access=new DataAccess();
 
+        String getNewProductQueryScript=String.format(QueryScript.getNewAddedProduct(),TestDataHolder.getStockName());
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection,getNewProductQueryScript);
+        System.out.println("The Query script for verify new added product is:" +"\n"+getNewProductQueryScript);
+        Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
     @Test(description = "Verify that newly added sub categories should be in the database")//Dilnur
     public void isAddedSubCategoryExist(){
