@@ -82,6 +82,8 @@ public class StoreViewPage extends TestBasePage {
         storeViewCreatedSuccessfully();
     }
     public void createNewStoreView(String storeViewName,String code){
+        StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
+        dashboardPage.goToCreateStoreViewPage();
         selectStore();
         enterName(storeViewName);
         enterCode(code);
