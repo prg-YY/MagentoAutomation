@@ -9,6 +9,7 @@ import com.seleniummaster.magento.backendpages.salespages.OrdersPage;
 import com.seleniummaster.magento.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.magento.backendpages.storepages.ManageProductsPage;
 import com.seleniummaster.magento.backendpages.storepages.StoreDashboardPage;
+import com.seleniummaster.magento.backendpages.storepages.StoreViewPage;
 import com.seleniummaster.magento.database.ConnectionManager;
 import com.seleniummaster.magento.database.ConnectionType;
 import com.seleniummaster.magento.database.DataAccess;
@@ -64,7 +65,6 @@ public class DataBaseTest extends TestBasePage {
         DataAccess access=new DataAccess();
 
     }
-
     @Test
     public void isAddedProductExist(){
         DataAccess access=new DataAccess();
@@ -144,7 +144,6 @@ public class DataBaseTest extends TestBasePage {
         DataAccess access=new DataAccess();
 //
     }
-
     @Test(description = " add new  product ",priority = 9) //melike
     public void addNewProduct(){
         ManageProductsPage productsPage=new ManageProductsPage(driver);
@@ -158,7 +157,6 @@ public class DataBaseTest extends TestBasePage {
         StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
         dashboardPage.clickLogOutLink();
     }
-
     @Test(description = "Verify that newly added stock should be in the database",priority = 10)//melike
     public void isAddedStockExist(){
         DataAccess access=new DataAccess();
@@ -172,9 +170,25 @@ public class DataBaseTest extends TestBasePage {
         DataAccess access=new DataAccess();
 
     }
+    @Test(description = "Create Store view Test") //Abdusamad
+    public void createStoreView(){
+        driver.get(prop.getProperty("BackendURL"));
+        backEndLogin = new BackEndLogin(driver);
+        backEndLogin.backEndLogin(prop.getProperty("storeManager"), prop.getProperty("password"));
+        StoreViewPage viewPage=new StoreViewPage(driver);
+        String code=String.format(prop.getProperty("storeCode"),System.currentTimeMillis());
+        TestDataHolder.setStoreViewCode(code);
+        viewPage.createNewStoreView(prop.getProperty("StoreName"),code);
+        StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
+        dashboardPage.clickLogOutLink();
+    }
     @Test(description = "Verify that newly added store view should be in the database")//Abdusamad
     public void isAddedStoreViewExist(){
         DataAccess access=new DataAccess();
+        String getStoreViewQueryScript=String.format(QueryScript.getNewlyAddedStoreView(),TestDataHolder.getStoreViewCode());
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection,getStoreViewQueryScript);
+        System.out.println("The Query script for verify new added product is:" +"\n"+getStoreViewQueryScript);
+        Assert.assertTrue(access.getRowCount(cachedRowSet));
 
     }
     @Test(description = "Verify that newly added Cart Price Rule should be in the database")//Abdukahar
@@ -192,7 +206,6 @@ public class DataBaseTest extends TestBasePage {
         DataAccess access=new DataAccess();
 
     }
-
     @AfterClass
     public void tearDown(){
         closeBrowser();
