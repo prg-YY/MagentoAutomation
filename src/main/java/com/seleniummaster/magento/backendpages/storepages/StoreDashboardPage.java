@@ -154,4 +154,12 @@ public class StoreDashboardPage extends TestBasePage {
         logOutLink.click();
         Log.info("Log Out Link clicked");
     }
+    public void goToCreateStoreViewPage(){
+        clickAllSystemLink();
+        clickManageStoresLink();
+        utility.sleep(2);
+        clickCreateStoreViewLink();
+        utility.sleep(2);
+
+    }
 }

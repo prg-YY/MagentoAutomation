@@ -192,7 +192,7 @@ public class StoreSteps extends TestBasePage {
 
     @Then("store view should be created")
     public void storeViewShouldBeCreated() {
-        Assert.assertTrue(storeViewPage.verifySuccess());
+        Assert.assertTrue(storeViewPage.storeViewCreatedSuccessfully());
     }
 
     @When("click the store view link should be edited and update store view information then click save store view button")
@@ -202,7 +202,7 @@ public class StoreSteps extends TestBasePage {
 
     @Then("store view should be edited")
     public void storeViewShouldBeEdited() {
-        Assert.assertTrue(storeViewPage.verifySuccess());
+        Assert.assertTrue(storeViewPage.storeViewCreatedSuccessfully());
     }
 
     @Then("can view All stores")

@@ -41,9 +41,9 @@ public class QueryScript {
     }
 
     //store module
-    public static String getNewlyAddedStore()
+    public static String getNewlyAddedStoreView()
     {
-        return "select count(*) from mg_store where code = 'default'";
+        return "select * from mg_core_store where code='%s';";
     }
     public static String getNewlyAddedStore2()
     {

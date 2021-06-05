@@ -4,7 +4,6 @@ import com.seleniummaster.magento.utility.ApplicationConfig;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -63,7 +62,7 @@ public class StoreViewPage extends TestBasePage {
         utility.waitForElementPresent(SaveStoreViewButton);
         SaveStoreViewButton.click();
     }
-    public boolean verifySuccess(){
+    public boolean storeViewCreatedSuccessfully(){
         utility.waitForElementPresent(ConfirmationMessage);
         if (ConfirmationMessage.isDisplayed()) {
             Log.info("The store view has been saved");
@@ -73,13 +72,24 @@ public class StoreViewPage extends TestBasePage {
         return false;
     }
     public void createStoreView(){
+        StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
+        dashboardPage.goToCreateStoreViewPage();
         selectStore();
         enterName(prop.getProperty("Name"));
         enterCode(prop.getProperty("Code")+System.currentTimeMillis());
         selectStatus();
         clickSaveStoreViewButton();
-        verifySuccess();
+        storeViewCreatedSuccessfully();
     }
+    public void createNewStoreView(String storeViewName,String code){
+        selectStore();
+        enterName(storeViewName);
+        enterCode(code);
+        selectStatus();
+        clickSaveStoreViewButton();
+        utility.sleep(2);
+    }
+
     //Store Manager can edit a store view
     @FindBy(xpath = "//*[@id=\"page:main-container\"]/div[3]/div/table/tbody/tr[1]/td[3]/a")
     WebElement StoreViewName;
@@ -89,7 +99,7 @@ public class StoreViewPage extends TestBasePage {
         StoreViewName.click();
         selectStatus();
         clickSaveStoreViewButton();
-        verifySuccess();
+        storeViewCreatedSuccessfully();
     }
 //    public boolean editStoreView() {
 //        String StoreViewNAME = ApplicationConfig.readConfigProperties(ConfigFile, "Name");

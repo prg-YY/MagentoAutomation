@@ -123,7 +123,7 @@ public class StoreModuleTestRunner extends TestBasePage {
         storeDashboardPage.clickCreateStoreViewLink();
         StoreViewPage storeViewPage=new StoreViewPage(driver);
         storeViewPage.createStoreView();
-        Assert.assertTrue(storeViewPage.verifySuccess());
+        Assert.assertTrue(storeViewPage.storeViewCreatedSuccessfully());
 
 
     }
@@ -131,7 +131,7 @@ public class StoreModuleTestRunner extends TestBasePage {
     public void editStoreView(){
         StoreViewPage storeViewPage=new StoreViewPage(driver);
         storeViewPage.editStoreView();
-        Assert.assertTrue(storeViewPage.verifySuccess());
+        Assert.assertTrue(storeViewPage.storeViewCreatedSuccessfully());
 
     }
     @Test(description = "Store Manager can view all stores-Leila")
