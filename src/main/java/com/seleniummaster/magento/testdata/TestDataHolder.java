@@ -7,7 +7,7 @@ public class TestDataHolder {
     private static String userEmail;
     private static String orderId;
     private static String creditMemos;
-    private static String storeName;
+    private static String storeViewCode;
     private static String stockName;
     private static String subCategoryName;
     private static String storeViewName;
@@ -66,12 +66,12 @@ public class TestDataHolder {
         TestDataHolder.creditMemos = creditMemos;
     }
 
-    public static String getStoreName() {
-        return storeName;
+    public static String getStoreViewCode() {
+        return storeViewCode;
     }
 
-    public static void setStoreName(String storeName) {
-        TestDataHolder.storeName = storeName;
+    public static void setStoreViewCode(String storeViewCode) {
+        TestDataHolder.storeViewCode = storeViewCode;
     }
 
     public static String getStockName() {
@@ -90,13 +90,6 @@ public class TestDataHolder {
         TestDataHolder.subCategoryName = subCategoryName;
     }
 
-    public static String getStoreViewName() {
-        return storeViewName;
-    }
-
-    public static void setStoreViewName(String storeViewName) {
-        TestDataHolder.storeViewName = storeViewName;
-    }
 
     public static String getCartPriceRuleName() {
         return cartPriceRuleName;

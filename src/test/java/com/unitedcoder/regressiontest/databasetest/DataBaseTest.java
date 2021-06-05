@@ -2,10 +2,14 @@ package com.unitedcoder.regressiontest.databasetest;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.catalogpages.AddRootCategoriesPage;
+import com.seleniummaster.magento.backendpages.catalogpages.CatalogDashboardPage;
+import com.seleniummaster.magento.backendpages.customerpages.CustomerDashboardPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
 import com.seleniummaster.magento.backendpages.salespages.OrdersPage;
+import com.seleniummaster.magento.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.magento.backendpages.storepages.ManageProductsPage;
 import com.seleniummaster.magento.backendpages.storepages.StoreDashboardPage;
+import com.seleniummaster.magento.backendpages.storepages.StoreViewPage;
 import com.seleniummaster.magento.database.ConnectionManager;
 import com.seleniummaster.magento.database.ConnectionType;
 import com.seleniummaster.magento.database.DataAccess;
@@ -34,7 +38,7 @@ public class DataBaseTest extends TestBasePage {
         setUpBrowser();
 
     }
-    @Test(description = "",priority = 1)
+    @Test(description = "",priority = 1) //Adusamad
     public void addCustomer(){
         driver.get(prop.getProperty("BackendURL"));
         backEndLogin = new BackEndLogin(driver);
@@ -45,11 +49,10 @@ public class DataBaseTest extends TestBasePage {
         TestDataHolder.setCustomerEmail(customer_email);
         Log.info("Add new customer started");
         Assert.assertTrue(customerPage.newCustomerAddedSuccessfully());
-        //driver.close();
-        System.out.println("Driver is closed");
+        CustomerDashboardPage dashboardPage=new CustomerDashboardPage(driver);
+        dashboardPage.cLickLogoutButton();
     }
-
-    @Test(description = "Verify that newly added customers should be in the database",priority = 2)
+    @Test(description = "Verify that newly added customers should be in the database",priority = 2) //Abdusamad
     public void isAddedCustomerExist(){
         DataAccess access=new DataAccess();
         String queryForAddCustomer=String.format(QueryScript.getNewlyAddedCustomer(),TestDataHolder.getCustomerEmail());
@@ -62,13 +65,12 @@ public class DataBaseTest extends TestBasePage {
         DataAccess access=new DataAccess();
 
     }
-
     @Test
     public void isAddedProductExist(){
         DataAccess access=new DataAccess();
 
     }
-    @Test(description = "create new Category test",priority = 5)
+    @Test(description = "create new Category test",priority = 3)//Sofia
     public void addRootCategory(){
         AddRootCategoriesPage rootCategoriesPage;
         driver.get(prop.getProperty("BackendURL"));
@@ -79,19 +81,18 @@ public class DataBaseTest extends TestBasePage {
         rootCategoriesPage = new AddRootCategoriesPage(driver);
         rootCategoriesPage.addNewRootCategory(catName);
         Assert.assertTrue(rootCategoriesPage.isAddRootCategorySuccessMassage());
-
+        CatalogDashboardPage dashboardPage=new CatalogDashboardPage(driver);
+        dashboardPage.clickLogOutLink();
     }
-    @Test(description = "Verify that newly added product root category should be in the database",priority = 6)//Sofia
+    @Test(description = "Verify that newly added product root category should be in the database",priority = 4)//Sofia
     public void isAddedProductRootCategoryExist(){
         DataAccess access=new DataAccess();
         String getRootCategoryQueryScript=String.format(QueryScript.getNewlyAddedRootCategory(),TestDataHolder.getProductCategoryName());
         CachedRowSet cachedRowSet=access.readFromDataBase(connection,getRootCategoryQueryScript);
         System.out.println("The Query Script was Executed for Adding root Category is"+"\n"+getRootCategoryQueryScript);
         Assert.assertTrue(access.getRowCount(cachedRowSet));
-
-
     }
-    @Test(description = "create new user test",priority = 3)
+    @Test(description = "create new user test",priority = 5)//Zuhra
     public void createNewUser(){
         driver.get(prop.getProperty("create_url"));
         String firstName= prop.getProperty("ca-firstName");
@@ -103,7 +104,7 @@ public class DataBaseTest extends TestBasePage {
         accountPage.userCreateAccount(firstName,lastName,email,password);
         Assert.assertTrue(accountPage.verifySuccess());
     }
-    @Test(description = "Verify that newly registered users should be in the database",priority = 4)//Zuhra
+    @Test(description = "Verify that newly registered users should be in the database",priority = 6)//Zuhra
     public void isRegisteredUserExist(){
         DataAccess access=new DataAccess();
         String addNewUserQueryScript=String.format(QueryScript.getNewlyRegisteredUser(),TestDataHolder.getUserEmail());
@@ -112,20 +113,24 @@ public class DataBaseTest extends TestBasePage {
         Assert.assertTrue(access.getRowCount(cachedRowSet));
 
     }
-    @Test(description = "create new order")//Kambernisa
+    @Test(description = "create new order",priority = 7)//Kambernisa
     public void createOrder(){
-        driver.get(prop.getProperty("login_url"));
+        driver.get(prop.getProperty("BackendURL"));
       backEndLogin=new BackEndLogin(driver);
       backEndLogin.backEndLogin(prop.getProperty("salesManager"),prop.getProperty("password"));
         OrdersPage ordersPage=new OrdersPage(driver);
-        ordersPage.createNewOrder();
+        ordersPage.createNewOrder(prop.getProperty("FrondEmail"));
+        TestDataHolder.setOrderId(ordersPage.orderIdGetter());
        Assert.assertTrue(ordersPage.verifyOrderCreatedSuccessfully());
+        SalesDashboardPage dashboardPage=new SalesDashboardPage(driver);
+        dashboardPage.clickLogOutLink();
     }
-    @Test(description = "Verify that newly added orders should be in the database")//Kembarnisa
+    @Test(description = "Verify that newly added orders should be in the database",priority = 8)//Kembarnisa
     public void isAddedOrderExist(){
         DataAccess access=new DataAccess();
-        CachedRowSet cachedRowSet=access.readFromDataBase(connection,QueryScript.getNewlyOrder());
-        System.out.println("The Query script for verify new Order is:" +"\n"+QueryScript.getNewlyOrder());
+        String getOrderQueryScript=String.format(QueryScript.getNewlyOrder(),TestDataHolder.getOrderId());
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection,getOrderQueryScript);
+        System.out.println("The Query script for verify new Order is:" +"\n"+getOrderQueryScript);
         Assert.assertTrue(access.getRowCount(cachedRowSet));
 
     }
@@ -139,7 +144,6 @@ public class DataBaseTest extends TestBasePage {
         DataAccess access=new DataAccess();
 //
     }
-
     @Test(description = " add new  product ",priority = 9) //melike
     public void addNewProduct(){
         ManageProductsPage productsPage=new ManageProductsPage(driver);
@@ -153,11 +157,9 @@ public class DataBaseTest extends TestBasePage {
         StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
         dashboardPage.clickLogOutLink();
     }
-
     @Test(description = "Verify that newly added stock should be in the database",priority = 10)//melike
     public void isAddedStockExist(){
         DataAccess access=new DataAccess();
-
         String getNewProductQueryScript=String.format(QueryScript.getNewAddedProduct(),TestDataHolder.getStockName());
         CachedRowSet cachedRowSet=access.readFromDataBase(connection,getNewProductQueryScript);
         System.out.println("The Query script for verify new added product is:" +"\n"+getNewProductQueryScript);
@@ -168,9 +170,25 @@ public class DataBaseTest extends TestBasePage {
         DataAccess access=new DataAccess();
 
     }
+    @Test(description = "Create Store view Test") //Abdusamad
+    public void createStoreView(){
+        driver.get(prop.getProperty("BackendURL"));
+        backEndLogin = new BackEndLogin(driver);
+        backEndLogin.backEndLogin(prop.getProperty("storeManager"), prop.getProperty("password"));
+        StoreViewPage viewPage=new StoreViewPage(driver);
+        String code=String.format(prop.getProperty("storeCode"),System.currentTimeMillis());
+        TestDataHolder.setStoreViewCode(code);
+        viewPage.createNewStoreView(prop.getProperty("StoreName"),code);
+        StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
+        dashboardPage.clickLogOutLink();
+    }
     @Test(description = "Verify that newly added store view should be in the database")//Abdusamad
     public void isAddedStoreViewExist(){
         DataAccess access=new DataAccess();
+        String getStoreViewQueryScript=String.format(QueryScript.getNewlyAddedStoreView(),TestDataHolder.getStoreViewCode());
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection,getStoreViewQueryScript);
+        System.out.println("The Query script for verify new added product is:" +"\n"+getStoreViewQueryScript);
+        Assert.assertTrue(access.getRowCount(cachedRowSet));
 
     }
     @Test(description = "Verify that newly added Cart Price Rule should be in the database")//Abdukahar
@@ -188,7 +206,6 @@ public class DataBaseTest extends TestBasePage {
         DataAccess access=new DataAccess();
 
     }
-
     @AfterClass
     public void tearDown(){
         closeBrowser();

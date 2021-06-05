@@ -29,7 +29,7 @@ public class QueryScript {
     }
     //Kamer
     public static String getNewlyOrder(){
-        return "select entity_id,protect_code,increment_id from mg_sales_flat_order where increment_id=100000410;";
+        return "select entity_id,protect_code,increment_id from mg_sales_flat_order where increment_id='%s';";
     }
     //melike
     public static String getNewAddedProduct()
@@ -46,9 +46,9 @@ public class QueryScript {
     }
 
     //store module
-    public static String getNewlyAddedStore()
+    public static String getNewlyAddedStoreView()
     {
-        return "select count(*) from mg_store where code = 'default'";
+        return "select * from mg_core_store where code='%s';";
     }
     public static String getNewlyAddedStore2()
     {
