@@ -25,6 +25,8 @@ public class CustomerDashboardPage extends com.seleniummaster.magento.utility.Te
     WebElement NameTextBox;
     @FindBy(xpath = "//span[text()='Search']")
     WebElement searchLink;
+    @FindBy(xpath = " //div[@class='header-top']/a")
+    WebElement magentoLog;
 
     public CustomerDashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -61,5 +63,10 @@ public class CustomerDashboardPage extends com.seleniummaster.magento.utility.Te
     public void clickSearchLink(){
         utility.waitForElementPresent(searchLink);
         searchLink.click();
+    }
+    public void goToDashboardPage(){
+        utility.waitForElementPresent(magentoLog);
+        magentoLog.click();
+        utility.sleep(2);
     }
 }

@@ -24,7 +24,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
 import javax.sql.rowset.CachedRowSet;
 import java.sql.Connection;
 
@@ -38,7 +37,6 @@ public class DataBaseTest extends TestBasePage {
     public void setUp(){
         connection= ConnectionManager.connectToDataBaseServer(username,password,ConnectionType.MYSQLServer);
         setUpBrowser();
-
     }
     @Test(description = "",priority = 1) //Adusamad
     public void addCustomer(){
@@ -65,7 +63,6 @@ public class DataBaseTest extends TestBasePage {
     @Test(description = "Verify that  new added customer groups should be in the database",priority = 3)//Abdukahar
     public void isAddedCustomerGroupExist(){
         DataAccess access=new DataAccess();
-
     }
     @Test(description = "add product test",priority = 4)
     public void addProduct(){
@@ -87,7 +84,6 @@ public class DataBaseTest extends TestBasePage {
         CachedRowSet cachedRowSet=access.readFromDataBase(connection,getProductQueryScript);
         System.out.println("The Query Script was Executed for Adding Product is"+"\n"+getProductQueryScript);
         Assert.assertTrue(access.getRowCount(cachedRowSet));
-
     }
     @Test(description = "create new Category test",priority = 6)//Sofia
     public void addRootCategory(){
@@ -130,7 +126,6 @@ public class DataBaseTest extends TestBasePage {
         CachedRowSet cachedRowSet=access.readFromDataBase(connection,addNewUserQueryScript);
         System.out.println("The Query script for verify new user is : "+"\n"+addNewUserQueryScript);
         Assert.assertTrue(access.getRowCount(cachedRowSet));
-
     }
     @Test(description = "create new order",priority = 10)//Kambernisa
     public void createOrder(){
@@ -151,17 +146,14 @@ public class DataBaseTest extends TestBasePage {
         CachedRowSet cachedRowSet=access.readFromDataBase(connection,getOrderQueryScript);
         System.out.println("The Query script for verify new Order is:" +"\n"+getOrderQueryScript);
         Assert.assertTrue(access.getRowCount(cachedRowSet));
-
     }
     @Test(description = "Verify that newly added credit memos should be in the database",priority = 12)//Ayper
     public void isAddedCreditMemosExist(){
         DataAccess access=new DataAccess();
-
     }
     @Test(enabled = false,description = "Verify that newly added store should be in the database",priority = 13)//Leila
     public void isAddedStoreExist(){
         DataAccess access=new DataAccess();
-//
     }
     @Test(description = " add new  product ",priority = 14) //melike
     public void addNewProduct(){
@@ -187,7 +179,6 @@ public class DataBaseTest extends TestBasePage {
     @Test(description = "Verify that newly added sub categories should be in the database",priority = 16)//Dilnur
     public void isAddedSubCategoryExist(){
         DataAccess access=new DataAccess();
-
     }
     @Test(description = "Create Store view Test",priority = 17) //Abdusamad
     public void createStoreView(){
@@ -208,12 +199,10 @@ public class DataBaseTest extends TestBasePage {
         CachedRowSet cachedRowSet=access.readFromDataBase(connection,getStoreViewQueryScript);
         System.out.println("The Query script for verify new added Store view is:" +"\n"+getStoreViewQueryScript);
         Assert.assertTrue(access.getRowCount(cachedRowSet));
-
     }
     @Test(description = "Verify that newly added Cart Price Rule should be in the database",priority = 19)//Abdukahar
     public void isAddedCartPriceRuleExist(){
         DataAccess access=new DataAccess();
-
     }
     @Test(description = "add Tax Rule",priority = 20)
     public void addTaxRule(){
@@ -228,7 +217,6 @@ public class DataBaseTest extends TestBasePage {
         Assert.assertTrue(taxRulesPage.successMessageIsDisplay());
         StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
         dashboardPage.clickLogOutLink();
-
     }
     @Test(description = "Verify the newly added tax rule should be in the database",priority = 21)//Yusupjan
     public void isAddedTaxRuleExist(){
@@ -241,7 +229,6 @@ public class DataBaseTest extends TestBasePage {
     @Test(description = "Verify that newly added refund should be in the database")//Sofia
     public void isAddedRefundExist(){
         DataAccess access=new DataAccess();
-
     }
     @AfterClass
     public void tearDown(){
