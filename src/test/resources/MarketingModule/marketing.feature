@@ -1,3 +1,6 @@
+@ViewAllReviews
+Scenario:marketing manager should be view all reviews
+Given marketing manager
 @MarketingModule
   Feature: Marketing manager should be able to...
     -Filter Cart Pricing
