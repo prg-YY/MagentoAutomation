@@ -1,5 +1,7 @@
 package com.seleniummaster.magento.database;
 
+import com.seleniummaster.magento.testdata.TestDataHolder;
+
 public class QueryScript {
     //1-customer module(AbDuSaMed)
     public static String getNewlyAddedCustomer()
@@ -48,7 +50,7 @@ public class QueryScript {
     //store module
     public static String getNewlyAddedStoreView()
     {
-        return "select * from mg_core_store where code='%s';";
+        return "select * from mg_core_store_group;";//get store
     }
     public static String getNewlyAddedStore2()
     {
@@ -57,5 +59,12 @@ public class QueryScript {
     //user module
     public static String getNewlyAddedUser(){
         return "select count(*) from mg_customer_entity where email = '%s'";
+    }
+
+    public static String getNewlyAddedStore() {
+        //return "select * from mg_core_store where code='%s';";
+        //return "select * from mg_core_store_group name='%s';";
+        return "select * from mg_core_store_group where name='%s';";
+       //return "\"select * from i5751295_mg1.mg_core_store_group where name='ABC branch';";
     }
 }

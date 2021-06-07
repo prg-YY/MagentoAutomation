@@ -8,6 +8,7 @@ public class TestDataHolder {
     private static String orderId;
     private static String creditMemos;
     private static String storeViewCode;
+    private static String storeName;
     private static String stockName;
     private static String subCategoryName;
     private static String storeViewName;
@@ -73,6 +74,14 @@ public class TestDataHolder {
 
     public static void setStoreViewCode(String storeViewCode) {
         TestDataHolder.storeViewCode = storeViewCode;
+    }
+
+    public static String getStoreName() {
+        return storeName;
+    }
+
+    public static void setStoreName(String storeName) {
+        TestDataHolder.storeName = storeName;
     }
 
     public static String getStockName() {
