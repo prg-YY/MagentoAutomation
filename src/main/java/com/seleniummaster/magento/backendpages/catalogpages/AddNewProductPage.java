@@ -93,7 +93,11 @@ public class AddNewProductPage extends TestBasePage {
         utility.waitForElementPresent(ProductNameTextBox);
         ProductNameTextBox.sendKeys(ProductName);
     }
+    public void EnterProductName1(String productName) {
+        utility.waitForElementPresent(ProductNameTextBox);
+        ProductNameTextBox.sendKeys(productName);
 
+    }
     //Enter Description Method
     String ProductDescription = ApplicationConfig.readConfigProperties(ConfigFile, "Description");
 
@@ -115,7 +119,7 @@ public class AddNewProductPage extends TestBasePage {
 
     public void EnterSKU() {
         utility.waitForElementPresent(SkuTextBox);
-        SkuTextBox.sendKeys(SKU);
+        SkuTextBox.sendKeys(SKU+System.currentTimeMillis());
     }
 
     //Enter Weight Method
@@ -174,7 +178,42 @@ public class AddNewProductPage extends TestBasePage {
 
     public boolean verifySuccess() {
         utility.waitForElementPresent(ConfirmationMessage);
-        return ConfirmationMessage.isDisplayed();
+       if (ConfirmationMessage.isDisplayed())
+       {
+           System.out.printf("Add Product Test Pass");
+           return true;
+       }
+       else
+           System.out.printf("Test failed");
+       return false;
+    }
+    public void createNewProduct(String productName){
+        clickOnAddProduct();
+        utility.sleep(1);
+        clickOnContinue();
+        utility.sleep(1);
+        EnterProductName1(productName);
+        EnterDescription();//String
+        utility.sleep(1);
+        EnterShortDescription();//String
+        utility.sleep(1);
+        EnterSKU();//String
+        utility.sleep(1);
+        EnterWeight();//String
+        utility.sleep(1);
+        SelectStatus();
+        utility.sleep(1);
+        //SelectVisibility();
+        clickOnSaveButton();
+        utility.sleep(1);
+        EnterPrice();
+        utility.sleep(1);
+        SelectTaxClass();
+        utility.sleep(1);
+        setPressSaveButton();
+        utility.sleep(1);
+
+
     }
 
     public void AddProduct() {

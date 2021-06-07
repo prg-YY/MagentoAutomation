@@ -12,6 +12,7 @@ public class TaxRulesPage extends TestBasePage {
     WebDriver driver;
     TestUtility utility;
     Select select;
+    SalesDashboardPage dashboardPage;
     @FindBy(xpath = "(//span[text()='Add New Tax Rule'])[1]")
     WebElement addNewTaxRuleButton;
     @FindBy(xpath = "//input[@class=\"required-entry input-text required-entry\"]")
@@ -74,6 +75,9 @@ public class TaxRulesPage extends TestBasePage {
     }
  //create Tax rule
     public void createTaxRule(String ruleName,String customerTaxValue,String productTaxValue,String taxRateValue){
+        dashboardPage=new SalesDashboardPage(driver);
+        dashboardPage.goToManageTaxRulesPage();
+        clickAddNewTaxRuleButton();
         enterTaxRuleName(ruleName);
         selectCustomerTaxClass(customerTaxValue);
         selectProductTaxClass(productTaxValue);
@@ -84,10 +88,12 @@ public class TaxRulesPage extends TestBasePage {
         clickSaveRuleButton();
         utility.sleep(2);
     }
+
+
     public boolean successMessageIsDisplay(){
         utility.waitForElementPresent(successMassage);
        if (successMassage.isDisplayed()){
-           System.out.println("Test Passed");
+           System.out.println("Test Passed New Rule Added");
            return true;
        }else
         return false;

@@ -119,7 +119,7 @@ public class DataBaseTest extends TestBasePage {
       backEndLogin=new BackEndLogin(driver);
       backEndLogin.backEndLogin(prop.getProperty("salesManager"),prop.getProperty("password"));
         OrdersPage ordersPage=new OrdersPage(driver);
-        ordersPage.createNewOrder();
+        ordersPage.createNewOrder("");
        Assert.assertTrue(ordersPage.verifyOrderCreatedSuccessfully());
     }
     @Test(description = "Verify that newly added orders should be in the database",enabled = false)//Kembarnisa

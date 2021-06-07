@@ -72,6 +72,10 @@ public class ManageProductsPage extends TestBasePage {
         utility.waitForElementPresent(productNameTextField);
         productNameTextField.sendKeys(ProductName);
     }
+    public void enterNewProductName(String name){
+        utility.waitForElementPresent(productNameTextField);
+        productNameTextField.sendKeys(name);
+    }
 
     public void typeDescription(String ProductDescription){
         utility.waitForElementPresent(descriptionTextField);
@@ -132,6 +136,23 @@ public class ManageProductsPage extends TestBasePage {
         clickAddProductButton();
         clickContinueButton();
         typeProductName();
+        typeDescription(prop.getProperty("NewProductDescription"));
+        typeShortDescription(prop.getProperty("NewProductShortDescription"));
+        typeSKU(prop.getProperty("SKU"));
+        typeWeight(prop.getProperty("Weight"));
+        chooseStatusEnableOption();
+        clickSaveAndContinueButton();
+        typePrice(prop.getProperty("Price"));
+        chooseTaxClassGeneralOption();
+        clickSaveButton();
+        VerifySuccessfullyAddedMessage.isDisplayed();
+    }
+    public void addNewProduct(String name) {
+StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
+dashboardPage.goToCreateProductsPage();
+
+        clickContinueButton();
+       enterNewProductName(name);
         typeDescription(prop.getProperty("NewProductDescription"));
         typeShortDescription(prop.getProperty("NewProductShortDescription"));
         typeSKU(prop.getProperty("SKU"));

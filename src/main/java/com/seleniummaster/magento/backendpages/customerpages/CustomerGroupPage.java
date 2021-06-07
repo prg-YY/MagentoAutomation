@@ -85,6 +85,7 @@ public class CustomerGroupPage extends TestBasePage {
         clickSaveGroupButton();
         utility.sleep(3);
     }
+
     public boolean addCustomerGroupSuccessfully(){
         utility.waitForElementPresent(addEditSuccessMessage);
         if (addEditSuccessMessage.isDisplayed()){

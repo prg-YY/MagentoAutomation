@@ -47,6 +47,8 @@ public class StoreDashboardPage extends TestBasePage {
     WebElement createStoreViewLink;
     @FindBy(xpath = "//*[@class=\"link-logout\"]")
     WebElement logOutLink;
+    @FindBy(xpath = "(//span[text()=\"Add Product\"])[1]")
+    WebElement addProductLink;
 
     public StoreDashboardPage(WebDriver driver) {
         this.driver = TestBasePage.driver;
@@ -113,6 +115,17 @@ public class StoreDashboardPage extends TestBasePage {
         Log.info("Manage Products Link clicked");
     }
 
+    public void goToCreateProductsPage(){
+        clickAllCatalogLink();
+        clickManageProductsLink();
+        utility.sleep(2);
+        utility.waitForElementPresent(addProductLink);
+        addProductLink.click();
+        utility.sleep(2);
+
+    }
+
+
     public void clickManageCategoriesLink() {
         utility.waitForElementPresent(manageCategoriesLink);
         manageCategoriesLink.click();
@@ -153,5 +166,13 @@ public class StoreDashboardPage extends TestBasePage {
         utility.waitForElementPresent(logOutLink);
         logOutLink.click();
         Log.info("Log Out Link clicked");
+    }
+    public void goToCreateStoreViewPage(){
+        clickAllSystemLink();
+        clickManageStoresLink();
+        utility.sleep(2);
+        clickCreateStoreViewLink();
+        utility.sleep(2);
+
     }
 }
