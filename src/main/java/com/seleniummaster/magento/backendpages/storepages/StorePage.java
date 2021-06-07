@@ -34,6 +34,10 @@ public class StorePage extends TestBasePage {
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver);
     }
+
+    public static void createNewStore(String storeName, String code) {
+    }
+
     public void clickOnCreateStoreButton() {
         utility.waitForElementPresent(CreateStoreButton);
         CreateStoreButton.click();

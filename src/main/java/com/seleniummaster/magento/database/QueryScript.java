@@ -48,7 +48,7 @@ public class QueryScript {
     //store module
     public static String getNewlyAddedStoreView()
     {
-        return "select * from mg_core_store where code='%s';";
+        return "select * from mg_core_store_group;";//get store
     }
     public static String getNewlyAddedStore2()
     {
@@ -57,5 +57,9 @@ public class QueryScript {
     //user module
     public static String getNewlyAddedUser(){
         return "select count(*) from mg_customer_entity where email = '%s'";
+    }
+
+    public static String getNewlyAddedStore() {
+        return "select * from mg_core_store where code='%s';";
     }
 }
