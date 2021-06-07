@@ -57,46 +57,10 @@ public class DataAccess {
     }
 
     //Sofia
-    public boolean getProductRootCategory(String RootCatName) {
-        boolean isCustomerExist = false;
-        ResultSet resultSet=null;
-        CachedRowSet cachedRowSet = null;
-////        String sqlScript=String.format("select name, root_category_id from mg_core_store_group where name='%s'"
-//                ,RootCategoryName);
-//        try {
-//            cachedRowSet.populate(resultSet);
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
+    public void getProductRootCategory() {
 
-//        while (true) {
-////            try {
-////                if (!cachedRowSet.next()) {
-////                    break;
-////                }
-////            } catch (SQLException throwables) {
-////                throwables.printStackTrace();
-////            }
-            try {
-                RootCatName = cachedRowSet.getString("name");
-                int RootCatId = cachedRowSet.getInt("root_category_id");
-                System.out.println(String.format("RootCatName=%s RootCatId=%d",
-                        RootCatName, RootCatId));
-//                count=cachedRowSet.getRow();
-//                System.out.println("Total Rows:"+count);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-
-
-        return isCustomerExist;
     }
-//        if(count>=1){
-//            isCustomerExist=true;
-//        }
-//        return isCustomerExist;
 
-//        return isCustomerExist;
 
         //Zuhra
         public void getRegisteredUsers () {

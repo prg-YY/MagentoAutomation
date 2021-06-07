@@ -26,7 +26,9 @@ public class StoreModuleTestRunner extends TestBasePage {
         storeDashboardPage.clickOrdersLink();
         OrderPage orderPage=new OrderPage(driver);
         orderPage.CreateNewOrder();
-        Assert.assertTrue(orderPage.verifySuccessfulAddedMsg());
+        orderPage.verifySuccessfulAddedMsg();
+
+
     }
     @Test(description = "Store Manager can edit orders-AbDuKaHar")
     public void editOrder(){

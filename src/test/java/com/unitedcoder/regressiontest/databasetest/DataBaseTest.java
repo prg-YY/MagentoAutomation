@@ -4,6 +4,9 @@ import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.catalogpages.AddRootCategoriesPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
 import com.seleniummaster.magento.backendpages.salespages.OrdersPage;
+import com.seleniummaster.magento.backendpages.salespages.SalesDashboardPage;
+import com.seleniummaster.magento.backendpages.storepages.OrderPage;
+import com.seleniummaster.magento.backendpages.storepages.StoreDashboardPage;
 import com.seleniummaster.magento.database.ConnectionManager;
 import com.seleniummaster.magento.database.ConnectionType;
 import com.seleniummaster.magento.database.DataAccess;
@@ -32,7 +35,7 @@ public class DataBaseTest extends TestBasePage {
         setUpBrowser();
 
     }
-    @Test(description = "",priority = 1)
+    @Test(description = "",priority = 1,enabled = false)
     public void addCustomer(){
         driver.get(prop.getProperty("BackendURL"));
         backEndLogin = new BackEndLogin(driver);
@@ -47,7 +50,7 @@ public class DataBaseTest extends TestBasePage {
         System.out.println("Driver is closed");
     }
 
-    @Test(description = "Verify that newly added customers should be in the database",priority = 2)
+    @Test(description = "Verify that newly added customers should be in the database",priority = 2,enabled = false)
     public void isAddedCustomerExist(){
         DataAccess access=new DataAccess();
         String queryForAddCustomer=String.format(QueryScript.getNewlyAddedCustomer(),TestDataHolder.getCustomerEmail());
@@ -66,7 +69,7 @@ public class DataBaseTest extends TestBasePage {
         DataAccess access=new DataAccess();
 
     }
-    @Test(description = "create new Category test",priority = 5)
+    @Test(description = "create new Category test",priority = 5,enabled = false)
     public void addRootCategory(){
         AddRootCategoriesPage rootCategoriesPage;
         driver.get(prop.getProperty("BackendURL"));
@@ -79,7 +82,7 @@ public class DataBaseTest extends TestBasePage {
         Assert.assertTrue(rootCategoriesPage.isAddRootCategorySuccessMassage());
 
     }
-    @Test(description = "Verify that newly added product root category should be in the database",priority = 6)//Sofia
+    @Test(description = "Verify that newly added product root category should be in the database",priority = 6,enabled = false)//Sofia
     public void isAddedProductRootCategoryExist(){
         DataAccess access=new DataAccess();
         String getRootCategoryQueryScript=String.format(QueryScript.getNewlyAddedRootCategory(),TestDataHolder.getProductCategoryName());
@@ -89,7 +92,7 @@ public class DataBaseTest extends TestBasePage {
 
 
     }
-    @Test(description = "create new user test",priority = 3)
+    @Test(description = "create new user test",priority = 3,enabled = false)
     public void createNewUser(){
         driver.get(prop.getProperty("create_url"));
         String firstName= prop.getProperty("ca-firstName");
@@ -101,7 +104,7 @@ public class DataBaseTest extends TestBasePage {
         accountPage.userCreateAccount(firstName,lastName,email,password);
         Assert.assertTrue(accountPage.verifySuccess());
     }
-    @Test(description = "Verify that newly registered users should be in the database",priority = 4)//Zuhra
+    @Test(description = "Verify that newly registered users should be in the database",priority = 4,enabled = false)//Zuhra
     public void isRegisteredUserExist(){
         DataAccess access=new DataAccess();
         String addNewUserQueryScript=String.format(QueryScript.getNewlyRegisteredUser(),TestDataHolder.getUserEmail());
@@ -110,16 +113,16 @@ public class DataBaseTest extends TestBasePage {
         Assert.assertTrue(access.getRowCount(cachedRowSet));
 
     }
-    @Test(description = "create new order")//Kambernisa
+    @Test(description = "create new order",enabled = false)//Kambernisa
     public void createOrder(){
-        driver.get(prop.getProperty("login_url"));
+        driver.get(prop.getProperty("BackendURL"));
       backEndLogin=new BackEndLogin(driver);
       backEndLogin.backEndLogin(prop.getProperty("salesManager"),prop.getProperty("password"));
         OrdersPage ordersPage=new OrdersPage(driver);
         ordersPage.createNewOrder();
        Assert.assertTrue(ordersPage.verifyOrderCreatedSuccessfully());
     }
-    @Test(description = "Verify that newly added orders should be in the database")//Kembarnisa
+    @Test(description = "Verify that newly added orders should be in the database",enabled = false)//Kembarnisa
     public void isAddedOrderExist(){
         DataAccess access=new DataAccess();
         CachedRowSet cachedRowSet=access.readFromDataBase(connection,QueryScript.getNewlyOrder());
@@ -163,13 +166,35 @@ public class DataBaseTest extends TestBasePage {
         DataAccess access=new DataAccess();
 
     }
+    @Test(description = "Create new refund order)")
+    public void createNewRefundOrder(){
+        driver.get(prop.getProperty("BackendURL"));
+        backEndLogin=new BackEndLogin(driver);
+        backEndLogin.backEndLogin(prop.getProperty("salesManager"),prop.getProperty("password"));
+        StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
+        storeDashboardPage.clickAllSalesLink();
+        storeDashboardPage.clickOrdersLink();
+        OrderPage orderPage=new OrderPage(driver);
+        orderPage.createRefund();
+        orderPage.VerifySuccessfullyRefundMsg();
+        //System.out.println(orderPage.CreditMemosNoGetText());
+        TestDataHolder.setRefundRecordCreditMemoNo(orderPage.CreditMemosNoGetText());
+        Assert.assertTrue(orderPage.VerifySuccessfullyRefundMsg());
+        storeDashboardPage.clickLogOutLink();
+
+
+    }
     @Test(description = "Verify that newly added refund should be in the database")//Sofia
     public void isAddedRefundExist(){
         DataAccess access=new DataAccess();
+        String addNewRefundQueryScript=String.format(QueryScript.getNewlyAddedRefund(),TestDataHolder.getRefundRecordCreditMemoNo());
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection,addNewRefundQueryScript);
+        System.out.println("The Query Script was Executed for Adding refund is"+"\n"+addNewRefundQueryScript);
+        Assert.assertTrue(access.getRowCount(cachedRowSet));
 
     }
 
-    @AfterClass
+    @AfterClass(enabled = false)
     public void tearDown(){
         closeBrowser();
         ConnectionManager.closeDataBaseConnection(connection);

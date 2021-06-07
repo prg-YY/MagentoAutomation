@@ -40,6 +40,10 @@ public class QueryScript {
         return "select * from mg_sales_creditmemo_item where entity_id=6";
     }
 
+    public static String getNewlyAddedRefund(){
+        return "select * from mg_sales_flat_invoice where increment_id='%s';";
+    }
+
     //store module
     public static String getNewlyAddedStore()
     {

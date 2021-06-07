@@ -13,7 +13,7 @@ public class TestDataHolder {
     private static String storeViewName;
     private static String cartPriceRuleName;
     private static String taxRuleName;
-    private static String refundRecordName;
+    private static String RefundRecordCreditMemoNo;
 
     public TestDataHolder() {
     }
@@ -35,6 +35,7 @@ public class TestDataHolder {
     }
 
     public static String getProductCategoryName() {
+
         return productCategoryName;
     }
 
@@ -114,11 +115,13 @@ public class TestDataHolder {
         TestDataHolder.taxRuleName = taxRuleName;
     }
 
-    public static String getRefundRecordName() {
-        return refundRecordName;
+    public static String getRefundRecordCreditMemoNo() {
+
+        return RefundRecordCreditMemoNo;
     }
 
-    public static void setRefundRecordName(String refundRecordName) {
-        TestDataHolder.refundRecordName = refundRecordName;
+    public static void setRefundRecordCreditMemoNo(String RefundRecordCreditMemoNo) {
+        TestDataHolder.RefundRecordCreditMemoNo=RefundRecordCreditMemoNo;
+
     }
 }
