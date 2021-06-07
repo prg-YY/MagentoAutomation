@@ -63,7 +63,8 @@ public class QueryScript {
 
     public static String getNewlyAddedStore() {
         //return "select * from mg_core_store where code='%s';";
-        return "select * from mg_core_store_group where name='ABC branch';";
+        //return "select * from mg_core_store_group name='%s';";
+        return "select * from mg_core_store_group where name='%s';";
        //return "\"select * from i5751295_mg1.mg_core_store_group where name='ABC branch';";
     }
 }

@@ -35,7 +35,14 @@ public class StorePage extends TestBasePage {
         utility = new TestUtility(driver);
     }
 
-    public static void createNewStore(String storeName, String code) {
+    public void createNewStore(String storeName) {
+        clickOnCreateStoreButton();
+        utility.sleep(2);
+        selectWebsite();
+        enterName(storeName);
+        selectRootCategory();
+        clickOnSaveStore();
+        verifySuccess();
     }
 
     public void clickOnCreateStoreButton() {
