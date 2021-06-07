@@ -1,5 +1,7 @@
 package com.seleniummaster.magento.database;
 
+import com.seleniummaster.magento.testdata.TestDataHolder;
+
 public class QueryScript {
     //1-customer module(AbDuSaMed)
     public static String getNewlyAddedCustomer()
@@ -61,5 +63,10 @@ public class QueryScript {
 
     public static String getNewlyAddedStore() {
         return "select * from mg_core_store where code='%s';";
+
     }
+    //public static String isAddedNewStoreExistInDatabase(){
+    //        return String.format("select * from i5751295_mg1.mg_core_store_group" +
+    //                " where name='%s';",TestDataHolder.getStoreNameEditStorePage());
+    //    }
 }
