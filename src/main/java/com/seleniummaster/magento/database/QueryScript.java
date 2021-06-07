@@ -11,7 +11,7 @@ public class QueryScript {
     //2-customer group(AbDuKaHar)
     public static String getNewlyAddedCustomerGroup()
     {
-        return "select * from mg_customer_group where customer_group_id=56;";
+        return "select * from mg_customer_group where customer_group_id=%s;";
     }
     //3-catalog module(Yusuf)
     public static String getNewlyAddedProduct()
