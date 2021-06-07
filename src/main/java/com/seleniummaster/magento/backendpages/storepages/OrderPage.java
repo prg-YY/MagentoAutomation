@@ -166,6 +166,83 @@ public class OrderPage extends TestBasePage{
         clickSubmitOrderButton();
         verifySuccessfulAddedMsg();
     }
+    @FindBy(xpath = "(//span[text()=\"Invoice\"])[1]")
+    WebElement invoiceButton;
+    @FindBy(xpath = "//span[text()=\"Submit Invoice\"]")
+    WebElement submitInvoiceButton;
+    @FindBy(xpath = "(//span[text()=\"Credit Memo\"])[1]")
+    WebElement creditMemoButton;
+    @FindBy(xpath = "//span[text()=\"Refund Offline\"]")
+    WebElement refundOfflineButton;
+    @FindBy(xpath = "//span[text()=\"The credit memo has been created.\"]")
+    WebElement refundSuccessfullyMsg;
+    @FindBy(xpath = "(//span[text()=\"Credit Memos\"])[2]")
+    WebElement creditMemosLink;
+    @FindBy(xpath = "//table[@id=\"order_invoices_table\"]/tbody/tr/td[1]")
+    WebElement creditMemosNo;
+
+    public void clickInvoiceButton(){
+        utility.waitForElementPresent(invoiceButton);
+        invoiceButton.click();
+    }
+    public void clickSubmitInvoiceButton(){
+        utility.waitForElementPresent(submitInvoiceButton);
+        submitInvoiceButton.click();
+    }
+    public void clickCreditMemoButton(){
+        utility.waitForElementPresent(creditMemoButton);
+        creditMemoButton.click();
+    }
+    public void clickRefundOfflineButton(){
+        utility.waitForElementPresent(refundOfflineButton);
+        refundOfflineButton.click();
+    }
+    public boolean VerifySuccessfullyRefundMsg(){
+        utility.waitForElementPresent(refundSuccessfullyMsg);
+        return(refundSuccessfullyMsg.isDisplayed());
+
+    }
+    public void clickCreditMemoLink(){
+        utility.waitForElementPresent(creditMemosLink);
+        creditMemosLink.click();
+    }
+    public String CreditMemosNoGetText(){
+        utility.waitForElementPresent(creditMemosNo);
+        String MemoNo=creditMemosNo.getText();
+        System.out.println(MemoNo);
+
+        return MemoNo;
+    }
+
+    public void createRefund(){
+        clickCreateNewOrderButton();
+        EnterCustomerName(prop.getProperty("CustomerName"));
+        clickSearchButton();
+        clickSelectedCustomer();
+        clickSelectedStore();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,-500)");
+        clickAddProductButton();
+        clickSelectedProductCheckBox();
+        clickAddSelectedProductToOrderButton();
+        clickPaymentMethod();
+        clickGetShippingMethodAndRateLink();
+        clickFixCheckBox();
+        js.executeScript("window.scrollBy(0,500)");
+        clickSubmitOrderButton();
+        verifySuccessfulAddedMsg();
+        clickInvoiceButton();
+        utility.sleep(2);
+        clickSubmitInvoiceButton();
+        utility.sleep(2);
+        clickCreditMemoButton();
+        utility.sleep(2);
+        clickRefundOfflineButton();
+        utility.sleep(2);
+        VerifySuccessfullyRefundMsg();
+        clickCreditMemoLink();
+
+    }
 
     //Store Manager can edit orders
 
@@ -234,7 +311,7 @@ public class OrderPage extends TestBasePage{
     }
     public boolean VerifySuccessfulCancelMsg(){
         utility.waitForElementPresent(successfulCancelMsg);
-        if (OrderSuccessfulCreatedMsg.isDisplayed()) {
+        if (successfulCancelMsg.isDisplayed()) {
             Log.info("The order has been cancelled.");
             return true;
         }else

@@ -7,15 +7,13 @@ public class TestDataHolder {
     private static String userEmail;
     private static String orderId;
     private static String creditMemos;
-    private static String storeViewCode;
     private static String storeName;
     private static String stockName;
     private static String subCategoryName;
     private static String storeViewName;
     private static String cartPriceRuleName;
     private static String taxRuleName;
-    private static String refundRecordName;
-    private static String newProductName;
+    private static String RefundRecordCreditMemoNo;
 
     public TestDataHolder() {
     }
@@ -37,6 +35,7 @@ public class TestDataHolder {
     }
 
     public static String getProductCategoryName() {
+
         return productCategoryName;
     }
 
@@ -68,14 +67,6 @@ public class TestDataHolder {
         TestDataHolder.creditMemos = creditMemos;
     }
 
-    public static String getStoreViewCode() {
-        return storeViewCode;
-    }
-
-    public static void setStoreViewCode(String storeViewCode) {
-        TestDataHolder.storeViewCode = storeViewCode;
-    }
-
     public static String getStoreName() {
         return storeName;
     }
@@ -100,6 +91,13 @@ public class TestDataHolder {
         TestDataHolder.subCategoryName = subCategoryName;
     }
 
+    public static String getStoreViewName() {
+        return storeViewName;
+    }
+
+    public static void setStoreViewName(String storeViewName) {
+        TestDataHolder.storeViewName = storeViewName;
+    }
 
     public static String getCartPriceRuleName() {
         return cartPriceRuleName;
@@ -117,19 +115,13 @@ public class TestDataHolder {
         TestDataHolder.taxRuleName = taxRuleName;
     }
 
-    public static String getRefundRecordName() {
-        return refundRecordName;
+    public static String getRefundRecordCreditMemoNo() {
+
+        return RefundRecordCreditMemoNo;
     }
 
-    public static void setRefundRecordName(String refundRecordName) {
-        TestDataHolder.refundRecordName = refundRecordName;
-    }
+    public static void setRefundRecordCreditMemoNo(String RefundRecordCreditMemoNo) {
+        TestDataHolder.RefundRecordCreditMemoNo=RefundRecordCreditMemoNo;
 
-    public static String getNewProductName() {
-        return newProductName;
-    }
-
-    public static void setNewProductName(String newProductName) {
-        TestDataHolder.newProductName = newProductName;
     }
 }
