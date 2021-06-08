@@ -159,18 +159,14 @@ public class DataBaseTest extends TestBasePage {
         backEndLogin.backEndLogin(prop.getProperty("storeManager"), prop.getProperty("password"));
         StoreViewPage viewPage = new StoreViewPage(driver);
         String code = String.format(prop.getProperty("storeCode"), System.currentTimeMillis());
-        TestDataHolder.setStoreViewCode(code);
+       // TestDataHolder.setStoreViewCode(code);
         viewPage.createNewStoreView(prop.getProperty("StoreName"), code);
         StoreDashboardPage dashboardPage = new StoreDashboardPage(driver);
         dashboardPage.clickLogOutLink();
     }
     @Test(description = "Verify that newly added store view should be in the database")//Abdusamad
     public void isAddedStoreViewExist(){
-        DataAccess access=new DataAccess();
-        String getStoreViewQueryScript=String.format(QueryScript.getNewlyAddedStoreView(),TestDataHolder.getStoreViewCode());
-        CachedRowSet cachedRowSet=access.readFromDataBase(connection,getStoreViewQueryScript);
-        System.out.println("The Query script for verify new added product is:" +"\n"+getStoreViewQueryScript);
-        Assert.assertTrue(access.getRowCount(cachedRowSet));
+
 
     }
     @Test(description = "Verify that newly added Cart Price Rule should be in the database")//Abdukahar
