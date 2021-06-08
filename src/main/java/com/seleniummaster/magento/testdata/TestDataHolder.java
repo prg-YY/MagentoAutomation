@@ -7,6 +7,7 @@ public class TestDataHolder {
     private static String userEmail;
     private static String orderId;
     private static String creditMemos;
+    private  static String storeViewCode;
     private static String storeName;
     private static String stockName;
     private static String subCategoryName;
@@ -14,6 +15,23 @@ public class TestDataHolder {
     private static String cartPriceRuleName;
     private static String taxRuleName;
     private static String RefundRecordCreditMemoNo;
+    private  static String newProductName;
+
+    public static String getStoreViewCode() {
+        return storeViewCode;
+    }
+
+    public static void setStoreViewCode(String storeViewCode) {
+        TestDataHolder.storeViewCode = storeViewCode;
+    }
+
+    public static String getNewProductName() {
+        return newProductName;
+    }
+
+    public static void setNewProductName(String newProductName) {
+        TestDataHolder.newProductName = newProductName;
+    }
 
     public TestDataHolder() {
     }

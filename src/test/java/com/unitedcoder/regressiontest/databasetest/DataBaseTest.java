@@ -5,12 +5,14 @@ import com.seleniummaster.magento.backendpages.catalogpages.AddNewProductPage;
 import com.seleniummaster.magento.backendpages.catalogpages.AddRootCategoriesPage;
 import com.seleniummaster.magento.backendpages.catalogpages.CatalogDashboardPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerDashboardPage;
+import com.seleniummaster.magento.backendpages.customerpages.CustomerGroupPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
 import com.seleniummaster.magento.backendpages.salespages.OrdersPage;
 import com.seleniummaster.magento.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.magento.backendpages.salespages.TaxRulesPage;
 import com.seleniummaster.magento.backendpages.storepages.ManageProductsPage;
 import com.seleniummaster.magento.backendpages.storepages.StoreDashboardPage;
+import com.seleniummaster.magento.backendpages.storepages.StorePage;
 import com.seleniummaster.magento.backendpages.storepages.StoreViewPage;
 import com.seleniummaster.magento.database.ConnectionManager;
 import com.seleniummaster.magento.database.ConnectionType;
@@ -60,11 +62,27 @@ public class DataBaseTest extends TestBasePage {
         System.out.println("The Query Script was Executed for Adding Customer is"+"\n"+queryForAddCustomer);
         Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
-    @Test(description = "Verify that  new added customer groups should be in the database",priority = 3)//Abdukahar
-    public void isAddedCustomerGroupExist(){
-        DataAccess access=new DataAccess();
+    @Test(description = "add customer groups ",priority = 11)//abdukahhar
+    public void addCustomerGroups() {
+        CustomerGroupPage customerGroupPage = new CustomerGroupPage();
+        driver.get(prop.getProperty("BackendURL"));
+        BackEndLogin backEndLogin = new BackEndLogin(driver);
+        backEndLogin.backEndLogin(prop.getProperty("customerManager"), prop.getProperty("password"));
+        String newCustomerGroupName = String.format(prop.getProperty("newCustomerGroupName"), System.currentTimeMillis());
+       // customerGroupPage.addNewCustomerGroup(newCustomerGroupName);
+        TestDataHolder.setCustomerGroupName(newCustomerGroupName);
+        Assert.assertTrue(customerGroupPage.addCustomerGroupSuccessfully());
     }
-    @Test(description = "add product test",priority = 4)
+
+    @Test(description = "Verify that  new added customer groups should be in the database",priority = 3)//Abdukahar
+        public void isAddedCustomerGroupExist(){
+        DataAccess access=new DataAccess();
+        String queryForAddCustomerGroup=String.format(QueryScript.getNewlyAddedCustomerGroup(),TestDataHolder.getCustomerGroupName());
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection, queryForAddCustomerGroup);
+        System.out.println("The Query Script was Executed for Adding New Customer Group is"+"\n"+queryForAddCustomerGroup);
+        Assert.assertTrue(access.getRowCount(cachedRowSet));
+    }
+    @Test(description = "add product test",priority = 4) // yusufjan
     public void addProduct(){
         AddNewProductPage productsPage=new AddNewProductPage(driver);
         driver.get(prop.getProperty("BackendURL"));
@@ -72,18 +90,18 @@ public class DataBaseTest extends TestBasePage {
         backEndLogin.backEndLogin(prop.getProperty("catalogManager"), prop.getProperty("password"));
         String newProductName=String.format(prop.getProperty("productName"),System.currentTimeMillis());
         productsPage.createNewProduct(newProductName);
-      //  TestDataHolder.setNewProductName(newProductName);
+        TestDataHolder.setNewProductName(newProductName);
         Assert.assertTrue(productsPage.verifySuccess());
         StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
         dashboardPage.clickLogOutLink();
     }
-    @Test(description = "Verify that newly added product category should be in the database _Yusuf",priority = 5)
+    @Test(description = "Verify that newly added product category should be in the database _Yusuf",priority = 5)//yusufjan
     public void isAddedProductExist(){
-//        DataAccess access=new DataAccess();
-//    //    String getProductQueryScript=String.format(QueryScript.getNewlyAddedProduct(),TestDataHolder.getNewProductName());
-//        CachedRowSet cachedRowSet=access.readFromDataBase(connection,getProductQueryScript);
-//        System.out.println("The Query Script was Executed for Adding Product is"+"\n"+getProductQueryScript);
-//        Assert.assertTrue(access.getRowCount(cachedRowSet));
+        DataAccess access=new DataAccess();
+        String getProductQueryScript=String.format(QueryScript.getNewlyAddedProduct(),TestDataHolder.getNewProductName());
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection,getProductQueryScript);
+        System.out.println("The Query Script was Executed for Adding Product is"+"\n"+getProductQueryScript);
+        Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
     @Test(description = "create new Category test",priority = 6)//Sofia
     public void addRootCategory(){
@@ -151,9 +169,25 @@ public class DataBaseTest extends TestBasePage {
     public void isAddedCreditMemosExist(){
         DataAccess access=new DataAccess();
     }
+    @Test(description = "Create Store Test", priority = 22)//Leila
+    public void createStore() {
+        driver.get(prop.getProperty("BackendURL"));
+        backEndLogin = new BackEndLogin(driver);
+        backEndLogin.backEndLogin(prop.getProperty("storeManager"), prop.getProperty("password"));
+        StorePage viewPage = new StorePage(driver);
+        String storeName = String.format(prop.getProperty("StoreName"), System.currentTimeMillis());
+        TestDataHolder.setStoreName(storeName);
+        viewPage.createNewStore(storeName);
+        StoreDashboardPage dashboardPage = new StoreDashboardPage(driver);
+        dashboardPage.clickLogOutLink();
+    }
     @Test(enabled = false,description = "Verify that newly added store should be in the database",priority = 13)//Leila
     public void isAddedStoreExist(){
-        DataAccess access=new DataAccess();
+        DataAccess access = new DataAccess();
+        String getStoreQueryScript = String.format(QueryScript.getNewlyAddedStore(), TestDataHolder.getStoreName());
+        CachedRowSet cachedRowSet = access.readFromDataBase(connection, getStoreQueryScript);
+        System.out.println("The Query script for verify new added Store is:" + "\n" + getStoreQueryScript);
+        Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
     @Test(description = " add new  product ",priority = 14) //melike
     public void addNewProduct(){
@@ -187,24 +221,24 @@ public class DataBaseTest extends TestBasePage {
         backEndLogin.backEndLogin(prop.getProperty("storeManager"), prop.getProperty("password"));
         StoreViewPage viewPage=new StoreViewPage(driver);
         String code=String.format(prop.getProperty("storeCode"),System.currentTimeMillis());
-        //TestDataHolder.setStoreViewCode(code);
+        TestDataHolder.setStoreViewCode(code);
         viewPage.createNewStoreView(prop.getProperty("StoreName"),code);
         StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
         dashboardPage.clickLogOutLink();
     }
     @Test(description = "Verify that newly added store view should be in the database",priority = 18)//Abdusamad
     public void isAddedStoreViewExist(){
-//        DataAccess access=new DataAccess();
-//       // String getStoreViewQueryScript=String.format(QueryScript.getNewlyAddedStoreView(),TestDataHolder.getStoreViewCode());
-//       // CachedRowSet cachedRowSet=access.readFromDataBase(connection,getStoreViewQueryScript);
-//        System.out.println("The Query script for verify new added Store view is:" +"\n"+getStoreViewQueryScript);
-//        Assert.assertTrue(access.getRowCount(cachedRowSet));
+        DataAccess access=new DataAccess();
+       String getStoreViewQueryScript=String.format(QueryScript.getNewlyAddedStoreView(),TestDataHolder.getStoreViewCode());
+       CachedRowSet cachedRowSet=access.readFromDataBase(connection,getStoreViewQueryScript);
+       System.out.println("The Query script for verify new added Store view is:" +"\n"+getStoreViewQueryScript);
+       Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
     @Test(description = "Verify that newly added Cart Price Rule should be in the database",priority = 19)//Abdukahar
     public void isAddedCartPriceRuleExist(){
         DataAccess access=new DataAccess();
     }
-    @Test(description = "add Tax Rule",priority = 20)
+    @Test(description = "add Tax Rule",priority = 20) // yusupjan
     public void addTaxRule(){
         TaxRulesPage taxRulesPage=new TaxRulesPage(driver);
         driver.get(prop.getProperty("BackendURL"));
