@@ -48,6 +48,10 @@ public class CustomerPage extends TestBasePage {
     WebElement accountInformationLink;
     @FindBy(xpath = "//input[@name='account[taxvat]']")
     WebElement TaxVatNumberTextField;
+    @FindBy(id = "_accountnew_password")
+    WebElement newPasswordTextField;
+    @FindBy(id = "_accountcurrent_password")
+    WebElement currentPasswordTextFiled;
     @FindBy(xpath = "(//span[text()='Save Customer'])[1]")
     WebElement saveCustomerButton;
     @FindBy(xpath = "//span[contains(text(),'The customer has been saved.')]")
@@ -100,6 +104,10 @@ public class CustomerPage extends TestBasePage {
         utility.waitForElementPresent(passwordInputBox);
         passwordInputBox.sendKeys(prop.getProperty("password"));
         Log.info("password has entered ");
+    }
+    public void clickOnAccountInformationLink(){
+        utility.waitForElementPresent(accountInformationLink);
+        accountInformationLink.click();
     }
     public void clickSaveCustomerLink(){
         utility.waitForElementPresent(saveCustomerLink);
@@ -156,17 +164,35 @@ public class CustomerPage extends TestBasePage {
         TaxVatNumberTextField.sendKeys(TaxVatNum);
         utility.sleep(1);
     }
+    public void enterNewPassword(String newPassword){
+        utility.waitForElementPresent(newPasswordTextField);
+        newPasswordTextField.sendKeys(newPassword);
+    }
+    public void enterCurrentPassword(String currentPassword){
+        utility.waitForElementPresent(currentPasswordTextFiled);
+        currentPasswordTextFiled.sendKeys(currentPassword);
+    }
+
 
     public void clickSaveCustomerButton() {
         utility.waitForElementPresent(saveCustomerButton);
-        utility.sleep(2);
         saveCustomerButton.click();
     }
 
-    public boolean displaySuccessMessage() {
+    public boolean customerSavedSuccessfully() {
         utility.waitForElementPresent(SuccessMessage);
-        return SuccessMessage.isDisplayed();
-
+        if (SuccessMessage.isDisplayed()){
+            System.out.println("Test Passed, The Customer Updated Successfully");
+            return true;
+        }else System.out.println("Test Failed, Update customer test failed");
+        return false;
+    }
+    public void defineCustomer(String email){
+        enterEmailToSearchBox(email);
+        clickOnSearchButton();
+        utility.sleep(2);
+        clickEditLink();
+        utility.sleep(2);
     }
 
     public void updateCustomer(String cus_Email) {
@@ -179,7 +205,22 @@ public class CustomerPage extends TestBasePage {
         typeTaxVat();
         clickSaveCustomerButton();
         utility.sleep(2);
-        displaySuccessMessage();
+        customerSavedSuccessfully();
+    }
+    public void resetCustomerPassword(String customerEmail,String newPassword,String currentPassword){
+        enterEmailToSearchBox(customerEmail);
+        clickOnSearchButton();
+        utility.sleep(2);
+        clickEditLink();
+        utility.sleep(2);
+       // clickOnAccountInformationLink();
+        clickWithJSAccountLink();
+        utility.sleep(2);
+        enterNewPassword(newPassword);
+        enterCurrentPassword(currentPassword);
+        clickSaveCustomerLink();
+        utility.sleep(2);
+        customerSavedSuccessfully();
     }
     public boolean customerUpdatedSuccessfully(){
         utility.waitForElementPresent(successMessage);
