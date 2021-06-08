@@ -206,7 +206,6 @@ public class DataBaseTest extends TestBasePage {
         Assert.assertTrue(access.getRowCount(cachedRowSet));
 
     }
-
     @AfterClass(enabled = false)
     public void tearDown(){
         closeBrowser();
