@@ -6,8 +6,10 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+
 public class LoginSteps extends TestBasePage {
     BackEndLogin backEndLogin;
+
 
     @Given("user on login page")
     public void userOnLoginPage() {
@@ -16,11 +18,16 @@ public class LoginSteps extends TestBasePage {
 
     @When("user enter username and password click on login button")
     public void userEnterUsernameAndPasswordClickOnLoginButton() {
-        backEndLogin.backEndLogin(prop.getProperty("salesManager"), prop.getProperty("password"));
+        backEndLogin.backEndLogin(prop.getProperty("catalogManager"), prop.getProperty("password"));
     }
+
 
     @Then("user successfully login to the system")
     public void userSuccessfullyLoginToTheSystem() {
         backEndLogin.clickLoginSuccessfully();
     }
+
+
+
+
 }
