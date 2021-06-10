@@ -6,7 +6,6 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 
 public class Hook extends TestBasePage {
-
     @Before
     public void setUp() {
         initialization(prop.getProperty("BackendURL"));
