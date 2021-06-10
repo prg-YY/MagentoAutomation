@@ -1,6 +1,5 @@
 package com.seleniummaster.magento.database;
 
-import com.seleniummaster.magento.testdata.TestDataHolder;
 
 public class QueryScript {
     //1-customer module(AbDuSaMed)
