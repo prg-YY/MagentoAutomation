@@ -3,6 +3,7 @@ package com.unitedcoder.regressiontest.databasetest;
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.catalogpages.AddNewProductPage;
 import com.seleniummaster.magento.backendpages.catalogpages.AddRootCategoriesPage;
+import com.seleniummaster.magento.backendpages.catalogpages.AddSubCategoryPage;
 import com.seleniummaster.magento.backendpages.catalogpages.CatalogDashboardPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerDashboardPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerGroupPage;
@@ -25,6 +26,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import javax.sql.rowset.CachedRowSet;
 import java.sql.Connection;
+import java.util.Random;
 
 public class DataBaseTest extends TestBasePage {
     static String username=prop.getProperty("dbUserName");
@@ -37,7 +39,7 @@ public class DataBaseTest extends TestBasePage {
         connection= ConnectionManager.connectToDataBaseServer(username,password,ConnectionType.MYSQLServer);
         setUpBrowser();
     }
-    @Test(description = "",priority = 1) //Adusamad
+    @Test(description = "Add Customer Test",priority = 1) //Adusamad
     public void addCustomer(){
         driver.get(prop.getProperty("BackendURL"));
         backEndLogin = new BackEndLogin(driver);
@@ -59,16 +61,18 @@ public class DataBaseTest extends TestBasePage {
         System.out.println("The Query Script was Executed for Adding Customer is"+"\n"+queryForAddCustomer);
         Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
-    @Test(description = "add customer groups ",priority = 3)//abdukahhar
+    @Test(description = "add customer groups Test",priority = 3)//abdukahhar
     public void addCustomerGroups() {
         CustomerGroupPage customerGroupPage = new CustomerGroupPage();
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin = new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("customerManager"), prop.getProperty("password"));
         String newCustomerGroupName = String.format(prop.getProperty("newCustomerGroupName"), System.currentTimeMillis());
-       // customerGroupPage.addNewCustomerGroup(newCustomerGroupName);
+        customerGroupPage.addNewCustomerGroup(newCustomerGroupName,prop.getProperty("valueOfVIP"));
         TestDataHolder.setCustomerGroupName(newCustomerGroupName);
         Assert.assertTrue(customerGroupPage.addCustomerGroupSuccessfully());
+        CustomerDashboardPage dashboardPage=new CustomerDashboardPage(driver);
+        dashboardPage.cLickLogoutButton();
     }
     @Test(description = "Verify that  new added customer groups should be in the database",priority = 4)//Abdukahar
         public void isAddedCustomerGroupExist(){
@@ -96,7 +100,7 @@ public class DataBaseTest extends TestBasePage {
         DataAccess access=new DataAccess();
         String getProductQueryScript=String.format(QueryScript.getNewlyAddedProduct(),TestDataHolder.getNewProductName());
         CachedRowSet cachedRowSet=access.readFromDataBase(connection,getProductQueryScript);
-        System.out.println("The Query Script was Executed for Adding Product is"+"\n"+getProductQueryScript);
+        System.out.println("The Query Script was Executed for Added Product is"+"\n"+getProductQueryScript);
         Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
     @Test(description = "create new Category test",priority = 6)//Sofia
@@ -164,6 +168,10 @@ public class DataBaseTest extends TestBasePage {
     @Test(description = "Verify that newly added credit memos should be in the database",priority = 12)//Ayper
     public void isAddedCreditMemosExist(){
         DataAccess access=new DataAccess();
+        String getCreditMemosQueryScript=QueryScript.getCreditMemo();
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection,getCreditMemosQueryScript);
+        System.out.println("The Query script for verify new Order is:" +"\n"+getCreditMemosQueryScript);
+        Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
     @Test(description = "Create Store Test", priority = 13)//Leila
     public void createStore() {
@@ -177,7 +185,7 @@ public class DataBaseTest extends TestBasePage {
         StoreDashboardPage dashboardPage = new StoreDashboardPage(driver);
         dashboardPage.clickLogOutLink();
     }
-    @Test(enabled = false,description = "Verify that newly added store should be in the database",priority = 14)//Leila
+    @Test(description = "Verify that newly added store should be in the database",priority = 14)//Leila
     public void isAddedStoreExist(){
         DataAccess access = new DataAccess();
         String getStoreQueryScript = String.format(QueryScript.getNewlyAddedStore(), TestDataHolder.getStoreName());
@@ -208,11 +216,26 @@ public class DataBaseTest extends TestBasePage {
     }
     @Test(description = "Add sub category test",priority = 17)//Dilnur
     public void addSubCategory(){
-
+        AddSubCategoryPage subCategoryPage=new AddSubCategoryPage(driver);
+        driver.get(prop.getProperty("BackendURL"));
+        BackEndLogin backEndLogin = new BackEndLogin(driver);
+        backEndLogin.backEndLogin(prop.getProperty("catalogManager"), prop.getProperty("password"));
+        Random ran=new Random();
+        int r=ran.nextInt(1000);
+        String subCategoryName=String.format(prop.getProperty("subCatName"),r);
+        TestDataHolder.setProductCategoryName(subCategoryName);
+       subCategoryPage.addNewSubCategory(subCategoryName);
+        Assert.assertTrue(subCategoryPage.isAddSubCategorySuccessMassage());
+        CatalogDashboardPage dashboardPage=new CatalogDashboardPage(driver);
+        dashboardPage.clickLogOutLink();
     }
     @Test(description = "Verify that newly added sub categories should be in the database",priority = 18)//Dilnur
     public void isAddedSubCategoryExist(){
         DataAccess access=new DataAccess();
+        String getSubCategoryQueryScript=String.format(QueryScript.getNewlyAddedSubCategory(),TestDataHolder.getProductCategoryName());
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection,getSubCategoryQueryScript);
+        System.out.println("The Query Script was Executed for Adding Sub Category is"+"\n"+getSubCategoryQueryScript);
+        Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
     @Test(description = "Create Store view Test",priority = 19) //Abdusamad
     public void createStoreView(){
@@ -248,9 +271,11 @@ public class DataBaseTest extends TestBasePage {
         driver.get(prop.getProperty("BackendURL"));
         backEndLogin = new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("salesManager"), prop.getProperty("password"));
-        String ruleName=String.format(prop.getProperty("newTaxRuleName"),System.currentTimeMillis());
+        Random ran=new Random();
+        int r=ran.nextInt(1000);
+        String ruleName=String.format(prop.getProperty("newTaxRuleName"),r);
         taxRulesPage.createTaxRule(ruleName,prop.getProperty("vipValue"), prop.getProperty("taxableGoods"),
-                prop.getProperty("taxRateValue") );
+        prop.getProperty("taxRateValue") );
         TestDataHolder.setTaxRuleName(ruleName);
         Assert.assertTrue(taxRulesPage.successMessageIsDisplay());
         StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
@@ -264,26 +289,23 @@ public class DataBaseTest extends TestBasePage {
         System.out.println("The Query script for verify new added Tax Rule  is:" +"\n"+getNewTaxRuleQueryScript);
         Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
-    @Test(description = "Create new refund order)",priority = 23)
-    public void createNewRefundOrder() {
+    @Test (description = "delete tax rule",priority = 25)
+    public void deleteTaxRule(){
+        TaxRulesPage taxRulesPage=new TaxRulesPage(driver);
         driver.get(prop.getProperty("BackendURL"));
         backEndLogin = new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("salesManager"), prop.getProperty("password"));
-        StoreDashboardPage storeDashboardPage = new StoreDashboardPage(driver);
-        storeDashboardPage.clickAllSalesLink();
-        storeDashboardPage.clickOrdersLink();
-        OrderPage orderPage = new OrderPage(driver);
-        orderPage.createRefund();
-        orderPage.VerifySuccessfullyRefundMsg();
-        //System.out.println(orderPage.CreditMemosNoGetText());
-        //TestDataHolder.setRefundRecordCreditMemoNo(orderPage.CreditMemosNo());
-        Assert.assertTrue(orderPage.VerifySuccessfullyRefundMsg());
-        storeDashboardPage.clickLogOutLink();
-    }//Sofia
+        String ruleNameForDelete=TestDataHolder.getTaxRuleName();
+        taxRulesPage.deleteAnExistingTaxRule(ruleNameForDelete);
+        Assert.assertTrue(taxRulesPage.deleteSuccessfulMessageIsDisplayed());
+        StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
+        dashboardPage.clickLogOutLink();
+    }
+
     @Test(description = "Verify that newly added refund should be in the database",priority = 26)//Sofia
     public void isAddedRefundExist(){
         DataAccess access=new DataAccess();
-        String addNewRefundQueryScript=String.format(QueryScript.getNewlyAddedRefund(),TestDataHolder.getRefundRecordCreditMemoNo());
+        String addNewRefundQueryScript=String.format(QueryScript.getNewlyAddedRefund(),QueryScript.getNewlyAddedRefund());
         CachedRowSet cachedRowSet=access.readFromDataBase(connection,addNewRefundQueryScript);
         System.out.println("The Query Script was Executed for Adding refund is"+"\n"+addNewRefundQueryScript);
         Assert.assertTrue(access.getRowCount(cachedRowSet));

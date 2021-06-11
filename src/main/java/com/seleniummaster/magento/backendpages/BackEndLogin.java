@@ -53,8 +53,6 @@ public class BackEndLogin extends TestBasePage {
         enterUserName(userName);
         enterPassword(password);
         clickLoginButton();
-
+        utility.sleep(2);
     }
-
-
 }

@@ -10,7 +10,7 @@ public class QueryScript {
     //2-customer group(AbDuKaHar)
     public static String getNewlyAddedCustomerGroup()
     {
-        return "select * from mg_customer_group where customer_group_id=%s;";
+        return "select * from mg_customer_group where customer_group_code='%s';";
     }
     //3-catalog module(Yusuf)
     public static String getNewlyAddedProduct()
@@ -47,17 +47,17 @@ public class QueryScript {
     }
 
     public static String getNewlyAddedRefund(){
-        return "select * from mg_sales_flat_invoice where increment_id='%s';";
+        return "select * from mg_sales_refunded_aggregated_order where id='13';";
     }
 
     //store module
     public static String getNewlyAddedStoreView()
     {
-        return "select * from mg_core_store_group;";//get store
+        return "select store_id,code,name from mg_core_store where code='%s';";//get store view
     }
-    public static String getNewlyAddedStore2()
+    public static String getCreditMemo()
     {
-        return "select count(*) from mg_store order by store_id";
+        return "select entity_id,product_id,qty,price,order_item_id,name,sku from mg_sales_flat_creditmemo_item where sku='UYD2021';";
     }
     //user module
     public static String getNewlyAddedUser(){
@@ -65,9 +65,10 @@ public class QueryScript {
     }
 
     public static String getNewlyAddedStore() {
-        //return "select * from mg_core_store where code='%s';";
-        //return "select * from mg_core_store_group name='%s';";
         return "select * from mg_core_store_group where name='%s';";
-       //return "\"select * from i5751295_mg1.mg_core_store_group where name='ABC branch';";
     }
+    public static String getNewlyAddedSubCategory() {
+        return "select * from mg_catalog_category_entity_varchar where value='%s';";
+    }
+
 }

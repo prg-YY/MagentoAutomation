@@ -40,6 +40,11 @@ public class AddSubCategoryPage extends TestBasePage {
         nameTextField.sendKeys(prop.getProperty("Status"));
         Log.info("Name Text Box filled");
     }
+    public void enterSubCategoryName(String name) {
+        utility.waitForElementPresent(nameTextField);
+        nameTextField.sendKeys(name);
+        Log.info("Name Text Box filled");
+    }
 
 
     public void clickSaveCategory() {
@@ -47,11 +52,13 @@ public class AddSubCategoryPage extends TestBasePage {
         saveCategory.click();
         Log.info("New Sub Category Save Button Clicked");
     }
-
     public boolean isAddSubCategorySuccessMassage() {
         utility.waitForElementPresent(addSubCategorySuccessMassage);
-        return addSubCategorySuccessMassage.isDisplayed();
-
+        if (addSubCategorySuccessMassage.isDisplayed()){
+            System.out.println("Test Passed, The Sub category created successfully");
+            return true;
+        }else System.out.println("Test Failed. cannot Create sub category");
+        return false;
     }
 
     public void addSubCategory() {
@@ -64,7 +71,16 @@ public class AddSubCategoryPage extends TestBasePage {
         utility.sleep(2);
         clickSaveCategory();
         utility.sleep(2);
-
-
+    }
+    public void addNewSubCategory(String subCategoryName) {
+        catalogDashboardPage = new CatalogDashboardPage(driver);
+        catalogDashboardPage.clickCatalogLink();
+        catalogDashboardPage.clickManageCategories();
+        clickOnAddSubcategory();
+        utility.sleep(2);
+        enterSubCategoryName(subCategoryName);
+        utility.sleep(1);
+        clickSaveCategory();
+        utility.sleep(2);
     }
 }
