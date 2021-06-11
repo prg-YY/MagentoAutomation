@@ -1,7 +1,6 @@
 package com.seleniummaster.magento.backendpages.salespages;
 
-import com.seleniummaster.magento.utility.Log;
-import com.seleniummaster.magento.utility.TestBasePage;
+
 import com.seleniummaster.magento.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,11 +28,12 @@ public class CreditMemosPage  {
         for (int i=1;i<=CreditMemosList.size();i++){
             if (i>=1){
                 System.out.println("test past");
+                return true;
             }
             else
                 System.out.println("test failed");
         }
-        return true;
+        return false;
     }
 
     //Sales Manager should be able to view credit memos by filters and change
@@ -44,7 +44,7 @@ public class CreditMemosPage  {
     @FindBy(xpath = "//select[@name=\"sales_creditmemo_grid_export\"]")
     WebElement ExportToDropDownList;
     @FindBy(xpath = "//span[text()=\"Export\"]")
-    WebElement ExportButto;
+    WebElement ExportButton;
 
 
 }

@@ -1,7 +1,7 @@
 package com.unitedcoder.regressiontest.databasetest;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
-import com.seleniummaster.magento.backendpages.catalogpages.AddNewProductPage;
+import com.seleniummaster.magento.backendpages.catalogpages.ProductsPage;
 import com.seleniummaster.magento.database.ConnectionManager;
 import com.seleniummaster.magento.database.ConnectionType;
 import com.seleniummaster.magento.database.DataAccess;
@@ -31,11 +31,11 @@ public class yusufSteps extends TestBasePage {
 
     @And("preparation for new product creation")
     public void preparationForNewProductCreation() {
-        AddNewProductPage productsPage = new AddNewProductPage(driver);
+        ProductsPage productsPage = new ProductsPage();
         String newProductName = String.format(prop.getProperty("productName"), System.currentTimeMillis());
         productsPage.createNewProduct(newProductName);
         TestDataHolder.setNewProductName(newProductName);
-        Assert.assertTrue(productsPage.verifySuccess());
+        Assert.assertTrue(productsPage.AddProductSuccessfully());
     }
 
     @Then("verify New product created and should be in the database")
