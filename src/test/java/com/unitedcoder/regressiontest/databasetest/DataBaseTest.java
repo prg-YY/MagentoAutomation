@@ -1,10 +1,10 @@
 package com.unitedcoder.regressiontest.databasetest;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
-import com.seleniummaster.magento.backendpages.catalogpages.AddNewProductPage;
-import com.seleniummaster.magento.backendpages.catalogpages.AddRootCategoriesPage;
-import com.seleniummaster.magento.backendpages.catalogpages.AddSubCategoryPage;
 import com.seleniummaster.magento.backendpages.catalogpages.CatalogDashboardPage;
+import com.seleniummaster.magento.backendpages.catalogpages.ProductsPage;
+import com.seleniummaster.magento.backendpages.catalogpages.RootCategoryPage;
+import com.seleniummaster.magento.backendpages.catalogpages.SubCategoryPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerDashboardPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerGroupPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
@@ -34,6 +34,8 @@ public class DataBaseTest extends TestBasePage {
     Connection  connection;
     BackEndLogin backEndLogin ;
     CustomerPage customerPage;
+    SubCategoryPage subCategoryPage;
+    RootCategoryPage rootCategoryPage;
     @BeforeClass
     public void setUp(){
         connection= ConnectionManager.connectToDataBaseServer(username,password,ConnectionType.MYSQLServer);
@@ -84,7 +86,7 @@ public class DataBaseTest extends TestBasePage {
     }
     @Test(description = "add product test",priority = 4) // yusufjan
     public void addProduct(){
-        AddNewProductPage productsPage=new AddNewProductPage(driver);
+        ProductsPage productsPage = new ProductsPage();
         driver.get(prop.getProperty("BackendURL"));
         backEndLogin = new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("catalogManager"), prop.getProperty("password"));
@@ -105,15 +107,14 @@ public class DataBaseTest extends TestBasePage {
     }
     @Test(description = "create new Category test",priority = 6)//Sofia
     public void addRootCategory(){
-        AddRootCategoriesPage rootCategoriesPage;
+        rootCategoryPage=new RootCategoryPage();
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin = new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("catalogManager"), prop.getProperty("password"));
         String catName=String.format(prop.getProperty("newRootCategory"),System.currentTimeMillis());
         TestDataHolder.setProductCategoryName(catName);
-        rootCategoriesPage = new AddRootCategoriesPage(driver);
-        rootCategoriesPage.addNewRootCategory(catName);
-        Assert.assertTrue(rootCategoriesPage.isAddRootCategoryAddedSuccessfully());
+        rootCategoryPage.addNewRootCategory(catName);
+        Assert.assertTrue(rootCategoryPage.isAddRootCategoryAddedSuccessfully());
         CatalogDashboardPage dashboardPage=new CatalogDashboardPage(driver);
         dashboardPage.clickLogOutLink();
     }
@@ -216,7 +217,7 @@ public class DataBaseTest extends TestBasePage {
     }
     @Test(description = "Add sub category test",priority = 17)//Dilnur
     public void addSubCategory(){
-        AddSubCategoryPage subCategoryPage=new AddSubCategoryPage(driver);
+        subCategoryPage=new SubCategoryPage();
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin = new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("catalogManager"), prop.getProperty("password"));

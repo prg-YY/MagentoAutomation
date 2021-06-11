@@ -13,8 +13,10 @@ import org.testng.annotations.Test;
 import java.util.Random;
 
 public class CatalogModuleTestRunner extends TestBasePage {
-    AddRootCategoriesPage rootCategoriesPage;
+    RootCategoryPage rootCategoryPage;
+    SubCategoryPage subCategoryPage;
     ConnectionManager connectionManager=new ConnectionManager();
+    ProductsPage productsPage;
 
     @BeforeClass
     public void setUp() {
@@ -25,25 +27,25 @@ public class CatalogModuleTestRunner extends TestBasePage {
     }
     @Test(description = "Catalog Manager can add products",priority = 1)//Leila
     public void addProduct() {
-        AddNewProductPage productPage = new AddNewProductPage(driver);
+        productsPage = new ProductsPage();
         String newProductName=String.format(prop.getProperty("productName"),System.currentTimeMillis());
-        productPage.createNewProduct(newProductName);
+        productsPage.createNewProduct(newProductName);
         TestDataHolder.setNewProductName(newProductName);
-        Assert.assertTrue(productPage.AddProductSuccessfully());
+        Assert.assertTrue(productsPage.AddProductSuccessfully());
     }
 
     @Test(description = "Catalog Manager can edit products",priority = 2)//Melika
     public void editProduct() {
-        EditExistingProductPage productPage = new EditExistingProductPage(driver);
-        productPage.editExistingProduct(TestDataHolder.getNewProductName());
-        Assert.assertTrue(productPage.editProductSuccessfully());
+        productsPage = new ProductsPage();
+        productsPage.editExistingProduct(TestDataHolder.getNewProductName());
+        Assert.assertTrue(productsPage.editProductSuccessfully());
     }
 
     @Test(description = "Catalog Manager can delete products",priority = 3)//Dilnur
     public void deleteProduct() {
-        EditExistingProductPage productPage = new EditExistingProductPage(driver);
-        productPage.deleteExistingProduct(TestDataHolder.getNewProductName());
-        Assert.assertTrue(productPage.deleteProductSuccessfully());
+        productsPage = new ProductsPage();
+        productsPage.deleteExistingProduct(TestDataHolder.getNewProductName());
+        Assert.assertTrue(productsPage.deleteProductSuccessfully());
     }
 
     @Test(description = "1-Catalog Manager can add root categories ",priority = 4)//Abdukahar
@@ -52,28 +54,28 @@ public class CatalogModuleTestRunner extends TestBasePage {
         int r=ran.nextInt(100);
         String catName=String.format(prop.getProperty("newRootCategory"),r);
         TestDataHolder.setProductCategoryName(catName);
-        rootCategoriesPage = new AddRootCategoriesPage(driver);
-        rootCategoriesPage.addNewRootCategory(catName);
-        Assert.assertTrue(rootCategoriesPage.isAddRootCategoryAddedSuccessfully());
+        rootCategoryPage=new RootCategoryPage();
+        rootCategoryPage.addNewRootCategory(catName);
+        Assert.assertTrue(rootCategoryPage.isAddRootCategoryAddedSuccessfully());
     }
 
     @Test(description = "2-Catalog Manager can edit root categories",priority = 5)//Yusuf
     public void editCategoriesTest() {
-        EditCategoriesPage categoriesPage = new EditCategoriesPage();
-        categoriesPage.editAnExistingCategory(TestDataHolder.getProductCategoryName());
-        Assert.assertTrue(categoriesPage.editRootCategorySuccessfully());
+        rootCategoryPage=new RootCategoryPage();
+        rootCategoryPage.editAnExistingCategory(TestDataHolder.getProductCategoryName());
+        Assert.assertTrue(rootCategoryPage.editRootCategorySuccessfully());
     }
 
     @Test(description = "3-Catalog Manager can delete root categories",priority = 6)//Sofia
     public void deleteRootCategories() {
-        DeleteRootCategoriesPage deleteRootCategoriesPage = new DeleteRootCategoriesPage(driver);
-        deleteRootCategoriesPage.deleteAnExistingRootCategory(TestDataHolder.getProductCategoryName());
-        Assert.assertTrue(deleteRootCategoriesPage.deleteRootCategorySuccessfully());
+        rootCategoryPage=new RootCategoryPage();
+        rootCategoryPage.deleteAnExistingRootCategory(TestDataHolder.getProductCategoryName());
+        Assert.assertTrue(rootCategoryPage.deleteRootCategorySuccessfully());
     }
 
     @Test(description = "4-Catalog Manager can add sub categories",priority = 7)//zuhra
     public void addSubCategories() {
-        AddSubCategoryPage subCategoryPage = new AddSubCategoryPage(driver);
+        subCategoryPage = new SubCategoryPage();
         Random ran=new Random();
         int r=ran.nextInt(1000);
         String subCategoryName=String.format(prop.getProperty("subCatName"),r);
@@ -84,16 +86,16 @@ public class CatalogModuleTestRunner extends TestBasePage {
 
     @Test(description = "Catalog Manager can edit sub categories ",priority = 8)//Kembernisa
     public void editSubCategories() {
-        EditSubCategoryPage editSubCategoryPage = new EditSubCategoryPage(driver);
-        editSubCategoryPage.editExistingSubCategories(TestDataHolder.getSubCategoryName());
-        Assert.assertTrue(editSubCategoryPage.subCategoryEditedSuccessfully());
+        subCategoryPage = new SubCategoryPage();
+        subCategoryPage.editExistingSubCategories(TestDataHolder.getSubCategoryName());
+        Assert.assertTrue(subCategoryPage.subCategoryEditedSuccessfully());
     }
 
     @Test(description = "Catalog Manager can delete sub categories",priority = 9)//ayper
     public void deleteSubcategory() {
-        DeleteSubCategoryPage deleteSubCategoryPage = new DeleteSubCategoryPage(driver);
-        deleteSubCategoryPage.deleteSubCategory(TestDataHolder.getSubCategoryName());
-        Assert.assertTrue(deleteSubCategoryPage.deleteSubCategorySuccessfully());
+        subCategoryPage = new SubCategoryPage();
+        subCategoryPage.deleteSubCategory(TestDataHolder.getSubCategoryName());
+        Assert.assertTrue(subCategoryPage.deleteSubCategorySuccessfully());
     }
 
     @AfterClass
