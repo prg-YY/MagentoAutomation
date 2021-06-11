@@ -35,7 +35,7 @@ public class yusufSteps extends TestBasePage {
         String newProductName = String.format(prop.getProperty("productName"), System.currentTimeMillis());
         productsPage.createNewProduct(newProductName);
         TestDataHolder.setNewProductName(newProductName);
-        Assert.assertTrue(productsPage.verifySuccess());
+        Assert.assertTrue(productsPage.AddProductSuccessfully());
     }
 
     @Then("verify New product created and should be in the database")

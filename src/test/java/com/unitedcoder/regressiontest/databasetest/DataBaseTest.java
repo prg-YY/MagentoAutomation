@@ -91,7 +91,7 @@ public class DataBaseTest extends TestBasePage {
         String newProductName=String.format(prop.getProperty("productName"),System.currentTimeMillis());
         productsPage.createNewProduct(newProductName);
         TestDataHolder.setNewProductName(newProductName);
-        Assert.assertTrue(productsPage.verifySuccess());
+        Assert.assertTrue(productsPage.AddProductSuccessfully());
         StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
         dashboardPage.clickLogOutLink();
     }
@@ -109,11 +109,11 @@ public class DataBaseTest extends TestBasePage {
         driver.get(prop.getProperty("BackendURL"));
         BackEndLogin backEndLogin = new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("catalogManager"), prop.getProperty("password"));
-        String catName=String.format(prop.getProperty("NewRootCategories"),System.currentTimeMillis());
+        String catName=String.format(prop.getProperty("newRootCategory"),System.currentTimeMillis());
         TestDataHolder.setProductCategoryName(catName);
         rootCategoriesPage = new AddRootCategoriesPage(driver);
         rootCategoriesPage.addNewRootCategory(catName);
-        Assert.assertTrue(rootCategoriesPage.isAddRootCategorySuccessMassage());
+        Assert.assertTrue(rootCategoriesPage.isAddRootCategoryAddedSuccessfully());
         CatalogDashboardPage dashboardPage=new CatalogDashboardPage(driver);
         dashboardPage.clickLogOutLink();
     }
@@ -194,7 +194,7 @@ public class DataBaseTest extends TestBasePage {
         Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
     @Test(description = " add new  product ",priority = 15) //melike
-    public void addNewProduct(){
+    public void addNewStock(){
         ManageProductsPage productsPage=new ManageProductsPage(driver);
         driver.get(prop.getProperty("BackendURL"));
         backEndLogin = new BackEndLogin(driver);

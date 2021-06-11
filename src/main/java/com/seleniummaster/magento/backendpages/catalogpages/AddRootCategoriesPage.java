@@ -44,9 +44,9 @@ public class AddRootCategoriesPage extends TestBasePage {
         Log.info("Yes is Selected");
     }
 
-    public void fillDescriptionTextField() {
+    public void fillDescriptionTextField(String description) {
         utility.waitForElementPresent(descriptionTextField);
-        descriptionTextField.sendKeys(prop.getProperty("NewRootCategories"));
+        descriptionTextField.sendKeys(description);
         Log.info("Description Text Field Filled");
     }
 
@@ -56,9 +56,13 @@ public class AddRootCategoriesPage extends TestBasePage {
         Log.info("New RootCategory Save Button Clicked");
     }
 
-    public boolean isAddRootCategorySuccessMassage() {
+    public boolean isAddRootCategoryAddedSuccessfully() {
         utility.waitForElementPresent(addRootCategorySuccessMassage);
-        return addRootCategorySuccessMassage.isDisplayed();
+        if (addRootCategorySuccessMassage.isDisplayed()){
+            System.out.println("Test Passed,The root category Created Successfully");
+            return true;
+        }else System.out.println("Test Failed,cannot create new root category");
+        return false;
     }
 
     public void addNewRootCategory(String catName) {
@@ -72,7 +76,7 @@ public class AddRootCategoriesPage extends TestBasePage {
         utility.sleep(1);
         selectIsActiveDropDown();
         utility.sleep(1);
-        fillDescriptionTextField();
+        fillDescriptionTextField(prop.getProperty("rootDescription"));
         utility.sleep(1);
         clickNewRootCategorySaveButton();
         utility.sleep(1);

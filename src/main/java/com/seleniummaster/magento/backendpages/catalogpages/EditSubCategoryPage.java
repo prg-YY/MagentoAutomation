@@ -3,6 +3,7 @@ package com.seleniummaster.magento.backendpages.catalogpages;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,10 +36,10 @@ public class EditSubCategoryPage extends TestBasePage {
         Log.info(" team1RootCategory  clicked");
     }
 
-    public void enterDescriptionTextBox() {
+    public void enterDescriptionTextBox(String description) {
         utility.waitForElementPresent(descriptionTextBox);
         descriptionTextBox.clear();
-        descriptionTextBox.sendKeys(prop.getProperty("ca-firstNmae"));
+        descriptionTextBox.sendKeys(description);
         Log.info("Description is entered");
     }
 
@@ -48,10 +49,13 @@ public class EditSubCategoryPage extends TestBasePage {
         Log.info("Save Button Clicked");
     }
 
-    public boolean isEditSubCategorySuccessMassage() {
+    public boolean subCategoryEditedSuccessfully() {
         utility.waitForElementPresent(editSubCategorySuccessMassage);
-        return editSubCategorySuccessMassage.isDisplayed();
-
+        if (editSubCategorySuccessMassage.isDisplayed()){
+            System.out.println("Test Passed.Sub Category Edited Successfully");
+            return true;
+        }else System.out.println("Test Failed, cannot edit sub category");
+        return false;
     }
 
     public void editSubCategories() {
@@ -62,11 +66,24 @@ public class EditSubCategoryPage extends TestBasePage {
         utility.sleep(1);
         clickTeam1RootCategory();
         utility.sleep(1);
-        enterDescriptionTextBox();
+        enterDescriptionTextBox(prop.getProperty("editSubDescription"));
         utility.sleep(1);
         clickSaveButton();
         utility.sleep(1);
-
-
+    }
+    public void editExistingSubCategories(String subCategoryName) {
+        catalogDashboardPage = new CatalogDashboardPage(driver);
+        catalogDashboardPage.clickCatalogLink();
+        utility.sleep(1);
+        catalogDashboardPage.clickManageCategories();
+        utility.sleep(2);
+        WebElement rootCategoryLink=driver.findElement(By.xpath("//span[text()='"+subCategoryName+" (0)']"));
+        utility.waitForElementPresent(rootCategoryLink);
+        rootCategoryLink.click();
+        utility.sleep(1);
+        enterDescriptionTextBox(prop.getProperty("editSubDescription"));
+        utility.sleep(1);
+        clickSaveButton();
+        utility.sleep(2);
     }
 }

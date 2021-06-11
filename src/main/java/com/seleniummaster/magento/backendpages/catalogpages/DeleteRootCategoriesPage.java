@@ -2,7 +2,6 @@ package com.seleniummaster.magento.backendpages.catalogpages;
 
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
-import org.apache.poi.hssf.record.PageBreakRecord;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -31,10 +30,13 @@ public class DeleteRootCategoriesPage extends TestBasePage {
         DeleteCategoryLink.click();
     }
 
-    public boolean VerifySuccessfulMsgDisplay() {
+    public boolean deleteRootCategorySuccessfully() {
         utility.waitForElementPresent(DeleteSuccessMessage);
-        DeleteSuccessMessage.isDisplayed();
-        return true;
+        if (DeleteSuccessMessage.isDisplayed()){
+            System.out.println("Test Passed , The root Category Deleted successfully");
+            return true;
+        }else System.out.println("Test Failed, delete root category test failed");
+        return false;
     }
 
 
@@ -51,7 +53,24 @@ public class DeleteRootCategoriesPage extends TestBasePage {
         utility.waitForAlertPresent();
         Alert alert = driver.switchTo().alert();
         alert.accept();
-        VerifySuccessfulMsgDisplay();
+        deleteRootCategorySuccessfully();
+    }
+//delete root category --2021-6-11-abdusamad
+    public void deleteAnExistingRootCategory(String rootCategoryName) {
+        dashboardPage = new CatalogDashboardPage(driver);
+        dashboardPage.clickCatalogLink();
+        dashboardPage.clickManageCategories();
+        WebElement rootCategoryLink=driver.findElement(By.xpath("//span[text()='"+rootCategoryName+" (0)']"));
+        utility.waitForElementPresent(rootCategoryLink);
+        rootCategoryLink.click();
+        utility.sleep(1);
+        clickDeleteRootCategoryLink();
+        utility.waitForAlertPresent();
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+        deleteRootCategorySuccessfully();
+    }
+
 
 
         //String DeleteCategoryNAME = ApplicationConfig.readConfigProperties(ConfigFile, "DeleteCategoryName");
@@ -75,7 +94,7 @@ public class DeleteRootCategoriesPage extends TestBasePage {
 //
 //        VerifySuccessfulMsgDisplay();
 //    }
-    }
+
 
 
         //String DeleteCategoryNAME = ApplicationConfig.readConfigProperties(ConfigFile, "DeleteCategoryName");

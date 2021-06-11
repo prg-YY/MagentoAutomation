@@ -176,15 +176,15 @@ public class AddNewProductPage extends TestBasePage {
         PressSaveButton.click();
     }
 
-    public boolean verifySuccess() {
+    public boolean AddProductSuccessfully() {
         utility.waitForElementPresent(ConfirmationMessage);
        if (ConfirmationMessage.isDisplayed())
        {
-           System.out.printf("Add Product Test Pass");
+           System.out.printf("Test Pass,New Product Added Successfully");
            return true;
        }
        else
-           System.out.printf("Test failed");
+           System.out.printf("Test failed,cannot add new product");
        return false;
     }
     public void createNewProduct(String productName){
