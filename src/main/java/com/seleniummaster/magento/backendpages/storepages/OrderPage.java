@@ -67,7 +67,6 @@ public class OrderPage extends TestBasePage{
         utility.waitForElementPresent(CreateNewOrderButton);
         CreateNewOrderButton.click();
     }
-
     public void EnterCustomerName(String CustomerName){
         utility.waitForElementPresent(NameTextField);
         NameTextField.sendKeys(CustomerName);
@@ -97,7 +96,6 @@ public class OrderPage extends TestBasePage{
         } catch (TimeoutException e) {
             e.printStackTrace();
         }
-
     }
     public void clickAddProductButton(){
         utility.waitForElementPresent(AddProductButton);
@@ -107,7 +105,6 @@ public class OrderPage extends TestBasePage{
         } catch (ElementClickInterceptedException e) {
             e.printStackTrace();
         }
-
     }
     public void clickSelectedProductCheckBox(){
         utility.waitForElementPresent(selectedProductCheckBox);
@@ -136,7 +133,6 @@ public class OrderPage extends TestBasePage{
         } catch (ElementClickInterceptedException e) {
             e.printStackTrace();
         }
-
     }
     public boolean verifySuccessfulAddedMsg(){
         utility.waitForElementPresent(OrderSuccessfulCreatedMsg);
@@ -146,9 +142,7 @@ public class OrderPage extends TestBasePage{
         }else
             Log.info("test failed");
         return false;
-
     }
-
     public void CreateNewOrder(){
         clickCreateNewOrderButton();
         EnterCustomerName(prop.getProperty("CustomerName"));
@@ -245,8 +239,6 @@ public class OrderPage extends TestBasePage{
     }
 
     //Store Manager can edit orders
-
-
     public void selectStore(){
         utility.waitForElementPresent(SelectDropdownList);
         Select storeDropdown=new Select(SelectDropdownList);
@@ -300,11 +292,8 @@ public class OrderPage extends TestBasePage{
         clickFixCheckBox();
         clickSubmitOrderButton();
         verifySuccessfulAddedMsg();
-
     }
-
     //Store Manager can delete orders
-
     public void clickCancelButton(){
         utility.waitForElementPresent(cancelButton);
         cancelButton.click();
@@ -318,7 +307,6 @@ public class OrderPage extends TestBasePage{
             Log.info("test failed");
         return false;
     }
-
     public void CancelOrder(){
         selectStore();
         selectStatusDropDownList();
@@ -334,7 +322,5 @@ public class OrderPage extends TestBasePage{
         Alert alert = driver.switchTo().alert();
         alert.accept();
         VerifySuccessfulCancelMsg();
-
     }
-
 }

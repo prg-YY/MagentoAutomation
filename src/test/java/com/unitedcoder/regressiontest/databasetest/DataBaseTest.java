@@ -196,14 +196,14 @@ public class DataBaseTest extends TestBasePage {
     }
     @Test(description = " add new  product ",priority = 15) //melike
     public void addNewStock(){
-        ManageProductsPage productsPage=new ManageProductsPage(driver);
+        ManageProductsPage productsPage=new ManageProductsPage();
         driver.get(prop.getProperty("BackendURL"));
         backEndLogin = new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("storeManager"), prop.getProperty("password"));
         String newProductName=String.format(prop.getProperty("newProductName"),System.currentTimeMillis());
         productsPage.addNewProduct(newProductName);
         TestDataHolder.setStockName(newProductName);
-        Assert.assertTrue(productsPage.VerifySuccessfulMessage());
+        Assert.assertTrue(productsPage.addNewProductSuccessfully());
         StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
         dashboardPage.clickLogOutLink();
     }

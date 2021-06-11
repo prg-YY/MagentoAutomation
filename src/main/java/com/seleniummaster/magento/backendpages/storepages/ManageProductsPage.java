@@ -4,10 +4,7 @@ import com.seleniummaster.magento.utility.ApplicationConfig;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
@@ -16,8 +13,8 @@ import java.util.List;
 
 public class ManageProductsPage extends TestBasePage {
     WebDriver driver;
-    String ConfigFile = "config.properties";
     TestUtility utility;
+    StoreDashboardPage dashboardPage;
     @FindBy(xpath = "(//span[text()='Add Product'])[1]")
     WebElement addProductButton;
     @FindBy(xpath = "//button[@title=\"Continue\"]")
@@ -48,26 +45,49 @@ public class ManageProductsPage extends TestBasePage {
     WebElement saveButton;
     @FindBy(xpath = "//div[@id=\"messages\"]")
     WebElement VerifySuccessfullyAddedMessage;
+//update products
+    @FindBy(id = "productGrid_product_filter_name")
+    WebElement productNameSearchBox;
+    @FindBy(xpath = "//span[text()='Search']")
+    WebElement searchButton;
+    @FindBy(xpath = "//div[@class=\"hor-scroll\"]/table/tbody/tr[\"+i+\"]/td[12]/a")
+    WebElement editButton;
+    @FindBy(xpath="//div[@class=\"hor-scroll\"]/table/tbody/tr")
+    List<WebElement> ProductNameList;
+    @FindBy(xpath = "//div[@class=\"hor-scroll\"]/table/tbody/tr[\"+i+\"]/td[3]")
+    WebElement FondedProductName;
+    @FindBy(xpath = "//select[@id=\"country_of_manufacture\"]")
+    WebElement CountryOfManufactureDropDownList;
+    @FindBy(xpath = "//select[@id=\"country_of_manufacture\"]/option[35]" )
+    WebElement MadeInBrazilSelection;
+    @FindBy(xpath = "//span[text()='The product has been saved.']")
+    WebElement SuccessfulSavedMessage;
+// delete products Elements
+    @FindBy(xpath = "//*[@id=\"productGrid_table\"]/tbody/tr[1]/td[1]/input")
+    WebElement productCheckbox;
+    @FindBy(id = "productGrid_massaction-select")
+    WebElement actionSelection;
+    @FindBy(xpath = "//span[text()='Submit']")
+    WebElement submitButton;
+    @FindBy(xpath = "//span[text()='Total of 1 record(s) have been deleted.']")
+    WebElement deleteSuccessfulMessage;
 
    //Store Manager can add products (@Sofia)
 
-    public ManageProductsPage(WebDriver driver) {
-        this.driver = driver;
+    public ManageProductsPage() {
+        this.driver = TestBasePage.driver;
         PageFactory.initElements(driver, this);
         utility = new TestUtility(driver);
     }
     public void clickAddProductButton(){
         utility.waitForElementPresent(addProductButton);
         addProductButton.click();
-
     }
-
     public void clickContinueButton(){
         utility.waitForElementPresent(continueButton);
         continueButton.click();
     }
     String ProductName=ApplicationConfig.readConfigProperties("NewProductName");
-
     public void typeProductName(){
         utility.waitForElementPresent(productNameTextField);
         productNameTextField.sendKeys(ProductName);
@@ -76,7 +96,6 @@ public class ManageProductsPage extends TestBasePage {
         utility.waitForElementPresent(productNameTextField);
         productNameTextField.sendKeys(name);
     }
-
     public void typeDescription(String ProductDescription){
         utility.waitForElementPresent(descriptionTextField);
         descriptionTextField.sendKeys(ProductDescription);
@@ -84,36 +103,28 @@ public class ManageProductsPage extends TestBasePage {
     public void typeShortDescription(String ProductShortDescription){
         utility.waitForElementPresent(shortDescriptionTextField);
         shortDescriptionTextField.sendKeys(ProductShortDescription);
-
     }
     public void typeSKU(String SKU){
         utility.waitForElementPresent(SKUTextField);
         SKUTextField.sendKeys(SKU+System.currentTimeMillis());
     }
-
     public void typeWeight(String Weight){
         utility.waitForElementPresent(weightTextField);
         weightTextField.sendKeys(Weight);
     }
-
     public void chooseStatusEnableOption() {
         utility.waitForElementPresent(statusDropdownEnableOption);
         Select StatusDropdown=new Select(statusDropdown);
         StatusDropdown.selectByValue("1");
     }
-
     public void clickSaveAndContinueButton(){
         utility.waitForElementPresent(saveAndContinueButton);
         saveAndContinueButton.click();
     }
-
     public void typePrice(String Price){
         utility.waitForElementPresent(priceTextField);
-
         priceTextField.sendKeys(Price);
-
     }
-
     public void chooseTaxClassGeneralOption() {
         utility.waitForElementPresent(taxClassGeneralOption);
         Select StatusDropdown=new Select(taxClassDropDownList);
@@ -125,12 +136,14 @@ public class ManageProductsPage extends TestBasePage {
         saveButton.click();
     }
 
-    public boolean VerifySuccessfulMessage(){
+    public boolean addNewProductSuccessfully(){
         utility.waitForElementPresent(VerifySuccessfullyAddedMessage);
-        return VerifySuccessfullyAddedMessage.isDisplayed();
-
+        if (VerifySuccessfullyAddedMessage.isDisplayed()) {
+            System.out.println("Test Passed, New Product Added Successfully");
+            return true;
+        }else System.out.println("Test Failed,Cannot add new product");
+        return false;
     }
-
 
     public void AddProduct() {
         clickAddProductButton();
@@ -148,9 +161,8 @@ public class ManageProductsPage extends TestBasePage {
         VerifySuccessfullyAddedMessage.isDisplayed();
     }
     public void addNewProduct(String name) {
-StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
-dashboardPage.goToCreateProductsPage();
-
+        dashboardPage=new StoreDashboardPage(driver);
+        dashboardPage.goToCreateProductsPage();
         clickContinueButton();
        enterNewProductName(name);
         typeDescription(prop.getProperty("NewProductDescription"));
@@ -162,39 +174,46 @@ dashboardPage.goToCreateProductsPage();
         typePrice(prop.getProperty("Price"));
         chooseTaxClassGeneralOption();
         clickSaveButton();
-        VerifySuccessfullyAddedMessage.isDisplayed();
     }
 
-
-    // Store Manager can update products
-
-    @FindBy(xpath = "//div[@class=\"hor-scroll\"]/table/tbody/tr[\"+i+\"]/td[12]/a")
-    WebElement EditButton;
-    @FindBy(xpath="//div[@class=\"hor-scroll\"]/table/tbody/tr")
-    List<WebElement> ProductNameList;
-    @FindBy(xpath = "//div[@class=\"hor-scroll\"]/table/tbody/tr[\"+i+\"]/td[3]")
-    WebElement FondedProductName;
-    @FindBy(xpath = "//select[@id=\"country_of_manufacture\"]")
-    WebElement CountryOfManufactureDropDownList;
-    @FindBy(xpath = "//select[@id=\"country_of_manufacture\"]/option[35]" )
-    WebElement MadeInBrazilSelection;
-    @FindBy(xpath = "//span[text()='The product has been saved.']")
-    WebElement SuccessfulSavedMessage;
-
-
+    // Edit Product Method
+    public void enterNameToSearchBox(String productName){
+        utility.waitForElementPresent(productNameSearchBox);
+        productNameSearchBox.clear();
+        productNameSearchBox.sendKeys(productName);
+    }
+    public void clickOnSearchButton(){
+        utility.waitForElementPresent(searchButton);
+        searchButton.click();
+    }
+    public void clickOnEditButton(){
+        utility.waitForElementPresent(editButton);
+        editButton.click();
+    }
     public void chooseCountryOfManufacture(){
         utility.waitForElementPresent(MadeInBrazilSelection);
             Select CountryDropdown=new Select(CountryOfManufactureDropDownList);
             CountryDropdown.selectByValue("BR");
     }
 
-    public boolean VerifySuccessfulUpdated(){
+    public void defineProductToUpdate(String productName){
+        enterNameToSearchBox(productName);
+        utility.sleep(1);
+        clickOnSearchButton();
+        utility.sleep(2);
+        clickOnEditButton();
+        utility.sleep(2);
+    }
+
+    public boolean updateProductSuccessfully(){
         utility.waitForElementPresent(SuccessfulSavedMessage);
         if (SuccessfulSavedMessage.isDisplayed()) {
             Log.info("The product has been saved");
+            System.out.println("Test Passed,Update Product successfully");
             return true;
         }else
             Log.info("test failed");
+        System.out.println("Test Failed,Update product Test Failed");
         return false;
     }
 
@@ -208,15 +227,67 @@ dashboardPage.goToCreateProductsPage();
             }
             catch (TimeoutException e) {
             }
-
             chooseCountryOfManufacture();
             clickSaveButton();
-            VerifySuccessfulUpdated();
-
+            updateProductSuccessfully();
         }
         break;
+    }
+    }
+    //update existing product
+    public void updateExistingProduct(String productName){
+        dashboardPage=new StoreDashboardPage(driver);
+        dashboardPage.goToManageProductsPage();
+        defineProductToUpdate(productName);
+        chooseCountryOfManufacture();
+        clickSaveButton();
+        utility.sleep(2);
+    }
+    //delete product
 
+    public void clickOnProductCheckBox(){
+        utility.waitForElementPresent(productCheckbox);
+        productCheckbox.click();
+    }
+    public void selectDeleteFromAction(String value){
+        utility.waitForElementPresent(actionSelection);
+        Select select=new Select(actionSelection);
+        select.selectByValue(value);
+    }
+    public void clickOnSubmitButton(){
+        utility.waitForElementPresent(submitButton);
+        submitButton.click();
+    }
+    public void defineProductToDelete(String productName){
+        enterNameToSearchBox(productName);
+        utility.sleep(1);
+        clickOnSearchButton();
+        utility.sleep(2);
+        clickOnProductCheckBox();
+        utility.sleep(2);
+    }
+    public boolean deleteProductSuccessfully(){
+        utility.waitForElementPresent(deleteSuccessfulMessage);
+        if (deleteSuccessfulMessage.isDisplayed()){
+            System.out.println("Test Passed, Product deleted successfully");
+            return true;
+        }else System.out.println("Test Failed, cannot delete product");
+        return false;
     }
 
+    public void deleteExistingProduct(String productName){
+        dashboardPage=new StoreDashboardPage(driver);
+        dashboardPage.goToManageProductsPage();
+        utility.sleep(2);
+        defineProductToDelete(productName);
+        selectDeleteFromAction("delete");
+        utility.sleep(2);
+        clickOnSubmitButton();
+        utility.sleep(2);
+        Alert alert=driver.switchTo().alert();
+        utility.waitForAlertPresent();
+        alert.accept();
+        utility.sleep(2);
     }
+
 }
