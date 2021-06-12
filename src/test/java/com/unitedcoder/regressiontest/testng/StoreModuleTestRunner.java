@@ -2,7 +2,6 @@ package com.unitedcoder.regressiontest.testng;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.salespages.SalesDashboardPage;
-import com.seleniummaster.magento.backendpages.salespages.SalesOrderPage;
 import com.seleniummaster.magento.backendpages.storepages.*;
 import com.seleniummaster.magento.testdata.TestDataHolder;
 import com.seleniummaster.magento.utility.TestBasePage;
@@ -16,8 +15,7 @@ import java.util.Random;
 public class StoreModuleTestRunner extends TestBasePage {
     StoreDashboardPage dashboardPage;
     ManageProductsPage productsPage;
-    SalesOrderPage orderPage;
-
+    StoreOrderPage orderPage;
 
     @BeforeClass
     public void setUp() {
@@ -26,48 +24,48 @@ public class StoreModuleTestRunner extends TestBasePage {
         BackEndLogin backEndLogin = new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("storeManager"), prop.getProperty("password"));
     }
-//    @Test(description = "Store Manager can create a new order",priority = 1)//Abdusamad
-//    public void createNewOrder(){
-//        orderPage=new SalesOrderPage();
-//        dashboardPage=new StoreDashboardPage(driver);
-//        orderPage.createNewOrder(prop.getProperty("CustomerName"));
-//        TestDataHolder.setOrderId(orderPage.orderIdGetter());
-//        Assert.assertTrue(orderPage.creteOrderSuccessfully());
-//    }
-//    @Test(description = "Store Manager can edit orders",priority = 2)//Abdukahar
-//    public void editOrder(){
-//        orderPage=new SalesOrderPage();
-//        orderPage.updateOrder(TestDataHolder.getOrderId());
-//        Assert.assertTrue(orderPage.updateOrderSuccessfully());
-//    }
-//    @Test(description = "Store Manager can delete orders",priority = 3)//yusuf
-//    public void deleteOrder(){// cancelOrder
-//        orderPage=new SalesOrderPage();
-//        orderPage.cancelOrder(TestDataHolder.getOrderId());
-//        Assert.assertTrue(orderPage.cancelOrderSuccessfully());
-//    }
-//    @Test(description = "Store Manager can add products-Sofia",priority = 4)//sofia
-//    public void addProduct(){
-//        productsPage=new ManageProductsPage();
-//        Random ran=new Random();
-//        int r=ran.nextInt(100);
-//        String productName=String.format(prop.getProperty("NewProductName"),r);
-//        TestDataHolder.setNewProductName(productName);
-//        productsPage.addNewProduct(productName);
-//        Assert.assertTrue(productsPage.addNewProductSuccessfully());
-//    }
-//    @Test(description = "Store Manager can update products",priority = 5)//Zuhra
-//    public void updateProduct(){
-//        productsPage=new ManageProductsPage();
-//       productsPage.updateExistingProduct(TestDataHolder.getNewProductName());
-//        Assert.assertTrue(productsPage.updateProductSuccessfully());
-//    }
-//    @Test(description = "Store manager can Delete  Product",priority = 6)
-//    public void deleteProduct(){
-//        productsPage=new ManageProductsPage();
-//        productsPage.deleteExistingProduct(TestDataHolder.getNewProductName());
-//        Assert.assertTrue(productsPage.deleteProductSuccessfully());
-//    }
+    @Test(description = "Store Manager can create a new order",priority = 1)//Abdusamad
+    public void createNewOrder(){
+        orderPage=new StoreOrderPage();
+        dashboardPage=new StoreDashboardPage(driver);
+        orderPage.createNewOrder(prop.getProperty("CustomerName"));
+        TestDataHolder.setOrderId(orderPage.orderIdGetter());
+        Assert.assertTrue(orderPage.creteOrderSuccessfully());
+    }
+    @Test(description = "Store Manager can edit orders",priority = 2)//Abdukahar
+    public void editOrder(){
+        orderPage=new StoreOrderPage();
+        orderPage.updateOrder(TestDataHolder.getOrderId());
+        Assert.assertTrue(orderPage.updateOrderSuccessfully());
+    }
+    @Test(description = "Store Manager can delete orders",priority = 3)//yusuf
+    public void deleteOrder(){// cancelOrder
+        orderPage=new StoreOrderPage();
+        orderPage.cancelOrder(TestDataHolder.getOrderId());
+        Assert.assertTrue(orderPage.cancelOrderSuccessfully());
+    }
+    @Test(description = "Store Manager can add products-Sofia",priority = 4)//sofia
+    public void addProduct(){
+        productsPage=new ManageProductsPage();
+        Random ran=new Random();
+        int r=ran.nextInt(100);
+        String productName=String.format(prop.getProperty("NewProductName"),r);
+        TestDataHolder.setNewProductName(productName);
+        productsPage.addNewProduct(productName);
+        Assert.assertTrue(productsPage.addNewProductSuccessfully());
+    }
+    @Test(description = "Store Manager can update products",priority = 5)//Zuhra
+    public void updateProduct(){
+        productsPage=new ManageProductsPage();
+       productsPage.updateExistingProduct(TestDataHolder.getNewProductName());
+        Assert.assertTrue(productsPage.updateProductSuccessfully());
+    }
+    @Test(description = "Store manager can Delete  Product",priority = 6)
+    public void deleteProduct(){
+        productsPage=new ManageProductsPage();
+        productsPage.deleteExistingProduct(TestDataHolder.getNewProductName());
+        Assert.assertTrue(productsPage.deleteProductSuccessfully());
+    }
     @Test(description = "Store Manager can add product categories-KaMer")
     public void addProductCategories(){
         StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);

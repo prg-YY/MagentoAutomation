@@ -1,5 +1,6 @@
-package com.seleniummaster.magento.backendpages.salespages;
+package com.seleniummaster.magento.backendpages.storepages;
 
+import com.seleniummaster.magento.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
@@ -8,12 +9,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-public class SalesOrderPage extends TestBasePage {
+public class StoreOrderPage extends TestBasePage {
     WebDriver driver;
     String ConfigFile = "config.properties";
     TestUtility utility;
     SalesDashboardPage dashboardPage;
-    public SalesOrderPage() {
+    public StoreOrderPage() {
         this.driver= TestBasePage.driver;
         PageFactory.initElements(driver, this);
         utility=new TestUtility(driver);
@@ -26,7 +27,6 @@ public class SalesOrderPage extends TestBasePage {
     WebElement nameSearchBox;
     @FindBy(xpath = "(//span[text()=\"Search\"])[1]")
     WebElement SearchButton;
-    ////div[@class="hor-scroll"]/table/tbody/tr/td
     @FindBy(xpath = "//*[@id=\"sales_order_create_customer_grid_table\"]/tbody/tr/td[2]")
     WebElement selectedCustomer;
     //*[@id="sales_order_create_customer_grid_table"]/tbody/tr/td[2]
@@ -40,7 +40,7 @@ public class SalesOrderPage extends TestBasePage {
     WebElement addSelectedProductToOrderButton;
     @FindBy(xpath = "//input[@id=\"p_method_checkmo\"]")
     WebElement paymentMethodCheckBox;
-    @FindBy(xpath = "//a[contains(text(),'Get shipping methods and rates')]")
+    @FindBy(xpath = "//a[@onclick=\"order.loadShippingRates();return false\"]")
     WebElement getShippingMethodAndRatesLink;
     @FindBy(xpath = "//input[@onclick=\"order.setShippingMethod(this.value)\"]")
     WebElement fixedCheckBox;
@@ -48,7 +48,7 @@ public class SalesOrderPage extends TestBasePage {
     WebElement submitOrderButton;
     @FindBy(xpath ="//span[text()=\"The order has been created.\"]")
     WebElement orderSuccessfulCreatedMsg;
-//Update Order Elements
+    //Update Order Elements
     @FindBy(id = "sales_order_grid_filter_real_order_id")
     WebElement orderIdSearchBox;
     @FindBy(xpath = "//span[text()=\"Search\"]")
@@ -80,29 +80,21 @@ public class SalesOrderPage extends TestBasePage {
     WebElement orderId;
 //Create Order Methods
     public void clickCreateNewOrderButton(){
-    utility.waitForElementPresent(createNewOrderLink);
-    createNewOrderLink.click();
-}
-    public void enterCustomerName(String CustomerName){
+        utility.waitForElementPresent(createNewOrderLink);
+        createNewOrderLink.click();
+    }
+    public void EnterCustomerName(String CustomerName){
         utility.waitForElementPresent(nameSearchBox);
         nameSearchBox.sendKeys(CustomerName);
     }
     public void clickSearchButton(){
         utility.waitForElementPresent(SearchButton);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        utility.sleep(2);
         SearchButton.click();
     }
     public void clickSelectedCustomer(){
         utility.waitForElementPresent(selectedCustomer);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+      utility.sleep(2);
         selectedCustomer.click();
     }
     public void clickSelectedStore(){
@@ -163,7 +155,7 @@ public class SalesOrderPage extends TestBasePage {
     }
     public void createOrder(){
         clickCreateNewOrderButton();
-        enterCustomerName(prop.getProperty("CustomerName"));
+        EnterCustomerName(prop.getProperty("CustomerName"));
         clickSearchButton();
         clickSelectedCustomer();
         clickSelectedStore();
@@ -181,10 +173,12 @@ public class SalesOrderPage extends TestBasePage {
         dashboardPage=new SalesDashboardPage(driver);
         dashboardPage.goToOrderPage();
         clickCreateNewOrderButton();
-        enterCustomerName(customerName);
+        EnterCustomerName(customerName);
         clickSearchButton();
+        utility.sleep(2);
         clickSelectedCustomer();
         clickSelectedStore();
+        utility.sleep(2);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,-500)");
         clickAddProductButton();
@@ -211,12 +205,12 @@ public class SalesOrderPage extends TestBasePage {
         System.out.println("The Order Id That getted from the Order Result : "+orderNumber);
         return orderNumber;
     }
-//Update Order Methods
+    //Update Order Methods
     public void enterOrderIdToSearchBox(String orderId){
-    utility.waitForElementPresent(orderIdSearchBox);
-    orderIdSearchBox.clear();
-    orderIdSearchBox.sendKeys(orderId);
-}
+        utility.waitForElementPresent(orderIdSearchBox);
+        orderIdSearchBox.clear();
+        orderIdSearchBox.sendKeys(orderId);
+    }
     public void clickOnSearchButton(){
         utility.waitForElementPresent(searchButton);
         searchButton.click();
@@ -242,11 +236,11 @@ public class SalesOrderPage extends TestBasePage {
         companyTextField.sendKeys(companyName);
     }
     public void defineOrderToUpdate(String orderNumber){
-       enterOrderIdToSearchBox(orderNumber);
-       clickOnSearchButton();
-       utility.sleep(2);
-       clickOnOrderViewLink();
-       utility.sleep(2);
+        enterOrderIdToSearchBox(orderNumber);
+        clickOnSearchButton();
+        utility.sleep(2);
+        clickOnOrderViewLink();
+        utility.sleep(2);
     }
     public boolean updateOrderSuccessfully(){
         utility.waitForElementPresent(orderSuccessfulCreatedMsg);
@@ -269,8 +263,8 @@ public class SalesOrderPage extends TestBasePage {
         alert.accept();
         utility.sleep(2);
         enterQuantityNumber("2");
-         clickOnUpdateItemQuantityLink();
-         utility.sleep(2);
+        clickOnUpdateItemQuantityLink();
+        utility.sleep(2);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,-500)");
         clickPaymentMethod();
@@ -283,7 +277,7 @@ public class SalesOrderPage extends TestBasePage {
         utility.sleep(2);
 
     }
-//Cancel Order Methods
+    //Cancel Order Methods
     public void clickOnOrderCheckBox(){
         utility.waitForElementPresent(orderCheckBox);
         orderCheckBox.click();

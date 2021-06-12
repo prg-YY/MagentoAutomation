@@ -8,7 +8,6 @@ import com.seleniummaster.magento.backendpages.catalogpages.SubCategoryPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerDashboardPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerGroupPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
-import com.seleniummaster.magento.backendpages.salespages.OrdersPage;
 import com.seleniummaster.magento.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.magento.backendpages.salespages.TaxRulesPage;
 import com.seleniummaster.magento.backendpages.storepages.*;
@@ -151,10 +150,10 @@ public class DataBaseTest extends TestBasePage {
         driver.get(prop.getProperty("BackendURL"));
       backEndLogin=new BackEndLogin(driver);
       backEndLogin.backEndLogin(prop.getProperty("salesManager"),prop.getProperty("password"));
-        OrdersPage ordersPage=new OrdersPage(driver);
-        ordersPage.createNewOrder(prop.getProperty("FrondEmail"));
-        TestDataHolder.setOrderId(ordersPage.orderIdGetter());
-       Assert.assertTrue(ordersPage.verifyOrderCreatedSuccessfully());
+        StoreOrderPage orderPage=new StoreOrderPage();
+        orderPage.createNewOrder(prop.getProperty("FrondEmail"));
+        TestDataHolder.setOrderId(orderPage.orderIdGetter());
+       Assert.assertTrue(orderPage.creteOrderSuccessfully());
         SalesDashboardPage dashboardPage=new SalesDashboardPage(driver);
         dashboardPage.clickLogOutLink();
     }

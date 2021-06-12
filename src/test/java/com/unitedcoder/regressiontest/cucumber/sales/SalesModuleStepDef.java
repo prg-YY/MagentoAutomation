@@ -1,7 +1,7 @@
 package com.unitedcoder.regressiontest.cucumber.sales;
 
-import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.salespages.*;
+import com.seleniummaster.magento.testdata.TestDataHolder;
 import com.seleniummaster.magento.utility.TestBasePage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -10,8 +10,8 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 public class SalesModuleStepDef extends TestBasePage {
-    SalesDashboardPage dashboardPage=new SalesDashboardPage(driver);
-    OrdersPage ordersPage=new OrdersPage(driver);
+    SalesDashboardPage dashboardPage;
+    OrdersPage orderPage =new OrdersPage(driver);
     InvoicesPage invoicesPage=new InvoicesPage(driver);
     ShipmentPage shipmentPage=new ShipmentPage(driver);
     CreditMemosPage creditMemosPage=new CreditMemosPage(driver);
@@ -25,28 +25,16 @@ public class SalesModuleStepDef extends TestBasePage {
     @When("sales manager go to order page and click create new order link")
     public void salesManagerGoToOrderPageAndClickCreateNewOrderLink() {
         dashboardPage.goToOrderPage();
-        ordersPage.clickOnCreateOrderLink();
+        orderPage.clickOnCreateOrderLink();
     }
-
-    @And("sales manager choose customer for order")
-    public void salesManagerChooseCustomerForOrder() {
-        ordersPage.searchCustomerForOrder(prop.getProperty("FrondEmail1"));
+    @And("sales manager create new order")
+    public void salesManagerCreateNewOrder() {
+        orderPage.createNewOrder(prop.getProperty("FrondEmail"));
+        TestDataHolder.setOrderId(orderPage.orderIdGetter());
     }
-
-    @And("sales manager add products to order")
-    public void salesManagerAddProductsToOrder() {
-        ordersPage.addProductForOrder();
-    }
-
-    @And("choose payment method and shipment and click submit order button")
-    public void choosePaymentMethodAndShipmentAndClickSubmitOrderButton() {
-        ordersPage.clickShipmentAndSubmitButton();
-    }
-
     @Then("The New Order Created Successfully")
     public void theNewOrderCreatedSuccessfully() {
-        ordersPage.verifyOrderCreatedSuccessfully();
-        Assert.assertTrue(ordersPage.verifyOrderCreatedSuccessfully());
+        Assert.assertTrue(orderPage.verifyOrderCreatedSuccessfully());
     }
 
     @When("sales manager go to order page")
@@ -54,41 +42,22 @@ public class SalesModuleStepDef extends TestBasePage {
         dashboardPage.goToOrderPage();
     }
 
-    @And("user choose  order for update and click on edit button")
-    public void userChooseOrderForUpdateAndClickOnEditButton() {
-        ordersPage.selectPendingOrder(prop.getProperty("pending"));
-        ordersPage.clickOnOrderViewForUpdate();
-        ordersPage.clickEditButton();
+    @And("sales manager edit order")
+    public void salesManagerEditOrder() {
+        orderPage.updateExistingOrder(TestDataHolder.getOrderId());
     }
-
-    @And("Add some information for update")
-    public void addSomeInformationForUpdate() {
-        ordersPage.enterCompanyName(prop.getProperty("companyName"));
-        ordersPage.clickEditSubmitButton();
-    }
-
     @Then("Existing order updated successfully")
     public void existingOrderUpdatedSuccessfully() {
-        ordersPage.isOrderUpdatedSuccessfully();
-        Assert.assertTrue(ordersPage.isOrderUpdatedSuccessfully());
+       Assert.assertTrue(orderPage.isOrderUpdatedSuccessfully());
     }
 
-    @And("sales manager choose one order to cancel")
-    public void salesManagerChooseOneOrderToCancel() {
-        ordersPage.selectPendingOrder("pending");
-        ordersPage.clickOrderCheckBox();
+    @And("click on cancel order")
+    public void clickOnCancelOrder() {
+        orderPage.cancelOrder(TestDataHolder.getOrderId());
     }
-
-    @And("click on cancel order action and submit it")
-    public void clickOnCancelOrderActionAndSubmitIt() {
-        ordersPage.selectCancel(prop.getProperty("cancelOrder"));
-        ordersPage.clickOnCancelSubmitButton();
-    }
-
     @Then("The order canceled successfully")
     public void theOrderCanceledSuccessfully() {
-        ordersPage.isCancelSuccessMessageDisplayed();
-        Assert.assertTrue(ordersPage.isCancelSuccessMessageDisplayed());
+        Assert.assertTrue(orderPage.cancelOrderSuccessfully());
     }
 
     @When("sales manager click on invoice link")
@@ -237,4 +206,5 @@ public class SalesModuleStepDef extends TestBasePage {
     public void taxRuleDeletedSuccessfully() {
         Assert.assertTrue(rulesPage.deleteSuccessfulMessageIsDisplayed());
     }
+
 }
