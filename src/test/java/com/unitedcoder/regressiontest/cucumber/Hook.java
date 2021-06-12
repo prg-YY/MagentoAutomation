@@ -11,15 +11,16 @@ import io.cucumber.java.Before;
 import java.sql.Connection;
 
 public class Hook extends TestBasePage {
-   static String username=prop.getProperty("dbUserName");
-    static String password=prop.getProperty("dbPassword");
-    Connection connection;
+//   static String username=prop.getProperty("dbUserName");
+//    static String password=prop.getProperty("dbPassword");
+//    Connection connection;
 
     @Before
     public void setUp() {
         initialization(prop.getProperty("BackendURL"));
-        if(connection==null){
-        connection= ConnectionManager.connectToDataBaseServer(username,password, ConnectionType.MYSQLServer);}
+//        if(connection==null){
+//        connection= ConnectionManager.connectToDataBaseServer(username,password, ConnectionType.MYSQLServer);}
+//
     }
     @After(order = 1)
     public void logOut() {
@@ -27,11 +28,11 @@ public class Hook extends TestBasePage {
       storeDashboardPage.clickLogOutLink();
     }
 
-    @After(order = 0,value = "@DeleteExistingTaxRule")
+   @After (order = 0)
     public void tearDown() {
         driver.close();
         driver = null;
-       ConnectionManager.closeDataBaseConnection(connection);
+//       ConnectionManager.closeDataBaseConnection(connection);
 
     }
 }
