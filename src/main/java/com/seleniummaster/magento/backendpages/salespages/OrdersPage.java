@@ -139,8 +139,11 @@ public class OrdersPage extends TestBasePage {
         utility.waitForElementPresent(successMessageForCreate);
         if (successMessageForCreate.getText().contains("Success")){
             Log.info("Test Passed ,The Order Created Successfully");
+            System.out.println("Test Passed,New Order Created successfully");
+            return true;
         }else Log.info("Test Failed,Cannot Create Order");
-        return true;
+        System.out.println("Test Failed.Cannot Create New Order");
+        return false;
     }
     //Search Customer method For Order
     public void searchCustomerForOrder(String email){
@@ -289,7 +292,7 @@ public class OrdersPage extends TestBasePage {
         if (successMessageForUpdate.isDisplayed()){
             System.out.println("Test Passed , The Order Updated Successfully");
             return true;
-        }else System.out.println("Test Failed");
+        }else System.out.println("Update Order Test Failed");
         return false;
     }
 

@@ -1,6 +1,8 @@
 package com.unitedcoder.regressiontest.testng;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
+import com.seleniummaster.magento.backendpages.salespages.SalesDashboardPage;
+import com.seleniummaster.magento.backendpages.salespages.SalesOrderPage;
 import com.seleniummaster.magento.backendpages.storepages.*;
 import com.seleniummaster.magento.testdata.TestDataHolder;
 import com.seleniummaster.magento.utility.TestBasePage;
@@ -13,8 +15,8 @@ import java.util.Random;
 
 public class StoreModuleTestRunner extends TestBasePage {
     StoreDashboardPage dashboardPage;
-    OrderPage orderPage;
     ManageProductsPage productsPage;
+    SalesOrderPage orderPage;
 
 
     @BeforeClass
@@ -24,32 +26,26 @@ public class StoreModuleTestRunner extends TestBasePage {
         BackEndLogin backEndLogin = new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("storeManager"), prop.getProperty("password"));
     }
-    @Test(description = "Store Manager can create a new order-AbDuSaMed")
-    public void createNewOrder(){
-        orderPage=new OrderPage(driver);
-        orderPage.CreateNewOrder();
-        orderPage.verifySuccessfulAddedMsg();
-    }
-    @Test(description = "Store Manager can edit orders-AbDuKaHar")
-    public void editOrder(){
-        StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
-        storeDashboardPage.clickAllSalesLink();
-        storeDashboardPage.clickOrdersLink();
-        OrderPage orderPage=new OrderPage(driver);
-        orderPage.EditOrder();
-        Assert.assertTrue(orderPage.verifySuccessfulAddedMsg());
-
-    }
-    @Test(description = "Store Manager can delete orders-Yusuf")
-    public void deleteOrder(){// cancelOrder
-        StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
-        storeDashboardPage.clickAllSalesLink();
-        storeDashboardPage.clickOrdersLink();
-        OrderPage orderPage=new OrderPage(driver);
-        orderPage.CancelOrder();
-        Assert.assertTrue(orderPage.VerifySuccessfulCancelMsg());
-
-    }
+//    @Test(description = "Store Manager can create a new order",priority = 1)//Abdusamad
+//    public void createNewOrder(){
+//        orderPage=new SalesOrderPage();
+//        dashboardPage=new StoreDashboardPage(driver);
+//        orderPage.createNewOrder(prop.getProperty("CustomerName"));
+//        TestDataHolder.setOrderId(orderPage.orderIdGetter());
+//        Assert.assertTrue(orderPage.creteOrderSuccessfully());
+//    }
+//    @Test(description = "Store Manager can edit orders",priority = 2)//Abdukahar
+//    public void editOrder(){
+//        orderPage=new SalesOrderPage();
+//        orderPage.updateOrder(TestDataHolder.getOrderId());
+//        Assert.assertTrue(orderPage.updateOrderSuccessfully());
+//    }
+//    @Test(description = "Store Manager can delete orders",priority = 3)//yusuf
+//    public void deleteOrder(){// cancelOrder
+//        orderPage=new SalesOrderPage();
+//        orderPage.cancelOrder(TestDataHolder.getOrderId());
+//        Assert.assertTrue(orderPage.cancelOrderSuccessfully());
+//    }
 //    @Test(description = "Store Manager can add products-Sofia",priority = 4)//sofia
 //    public void addProduct(){
 //        productsPage=new ManageProductsPage();
@@ -72,26 +68,25 @@ public class StoreModuleTestRunner extends TestBasePage {
 //        productsPage.deleteExistingProduct(TestDataHolder.getNewProductName());
 //        Assert.assertTrue(productsPage.deleteProductSuccessfully());
 //    }
-//    @Test(description = "Store Manager can add product categories-KaMer")
-//    public void addProductCategories(){
-//        StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
-//        storeDashboardPage.clickAllCatalogLink();
-//        storeDashboardPage.clickManageCategoriesLink();
-//        ProductCategoriesPage productCategoriesPage=new ProductCategoriesPage(driver);
-//        productCategoriesPage.addProductCategory();
-//        Assert.assertTrue(productCategoriesPage.VerifySuccessfullyAddCategoryMsg());
-//
-//    }
-//    @Test(description = "Store Manager can update product categories-AyPer")
-//    public void updateProductCategories(){
-//        StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
-//        storeDashboardPage.clickAllCatalogLink();
-//        storeDashboardPage.clickManageCategoriesLink();
-//        ProductCategoriesPage productCategoriesPage=new ProductCategoriesPage(driver);
-//        productCategoriesPage.UpdateProductCategory();
-//        Assert.assertTrue(productCategoriesPage.VerifySuccessfullyAddCategoryMsg());
-//
-//    }
+    @Test(description = "Store Manager can add product categories-KaMer")
+    public void addProductCategories(){
+        StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
+        storeDashboardPage.clickAllCatalogLink();
+        storeDashboardPage.clickManageCategoriesLink();
+        ProductCategoriesPage productCategoriesPage=new ProductCategoriesPage(driver);
+        productCategoriesPage.addProductCategory();
+        Assert.assertTrue(productCategoriesPage.VerifySuccessfullyAddCategoryMsg());
+    }
+    @Test(description = "Store Manager can update product categories-AyPer")
+    public void updateProductCategories(){
+        StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
+        storeDashboardPage.clickAllCatalogLink();
+        storeDashboardPage.clickManageCategoriesLink();
+        ProductCategoriesPage productCategoriesPage=new ProductCategoriesPage(driver);
+        productCategoriesPage.UpdateProductCategory();
+        Assert.assertTrue(productCategoriesPage.VerifySuccessfullyAddCategoryMsg());
+    }
+
 //    @Test(description = "Store Manager can create a website-AbDuKaHar")
 //    public void createWebSite(){
 //        WebsitePage websitePage=new WebsitePage(driver);
@@ -153,8 +148,8 @@ public class StoreModuleTestRunner extends TestBasePage {
 //
 //    }
 //
-//    @AfterClass
-//    public void tearDown(){
-//
-//    }
+    @AfterClass
+    public void tearDown(){
+
+    }
 }

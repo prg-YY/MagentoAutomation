@@ -178,5 +178,11 @@ public class StoreDashboardPage extends TestBasePage {
         clickCreateStoreViewLink();
         utility.sleep(2);
     }
+    public void goToCreateOrderPage(){
+        clickAllSalesLink();
+        clickOrdersLink();
+        utility.sleep(2);
+
+    }
 
 }

@@ -259,9 +259,7 @@ public class DataBaseTest extends TestBasePage {
        Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
     @Test(description = "Add cart price rule test",priority = 21)
-    public void addCartPriceRule(){
-
-    }
+    public void addCartPriceRule(){ }
     @Test(description = "Verify that newly added Cart Price Rule should be in the database",priority = 22)//Abdukahar
     public void isAddedCartPriceRuleExist(){
         DataAccess access=new DataAccess();
@@ -302,7 +300,6 @@ public class DataBaseTest extends TestBasePage {
         StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
         dashboardPage.clickLogOutLink();
     }
-
     @Test(description = "Verify that newly added refund should be in the database",priority = 26)//Sofia
     public void isAddedRefundExist(){
         DataAccess access=new DataAccess();
