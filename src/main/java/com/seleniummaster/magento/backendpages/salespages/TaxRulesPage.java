@@ -143,12 +143,20 @@ public class TaxRulesPage extends TestBasePage {
         utility.waitForAlertPresent();
         alert.accept();
     }
+    public void deleteAnExistingTaxRule(String ruleName){
+        dashboardPage=new SalesDashboardPage(driver);
+        dashboardPage.goToManageTaxRulesPage();
+        defineTaxRule(ruleName);
+        deleteTaxRule();
+    }
     public boolean deleteSuccessfulMessageIsDisplayed(){
         utility.waitForElementPresent(deleteSuccessMessage);
         if (deleteSuccessMessage.isDisplayed()){
+            System.out.println("Test Passed Tax rule deleted successfully");
             Log.info("Test Passed Tax rule deleted successfully");
             return true;
         }else
+            System.out.println("Test Failed. Deleting Tax rule Test Failed");
             Log.info("delete tax rule test failed");
             return false;
     }

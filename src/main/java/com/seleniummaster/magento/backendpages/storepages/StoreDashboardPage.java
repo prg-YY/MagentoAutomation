@@ -122,7 +122,11 @@ public class StoreDashboardPage extends TestBasePage {
         utility.waitForElementPresent(addProductLink);
         addProductLink.click();
         utility.sleep(2);
-
+    }
+    public void goToManageProductsPage(){
+        clickAllCatalogLink();
+        clickManageProductsLink();
+        utility.sleep(2);
     }
 
 
@@ -173,6 +177,12 @@ public class StoreDashboardPage extends TestBasePage {
         utility.sleep(2);
         clickCreateStoreViewLink();
         utility.sleep(2);
+    }
+    public void goToCreateOrderPage(){
+        clickAllSalesLink();
+        clickOrdersLink();
+        utility.sleep(2);
 
     }
+
 }

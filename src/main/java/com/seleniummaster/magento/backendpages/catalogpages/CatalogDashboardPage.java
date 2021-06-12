@@ -102,5 +102,14 @@ public class CatalogDashboardPage extends TestBasePage {
         logOutLink.click();
         Log.info("logOut Link clicked");
     }
+    // successful login
+    public boolean loginSuccessfully(){
+        utility.waitForElementPresent(logOutLink);
+        if (logOutLink.isDisplayed()){
+            System.out.println("catalog module login successfully");
+            return true;
+        }else System.out.println("Test Failed, catalog login Failed");
+        return false;
+    }
 
 }

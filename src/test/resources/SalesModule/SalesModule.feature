@@ -20,25 +20,21 @@
       Scenario: Sales manager should be able to create an order
         Given sales manager on the sales module dashboard
         When sales manager go to order page and click create new order link
-        And   sales manager choose customer for order
-        And  sales manager add products to order
-        And  choose payment method and shipment and click submit order button
+        And   sales manager create new order
         Then The New Order Created Successfully
 
       @UpdateOrder
       Scenario: Sales manager should be able to Update an existing order
         Given sales manager on the sales module dashboard
         When sales manager go to order page
-        And user choose  order for update and click on edit button
-        And Add some information for update
+        And sales manager edit order
         Then Existing order updated successfully
 
       @CancelOrder
         Scenario:Sales manager should be able to cancel order
         Given sales manager on the sales module dashboard
           When sales manager go to order page
-          And sales manager choose one order to cancel
-          And click on cancel order action and submit it
+          And click on cancel order
           Then The order canceled successfully
 
 

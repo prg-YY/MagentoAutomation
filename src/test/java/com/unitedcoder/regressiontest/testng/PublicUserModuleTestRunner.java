@@ -25,7 +25,6 @@ public class PublicUserModuleTestRunner extends TestBasePage {
         MyDashboardPage myDashboardPage = new MyDashboardPage(driver);
         myDashboardPage.addNewProduct();
         Assert.assertTrue(myDashboardPage.VerifyAddToCartSuccessful());
-
     }
 
     @Test(description = "user should be able to  check out order",priority = 2)
@@ -35,8 +34,6 @@ public class PublicUserModuleTestRunner extends TestBasePage {
        Assert.assertTrue(checkOutOrderPage.verifyOrderMassage());
         MyDashboardPage myDashboardPage = new MyDashboardPage(driver);
         myDashboardPage.clickContinueShoppingButton();
-
-
     }
 
     @Test(description = "user should be able to view his/her orders",priority = 3)

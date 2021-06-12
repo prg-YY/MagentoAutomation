@@ -17,7 +17,7 @@ public class SalesDashboardPage extends TestBasePage {
 
     @FindBy(xpath = "//span[normalize-space()='Sales']")
     WebElement salesLink;
-    @FindBy(xpath = "//*[@id=\"nav\"]/li[2]/ul/li[1]/a")
+    @FindBy(xpath = "//span[text()='Orders']")
     WebElement ordersLink;
     @FindBy(xpath = "//span[text()='Invoices']")
     WebElement invoicesLink;
@@ -111,8 +111,6 @@ public class SalesDashboardPage extends TestBasePage {
         clickTaxLink();
         clickManageTexRulesLink();
         utility.sleep(1);
-
-
     }
 
     public void clickChooseStoreViewDropDownList() {

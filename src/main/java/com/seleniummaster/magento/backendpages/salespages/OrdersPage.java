@@ -1,6 +1,5 @@
 package com.seleniummaster.magento.backendpages.salespages;
 
-import com.seleniummaster.magento.testdata.TestDataHolder;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
@@ -8,17 +7,18 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-
-import java.util.List;
 
 public class OrdersPage extends TestBasePage {
 
     TestUtility utility;
     WebDriver driver;
+    SalesDashboardPage dashboardPage;
+    Alert alert;
+    JavascriptExecutor js;
+
     // Elements For Create Orders
     @FindBy(xpath = "//span[text()='Create New Order']")
     WebElement createOrderLink;
@@ -26,16 +26,12 @@ public class OrdersPage extends TestBasePage {
     WebElement searchCustomerByNameTextField;
     @FindBy(id = "sales_order_create_customer_grid_filter_email")
     WebElement byEmailSearchBox;
-    //customer List
-    @FindAll(@FindBy(xpath  = "//*[@class=\"hor-scroll\"]/table/tbody/tr"))
-    List<WebElement > customerListRow;
     @FindBy(xpath = "//*[@id=\"sales_order_create_customer_grid_table\"]/tbody/tr/td[3]")
     WebElement customerRow;
-
     @FindBy(xpath = "//span[text()='Search']")
     WebElement searchButton;
-    @FindBy(xpath = "//*[@id=\"sales_order_create_customer_grid_table\"]/tbody/tr")
-    WebElement team1CheckBox;
+    @FindBy(xpath = "//*[@id=\"sales_order_create_customer_grid_table\"]/tbody/tr[1]")
+    WebElement customerRowLink;
     @FindBy(xpath = "//*[@id='store_18']")
     WebElement team1Store;
     @FindBy(xpath = "//span[text()='Add Products']")
@@ -44,17 +40,17 @@ public class OrdersPage extends TestBasePage {
     WebElement productCheckBox;
     @FindBy(xpath = "//span[text()='Add Selected Product(s) to Order']")
     WebElement addProductToOrderLink;
-    @FindBy(id = "p_method_checkmo")
-    WebElement paymentCheckBox;
-    @FindBy(xpath = "//a[contains(text(),'Get shipping methods and rates')]")
+    @FindBy(id = "p_method_cashondelivery")
+    WebElement cashOnDeliveryCheckBox;
+    @FindBy(xpath = "//a[@onclick=\"order.loadShippingRates();return false\"]")
     WebElement getShippingMethodLink;
     @FindBy(id = "s_method_flatrate_flatrate")
     WebElement fixedRadioButton;
     @FindBy(xpath = "//*[@class=\"order-totals-bottom\"]/p[3]/button/span/span/span")
     WebElement submitOrderButton;
-    @FindBy(xpath = "//*[@class=\"messages\"]" )
-    WebElement successMessageForCreate;
-    @FindBy(xpath = "//*[@class=\"success-msg\"]" )
+    @FindBy(xpath = "//span[text()='The order has been created.']" )
+    WebElement createOrderSuccessMessage;
+    @FindBy(xpath = "//span[text()=\"The order has been created.\"]" )
     WebElement successMessageForUpdate;
     @FindBy(xpath = "//*[@id=\"sales_order_view_tabs_order_info_content\"]/div[1]/div[2]/div/div[1]/h4")
     WebElement orderId;
@@ -94,8 +90,8 @@ public class OrdersPage extends TestBasePage {
         Log.info("The Team1 Customer has been clicked");
     }
     public void clickOnCus_CheckBox(){
-        utility.waitForElementPresent(team1CheckBox);
-        team1CheckBox.click();
+        utility.waitForElementPresent(customerRowLink);
+        customerRowLink.click();
         Log.info("team1 customer check box has been clicked");
     }
     public void clickOnAddProductsLink(){
@@ -110,21 +106,27 @@ public class OrdersPage extends TestBasePage {
     }
     public void clickOnAddProductToOrderLink(){
         utility.waitForElementPresent(addProductToOrderLink);
+        utility.sleep(2);
         addProductToOrderLink.click();
+
         Log.info("Add Products to Order Link has been clicked");
     }
-    public void checkPaymentMethod(){
-        utility.waitForElementPresent(paymentCheckBox);
-        paymentCheckBox.click();
+    public void clickCashOnDelivery(){
+        utility.waitForElementPresent(cashOnDeliveryCheckBox);
+        utility.sleep(1);
+        cashOnDeliveryCheckBox.click();
+        utility.sleep(2);
         Log.info("Payment method Check box has been clicked");
     }
     public void clickOnGetShippingMethodLink(){
         utility.waitForElementPresent(getShippingMethodLink);
+        utility.sleep(3);
         getShippingMethodLink.click();
         Log.info("get shipping method link has been clicked");
     }
     public void checkOnFixedRadioButton(){
         utility.waitForElementPresent(fixedRadioButton);
+        utility.sleep(2);
         fixedRadioButton.click();
         utility.sleep(2);
         Log.info("fixed Radio button  has been checked");
@@ -136,11 +138,14 @@ public class OrdersPage extends TestBasePage {
         Log.info("Submit order button has been clicked");
     }
     public boolean verifyOrderCreatedSuccessfully(){
-        utility.waitForElementPresent(successMessageForCreate);
-        if (successMessageForCreate.getText().contains("Success")){
+        utility.waitForElementPresent(createOrderSuccessMessage);
+        if (createOrderSuccessMessage.isDisplayed()){
             Log.info("Test Passed ,The Order Created Successfully");
+            System.out.println("Test Passed,New Order Created successfully");
+            return true;
         }else Log.info("Test Failed,Cannot Create Order");
-        return true;
+        System.out.println("Test Failed.Cannot Create New Order");
+        return false;
     }
     //Search Customer method For Order
     public void searchCustomerForOrder(String email){
@@ -160,22 +165,15 @@ public class OrdersPage extends TestBasePage {
         utility.sleep(2);
     }
     public void clickShipmentAndSubmitButton(){
-        checkPaymentMethod();
+        clickCashOnDelivery();
         utility.sleep(2);
         clickOnGetShippingMethodLink();
         utility.sleep(2);
         checkOnFixedRadioButton();
         utility.sleep(1);
-        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js = (JavascriptExecutor)driver;
         js.executeScript("window.scrollBy(0,-500)");
         clickSubmitOrderButton();
-    }
-    //Order # 3200000031 (the order confirmation email was sent)
-    public void getOrderIdWhenOrderCreated(){
-       // utility.waitForElementPresent(orderId);
-//        String orderText=orderId.getText();
-//        System.out.println(orderText);
-
     }
 
     public static void main(String[] args) {
@@ -187,12 +185,10 @@ public class OrdersPage extends TestBasePage {
         long orderNumber=Long.parseLong(orderFullText);
         System.out.println(orderNumber);
     }
-
-    public void createNewOrder(String email){
-       // String team1Email=prop.getProperty("FrondEmail");
-        SalesDashboardPage dashboardPage=new SalesDashboardPage(driver);
-        dashboardPage.clickOnSalesLink();
-        dashboardPage.clickOrdersLink();
+    public void createOrder(String email){
+        // String team1Email=prop.getProperty("FrondEmail");
+        dashboardPage=new SalesDashboardPage(driver);
+        dashboardPage.goToOrderPage();
         utility.sleep(2);
         clickOnCreateOrderLink();
         utility.sleep(3);
@@ -200,22 +196,46 @@ public class OrdersPage extends TestBasePage {
         utility.sleep(2);
         clickOnTeam1Store();
         utility.sleep(2);
+        js.executeScript("window.scrollBy(0,-500)");
         clickOnAddProductsLink();
         utility.sleep(2);
         clickOnProductChekBox();
         utility.sleep(2);
         clickOnAddProductToOrderLink();
         utility.sleep(2);
-        checkPaymentMethod();
+        clickCashOnDelivery();
         utility.sleep(2);
         clickOnGetShippingMethodLink();
         utility.sleep(2);
         checkOnFixedRadioButton();
         utility.sleep(1);
-        JavascriptExecutor js = (JavascriptExecutor)driver;
-        js.executeScript("window.scrollBy(0,-500)");
+        js = (JavascriptExecutor)driver;
         clickSubmitOrderButton();
+        utility.sleep(3);
+    }
 
+    public void createNewOrder(String email){
+        js = (JavascriptExecutor)driver;
+        searchCustomerForOrder(email);
+        utility.sleep(2);
+        clickOnTeam1Store();
+        utility.sleep(2);
+        js.executeScript("window.scrollBy(0,-500)");
+        clickOnAddProductsLink();
+        utility.sleep(2);
+        clickOnProductChekBox();
+        utility.sleep(2);
+        clickOnAddProductToOrderLink();
+        utility.sleep(2);
+        js.executeScript("window.scrollBy(0,-500)");
+
+        clickCashOnDelivery();
+        utility.sleep(2);
+        clickOnGetShippingMethodLink();
+        utility.sleep(2);
+        checkOnFixedRadioButton();
+        utility.sleep(1);
+        clickSubmitOrderButton();
     }
     public  String orderIdGetter(){
         utility.waitForElementPresent(orderId);
@@ -231,8 +251,8 @@ public class OrdersPage extends TestBasePage {
 
 
     // Define Elements For Update Orders
-    @FindAll(@FindBy(xpath = "//*[@id=\"sales_order_grid_table\"]/tbody/tr"))
-    List<WebElement> ordersList;
+    @FindBy(id = "sales_order_grid_filter_real_order_id")
+    WebElement orderIdSearchBox;
     @FindBy(id = "sales_order_grid_filter_status")
     WebElement pendingDropDownList;
     @FindBy(xpath = "//*[@id=\"sales_order_grid_table\"]/tbody/tr[1]")
@@ -243,7 +263,17 @@ public class OrdersPage extends TestBasePage {
     WebElement orderViewLink;
     @FindBy(id = "order-billing_address_company")
     WebElement companyNameTextBox;
+    @FindBy(xpath = "//*[@id=\"order-items_grid\"]/table/tbody/tr/td[4]/input")
+    WebElement qtyNumberBox;
+    @FindBy(xpath = "//span[text()=\"Update Items and Qty's\"]")
+    WebElement updateItemQuantityLink;
 // update Order Method
+    public void enterOrderIdToSearchBox(String orderId) {
+    utility.waitForElementPresent(orderIdSearchBox);
+    orderIdSearchBox.clear();
+    orderIdSearchBox.sendKeys(orderId);
+    }
+
     public void selectPendingOrder(String value){
         utility.waitForElementPresent(pendingDropDownList);
         Select select=new Select(pendingDropDownList);
@@ -251,7 +281,7 @@ public class OrdersPage extends TestBasePage {
         clickOnSearchButton();
         utility.sleep(2);
     }
-    public void clickOnOrderViewForUpdate(){
+    public void clickOnOrderViewLink(){
         utility.waitForElementPresent(orderViewLink);
         orderViewLink.click();
         utility.sleep(2);
@@ -273,12 +303,20 @@ public class OrdersPage extends TestBasePage {
         js.executeScript("window.scrollBy(0,500)");
         Log.info("Order Description has been added");
     }
+    public void enterQuantityNumber(String quantityNumber){
+        utility.waitForElementPresent(qtyNumberBox);
+        qtyNumberBox.clear();
+        qtyNumberBox.sendKeys(quantityNumber);
+    }public void clickOnUpdateItemQuantityLink(){
+        utility.waitForElementPresent(updateItemQuantityLink);
+        updateItemQuantityLink.click();
+    }
     public void clickEditSubmitButton(){
         clickOnGetShippingMethodLink();
         utility.sleep(2);
         checkOnFixedRadioButton();
         utility.sleep(1);
-        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js = (JavascriptExecutor)driver;
         js.executeScript("window.scrollBy(0,500)");
         clickSubmitOrderButton();
         Log.info("Submit Order button has been clicked");
@@ -289,8 +327,53 @@ public class OrdersPage extends TestBasePage {
         if (successMessageForUpdate.isDisplayed()){
             System.out.println("Test Passed , The Order Updated Successfully");
             return true;
-        }else System.out.println("Test Failed");
+        }else System.out.println("Update Order Test Failed");
         return false;
+    }
+    public void updateOrder(String orderId){
+        dashboardPage=new SalesDashboardPage(driver);
+        dashboardPage.goToOrderPage();
+        utility.sleep(2);
+        enterOrderIdToSearchBox(orderId);
+        clickOnSearchButton();
+        utility.sleep(2);
+        clickOnOrderViewLink();
+        clickEditButton();
+        Alert alert=driver.switchTo().alert();
+        utility.waitForAlertPresent();
+        alert.accept();
+        enterQuantityNumber("2");
+        clickOnUpdateItemQuantityLink();
+        utility.sleep(2);
+        clickCashOnDelivery();
+        utility.sleep(2);
+        clickOnGetShippingMethodLink();
+        utility.sleep(2);
+        checkOnFixedRadioButton();
+        utility.sleep(1);
+        js = (JavascriptExecutor)driver;
+        js.executeScript("window.scrollBy(0,-500)");
+        clickSubmitOrderButton();
+    }
+    public void updateExistingOrder(String orderId){
+        enterOrderIdToSearchBox(orderId);
+        clickOnSearchButton();
+        utility.sleep(2);
+        clickOnOrderViewLink();
+        clickEditButton();
+        enterQuantityNumber("2");
+        clickOnUpdateItemQuantityLink();
+        utility.sleep(2);
+        clickCashOnDelivery();
+        utility.sleep(2);
+        clickOnGetShippingMethodLink();
+        utility.sleep(2);
+        checkOnFixedRadioButton();
+        utility.sleep(2);
+        js = (JavascriptExecutor)driver;
+        js.executeScript("window.scrollBy(0,-500)");
+        clickSubmitOrderButton();
+        utility.sleep(3);
     }
 
     //cancel order elements
@@ -322,12 +405,39 @@ public class OrdersPage extends TestBasePage {
         submitButton.click();
         Log.info("Cancel submit button has been clicked");
     }
-    public boolean isCancelSuccessMessageDisplayed(){
+    public boolean cancelOrderSuccessfully(){
         utility.waitForElementPresent(cancelSuccessMessage);
-        cancelSuccessMessage.isDisplayed();
-        Log.info("1 Order successfully canceled");
-        return cancelSuccessMessage.isDisplayed();
+       if (cancelSuccessMessage.isDisplayed()){
+           Log.info("1 Order successfully canceled");
+           System.out.println("Test Passed,Order Canceled successfully");
+           return true;
+       }else System.out.println("Test failed. cancel order test failed ");
+
+        return false;
     }
+    public void cancelOrder(String orderId){
+        enterOrderIdToSearchBox(orderId);
+        clickOnSearchButton();
+        utility.sleep(2);
+        clickOrderCheckBox();
+        selectCancel("cancel_order");
+        clickOnCancelSubmitButton();
+        utility.sleep(2);
+    }
+    public void deleteOrder(String orderId){
+        dashboardPage=new SalesDashboardPage(driver);
+        dashboardPage.goToOrderPage();
+        utility.sleep(2);
+        enterOrderIdToSearchBox(orderId);
+        clickOnSearchButton();
+        utility.sleep(2);
+        clickOrderCheckBox();
+        selectCancel("cancel_order");
+        clickOnCancelSubmitButton();
+        utility.sleep(2);
+    }
+
+
 
 
 }

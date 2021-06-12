@@ -85,6 +85,18 @@ public class CustomerGroupPage extends TestBasePage {
         clickSaveGroupButton();
         utility.sleep(3);
     }
+    public void addNewCustomerGroup(String groupName,String taxClassValue){
+        dashboardPage.clickCustomersLink();
+        dashboardPage.clickCustomerGroupLink();
+        utility.sleep(2);
+        clickAddCustomerGroupLink();
+        utility.sleep(2);
+        enterGroupName(groupName);
+        selectTaxClass(taxClassValue);
+        utility.sleep(2);
+        clickSaveGroupButton();
+        utility.sleep(3);
+    }
 
     public boolean addCustomerGroupSuccessfully(){
         utility.waitForElementPresent(addEditSuccessMessage);
