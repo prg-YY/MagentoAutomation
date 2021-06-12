@@ -2,6 +2,8 @@ package com.unitedcoder.regressiontest.databasetest;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.catalogpages.AddNewProductPage;
+import com.seleniummaster.magento.backendpages.salespages.TaxRulesPage;
+import com.seleniummaster.magento.backendpages.storepages.StoreDashboardPage;
 import com.seleniummaster.magento.database.ConnectionManager;
 import com.seleniummaster.magento.database.ConnectionType;
 import com.seleniummaster.magento.database.DataAccess;
@@ -46,5 +48,31 @@ public class yusufSteps extends TestBasePage {
         System.out.println("The Query Script was Executed for Adding Product is" + "\n" + getProductQueryScript);
         Assert.assertTrue(access.getRowCount(cachedRowSet));
         ConnectionManager.closeDataBaseConnection(connection);
+    }
+
+    @Given("user login to sales module")
+    public void userLoginToSalesModule() {
+        backEndLogin = new BackEndLogin(driver);
+        backEndLogin.backEndLogin(prop.getProperty("salesManager"), prop.getProperty("password"));
+        connection = ConnectionManager.connectToDataBaseServer(username, password, ConnectionType.MYSQLServer);
+    }
+
+    @And("preparation for new tax rule creation")
+    public void preparationForNewTaxRuleCreation() {
+        TaxRulesPage taxRulesPage=new TaxRulesPage(driver);
+        String ruleName=String.format(prop.getProperty("newTaxRuleName"),System.currentTimeMillis());
+        taxRulesPage.createTaxRule(ruleName,prop.getProperty("vipValue"), prop.getProperty("taxableGoods"),
+                prop.getProperty("taxRateValue") );
+        TestDataHolder.setTaxRuleName(ruleName);
+        Assert.assertTrue(taxRulesPage.successMessageIsDisplay());
+    }
+
+    @Then("verify New tax rule  created and should be in the database")
+    public void verifyNewTaxRuleCreatedAndShouldBeInTheDatabase() {
+        DataAccess access=new DataAccess();
+        String getNewTaxRuleQueryScript=String.format(QueryScript.getNewlyAddedTaxRule(),TestDataHolder.getTaxRuleName());
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection,getNewTaxRuleQueryScript);
+        System.out.println("The Query script for verify new added Tax Rule  is:" +"\n"+getNewTaxRuleQueryScript);
+        Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
 }
