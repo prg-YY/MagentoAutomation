@@ -9,7 +9,7 @@
 
     <test  name="Public user Module Test" >
         <classes>
-            <class name="com.unitedcoder.regressiontest.testng.PublicUserModuleTestRunner"/>
+            <class name="com.unitedcoder.regressiontest.databasetest.DataBaseTest"/>
         </classes>
     </test>
 
