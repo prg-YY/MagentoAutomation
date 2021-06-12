@@ -27,7 +27,7 @@ public class Hook extends TestBasePage {
       storeDashboardPage.clickLogOutLink();
     }
 
-    @After(order = 0)
+    @After(order = 0,value = "@DeleteExistingTaxRule")
     public void tearDown() {
         driver.close();
         driver = null;

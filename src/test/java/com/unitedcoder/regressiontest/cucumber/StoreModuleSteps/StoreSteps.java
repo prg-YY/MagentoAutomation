@@ -12,7 +12,7 @@ import org.testng.Assert;
 public class StoreSteps extends TestBasePage {
     BackEndLogin backEndLogin=new BackEndLogin(driver);
     StoreDashboardPage storeDashboardPage=new StoreDashboardPage(driver);
-    ManageProductsPage manageProductsPage=new ManageProductsPage(driver);
+    ManageProductsPage manageProductsPage=new ManageProductsPage();
     OrderPage orderPage=new OrderPage(driver);
     ProductCategoriesPage productCategoriesPage=new ProductCategoriesPage(driver);
     WebsitePage websitePage=new WebsitePage(driver);
@@ -40,7 +40,7 @@ public class StoreSteps extends TestBasePage {
 
     @Then("new product should be added")
     public void newProductShouldBeAdded() {
-        Assert.assertTrue(manageProductsPage.VerifySuccessfulMessage());
+        Assert.assertTrue(manageProductsPage.addNewProductSuccessfully());
 
     }
 
@@ -52,7 +52,7 @@ public class StoreSteps extends TestBasePage {
 
     @Then("product should be updated")
     public void productShouldBeUpdated() {
-        Assert.assertTrue(manageProductsPage.VerifySuccessfulUpdated());
+        Assert.assertTrue(manageProductsPage.updateProductSuccessfully());
     }
 
     @When("click on Orders link under Sales dropdown list")

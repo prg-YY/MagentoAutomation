@@ -3,10 +3,8 @@ package com.seleniummaster.magento.backendpages.salespages;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -16,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ShipmentPage  {
     WebDriver driver;
     TestUtility utility;
+    JavascriptExecutor js;
 
     @FindBy(xpath = "//*[@id=\"sales_shipment_grid_filter_increment_id\"]")
     WebElement searchBox;
@@ -36,11 +35,11 @@ public class ShipmentPage  {
     @FindBy(xpath = "//span[text()='Add']")
     WebElement clickAddButton;
     // click on send tracking information button
-    @FindBy(linkText = "(//span[text()='Send Tracking Information'])[1]")
+    @FindBy(xpath = "(//span[text()='Send Tracking Information'])[1]")
     WebElement sendTrackingInformation;
     //Verify update shipments successful
-    @FindBy(xpath = "//li[@class=\"success-msg\"]")
-    WebElement verifySuccessMessage;
+    @FindBy(xpath = "//span[text()='The shipment has been sent.']")
+    WebElement successMessage;
 
 
     public ShipmentPage(WebDriver driver) {
@@ -108,19 +107,23 @@ public class ShipmentPage  {
         Log.info(" add button has been clicked");
 
     }
+
     // click on send tracking information button
     public void clickSendInformationButton(){
         utility.waitForElementPresent(sendTrackingInformation);
-        sendTrackingInformation.click();
-
+        utility.sleep(2);
+        WebElement scanEle =new WebDriverWait(driver, 20)
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("(//span[text()='Send Tracking Information'])[1]")));
+        Actions action =new Actions(driver);
+        action.moveToElement(scanEle).click().build().perform();
         Log.info("send tracking information button has been clicked");
     }
 
 
     // //Verify update shipments successful
     public boolean shipmentUpdatedSuccessfully(){
-        utility.waitForElementPresent(verifySuccessMessage);
-        verifySuccessMessage.isDisplayed();
+        utility.waitForElementPresent(successMessage);
+        successMessage.isDisplayed();
         Log.info("Successful message has been displayed ");
         return true;
     }
@@ -136,31 +139,28 @@ public class ShipmentPage  {
     public void clickCommentSubmitButton(){
         utility.waitForElementPresent(commentSubmitButton);
         commentSubmitButton.click();
+        utility.sleep(2);
         Log.info("comment submit button has been clicked");
-
     }
     public void addShipment(){
         selectDHL();
         enterTrackingNumber("2");
         clickAddButton();
-        utility.sleep(1);
-
+        utility.sleep(2);
     }
     public void addComment(String commentText){
         enterCommentToTextBox(commentText);
         clickCommentSubmitButton();
-        utility.sleep(1);
+        js = (JavascriptExecutor)driver;
+        js.executeScript("window.scrollBy(0,+500)");
+        utility.sleep(5);
+
         clickSendInformationButton();
+        utility.sleep(2);
        Alert alert=driver.switchTo().alert();
         utility.waitForAlertPresent();
        alert.accept();
-
     }
-
-
-
-
-
 }
 
 

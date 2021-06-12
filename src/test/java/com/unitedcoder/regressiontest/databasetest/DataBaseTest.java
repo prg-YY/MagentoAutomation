@@ -8,7 +8,6 @@ import com.seleniummaster.magento.backendpages.catalogpages.SubCategoryPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerDashboardPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerGroupPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
-import com.seleniummaster.magento.backendpages.salespages.OrdersPage;
 import com.seleniummaster.magento.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.magento.backendpages.salespages.TaxRulesPage;
 import com.seleniummaster.magento.backendpages.storepages.*;
@@ -151,10 +150,10 @@ public class DataBaseTest extends TestBasePage {
         driver.get(prop.getProperty("BackendURL"));
       backEndLogin=new BackEndLogin(driver);
       backEndLogin.backEndLogin(prop.getProperty("salesManager"),prop.getProperty("password"));
-        OrdersPage ordersPage=new OrdersPage(driver);
-        ordersPage.createNewOrder(prop.getProperty("FrondEmail"));
-        TestDataHolder.setOrderId(ordersPage.orderIdGetter());
-       Assert.assertTrue(ordersPage.verifyOrderCreatedSuccessfully());
+        StoreOrderPage orderPage=new StoreOrderPage();
+        orderPage.createNewOrder(prop.getProperty("FrondEmail"));
+        TestDataHolder.setOrderId(orderPage.orderIdGetter());
+       Assert.assertTrue(orderPage.creteOrderSuccessfully());
         SalesDashboardPage dashboardPage=new SalesDashboardPage(driver);
         dashboardPage.clickLogOutLink();
     }
@@ -196,14 +195,14 @@ public class DataBaseTest extends TestBasePage {
     }
     @Test(description = " add new  product ",priority = 15) //melike
     public void addNewStock(){
-        ManageProductsPage productsPage=new ManageProductsPage(driver);
+        ManageProductsPage productsPage=new ManageProductsPage();
         driver.get(prop.getProperty("BackendURL"));
         backEndLogin = new BackEndLogin(driver);
         backEndLogin.backEndLogin(prop.getProperty("storeManager"), prop.getProperty("password"));
         String newProductName=String.format(prop.getProperty("newProductName"),System.currentTimeMillis());
         productsPage.addNewProduct(newProductName);
         TestDataHolder.setStockName(newProductName);
-        Assert.assertTrue(productsPage.VerifySuccessfulMessage());
+        Assert.assertTrue(productsPage.addNewProductSuccessfully());
         StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
         dashboardPage.clickLogOutLink();
     }
@@ -259,9 +258,7 @@ public class DataBaseTest extends TestBasePage {
        Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
     @Test(description = "Add cart price rule test",priority = 21)
-    public void addCartPriceRule(){
-
-    }
+    public void addCartPriceRule(){ }
     @Test(description = "Verify that newly added Cart Price Rule should be in the database",priority = 22)//Abdukahar
     public void isAddedCartPriceRuleExist(){
         DataAccess access=new DataAccess();
@@ -302,7 +299,6 @@ public class DataBaseTest extends TestBasePage {
         StoreDashboardPage dashboardPage=new StoreDashboardPage(driver);
         dashboardPage.clickLogOutLink();
     }
-
     @Test(description = "Verify that newly added refund should be in the database",priority = 26)//Sofia
     public void isAddedRefundExist(){
         DataAccess access=new DataAccess();

@@ -1,6 +1,5 @@
-package com.seleniummaster.magento.backendpages.storepages;
+package com.seleniummaster.magento.backendpages.salespages;
 
-import com.google.protobuf.ExperimentalApi;
 import com.seleniummaster.magento.utility.Log;
 import com.seleniummaster.magento.utility.TestBasePage;
 import com.seleniummaster.magento.utility.TestUtility;
@@ -9,15 +8,22 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-public class OrderPage extends TestBasePage{
-
+public class SalesOrderPage extends TestBasePage {
     WebDriver driver;
     String ConfigFile = "config.properties";
     TestUtility utility;
-    @FindBy (xpath = "(//span[text()=\"Create New Order\"])[1]")
-    WebElement CreateNewOrderButton;
-    @FindBy(xpath = "(//input[@id=\"sales_order_create_customer_grid_filter_name\"])[1]")
-    WebElement NameTextField;
+    SalesDashboardPage dashboardPage;
+    public SalesOrderPage() {
+        this.driver= TestBasePage.driver;
+        PageFactory.initElements(driver, this);
+        utility=new TestUtility(driver);
+    }
+
+//create Order Elements
+    @FindBy(xpath = "(//span[text()=\"Create New Order\"])[1]")
+    WebElement createNewOrderLink;
+    @FindBy(id = "sales_order_create_customer_grid_filter_name")
+    WebElement nameSearchBox;
     @FindBy(xpath = "(//span[text()=\"Search\"])[1]")
     WebElement SearchButton;
     ////div[@class="hor-scroll"]/table/tbody/tr/td
@@ -27,21 +33,21 @@ public class OrderPage extends TestBasePage{
     @FindBy(xpath = "(//input[@id=\"store_18\"])[1]")
     WebElement selectedStoreCheckBox;
     @FindBy(xpath = "//span[text()=\"Add Products\"]")
-    WebElement AddProductButton;
+    WebElement addProductButton;
     @FindBy(xpath = "(//input[@type=\"checkbox\" and @class=\"checkbox\"])[6]")
     WebElement selectedProductCheckBox;
     @FindBy(xpath = "//span[text()=\"Add Selected Product(s) to Order\"]")
     WebElement addSelectedProductToOrderButton;
     @FindBy(xpath = "//input[@id=\"p_method_checkmo\"]")
     WebElement paymentMethodCheckBox;
-    @FindBy(xpath = "//a[@onclick=\"order.loadShippingRates();return false\"]")
+    @FindBy(xpath = "//a[contains(text(),'Get shipping methods and rates')]")
     WebElement getShippingMethodAndRatesLink;
     @FindBy(xpath = "//input[@onclick=\"order.setShippingMethod(this.value)\"]")
     WebElement fixedCheckBox;
     @FindBy(xpath = "(//button[@onclick=\"order.submit()\"])[1]")
     WebElement submitOrderButton;
     @FindBy(xpath ="//span[text()=\"The order has been created.\"]")
-    WebElement OrderSuccessfulCreatedMsg;
+    WebElement orderSuccessfulCreatedMsg;
 //Update Order Elements
     @FindBy(id = "sales_order_grid_filter_real_order_id")
     WebElement orderIdSearchBox;
@@ -51,16 +57,14 @@ public class OrderPage extends TestBasePage{
     WebElement orderViewLink;
     @FindBy(xpath = "sales_order_grid_filter_status")
     WebElement statusDropDown;
-    @FindBy(xpath = "//*[@id=\"sales_order_grid_table\"]/tbody/tr[1]/td[10]/a")
-    WebElement SelectDropdownList;
-    @FindBy(xpath = "//select[@name=\"status\"]")
-    WebElement statusDropDownList;
-    @FindBy(xpath = "(//a[text()=\"View\"])[1]")
-    WebElement FirstViewLink;
     @FindBy(xpath = "(//span[text()=\"Edit\"])[1]")
     WebElement editButton;
     @FindBy(xpath = "//input[@name=\"order[billing_address][company]\"]")
     WebElement companyTextField;
+    @FindBy(xpath = "//*[@id=\"order-items_grid\"]/table/tbody/tr/td[4]/input")
+    WebElement qtyNumberBox;
+    @FindBy(xpath = "//span[text()=\"Update Items and Qty's\"]")
+    WebElement updateItemQuantityLink;
 //Cancel Order Elements
     @FindBy(xpath = "//*[@id=\"sales_order_grid_table\"]/tbody/tr[1]/td[1]/input")
     WebElement orderCheckBox;
@@ -70,23 +74,18 @@ public class OrderPage extends TestBasePage{
     WebElement cancelButton;
     @FindBy(xpath = "//span[text()=\"Submit\"]")
     WebElement submitButton;
-    @FindBy(xpath = "//span[text()=\"The order has been cancelled.\"]")
+    @FindBy(xpath = "//span[text()='1 order(s) have been canceled.']")
     WebElement successfulCancelMsg;
     @FindBy(xpath = "//*[@id=\"sales_order_view_tabs_order_info_content\"]/div[1]/div[2]/div/div[1]/h4")
     WebElement orderId;
-    public OrderPage(WebDriver driver){
-        this.driver= TestBasePage.driver;
-        PageFactory.initElements(driver, this);
-        utility=new TestUtility(driver);
-    }
-    //Store Manager can create a new order
+//Create Order Methods
     public void clickCreateNewOrderButton(){
-        utility.waitForElementPresent(CreateNewOrderButton);
-        CreateNewOrderButton.click();
-    }
-    public void EnterCustomerName(String CustomerName){
-        utility.waitForElementPresent(NameTextField);
-        NameTextField.sendKeys(CustomerName);
+    utility.waitForElementPresent(createNewOrderLink);
+    createNewOrderLink.click();
+}
+    public void enterCustomerName(String CustomerName){
+        utility.waitForElementPresent(nameSearchBox);
+        nameSearchBox.sendKeys(CustomerName);
     }
     public void clickSearchButton(){
         utility.waitForElementPresent(SearchButton);
@@ -115,10 +114,10 @@ public class OrderPage extends TestBasePage{
         }
     }
     public void clickAddProductButton(){
-        utility.waitForElementPresent(AddProductButton);
+        utility.waitForElementPresent(addProductButton);
         try {
-        utility.sleep(3);
-            AddProductButton.click();
+            utility.sleep(3);
+            addProductButton.click();
         } catch (ElementClickInterceptedException e) {
             e.printStackTrace();
         }
@@ -151,9 +150,9 @@ public class OrderPage extends TestBasePage{
             e.printStackTrace();
         }
     }
-    public boolean verifySuccessfulAddedMsg(){
-        utility.waitForElementPresent(OrderSuccessfulCreatedMsg);
-        if (OrderSuccessfulCreatedMsg.isDisplayed()) {
+    public boolean creteOrderSuccessfully(){
+        utility.waitForElementPresent(orderSuccessfulCreatedMsg);
+        if (orderSuccessfulCreatedMsg.isDisplayed()) {
             Log.info("The order has been created");
             System.out.println("New Order Created Successfully");
             return true;
@@ -162,9 +161,9 @@ public class OrderPage extends TestBasePage{
         System.out.println("Test Failed,Cannot Create New Order");
         return false;
     }
-    public void CreateNewOrder(){
+    public void createOrder(){
         clickCreateNewOrderButton();
-        EnterCustomerName(prop.getProperty("CustomerName"));
+        enterCustomerName(prop.getProperty("CustomerName"));
         clickSearchButton();
         clickSelectedCustomer();
         clickSelectedStore();
@@ -177,166 +176,151 @@ public class OrderPage extends TestBasePage{
         clickGetShippingMethodAndRateLink();
         clickFixCheckBox();
         clickSubmitOrderButton();
-        verifySuccessfulAddedMsg();
     }
-    @FindBy(xpath = "(//span[text()=\"Invoice\"])[1]")
-    WebElement invoiceButton;
-    @FindBy(xpath = "//span[text()=\"Submit Invoice\"]")
-    WebElement submitInvoiceButton;
-    @FindBy(xpath = "(//span[text()=\"Credit Memo\"])[1]")
-    WebElement creditMemoButton;
-    @FindBy(xpath = "//span[text()=\"Refund Offline\"]")
-    WebElement refundOfflineButton;
-    @FindBy(xpath = "//span[text()=\"The credit memo has been created.\"]")
-    WebElement refundSuccessfullyMsg;
-    @FindBy(xpath = "(//span[text()=\"Credit Memos\"])[2]")
-    WebElement creditMemosLink;
-    @FindBy(xpath = "//table[@id=\"order_invoices_table\"]/tbody/tr/td[1]")
-    WebElement creditMemosNo;
-
-    public void clickInvoiceButton(){
-        utility.waitForElementPresent(invoiceButton);
-        invoiceButton.click();
-    }
-    public void clickSubmitInvoiceButton(){
-        utility.waitForElementPresent(submitInvoiceButton);
-        submitInvoiceButton.click();
-    }
-    public void clickCreditMemoButton(){
-        utility.waitForElementPresent(creditMemoButton);
-        creditMemoButton.click();
-    }
-    public void clickRefundOfflineButton(){
-        utility.waitForElementPresent(refundOfflineButton);
-        refundOfflineButton.click();
-    }
-    public boolean VerifySuccessfullyRefundMsg(){
-        utility.waitForElementPresent(refundSuccessfullyMsg);
-        return(refundSuccessfullyMsg.isDisplayed());
-    }
-    public void clickCreditMemoLink(){
-        utility.waitForElementPresent(creditMemosLink);
-        creditMemosLink.click();
-    }
-    public String CreditMemosNoGetText(){
-        utility.waitForElementPresent(creditMemosNo);
-        String MemoNo=creditMemosNo.getText();
-        System.out.println(MemoNo);
-        return MemoNo;
-    }
-    public void createRefund(){
+    public void createNewOrder(String customerName){
+        dashboardPage=new SalesDashboardPage(driver);
+        dashboardPage.goToOrderPage();
         clickCreateNewOrderButton();
-        EnterCustomerName(prop.getProperty("CustomerName"));
+        enterCustomerName(customerName);
         clickSearchButton();
         clickSelectedCustomer();
         clickSelectedStore();
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,-500)");
         clickAddProductButton();
+        utility.sleep(2);
         clickSelectedProductCheckBox();
         clickAddSelectedProductToOrderButton();
+        utility.sleep(2);
         clickPaymentMethod();
+        utility.sleep(1);
         clickGetShippingMethodAndRateLink();
+        utility.sleep(2);
         clickFixCheckBox();
-        js.executeScript("window.scrollBy(0,500)");
         clickSubmitOrderButton();
-        verifySuccessfulAddedMsg();
-        clickInvoiceButton();
         utility.sleep(2);
-        clickSubmitInvoiceButton();
-        utility.sleep(2);
-        clickCreditMemoButton();
-        utility.sleep(2);
-        clickRefundOfflineButton();
-        utility.sleep(2);
-        VerifySuccessfullyRefundMsg();
-        clickCreditMemoLink();
     }
-    //Store Manager can edit orders
-    public void selectStore(){
-        utility.waitForElementPresent(SelectDropdownList);
-        Select storeDropdown=new Select(SelectDropdownList);
-        storeDropdown.selectByValue("18");
+    public  String orderIdGetter(){
+        utility.waitForElementPresent(orderId);
+        String orderNumber=orderId.getText();
+        int beginIndex=orderNumber.indexOf("(");
+        orderNumber=orderNumber.substring(0,beginIndex-1);
+        orderNumber=orderNumber.replace("Order # ","");
+        System.out.println(orderNumber);
+        // long orderNumber=Long.parseLong(orderNumber);
+        System.out.println("The Order Id That getted from the Order Result : "+orderNumber);
+        return orderNumber;
     }
-    public void selectStatusDropDownList(){
-        utility.waitForElementPresent(statusDropDownList);
-        Select statusDropDown=new Select(statusDropDownList);
-        statusDropDown.selectByValue("pending");
+//Update Order Methods
+    public void enterOrderIdToSearchBox(String orderId){
+    utility.waitForElementPresent(orderIdSearchBox);
+    orderIdSearchBox.clear();
+    orderIdSearchBox.sendKeys(orderId);
+}
+    public void clickOnSearchButton(){
+        utility.waitForElementPresent(searchButton);
+        searchButton.click();
     }
-    public void clickViewLink(){
-        utility.waitForElementPresent(FirstViewLink);
-        FirstViewLink.click();
+    public void clickOnOrderViewLink(){
+        utility.waitForElementPresent(orderViewLink);
+        orderViewLink.click();
     }
-    public void clickEditButton(){
+    public void clickOnEditButton(){
         utility.waitForElementPresent(editButton);
         editButton.click();
     }
-    public void EnterCompanyTextField(String CompanyName){
+    public void enterQuantityNumber(String quantityNumber){
+        utility.waitForElementPresent(qtyNumberBox);
+        qtyNumberBox.clear();
+        qtyNumberBox.sendKeys(quantityNumber);
+    }public void clickOnUpdateItemQuantityLink(){
+        utility.waitForElementPresent(updateItemQuantityLink);
+        updateItemQuantityLink.click();
+    }
+    public void enterCompanyName(String companyName){
         utility.waitForElementPresent(companyTextField);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        companyTextField.clear();
-        companyTextField.sendKeys(CompanyName);
+        companyTextField.sendKeys(companyName);
     }
-    public void EditOrder(){
-        selectStore();
-        selectStatusDropDownList();
-        clickSearchButton();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        clickViewLink();
-        clickEditButton();
-        utility.waitForAlertPresent();
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
-        EnterCompanyTextField(prop.getProperty("CompanyName"));
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        clickGetShippingMethodAndRateLink();
-        clickFixCheckBox();
-        clickSubmitOrderButton();
-        verifySuccessfulAddedMsg();
+    public void defineOrderToUpdate(String orderNumber){
+       enterOrderIdToSearchBox(orderNumber);
+       clickOnSearchButton();
+       utility.sleep(2);
+       clickOnOrderViewLink();
+       utility.sleep(2);
     }
-
-
-
-    //Store Manager can delete orders
-    public void clickCancelButton(){
-        utility.waitForElementPresent(cancelButton);
-        cancelButton.click();
-    }
-    public boolean VerifySuccessfulCancelMsg(){
-        utility.waitForElementPresent(successfulCancelMsg);
-        if (successfulCancelMsg.isDisplayed()) {
-            Log.info("The order has been cancelled.");
+    public boolean updateOrderSuccessfully(){
+        utility.waitForElementPresent(orderSuccessfulCreatedMsg);
+        if (orderSuccessfulCreatedMsg.isDisplayed()) {
+            Log.info("The order has been created");
+            System.out.println("New Order Created Successfully");
             return true;
         }else
             Log.info("test failed");
+        System.out.println("Test Failed,Cannot Create New Order");
         return false;
     }
-    public void CancelOrder(){
-        selectStore();
-        selectStatusDropDownList();
-        clickSearchButton();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        clickViewLink();
-        clickCancelButton();
+    public void updateOrder(String orderNumber){
+        dashboardPage=new SalesDashboardPage(driver);
+        dashboardPage.goToOrderPage();
+        defineOrderToUpdate(orderNumber);
+        clickOnEditButton();
+        Alert alert=driver.switchTo().alert();
         utility.waitForAlertPresent();
-        Alert alert = driver.switchTo().alert();
         alert.accept();
-        VerifySuccessfulCancelMsg();
+        utility.sleep(2);
+        enterQuantityNumber("2");
+         clickOnUpdateItemQuantityLink();
+         utility.sleep(2);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,-500)");
+        clickPaymentMethod();
+        utility.sleep(2);
+        clickGetShippingMethodAndRateLink();
+        utility.sleep(2);
+        clickFixCheckBox();
+        utility.sleep(2);
+        clickSubmitOrderButton();
+        utility.sleep(2);
+
+    }
+//Cancel Order Methods
+    public void clickOnOrderCheckBox(){
+        utility.waitForElementPresent(orderCheckBox);
+        orderCheckBox.click();
+    }
+    public void selectCancelFromAction(){
+        utility.waitForElementPresent(actionDropDownList);
+        Select option=new Select(actionDropDownList);
+        option.selectByValue("cancel_order");
+    }
+    public void clickOnSubmitButton(){
+        utility.waitForElementPresent(submitButton);
+        submitButton.click();
+    }
+    public void defineOrderToCancel(String orderNumber){
+        enterOrderIdToSearchBox(orderNumber);
+        clickOnSearchButton();
+        utility.sleep(2);
+        clickOnOrderCheckBox();
+        utility.sleep(1);
+    }
+    public boolean cancelOrderSuccessfully(){
+        utility.waitForElementPresent(successfulCancelMsg);
+        if (successfulCancelMsg.isDisplayed()) {
+            Log.info("The order has been canceled");
+            System.out.println("Order Canceled Successfully");
+            return true;
+        }else
+            Log.info("test failed");
+        System.out.println("Test Failed,Cannot cancel Order");
+        return false;
+    }
+    public void cancelOrder(String orderId){
+        dashboardPage=new SalesDashboardPage(driver);
+        dashboardPage.goToOrderPage();
+        defineOrderToCancel(orderId);
+        selectCancelFromAction();
+        clickOnSubmitButton();
+        utility.sleep(2);
     }
 }
