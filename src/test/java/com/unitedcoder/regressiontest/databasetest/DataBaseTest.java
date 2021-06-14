@@ -151,7 +151,7 @@ public class DataBaseTest extends TestBasePage {
       backEndLogin=new BackEndLogin(driver);
       backEndLogin.backEndLogin(prop.getProperty("salesManager"),prop.getProperty("password"));
         StoreOrderPage orderPage=new StoreOrderPage();
-        orderPage.createNewOrder(prop.getProperty("FrondEmail"));
+        orderPage.createNewOrder(prop.getProperty("CustomerName"));
         TestDataHolder.setOrderId(orderPage.orderIdGetter());
        Assert.assertTrue(orderPage.creteOrderSuccessfully());
         SalesDashboardPage dashboardPage=new SalesDashboardPage(driver);
