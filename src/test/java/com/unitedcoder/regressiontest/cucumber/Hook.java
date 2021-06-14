@@ -1,6 +1,5 @@
 package com.unitedcoder.regressiontest.cucumber;
 
-import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.storepages.StoreDashboardPage;
 import com.seleniummaster.magento.database.ConnectionManager;
 import com.seleniummaster.magento.database.ConnectionType;
@@ -27,7 +26,7 @@ public class Hook extends TestBasePage {
       storeDashboardPage.clickLogOutLink();
     }
 
-    @After(order = 0,value = "@DeleteExistingTaxRule")
+    @After(order = 0,value = "@NewlyAddedTaxRuleInDatabase")
     public void tearDown() {
         driver.close();
         driver = null;
