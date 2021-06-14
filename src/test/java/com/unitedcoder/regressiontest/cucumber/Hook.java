@@ -27,7 +27,7 @@ public class Hook extends TestBasePage {
       storeDashboardPage.clickLogOutLink();
     }
 
-   @After (order = 0,value = "@SeeProductReviewsReport"+"@CouponsUsageReport" + "@SeeProductsDownloadsReport")
+   @After (order = 0,value = "@SeeProductReviewsReport or "+"@CouponsUsageReport or " + "@SeeProductsDownloadsReport")
     public void tearDown() {
         driver.close();
         driver = null;
