@@ -1,13 +1,12 @@
 package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.magento.backendpages.storepages.StoreDashboardPage;
-import com.seleniummaster.magento.database.ConnectionManager;
-import com.seleniummaster.magento.database.ConnectionType;
+
 import com.seleniummaster.magento.utility.TestBasePage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 
-import java.sql.Connection;
+
 
 public class Hook extends TestBasePage {
 //   static String username=prop.getProperty("dbUserName");
