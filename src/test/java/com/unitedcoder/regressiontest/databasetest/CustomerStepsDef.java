@@ -2,6 +2,7 @@ package com.unitedcoder.regressiontest.databasetest;
 
 import com.seleniummaster.magento.backendpages.BackEndLogin;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerDashboardPage;
+import com.seleniummaster.magento.backendpages.customerpages.CustomerGroupPage;
 import com.seleniummaster.magento.backendpages.customerpages.CustomerPage;
 import com.seleniummaster.magento.database.ConnectionManager;
 import com.seleniummaster.magento.database.ConnectionType;
@@ -19,13 +20,14 @@ import org.testng.Assert;
 import javax.sql.rowset.CachedRowSet;
 import java.sql.Connection;
 
-public class CreateCustomerStepsDeff extends TestBasePage {
+public class CustomerStepsDef extends TestBasePage {
     static String username = prop.getProperty("dbUserName");
     static String password = prop.getProperty("dbPassword");
 
     Connection connection;
     CustomerDashboardPage dashboardPage;
     CustomerPage customerPage;
+    CustomerGroupPage customerGroupPage;
 
     @Given("customer manager login to the customer module page")
     public void customerManagerLoginToTheCustomerModulePage() {
@@ -59,4 +61,31 @@ public class CreateCustomerStepsDeff extends TestBasePage {
         System.out.println("The Query Script was Executed for Adding Customer is"+"\n"+queryForAddCustomer);
         Assert.assertTrue(access.getRowCount(cachedRowSet));
     }
+
+
+    @Given("customer manager should be on the dashboard page")
+    public void customerManagerShouldBeOnTheDashboardPage() {
+        dashboardPage.clickCustomerGroupLink();
+    }
+    @When("customer manager should be on the login page")
+    public void customerManagerShouldBeOnTheLoginPage() {
+    }
+
+    @And("customer manager add new groups")
+    public void customerManagerAddNewGroups() {
+        String newCustomerGroupName = String.format(prop.getProperty("newCustomerGroupName"), System.currentTimeMillis());
+        customerGroupPage.addNewCustomerGroup(newCustomerGroupName,prop.getProperty("valueOfVIP"));
+        TestDataHolder.setCustomerGroupName(newCustomerGroupName);
+        Assert.assertTrue(customerGroupPage.addCustomerGroupSuccessfully());
+    }
+    @Then("verify newly added groups in the database")
+    public void verifyNewlyAddedGroupsInTheDatabase() {
+        DataAccess access=new DataAccess();
+        String queryForAddCustomerGroup=String.format(QueryScript.getNewlyAddedCustomerGroup(),TestDataHolder.getCustomerGroupName());
+        CachedRowSet cachedRowSet=access.readFromDataBase(connection, queryForAddCustomerGroup);
+        System.out.println("The Query Script was Executed for Adding New Customer Group is"+"\n"+queryForAddCustomerGroup);
+        Assert.assertTrue(access.getRowCount(cachedRowSet));
+    }
+
+
 }
