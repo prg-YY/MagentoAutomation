@@ -106,7 +106,7 @@ public class CustomerModuleTestRunner extends TestBasePage {
         Assert.assertTrue(customerPage.isCustomerFileExported());
     }
     @Test(description = "8:Customer Manager can assign a customer to a Customer Group" +
-            " in the Actions on the All Customer page -  DilNur ",priority = 13)
+            " in the Actions on the All Customer page",priority = 13)//-  DilNur
     public void assignCustomer() {
         String email=prop.getProperty("FrondEmail1");
         String valueOfAssign=prop.getProperty("valueOfAssign");
@@ -115,7 +115,7 @@ public class CustomerModuleTestRunner extends TestBasePage {
         customerPage.assignCustomerToGroup(email,valueOfAssign,valueOfGroup);
         Assert.assertTrue(customerPage.customerAssignedToGroupSuccessfully());
     }
-    @Test(description = "Customer Manager can add customer groups - Abdusemed ",priority = 14)
+    @Test(description = "Customer Manager can add customer groups",priority = 14)//- Abdusemed
     public void addCustomerGroup() {
         String groupName=String.format(prop.getProperty("groupName"),System.currentTimeMillis());
         String general=prop.getProperty("valueOfGeneral");
@@ -124,7 +124,7 @@ public class CustomerModuleTestRunner extends TestBasePage {
         TestDataHolder.setCustomerGroupName(groupName);
         Assert.assertTrue(customerGroupPage.addCustomerGroupSuccessfully());
     }
-    @Test(description = "Customer Manager should be able to Update Customer Group - abdusemed",priority =15 )
+    @Test(description = "Customer Manager should be able to Update Customer Group",priority =15 )//abdusemed
     //dependsOnMethods = {"addCustomerGroup"}
     public void updateCustomerGroup() {
         String groupName=TestDataHolder.getCustomerGroupName();
@@ -133,7 +133,7 @@ public class CustomerModuleTestRunner extends TestBasePage {
         customerGroupPage.updateCustomerGroup(groupName,general);
         Assert.assertTrue(customerGroupPage.updateCustomerGroupSuccessfully());
     }
-    @Test(description = "Customer Manager should be able to delete Customer Group - abdusemed",priority = 16)
+    @Test(description = "Customer Manager should be able to delete Customer Group",priority = 16)//abdusemed
     //dependsOnMethods = {"updateCustomerGroup"}
     public void deleteCustomerGroup() {
         String groupName=TestDataHolder.getCustomerGroupName();

@@ -332,9 +332,9 @@ public class CustomerPage extends TestBasePage {
         clickOnCustomerCheckBox();
         utility.sleep(2);
         selectAssignAction(actionValue);
-        utility.sleep(1);
+        utility.sleep(2);
         selectGroupForAssign(groupValue);
-        utility.sleep(1);
+        utility.sleep(2);
         clickSubmitButton();
         utility.sleep(3);
     }
