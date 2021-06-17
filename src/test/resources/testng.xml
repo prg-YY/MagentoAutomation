@@ -6,11 +6,26 @@
         <listener class-name="org.testng.reporters.EmailableReporter"/>
         <listener class-name="org.testng.reporters.SuiteHTMLReporter"/>
     </listeners>
-
     <test  name="Public user Module Test" >
+        <classes>
+            <class name="com.unitedcoder.regressiontest.testng.PublicUserModuleTestRunner"/>
+        </classes>
+    </test>
+    <test  name="customer Module Test" >
+        <classes>
+            <class name="com.unitedcoder.regressiontest.testng.CustomerModuleTestRunner"/>
+        </classes>
+    </test>
+    <test  name="Catalog module test" >
+        <classes>
+            <class name="com.unitedcoder.regressiontest.testng.CatalogModuleTestRunner"/>
+        </classes>
+    </test>
+    <test  name="Database Test" >
         <classes>
             <class name="com.unitedcoder.regressiontest.databasetest.DataBaseTest"/>
         </classes>
     </test>
+
 
 </suite>
